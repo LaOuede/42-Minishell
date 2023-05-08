@@ -6,12 +6,12 @@
 #    By: csenand <csenand@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/07 11:12:58 by csenand           #+#    #+#              #
-#    Updated: 2023/05/03 16:25:44 by csenand          ###   ########.fr        #
+#    Updated: 2023/05/08 16:35:44 by csenand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # -- Executable's name -- #
-NAME		=	pipex
+NAME		=	minishell
 
 # -- Compilation Flag -- #
 CC			=	gcc
