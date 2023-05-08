@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 # -- Executable's name -- #
-NAME		=	pipex
+NAME		=	minishell
 
 # -- Compilation Flag -- #
 CC			=	gcc
