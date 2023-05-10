@@ -1,3 +1,0 @@
-coucou
-salut
-encore coucou
