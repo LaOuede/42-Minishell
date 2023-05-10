@@ -6,7 +6,7 @@
 #    By: csenand <csenand@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/07 11:12:58 by csenand           #+#    #+#              #
-#    Updated: 2023/05/08 16:45:31 by csenand          ###   ########.fr        #
+#    Updated: 2023/05/10 15:09:17 by csenand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ NAME		=	minishell
 
 # -- Compilation Flag -- #
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror -g
-# CFLAGS		=	-Wall -Wextra -Werror -Wunreachable-code -fsanitize=address -g
+CFLAGS		=	-Wall -Wextra -Werror
+# CFLAGS	=	-Wall -Wextra -Werror -Wunreachable-code -fsanitize=address -g
 
 # -- Remove -- #
 RM			=	rm -rf
@@ -24,11 +24,11 @@ RM			=	rm -rf
 # -- SRC Files -- #
 SRCS_DIR	=	./src/
 SRCS_LST	= 	main.c \
-				utils.c \
-				pipes.c \
-				childs.c 
-				
-				
+
+# -- Readline Library -- #
+LIBRLINE = readline-8.2
+LIBRLINE_DIR = ./libs/readline
+
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LST))
 
 # -- OBJ Files -- #
@@ -38,11 +38,11 @@ OBJS		=	$(addprefix $(OBJS_DIR), $(OBJS_LST))
 
 # -- HEADER Files -- #
 HEADER_DIR	=	./include/
-HEADER_LST	=	pipex.h
+HEADER_LST	=	minishell.h
 HEADER	 	=	$(addprefix $(HEADER_DIR), $(HEADER_LST))
 
 # -- LIBFT Files -- #
-LIBFT_DIR	=	./lib/libft/
+LIBFT_DIR	=	./libs/libft/
 LIBFT		=	$(LIBFT_DIR)libft.a
 LIBFT_H		=	$(LIBFT_DIR)include/libft.h
 
@@ -57,7 +57,7 @@ CYAN		= 	\033[0;36m
 ERASE_LINE 	= 	\033[2K\r
 
 # -- Executable's creation -- #
-all : dir $(NAME)
+all : dir readline $(NAME)
 
 # -- Compile library -- #
 $(NAME) : $(OBJS)
@@ -73,20 +73,34 @@ $(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(HEADER)
 # -- Create directory for *.o files -- #
 dir :
 	@mkdir -p $(OBJS_DIR)
+	@mkdir -p $(LIBRLINE_DIR)
+
+readline :
+	@if [ ! -f ./libs/readline/libreadline.a ]; then \
+		curl -O https://ftp.gnu.org/gnu/readline/$(LIBRLINE).tar.gz; \
+		tar -xf $(LIBRLINE).tar.gz; \
+		rm -rf $(LIBRLINE).tar.gz; \
+		cd $(LIBRLINE) && bash configure && make; \
+		mv ./libreadline.a ../libs/readline; \
+		rm -rf ../$(LIBRLINE); \
+		echo "\n$(ERASE_LINE)$(RESET)----------------------- $(PURPLE)💩 Sorry for all the crap above 💩 $(RESET)----------------------\n"; \
+		echo "$(ERASE_LINE)$(RESET)----------------------- $(PURPLE)Readline $(GREEN)succesfully configured ✅ $(RESET)-----------------------\n$(RESET)"; \
+	fi
 
 # -- Removes objects -- #
 clean :
 	@make -C $(LIBFT_DIR) clean
-	@printf "💥 $(RED)Removing $(NAME)'s objects...$(RESET)\t\t\t\t💥\n"
+	@printf "💥 $(RED)Removing $(NAME)'s objects...$(RESET)\t\t\t💥\n"
 	@$(RM) $(OBJS_DIR)
-	@printf "🗑️  $(CYAN)$(NAME)'s object successfully deleted.$(RESET)\t\t\t🗑️\n"
+	@printf "🗑️  $(CYAN)$(NAME)'s object successfully deleted.$(RESET)\t\t🗑️\n"
 
 # -- Removes objects (with clean) and executable -- #
 fclean : clean
 	@printf "💥 $(RED)Removing executable(s)...$(RESET)				💥\n"
 	@$(RM) $(LIBFT)
+	@$(RM) $(LIBRLINE_DIR)
 	@$(RM) $(NAME)
-	@printf "🗑️  $(CYAN)Executable(s) and archive(s) successfully deleted.$(RESET)	🗑️\n"
+	@printf "🗑️  $(CYAN)Executable(s) and archive(s) successfully deleted.$(RESET)	🗑️\n\n"
 
 exe : $(NAME)
 	valgrind --leak-check=full --show-leak-kinds=all ./pipex

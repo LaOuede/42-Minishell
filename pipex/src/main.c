@@ -1,5 +1,5 @@
 
-#include "../include/pipex.h"
+// #include "../include/pipex.h"
 
 /************************************************************************/
 /*
@@ -27,6 +27,9 @@
 // nouveau test
 // c'est l'fun les branches
 
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 int	main(int ac, char **av, char **envp)
 {
