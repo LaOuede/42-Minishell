@@ -7,6 +7,7 @@ t_minishell	*ft_init_pars(void)
 	if (!pars)
 	{
 		pars = ft_calloc(1, sizeof(t_minishell));
+		pars->input = NULL;
 		pars->line = NULL;
 	}
 	return (pars);
