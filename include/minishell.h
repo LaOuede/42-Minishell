@@ -10,6 +10,7 @@
 # include "../libs/libft/includes/libft.h"
 # include "readline.h"
 # include "parsing.h"
+# include "builtins.h"
 
 # define RED 	"\x1B[31m"
 # define GRN 	"\x1B[32m"
