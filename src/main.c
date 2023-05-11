@@ -6,9 +6,11 @@
 */
 int main()
 {
-	printf("\n😈😈😈 Welcome to minishell ... or should say "RED"MINIHELLLLLLLLLL 😈😈😈\n\n"WHT);
-	while(1)
-		readline("Minishell > ");
-		// Recuperer ce que le user met en input pour faire le parsing de la ligne de cmd
-	return (0);
+	t_minishell	*pars;
+
+	printf("\n😈😈😈 Welcome to minishell 😈😈😈\n\n");
+	pars = ft_init_pars();
+	while (1)
+		pars->line = readline("Minishell > ");
+	ft_clean_up(pars);
 }
