@@ -6,7 +6,7 @@
 #    By: csenand <csenand@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/07 11:12:58 by csenand           #+#    #+#              #
-#    Updated: 2023/05/10 15:09:17 by csenand          ###   ########.fr        #
+#    Updated: 2023/05/11 10:09:56 by csenand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,11 +23,12 @@ RM			=	rm -rf
 
 # -- SRC Files -- #
 SRCS_DIR	=	./src/
-SRCS_LST	= 	main.c \
+SRCS_LST	= 	main.c 
 
 # -- Readline Library -- #
-LIBRLINE = readline-8.2
-LIBRLINE_DIR = ./libs/readline
+LIBRLINE 		= readline-8.2
+LIBRLINE_DIR	= ./libs/readline/
+RLINE			= $(LIBRLINE_DIR)libreadline.a
 
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LST))
 
@@ -62,13 +63,16 @@ all : dir readline $(NAME)
 # -- Compile library -- #
 $(NAME) : $(OBJS)
 	@make -C $(LIBFT_DIR)
-	@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(RLINE) -lncurses -o $(NAME)
 	@echo "✅ $(GREEN)$(NAME)'s exectuable successfully created.		✅$(RESET)"
 
 # -- Create all files .o (object) from files .c (source code) -- #
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(HEADER)
 	@printf "$(ERASE_LINE)🎛️  $(PURPLE)Compiling $(YELLOW)$(notdir $<)\r$(RESET)"
 	@$(CC) $(CFLAGS) -c $< -o $@
+
+run:
+	@./$(NAME)
 
 # -- Create directory for *.o files -- #
 dir :
