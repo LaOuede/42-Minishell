@@ -19,6 +19,7 @@
 # define YEL 	"\x1B[33m"
 # define RESET	"\033[1;0m"
 
+
 /* 		TODO - to modify | From Pipex (only here to see the main struct from pipex project)	*/
 typedef struct s_data
 {

@@ -1,17 +1,24 @@
 #include "../include/minishell.h"
 
+#define GWEN 0
+#define LOULOU 0
+
+
 int main(void)
 {
-	t_minishell	*pars;
+	t_minishell	*parse;
 
+/* 	if (GWEN){
+		printf("gwen");
+	} */
 	printf("\n😈😈😈 Welcome to minishell ... should I say " RED"MINIHELLLL 😈😈😈\n\n"WHT);
-	pars = ft_init_pars();
+	parse = ft_init_parse();
 	while (1)
 	{
-		pars->input = readline("Minishell > ");
-		
+		parse->input = readline("Minishell > ");
+		ft_parse(parse);
 	}
-	ft_clean_up(pars);
+	ft_clean_up(parse);
 }
 
 /*

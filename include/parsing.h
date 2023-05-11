@@ -17,11 +17,12 @@ typedef struct s_minishell
 	char			*input;
 }	t_minishell;
 
-/* 		Lexer part function 						*/
+/* 		Lexer part functions 						*/
 void		ft_add_token_bottom(t_token **lst, t_token *element);
-void		ft_clean_up(t_minishell *pars);
+void		ft_clean_up(t_minishell *parse);
 t_token		*ft_create_node(char *str);
-t_minishell	*ft_init_pars(void);
-void		ft_tokenization(t_minishell *pars);
+t_minishell	*ft_init_parse(void);
+void		ft_parse(t_minishell *parse);
+void		ft_tokenization(t_minishell *parse);
 
 #endif

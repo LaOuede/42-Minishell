@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-t_minishell	*ft_init_pars(void)
+t_minishell	*ft_init_parse(void)
 {
 	static t_minishell	*pars;
 
@@ -11,4 +11,10 @@ t_minishell	*ft_init_pars(void)
 		pars->line = NULL;
 	}
 	return (pars);
+}
+
+void	ft_parse(t_minishell *parse)
+{
+	ft_tokenization(parse);
+	// TODO Penser à free la liste chaînée! :)
 }

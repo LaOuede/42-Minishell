@@ -31,14 +31,14 @@ void	ft_add_token_bottom(t_token **lst, t_token *new_node)
 	new_node->prev = last;
 }
 
-void	ft_tokenization(t_minishell *pars)
+void	ft_tokenization(t_minishell *parse)
 {
 	char	*str;
 	t_token	*tmp;
 
-	str = pars->input;
-	ft_add_token_bottom(&pars->line, ft_create_node(str));
-	tmp = pars->line;
+	str = parse->input;
+	ft_add_token_bottom(&parse->line, ft_create_node(str));
+	tmp = parse->line;
 	while (tmp)
 	{
 		printf("tmp->str = %s\n", tmp->str);
