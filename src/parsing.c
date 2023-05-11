@@ -15,6 +15,8 @@ t_minishell	*ft_init_parse(void)
 
 void	ft_parse(t_minishell *parse)
 {
+	if (!*parse->input)
+		return ;
 	ft_tokenization(parse);
 	// TODO Penser à free la liste chaînée! :)
 }
