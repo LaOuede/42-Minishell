@@ -10,8 +10,11 @@
 # include "../libs/libft/includes/libft.h"
 # include "readline.h"
 
-# define G 		"\033[1;32m"
-# define R		"\033[1;31m"
+# define RED 	"\x1B[31m"
+# define GRN 	"\x1B[32m"
+# define BLU 	"\x1B[34m"
+# define WHT 	"\x1B[37m"
+# define YEL 	"\x1B[33m"
 # define RESET	"\033[1;0m"
 
 // prototype de la liste chainee token
