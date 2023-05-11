@@ -8,7 +8,7 @@ int main()
 {
 	t_minishell	*pars;
 
-	printf("\n😈😈😈 Welcome to minishell 😈😈😈\n\n");
+	printf("\n😈😈😈 Welcome to minishell ... should I say " RED"MINIHELLLL 😈😈😈\n\n"WHT);
 	pars = ft_init_pars();
 	while (1)
 		pars->line = readline("Minishell > ");
