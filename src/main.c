@@ -1,9 +1,13 @@
 #include "../include/minishell.h"
 
-int main()
+/* Parsing main*/
+int	main()
 {
+	t_minishell	*pars;
+
 	printf("\n😈😈😈 Welcome to minishell 😈😈😈\n\n");
-	while(1)
-		readline("Minishell > ");
-	return (0);
+	pars = ft_init_pars();
+	while (1)
+		pars->line = readline("Minishell > ");
+	ft_clean_up(pars);
 }

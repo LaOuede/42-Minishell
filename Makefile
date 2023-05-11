@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: csenand <csenand@student.42.fr>            +#+  +:+       +#+         #
+#    By: gle-roux <gle-roux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/07 11:12:58 by csenand           #+#    #+#              #
-#    Updated: 2023/05/11 10:09:56 by csenand          ###   ########.fr        #
+#    Updated: 2023/05/11 12:19:05 by gle-roux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,9 @@ RM			=	rm -rf
 
 # -- SRC Files -- #
 SRCS_DIR	=	./src/
-SRCS_LST	= 	main.c 
+SRCS_LST	= 	error_handling.c \
+				main.c \
+				parsing.c
 
 # -- Readline Library -- #
 LIBRLINE 		= readline-8.2
