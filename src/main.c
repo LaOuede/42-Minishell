@@ -15,7 +15,7 @@ int	main(void)
 /* 	if (GWEN){
 		printf("gwen");
 	} */
-	printf("\n😈😈😈 Welcome to minishell ... should I say " RED"MINIHELLLL 😈😈😈\n\n"WHT);
+	printf("\n😈😈😈 Welcome to minishell ... or should I say " RED"🔥 MINIHELLLL 🔥 😈😈😈\n\n"WHT);
 	parse = ft_init_parse();
 	while (1)
 	{

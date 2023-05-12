@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gle-roux <gle-roux@student.42.fr>          +#+  +:+       +#+         #
+#    By: csenand <csenand@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/07 11:12:58 by csenand           #+#    #+#              #
-#    Updated: 2023/05/12 09:00:10 by gle-roux         ###   ########.fr        #
+#    Updated: 2023/05/12 11:08:45 by csenand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRCS_LST	= 	error_handling.c \
 				freeing.c \
 				main.c \
 				parsing.c \
-				tokenization.c
+				tokenization.c \
+				execution.c
 
 # -- Readline Library -- #
 LIBRLINE 		= readline-8.2
