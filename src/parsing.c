@@ -2,15 +2,16 @@
 
 t_minishell	*ft_init_parse(void)
 {
-	static t_minishell	*pars;
+	static t_minishell	*parse;
 
-	if (!pars)
+	if (!parse)
 	{
-		pars = ft_calloc(1, sizeof(t_minishell));
-		pars->input = NULL;
-		pars->line = NULL;
+		parse = ft_calloc(1, sizeof(t_minishell));
+		parse->input = NULL;
+		parse->line = NULL;
+		parse->nb_pipe = 1;
 	}
-	return (pars);
+	return (parse);
 }
 
 void	ft_parse(t_minishell *parse)
@@ -26,7 +27,7 @@ void	ft_parse(t_minishell *parse)
 	i = 0;
 	while (tmp)
 	{
-		printf("node[%i] = %s\n", i++, tmp->str);
+		printf("node[%d] nb_cmd[%d] = %s\n", i++, tmp->nb_cmd, tmp->str);
 		tmp = tmp->next;
 	}
 	free(tmp);
