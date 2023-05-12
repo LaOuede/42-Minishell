@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-#define GWEN 0
+#define GWEN 1
 #define LOULOU 0
 
 /*
