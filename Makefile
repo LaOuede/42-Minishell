@@ -1,14 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: csenand <csenand@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/04/07 11:12:58 by csenand           #+#    #+#              #
-#    Updated: 2023/05/12 11:08:45 by csenand          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 # -- Executable's name -- #
 NAME		=	minishell
@@ -28,7 +17,8 @@ SRCS_LST	= 	error_handling.c \
 				main.c \
 				parsing.c \
 				tokenization.c \
-				execution.c
+				exec_utils.c \
+				exec.c
 
 # -- Readline Library -- #
 LIBRLINE 		= readline-8.2
