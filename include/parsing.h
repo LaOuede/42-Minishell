@@ -21,6 +21,7 @@ typedef struct s_minishell
 void		ft_add_token_bottom(t_token **lst, t_token *element);
 void		ft_clean_up(t_minishell *parse);
 t_token		*ft_create_node(char *str);
+void		ft_free_lst(t_token **lst);
 t_minishell	*ft_init_parse(void);
 void		ft_parse(t_minishell *parse);
 void		ft_tokenization(t_minishell *parse);
