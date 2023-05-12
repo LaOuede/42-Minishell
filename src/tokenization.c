@@ -33,15 +33,17 @@ void	ft_add_token_bottom(t_token **lst, t_token *new_node)
 
 void	ft_tokenization(t_minishell *parse)
 {
+	int		i;
 	char	*str;
 	t_token	*tmp;
 
 	str = parse->input;
 	ft_add_token_bottom(&parse->line, ft_create_node(str));
 	tmp = parse->line;
+	i = 0;
 	while (tmp)
 	{
-		printf("tmp->str = %s\n", tmp->str);
+		printf("node[%i] = %s\n", i++, tmp->str);
 		tmp = tmp->next;
 	}
 	free(tmp);

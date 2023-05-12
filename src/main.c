@@ -8,7 +8,7 @@
 ** prints a welcome message on the terminal
 ** Infinite loop pour attendre le user input
 */
-int main(void)
+int	main(void)
 {
 	t_minishell	*parse;
 
