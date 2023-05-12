@@ -10,6 +10,9 @@ t_minishell	*ft_init_parse(void)
 		parse->input = NULL;
 		parse->line = NULL;
 		parse->nb_pipe = 1;
+		parse->fl_redin = 0;
+		parse->fl_redout = 0;
+		parse->type = ARG;
 	}
 	return (parse);
 }
@@ -27,10 +30,12 @@ void	ft_parse(t_minishell *parse)
 	i = 0;
 	while (tmp)
 	{
-		printf("node[%d] nb_cmd[%d] = %s\n", i++, tmp->nb_cmd, tmp->str);
+		printf("node[%d] nb_cmd[%d] type[%d] = %s\n", i++, tmp->nb_cmd, tmp->type, tmp->str);
 		tmp = tmp->next;
 	}
 	free(tmp);
-	// Free linked-list between prompt
+	// Free linked-list between prompt & clean up
+	parse->nb_pipe = 1;
+	parse->type = ARG;
 	ft_free_lst(&parse->line);
 }

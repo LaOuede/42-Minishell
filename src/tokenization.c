@@ -1,20 +1,32 @@
 #include "../include/minishell.h"
 
-// Special char = pipe, < >, ( ), &, ;
+// Special char = whitespaces, pipe, < >, $
 void	ft_deal_metac(char c, int *index, t_minishell *parse)
 {
 	if (ft_iswhitespace(c == 1))
 		(*index) += 1;
 	else if (c == '|')
+	{
+		parse->type = PIPE;
 		parse->nb_pipe += 1;
+	}
+	else if (c == '<')
+	{
+		parse->type = REDIN;
+		parse->fl_redin = 1;
+	}
+	else if (c == '>')
+	{
+		parse->type = REDOUT;
+		parse->fl_redout = 1;
+	}
 }
 
 int	ft_ismetac(char c)
 {
 	if (ft_iswhitespace(c) == 1)
 		return (1);
-	if (c == '|' || c == '<' || c == '>' || c == ';'
-		|| c == '&' || c == '(' || c == ')')
+	if (c == '|' || c == '<' || c == '>')
 		return (1);
 	return (0);
 }
@@ -64,7 +76,7 @@ t_token	*ft_create_node(char *str, t_minishell *parse)
 	t_token	*new_node;
 
 	new_node = ft_calloc(1, sizeof(t_token));
-	new_node->type = -1;
+	new_node->type = parse->type;
 	new_node->str = ft_strdup(str);
 	new_node->nb_cmd = parse->nb_pipe;
 	new_node->prev = NULL;
@@ -105,7 +117,7 @@ void	ft_tokenization(t_minishell *parse)
 			ft_deal_metac(parse->input[i], &i, parse);
 		if (ft_isprint(parse->input[i]) == 1 && parse->input[i] != 32)
 			tmp = ft_stock_char(tmp, parse->input[i]);
-		if (ft_iswhitespace(parse->input[i + 1]) == 1 || parse->input[i + 1] == '\0')
+		if ((ft_iswhitespace(parse->input[i + 1]) == 1 || parse->input[i + 1] == '\0') && tmp != NULL)
 		{
 			ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
 			tmp = NULL;

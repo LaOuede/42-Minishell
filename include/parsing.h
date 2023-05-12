@@ -3,6 +3,14 @@
 
 # include <stdbool.h>
 
+enum e_metac
+{
+	ARG = -1,
+	PIPE = 0,
+	REDIN = 1,
+	REDOUT = 2,
+};
+
 // prototype de la liste chainee token
 typedef struct s_token
 {
@@ -18,8 +26,10 @@ typedef struct s_minishell
 {
 	struct s_token	*line;
 	char			*input;
-	bool			fl_pipe;
+	bool			fl_redin;
+	bool			fl_redout;
 	int				nb_pipe;
+	int				type;
 }	t_minishell;
 
 /* 		Lexer part functions 						*/
