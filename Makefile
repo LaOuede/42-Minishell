@@ -1,3 +1,14 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: gle-roux <gle-roux@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/04/07 11:12:58 by csenand           #+#    #+#              #
+#    Updated: 2023/05/12 13:27:51 by gle-roux         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 # -- Executable's name -- #
 NAME		=	minishell
@@ -106,6 +117,10 @@ exe : $(NAME)
 				
 # -- Removes objects and executable then remakes all -- #
 re : fclean all
+
+#Open the subject
+pdf : 
+	@open https://cdn.intra.42.fr/pdf/pdf/66948/fr.subject.pdf
 
 # -- Avoid file-target name conflicts -- #
 .PHONY : all bonus clean fclean re
