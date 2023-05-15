@@ -6,7 +6,7 @@ void	ft_reset_parse(t_minishell *parse)
 	parse->type = ARG;
 	parse->fl_redin = 0;
 	parse->fl_redout = 0;
-	parse->s_quotes = 0;
+	parse->d_quotes = 0;
 	parse->s_quotes = 0;
 }
 

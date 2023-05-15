@@ -19,6 +19,7 @@ SRCS_LST	= 	error_handling.c \
 				main.c \
 				parsing.c \
 				tokenization.c \
+				token_envvar.c \
 				token_pipe.c \
 				token_quotes.c \
 				token_redir.c
