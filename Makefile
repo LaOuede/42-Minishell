@@ -78,6 +78,15 @@ dir :
 	@mkdir -p $(OBJS_DIR)
 	@mkdir -p $(LIBRLINE_DIR)
 
+leak: CFLAGS += -g
+leak: all
+	@reset
+	valgrind --track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all --suppressions=supp.txt ./$(NAME)
+
+leaks: all
+	@reset
+	leaks --atExit -- ./$(NAME)
+
 readline :
 	@if [ ! -f ./libs/readline/libreadline.a ]; then \
 		curl -O https://ftp.gnu.org/gnu/readline/$(LIBRLINE).tar.gz; \

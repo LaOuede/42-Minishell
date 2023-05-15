@@ -1,5 +1,4 @@
 #include "../include/minishell.h"
-#include "../include/execution.h"
 
 void	ft_close_pipes(t_exec *exec)
 {
