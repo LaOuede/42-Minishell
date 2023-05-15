@@ -16,7 +16,7 @@ int	main(int ac, char **av, char **envp)
 		printf("gwen");
 	} */
 	// printf("\n😈😈😈 Welcome to minishell ... or should I say " RED"🔥 MINIHELLLL 🔥 😈😈😈\n\n"WHT);
-	parse = ft_init_parse();
+	parse = ft_init_parse(envp);
 	while (GWEN)
 	{
 		parse->input = readline("Minishell > ");
