@@ -20,10 +20,28 @@
 # define YEL 	"\x1B[33m"
 # define RESET	"\033[1;0m"
 
-typedef struct s_msc
+
+/*
+**	Structure that holds all infomration needed for the execution
+*/
+typedef struct s_exec
+{
+	char	**av;
+	char	**envp;
+	char	**cmd_paths;
+	int		input;
+	int		output;
+	int		index;
+	int		pipes_nb;
+	int		cmd_nb;
+	int		**pipes;
+	pid_t	*pids;
+}			t_exec;
+
+typedef struct s_ms
 {
 	struct s_minishell	*parsing;
 	struct s_exec		*exec;
-} t_ms;
+}	t_ms;
 
 #endif
