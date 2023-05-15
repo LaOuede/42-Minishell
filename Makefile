@@ -13,12 +13,13 @@ RM			=	rm -rf
 # -- SRC Files -- #
 SRCS_DIR	=	./src/
 SRCS_LST	= 	error_handling.c \
+				exec_utils.c \
+				exec.c \
 				freeing.c \
 				main.c \
 				parsing.c \
 				tokenization.c \
-				exec_utils.c \
-				exec.c
+				token_quotes.c
 
 # -- Readline Library -- #
 LIBRLINE 		= readline-8.2

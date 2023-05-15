@@ -5,6 +5,8 @@ void	ft_deal_metac(char c, int *index, t_minishell *parse)
 {
 	if (ft_iswhitespace(c == 1))
 		(*index) += 1;
+	else if (c == 34)
+		ft_quotes_token(index, parse);
 	else if (c == '|')
 	{
 		parse->type = PIPE;
@@ -26,7 +28,7 @@ int	ft_ismetac(char c)
 {
 	if (ft_iswhitespace(c) == 1)
 		return (1);
-	if (c == '|' || c == '<' || c == '>')
+	if (c == '|' || c == '<' || c == '>' || c == 34 || c == 39)
 		return (1);
 	return (0);
 }

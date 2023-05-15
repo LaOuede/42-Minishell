@@ -9,6 +9,8 @@ enum e_metac
 	PIPE = 0,
 	REDIN = 1,
 	REDOUT = 2,
+	D_QUOTES = 3,
+	S_QUOTE = 4,
 };
 
 // prototype de la liste chainee token
@@ -30,6 +32,8 @@ typedef struct s_minishell
 	bool			fl_redout;
 	int				nb_pipe;
 	int				type;
+	int				d_quotes_in;
+	int				d_quotes_out;
 }	t_minishell;
 
 /* 		Lexer part functions 						*/
@@ -39,6 +43,8 @@ t_token		*ft_create_node(char *str, t_minishell *parse);
 void		ft_free_lst(t_token **lst);
 t_minishell	*ft_init_parse(void);
 void		ft_parse(t_minishell *parse);
+void		ft_quotes_token(int *i, t_minishell *parse);
+char		*ft_stock_char(char *str, char c);
 void		ft_tokenization(t_minishell *parse);
 
 #endif
