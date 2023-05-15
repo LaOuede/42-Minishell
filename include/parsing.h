@@ -11,6 +11,8 @@ enum e_metac
 	REDOUT = 3,
 	D_QUOTES = 4,
 	S_QUOTES = 5,
+	APPRED = 6,
+	HEREDOC = 7,
 };
 
 // prototype de la liste chainee token
@@ -38,13 +40,17 @@ typedef struct s_minishell
 
 /* 		Lexer part functions 						*/
 void		ft_add_token_bottom(t_token **lst, t_token *element);
+void		ft_appenred_token(int *i, t_minishell *parse);
 void		ft_clean_up(t_minishell *parse);
 t_token		*ft_create_node(char *str, t_minishell *parse);
 void		ft_d_quotes_token(int *i, t_minishell *parse);
 void		ft_free_lst(t_token **lst);
+void		ft_heredoc_token(int *i, t_minishell *parse);
 t_minishell	*ft_init_parse(void);
 void		ft_parse(t_minishell *parse);
 void		ft_pipes_token(int *i, t_minishell *parse);
+void		ft_redirin_token(int *i, t_minishell *parse);
+void		ft_redirout_token(int *i, t_minishell *parse);
 void		ft_s_quotes_token(int *i, t_minishell *parse);
 char		*ft_stock_char(char *str, char c);
 void		ft_tokenization(t_minishell *parse);

@@ -20,7 +20,8 @@ SRCS_LST	= 	error_handling.c \
 				parsing.c \
 				tokenization.c \
 				token_pipe.c \
-				token_quotes.c
+				token_quotes.c \
+				token_redir.c
 
 # -- Readline Library -- #
 LIBRLINE 		= readline-8.2
@@ -112,6 +113,12 @@ re : fclean all
 #Open the subject
 pdf : 
 	@open https://cdn.intra.42.fr/pdf/pdf/66948/fr.subject.pdf
+
+# Run norminette
+norm :
+	@echo "\n$W>>>>>>>>>>>>>>>>>>>>>>>>>> $YNORMINETTE $W<<<<<<<<<<<<<<<<<<<<<<<<<<$Z\n"
+	@norminette $(SRCS) $(HEADER) $(LIBFT_DIR)
+	@echo "\n$W>>>>>>>>>>>>>>>>>>>>>>>> $YNORMINETTE ✅ $W<<<<<<<<<<<<<<<<<<<<<<<<<<"
 
 # -- Avoid file-target name conflicts -- #
 .PHONY : all bonus clean fclean re pdf

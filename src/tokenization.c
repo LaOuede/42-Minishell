@@ -11,16 +11,14 @@ void	ft_deal_metac(char c, int *index, t_minishell *parse)
 		ft_s_quotes_token(index, parse);
 	else if (c == '|')
 		ft_pipes_token(index, parse);
+	else if (c == '<' && parse->input[(*index) + 1] == '<')
+		ft_appenred_token(index, parse);
 	else if (c == '<')
-	{
-		parse->type = REDIN;
-		parse->fl_redin = 1;
-	}
+		ft_redirin_token(index, parse);
+	else if (c == '>' && parse->input[(*index) + 1] == '>')
+		ft_heredoc_token(index, parse);
 	else if (c == '>')
-	{
-		parse->type = REDOUT;
-		parse->fl_redout = 1;
-	}
+		ft_redirout_token(index, parse);
 }
 
 int	ft_ismetac(char c)
