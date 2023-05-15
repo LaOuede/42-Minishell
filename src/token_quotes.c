@@ -12,7 +12,7 @@ void	ft_d_quotes_token(int *i, t_minishell *parse)
 		if (parse->input[(j)] == 34)
 		{
 			parse->type = D_QUOTES;
-			parse->d_quotes_out = 1;
+			parse->d_quotes = 1;
 			break ;
 		}
 	}
@@ -45,7 +45,7 @@ void	ft_s_quotes_token(int *i, t_minishell *parse)
 		if (parse->input[(j)] == 39)
 		{
 			parse->type = S_QUOTES;
-			parse->d_quotes_out = 1;
+			parse->s_quotes = 1;
 			break ;
 		}
 	}

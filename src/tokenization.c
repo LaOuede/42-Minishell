@@ -19,13 +19,15 @@ void	ft_deal_metac(char c, int *index, t_minishell *parse)
 		ft_heredoc_token(index, parse);
 	else if (c == '>')
 		ft_redirout_token(index, parse);
+	else if (c == '$')
+		ft_envvar_token(index, parse);
 }
 
 int	ft_ismetac(char c)
 {
 	if (ft_iswhitespace(c) == 1)
 		return (1);
-	if (c == '|' || c == '<' || c == '>' || c == 34 || c == 39)
+	if (c == '|' || c == '<' || c == '>' || c == 34 || c == 39 || c == '$')
 		return (1);
 	return (0);
 }

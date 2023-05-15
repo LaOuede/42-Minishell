@@ -6,11 +6,11 @@ void	ft_reset_parse(t_minishell *parse)
 	parse->type = ARG;
 	parse->fl_redin = 0;
 	parse->fl_redout = 0;
-	parse->d_quotes_in = 0;
-	parse->d_quotes_out = 0;
+	parse->d_quotes = 0;
+	parse->s_quotes = 0;
 }
 
-t_minishell	*ft_init_parse(void)
+t_minishell	*ft_init_parse(char **envp)
 {
 	static t_minishell	*parse;
 
@@ -19,12 +19,13 @@ t_minishell	*ft_init_parse(void)
 		parse = ft_calloc(1, sizeof(t_minishell));
 		parse->input = NULL;
 		parse->line = NULL;
+		parse->envp = envp;
 		parse->nb_pipe = 1;
 		parse->fl_redin = 0;
 		parse->fl_redout = 0;
 		parse->type = ARG;
-		parse->d_quotes_in = 0;
-		parse->d_quotes_out = 0;
+		parse->d_quotes = 0;
+		parse->s_quotes = 0;
 	}
 	return (parse);
 }
