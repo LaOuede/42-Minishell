@@ -48,7 +48,7 @@ void	ft_s_quotes_token(int *i, t_minishell *parse)
 		if (parse->input[(j)] == 39)
 		{
 			parse->type = S_QUOTES;
-			parse->d_quotes_out = 1;
+			parse->s_quotes = 1;
 			break ;
 		}
 	}

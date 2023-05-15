@@ -2,9 +2,7 @@
 # define EXECUTION_H
 
 # include <stdlib.h>
-// # include "minishell.h"
-
-
+# include "minishell.h"
 
 /*
 **	Function Declarations for the execution of shell commands
@@ -15,6 +13,6 @@ void	ft_close_pipes(t_exec *exec);
 int		ft_create_pipes(t_exec *exec);
 void	ft_err(char *msg, t_exec *exec);
 void	ft_free_exec(t_exec *exec);
-void	ft_exec(t_ms *ms, t_exec *exec);
+void	ft_exec(t_exec *exec);
 
 #endif

@@ -1,20 +1,21 @@
 #include "../include/minishell.h"
-// #include "../include/execution.h"
+#include "../include/execution.h"
 
-#define GWEN 0
-#define LOULOU 1
+#define GWEN 1
+#define LOULOU 0
 
-t_ms	*ft_init_ms(int ac, char **av, char **envp)
+/* t_ms	*ft_init_ms(int ac, char **av, char **envp)
 {
 	static t_ms	*ms;
 
 	if (!ms)
 	{
-		ms->parsing = ft_init_parse();
+		ft_calloc(1, sizeof(t_ms));
+		ms->parsing = ft_init_parse(envp);
 		ms->exec = ft_init_exec(ac, av , envp);
 	}
 	return (ms);
-}
+} */
 
 /*
 ** Main
@@ -23,23 +24,26 @@ t_ms	*ft_init_ms(int ac, char **av, char **envp)
 */
 int	main(int ac, char **av, char **envp)
 {
-	t_ms		*ms;
-	// t_minishell	*parse;
-	// t_exec 		*exec;
+	(void)ac;
+	(void)av;
+	// t_ms		*ms;
+	t_minishell	*parse;
+	t_exec 		*exec;
 /* 	if (GWEN){
 		printf("gwen");
 	} */
 	// printf("\n😈😈😈 Welcome to minishell ... or should I say " RED"🔥 MINIHELLLL 🔥 😈😈😈\n\n"WHT);
 	parse = ft_init_parse(envp);
+	//ms = ft_init_ms(ac, av, envp);
 	while (GWEN)
 	{
-		ms->parsing->input = readline("Minishell > ");
-		ft_parse(ms->parsing);
+		parse->input = readline("Minishell > ");
+		ft_parse(parse);
 	}
 	while (LOULOU)
 	{
-		ms->parsing->input = readline("Minishell > ");
-		ft_exec(ms->exec);
+		parse->input = readline("Minishell > ");
+		ft_exec(exec);
 	}
 	
 	// //Printing What's inside 'PATH' variable
@@ -47,5 +51,5 @@ int	main(int ac, char **av, char **envp)
 	// while(exec->cmd_paths[j])
 	// 	printf("%s\n", exec->cmd_paths[j++]);
 	
-	ft_clean_up(ms->parsing);
+	ft_clean_up(parse);
 }

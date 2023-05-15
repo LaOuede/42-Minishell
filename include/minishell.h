@@ -11,7 +11,6 @@
 # include "readline.h"
 # include "parsing.h"
 # include "builtins.h"
-# include "execution.h"
 
 # define RED 	"\x1B[31m"
 # define GRN 	"\x1B[32m"

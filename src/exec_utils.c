@@ -1,11 +1,5 @@
 #include "../include/minishell.h"
-
-void	ft_err(char *msg, t_exec *exec)
-{
-	ft_free_exec(exec);
-	perror(msg);
-	exit(1);
-}
+# include "../include/execution.h"
 
 void	ft_free_exec(t_exec *exec)
 {
@@ -33,6 +27,13 @@ void	ft_free_exec(t_exec *exec)
 			free(exec->pids);
 		free(exec);
 	}
+}
+
+void	ft_err(char *msg, t_exec *exec)
+{
+	ft_free_exec(exec);
+	perror(msg);
+	exit(1);
 }
 
 int	ft_cmd_paths_qty(char **cmd_paths)
