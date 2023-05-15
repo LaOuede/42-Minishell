@@ -1,5 +1,4 @@
 #include "../include/minishell.h"
-# include "../include/execution.h"
 
 void	ft_free_exec(t_exec *exec)
 {

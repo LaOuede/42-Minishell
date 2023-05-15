@@ -1,5 +1,4 @@
 #include "../include/minishell.h"
-# include "../include/execution.h"
 
 char	*ft_cmd_path(t_exec *exec, char *cmds)
 {

@@ -1,5 +1,4 @@
 #include "../include/minishell.h"
-#include "../include/execution.h"
 
 #define GWEN 1
 #define LOULOU 0

@@ -11,6 +11,7 @@
 # include "readline.h"
 # include "parsing.h"
 # include "builtins.h"
+# include "execution.h"
 
 # define RED 	"\x1B[31m"
 # define GRN 	"\x1B[32m"
@@ -18,24 +19,6 @@
 # define WHT 	"\x1B[37m"
 # define YEL 	"\x1B[33m"
 # define RESET	"\033[1;0m"
-
-
-/*
-**	Structure that holds all infomration needed for the execution
-*/
-typedef struct s_exec
-{
-	char	**av;
-	char	**envp;
-	char	**cmd_paths;
-	int		input;
-	int		output;
-	int		index;
-	int		pipes_nb;
-	int		cmd_nb;
-	int		**pipes;
-	pid_t	*pids;
-}			t_exec;
 
 typedef struct s_ms
 {
