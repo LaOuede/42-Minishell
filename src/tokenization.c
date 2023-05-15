@@ -6,12 +6,11 @@ void	ft_deal_metac(char c, int *index, t_minishell *parse)
 	if (ft_iswhitespace(c == 1))
 		(*index) += 1;
 	else if (c == 34)
-		ft_quotes_token(index, parse);
+		ft_d_quotes_token(index, parse);
+	else if (c == 39)
+		ft_s_quotes_token(index, parse);
 	else if (c == '|')
-	{
-		parse->type = PIPE;
-		parse->nb_pipe += 1;
-	}
+		ft_pipes_token(index, parse);
 	else if (c == '<')
 	{
 		parse->type = REDIN;
@@ -117,9 +116,9 @@ void	ft_tokenization(t_minishell *parse)
 	{
 		if (ft_ismetac(parse->input[i]) == 1)
 			ft_deal_metac(parse->input[i], &i, parse);
-		if (ft_isprint(parse->input[i]) == 1 && parse->input[i] != 32)
+		if (ft_isprint(parse->input[i]) == 1 && parse->input[i] != 32 )
 			tmp = ft_stock_char(tmp, parse->input[i]);
-		if ((ft_iswhitespace(parse->input[i + 1]) == 1 || parse->input[i + 1] == '\0') && tmp != NULL)
+		if ((ft_iswhitespace(parse->input[i + 1]) == 1 || parse->input[i + 1] == '\0' || ft_ismetac(parse->input[i + 1]) == 1) && tmp != NULL)
 		{
 			ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
 			tmp = NULL;
