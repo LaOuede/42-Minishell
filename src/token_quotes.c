@@ -33,12 +33,9 @@ void	ft_d_quotes_token(int *i, t_minishell *parse)
 				if (tmp && envvar)
 					tmp = ft_strjoin(tmp, envvar);
 				else if (!tmp && envvar)
-				{
 					tmp = envvar;
-					free(envvar);
-				}
 				flag = 42;
-				printf("envvar = %s\n", envvar);
+				printf("tmp = %s\n", tmp);
 			}
 			if (parse->input[(*i)] != 34)
 			{
