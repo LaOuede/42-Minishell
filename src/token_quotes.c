@@ -3,10 +3,16 @@
 void	ft_d_quotes_token(int *i, t_minishell *parse)
 {
 	int		j;
+	int		k;
+	int		flag;
 	char	*tmp;
+	char	*envvar;
 
 	j = *i;
+	k = 0;
+	flag = 0;
 	tmp = NULL;
+	envvar = NULL;
 	parse->d_quotes = OPEN;
 	while (parse->input[j++])
 	{
@@ -21,8 +27,23 @@ void	ft_d_quotes_token(int *i, t_minishell *parse)
 	{
 		while (parse->input[(*i)++])
 		{
+			if (parse->input[(*i)] == '$')
+			{
+				envvar = ft_envvar_quotes_token(i, parse, tmp);
+				if (tmp && envvar)
+					tmp = ft_strjoin(tmp, envvar);
+				else if (!tmp && envvar)
+					tmp = envvar;
+				flag = 42;
+				printf("tmp = %s\n", tmp);
+			}
 			if (parse->input[(*i)] != 34)
-				tmp = ft_stock_char(tmp, parse->input[*i]);
+			{
+				if (flag)
+					tmp = ft_strjoin_char(tmp, parse->input[*i]);
+				else
+					tmp = ft_stock_char(tmp, parse->input[*i]);
+			}
 			if (parse->input[(*i)] == 34)
 			{
 				(*i)++;

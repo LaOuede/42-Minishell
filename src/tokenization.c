@@ -72,6 +72,28 @@ char	*ft_stock_char(char *str, char c)
 	return (str);
 }
 
+char	*ft_strjoin_char(const char *s1, const char s2)
+{
+	size_t	i;
+	char	*s3;
+	size_t	len;
+
+	len = (ft_strlen(s1) + 1);
+	s3 = ft_calloc((len + 1), sizeof(char));
+	if (!s3)
+		return (0);
+	len = 0;
+	while (s1[len])
+	{
+		s3[len] = s1[len];
+		len++;
+	}
+	i = 0;
+	s3[len + i] = s2;
+	free((char *)s1);
+	return (s3);
+}
+
 t_token	*ft_create_node(char *str, t_minishell *parse)
 {
 	t_token	*new_node;
