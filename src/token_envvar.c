@@ -8,11 +8,16 @@ void	ft_envvar_token(int *i, t_minishell *parse)
 	size_t	len;
 
 	tmp = NULL;
-	while (parse->input[++(*i)])
+	while (parse->input[++(*i)] && ft_ismetac(parse->input[(*i)]) == 0)
 	{
+		if (parse->input[(*i)] == '{')
+			(*i)++;
 		tmp = ft_stock_char(tmp, parse->input[(*i)]);
-		if (ft_ismetac(parse->input[(*i)]) == 1)
+		if (parse->input[(*i) + 1] == '}')
+		{
+			(*i)++;
 			break ;
+		}
 	}
 	tmp = ft_stock_char(tmp, '=');
 	j = 0;
@@ -41,7 +46,13 @@ char	*ft_envvar_quotes_token(int *i, t_minishell *parse, char *str)
 
 	tmp = NULL;
 	while (parse->input[++(*i)] && ft_ismetac(parse->input[(*i)]) == 0)
+	{
+		if (parse->input[(*i)] == '{')
+			(*i)++;
 		tmp = ft_stock_char(tmp, parse->input[(*i)]);
+		if (parse->input[(*i) + 1] == '}')
+			(*i)++;
+	}
 	tmp = ft_stock_char(tmp, '=');
 	j = 0;
 	len = ft_strlen(tmp);
