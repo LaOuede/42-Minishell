@@ -3,13 +3,11 @@
 void	ft_d_quotes_token(int *i, t_minishell *parse)
 {
 	int		j;
-	int		k;
 	int		flag;
 	char	*tmp;
 	char	*envvar;
 
 	j = *i;
-	k = 0;
 	flag = 0;
 	tmp = NULL;
 	envvar = NULL;
@@ -51,7 +49,7 @@ void	ft_d_quotes_token(int *i, t_minishell *parse)
 			}
 		}
 		ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
-		parse->d_quotes = 0;
+		parse->s_quotes = 0;
 	}
 	parse->type = ARG;
 }
@@ -69,7 +67,7 @@ void	ft_s_quotes_token(int *i, t_minishell *parse)
 		if (parse->input[(j)] == 39)
 		{
 			parse->type = S_QUOTES;
-			parse->s_quotes = 1;
+			parse->s_quotes = CLOSED;
 			break ;
 		}
 	}
