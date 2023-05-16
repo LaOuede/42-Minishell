@@ -16,7 +16,7 @@ int	ft_create_pipes(t_exec *exec)
 {
 	int	i;
 
-	if (exec->cmd_nb < 1)
+	if (exec->cmd_nb <= 1)
 		return (0);
 	exec->pipes = ft_calloc(exec->pipes_nb, sizeof(int *));
 	if (!exec->pipes)

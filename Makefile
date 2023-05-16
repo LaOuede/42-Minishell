@@ -4,8 +4,8 @@ NAME		=	minishell
 
 # -- Compilation Flag -- #
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror
-# CFLAGS	=	-Wall -Wextra -Werror -Wunreachable-code -fsanitize=address -g
+# CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -Wunreachable-code -fsanitize=address -g
 
 # -- Remove -- #
 RM			=	rm -rf
@@ -14,6 +14,7 @@ RM			=	rm -rf
 SRCS_DIR	=	./src/
 SRCS_LST	= 	error_handling.c \
 				exec_utils.c \
+				exec_pipes.c \
 				exec.c \
 				freeing.c \
 				main.c \

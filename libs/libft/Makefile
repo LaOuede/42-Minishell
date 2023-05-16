@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gle-roux <gle-roux@student.42.fr>          +#+  +:+       +#+         #
+#    By: csenand <csenand@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/26 12:57:00 by gle-roux          #+#    #+#              #
-#    Updated: 2023/04/07 11:44:16 by gle-roux         ###   ########.fr        #
+#    Updated: 2023/05/16 15:14:58 by csenand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS_LIST	=	ft_atoi.c \
 				ft_calloc.c \
 				ft_free_tab_char.c \
 				ft_free_tab_int.c \
+				ft_freenull.c \
 				ft_isalnum.c \
 				ft_isalpha.c \
 				ft_isascii.c \
