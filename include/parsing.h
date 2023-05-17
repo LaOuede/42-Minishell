@@ -3,6 +3,7 @@
 
 # include <stdbool.h>
 
+//TODO add bracket type in function
 enum e_metac
 {
 	ARG = 0,
@@ -11,14 +12,16 @@ enum e_metac
 	REDOUT = 3,
 	D_QUOTES = 4,
 	S_QUOTES = 5,
-	APPRED = 6,
-	HEREDOC = 7,
+	P_BRACKETS = 6,
+	C_BRACKETS = 7,
+	APPRED = 8,
+	HEREDOC = 9,
 };
 
 enum e_gate
 {
 	OPEN = 1,
-	CLOSED = 2,
+	CLOSE = 2,
 };
 
 // prototype de la liste chainee token
@@ -28,7 +31,8 @@ typedef struct s_token
 	char			*str;
 	int				s_quotes;
 	int				d_quotes;
-	int				brackets;
+	int				c_brackets;
+	int				p_brackets;
 	int				nb_cmd;
 	struct s_token	*next;
 	struct s_token	*prev;
@@ -46,8 +50,11 @@ typedef struct s_minishell
 	int				type;
 	int				s_quotes;
 	int				d_quotes;
-	int				brackets;
+	int				c_brackets;
+	int				p_brackets;
+	int				flag;
 }	t_minishell;
+//TODO mieux gérer flag de brackets
 
 /* 		Lexer part functions 						*/
 void		ft_add_token_bottom(t_token **lst, t_token *element);
