@@ -87,21 +87,17 @@ t_exec	*ft_init_exec(int ac, char **av, char **envp)
 
 	(void)ac;
 	(void)av;
-	if (!exec)
-	{
-		exec = malloc(sizeof(*exec));
-		exec->envp = envp;
-		exec->path_var = ft_get_path(exec->envp, 0);
-		exec->cmd_nb = 1;
-		exec->pipes = ft_calloc(sizeof(int), 1);
-		exec->pipes_nb = 0;
-		exec->index = 0;
-		exec->readline = ft_calloc(sizeof(char *), 1);
-		exec->pids = ft_calloc(1,1);
-		// exec->output = open(av[ac - 1], O_RDWR | O_CREAT | O_TRUNC, 0644);
-		// exec->input = open(exec->av[1], O_RDONLY);
-		// if (exec->output == -1)
-		// 	ft_err("Error ! Couldn't create the output file", exec);
-	}
+	exec = malloc(sizeof(*exec));
+	exec->envp = envp;
+	exec->path_var = ft_get_path(exec->envp, 0);
+	exec->pipes = 0;
+	exec->index = 0;
+	exec->readline = ft_calloc(sizeof(char *), 1);
+	exec->pids = 0;
+	exec->line = NULL;
+	// exec->output = open(av[ac - 1], O_RDWR | O_CREAT | O_TRUNC, 0644);
+	// exec->input = open(exec->av[1], O_RDONLY);
+	// if (exec->output == -1)
+	// 	ft_err("Error ! Couldn't create the output file", exec);
 	return(exec);
 }

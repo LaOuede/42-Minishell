@@ -9,6 +9,7 @@
 		"vector": "c",
 		"__node_handle": "c",
 		"minishell.h": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"history.h": "c"
 	}
 }

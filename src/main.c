@@ -26,6 +26,7 @@ int	main(int ac, char **av, char **envp)
 	// t_ms		*ms;
 	// t_minishell	*parse;
 	t_exec 		*exec;
+	
 /* 	if (GWEN){
 		printf("gwen");
 	} */
@@ -38,24 +39,35 @@ int	main(int ac, char **av, char **envp)
 	// 	ft_parse(parse);
 	// }
 	// printf("%p\n", exec);
-	exec = ft_init_exec(ac, av, envp);
 	while (LOULOU)
 	{
-		// parse->input = readline("Minishell > ");
-		// exec->readline = ft_calloc(1, sizeof(char *));
-		// int i = -1;
-		// while (++i < exec->cmd_nb)
-		// {	
-		// 	exec->readline[i] = ft_calloc(2, sizeof(char));
-		// 	if (!exec->readline[i])
-		// 		ft_err("Something went wrong during calloc: ", exec);
-		// }
-		exec->readline = ft_split(readline("Minishell > "), 32);
-		// printf("line read : %s\n", exec->readline);
-		// //Printing What's inside 'PATH' variable
+		int j;
+		exec = ft_init_exec(ac, av, envp);
+		exec->line = readline("Minishell > ");
+		add_history(exec->line);
+		exec->readline = ft_split(exec->line, '|');
+
+		// /*
+		// **	Printing What's inside 'exec->readline' variable
+		// */
 		// int j = -1;
 		// while(exec->readline[++j])
 		// 	printf("exec->readline[%d] : %s\n", j, exec->readline[j]);
+		
+		j = 0;
+		while(exec->readline[j])
+			j++;
+		exec->cmd_nb = j;
+		exec->pipes_nb = exec->cmd_nb - 1;
+		// /*
+		// **	Printing the cmd_nb
+		// */
+		// printf("cmd_nb = %d\n", j);
+		// printf("pipes_nb = %d\n\n", exec->pipes_nb);
+
+		/*
+		**	The execution of all cmds starts here
+		*/
 		ft_exec(exec);
 		ft_free_exec(exec);
 	}
@@ -66,4 +78,5 @@ int	main(int ac, char **av, char **envp)
 	// 	printf("%s\n", exec->cmd_paths[j++]);
 	
 	// ft_clean_up(parse);
+	return (0);
 }
