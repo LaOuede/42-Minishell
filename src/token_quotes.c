@@ -17,7 +17,7 @@ void	ft_d_quotes_token(int *i, t_minishell *parse)
 		if (parse->input[(j)] == 34)
 		{
 			parse->type = D_QUOTES;
-			parse->d_quotes = CLOSED;
+			parse->d_quotes = CLOSE;
 			break ;
 		}
 	}
@@ -27,13 +27,16 @@ void	ft_d_quotes_token(int *i, t_minishell *parse)
 		{
 			if (parse->input[(*i)] == '$')
 			{
-				envvar = ft_envvar_quotes_token(i, parse, tmp);
-				if (tmp && envvar)
-					tmp = ft_strjoin(tmp, envvar);
-				else if (!tmp && envvar)
-					tmp = envvar;
-				flag = 42;
-				printf("tmp = %s\n", tmp);
+				if (ft_ismetac(parse->input[(*i) + 1]) == 0 || parse->input[(*i) + 1] == '{')
+				{
+					envvar = ft_envvar_quotes_token(i, parse, tmp);
+					if (tmp && envvar)
+						tmp = ft_strjoin(tmp, envvar);
+					else if (!tmp && envvar)
+						tmp = envvar;
+					flag = 42;
+					printf("tmp = %s\n", tmp);
+				}
 			}
 			if (parse->input[(*i)] != 34)
 			{
@@ -67,7 +70,7 @@ void	ft_s_quotes_token(int *i, t_minishell *parse)
 		if (parse->input[(j)] == 39)
 		{
 			parse->type = S_QUOTES;
-			parse->s_quotes = CLOSED;
+			parse->s_quotes = CLOSE;
 			break ;
 		}
 	}

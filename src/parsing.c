@@ -8,7 +8,9 @@ void	ft_reset_parse(t_minishell *parse)
 	parse->fl_redout = 0;
 	parse->d_quotes = 0;
 	parse->s_quotes = 0;
-	parse->brackets = 0;
+	parse->p_brackets = 0;
+	parse->c_brackets = 0;
+	parse->flag = 0;
 }
 
 t_minishell	*ft_init_parse(char **envp)
@@ -27,7 +29,9 @@ t_minishell	*ft_init_parse(char **envp)
 		parse->type = ARG;
 		parse->d_quotes = 0;
 		parse->s_quotes = 0;
-		parse->brackets = 0;
+		parse->p_brackets = 0;
+		parse->c_brackets = 0;
+		parse->flag = 0;
 	}
 	return (parse);
 }
@@ -44,7 +48,8 @@ void	ft_parse(t_minishell *parse)
 	tmp = parse->line;
 	while (tmp)
 	{
-		printf("node[%d] nb_cmd[%d] type[%d] Quote [%d] Braces [%d] Str = %s\n", i++, tmp->nb_cmd, tmp->type, tmp->d_quotes, tmp->brackets, tmp->str);
+		printf("node[%d] nb_cmd[%d] type[%d] Quote[%d] p_brackets[%d] c_brackets[%d] Str = %s\n"\
+		, i++, tmp->nb_cmd, tmp->type,tmp->d_quotes, tmp->p_brackets, tmp->c_brackets, tmp->str);
 		tmp = tmp->next;
 	}
 	free(tmp);

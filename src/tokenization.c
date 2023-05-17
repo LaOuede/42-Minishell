@@ -22,17 +22,18 @@ void	ft_deal_metac(char c, int *index, t_minishell *parse)
 		ft_redirout_token(index, parse);
 	else if (c == '$')
 		ft_envvar_token(index, parse);
-	else if (c == '(' || c == ')')
+	else if (c == '(' || c == ')' || c == '{' || c == '}')
 		ft_brackets_token(index, parse);
+	else
+		return ;
 }
 
 int	ft_ismetac(char c)
 {
 	if (ft_iswhitespace(c) == 1)
 		return (1);
-	if (c == '|' || c == '<' || c == '>' 
-		|| c == 34 || c == 39 || c == '$' 
-		|| c == '(' || c == ')')
+	if (c == '|' || c == '<' || c == '>' || c == 34 || c == 39
+		|| c == '$' || c == '(' || c == ')' || c == '{' || c == '}')
 		return (1);
 	return (0);
 }
@@ -109,7 +110,8 @@ t_token	*ft_create_node(char *str, t_minishell *parse)
 	new_node->nb_cmd = parse->nb_pipe;
 	new_node->s_quotes = parse->s_quotes;
 	new_node->d_quotes = parse->d_quotes;
-	new_node->brackets = parse->brackets;
+	new_node->p_brackets = parse->p_brackets;
+	new_node->c_brackets = parse->c_brackets;
 	new_node->prev = NULL;
 	new_node->next = NULL;
 	return (new_node);
@@ -146,8 +148,9 @@ void	ft_tokenization(t_minishell *parse)
 	{
 		if (ft_ismetac(parse->input[i]) == 1)
 			ft_deal_metac(parse->input[i], &i, parse);
-		if (ft_isprint(parse->input[i]) == 1 && parse->input[i] != 32 )
+		if (ft_isprint(parse->input[i]) == 1 && parse->input[i] != 32 && !parse->flag)
 			tmp = ft_stock_char(tmp, parse->input[i]);
+		// TODO Add flag pour les espaces entre les arguments
 		if ((ft_iswhitespace(parse->input[i + 1]) == 1 || parse->input[i + 1] == '\0' || ft_ismetac(parse->input[i + 1]) == 1) && tmp != NULL)
 		{
 			ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
