@@ -28,6 +28,7 @@ typedef struct s_token
 	char			*str;
 	int				s_quotes;
 	int				d_quotes;
+	int				brackets;
 	int				nb_cmd;
 	struct s_token	*next;
 	struct s_token	*prev;
@@ -45,11 +46,13 @@ typedef struct s_minishell
 	int				type;
 	int				s_quotes;
 	int				d_quotes;
+	int				brackets;
 }	t_minishell;
 
 /* 		Lexer part functions 						*/
 void		ft_add_token_bottom(t_token **lst, t_token *element);
 void		ft_appenred_token(int *i, t_minishell *parse);
+void		ft_brackets_token(int *i, t_minishell *parse);
 void		ft_clean_up(t_minishell *parse);
 t_token		*ft_create_node(char *str, t_minishell *parse);
 void		ft_d_quotes_token(int *i, t_minishell *parse);

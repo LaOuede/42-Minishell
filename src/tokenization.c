@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+//TODO : gérer les parenthèses et les curly brackets
 
 // Special char = whitespaces, pipe, < >, $
 void	ft_deal_metac(char c, int *index, t_minishell *parse)
@@ -21,13 +22,17 @@ void	ft_deal_metac(char c, int *index, t_minishell *parse)
 		ft_redirout_token(index, parse);
 	else if (c == '$')
 		ft_envvar_token(index, parse);
+	else if (c == '(' || c == ')')
+		ft_brackets_token(index, parse);
 }
 
 int	ft_ismetac(char c)
 {
 	if (ft_iswhitespace(c) == 1)
 		return (1);
-	if (c == '|' || c == '<' || c == '>' || c == 34 || c == 39 || c == '$')
+	if (c == '|' || c == '<' || c == '>' 
+		|| c == 34 || c == 39 || c == '$' 
+		|| c == '(' || c == ')')
 		return (1);
 	return (0);
 }
@@ -104,6 +109,7 @@ t_token	*ft_create_node(char *str, t_minishell *parse)
 	new_node->nb_cmd = parse->nb_pipe;
 	new_node->s_quotes = parse->s_quotes;
 	new_node->d_quotes = parse->d_quotes;
+	new_node->brackets = parse->brackets;
 	new_node->prev = NULL;
 	new_node->next = NULL;
 	return (new_node);
