@@ -67,6 +67,7 @@ void	ft_run_cmd(t_exec *exec)
 		free(path);
 	else if (execve(path, cmds, exec->envp) < 0)
 		ft_err("Error ! Something went wrong while executing: ", exec);
+	//TODO ft_err exit if there is an error, so the below will never be executed
 	i = 0;
 	while (exec->path_var[i])
 		free(exec->path_var[i++]);
@@ -109,6 +110,7 @@ void	ft_child_process(t_exec *exec, int i)
 void	ft_exec(t_exec *exec)
 {
 	int	i;
+	int status;
 	
 	// printf("\n--- ft_create_pipes : Pipe creation starts ---\n");
 	ft_create_pipes(exec);
@@ -119,7 +121,7 @@ void	ft_exec(t_exec *exec)
 	// printf("--- ft_make_pids : PIDs creation ends	---\n\n");
 	i = -1;
 	while (++i < exec->cmd_nb)
-		waitpid(exec->pids[i], NULL, 0);
+		waitpid(exec->pids[i], &status, 0);
 	//TODO clarifier le 2nd arg de waitpid
 	// ft_free_data(exec);
 }

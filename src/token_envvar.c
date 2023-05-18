@@ -102,10 +102,10 @@ char	*ft_envvar_quotes_token(int *i, t_minishell *parse, char *str)
 		if ((parse->input[(*i)] != '{') && (parse->input[(*i)] != '}') && (parse->input[(*i)] != 34))
 			tmp = ft_stock_char(tmp, parse->input[(*i)]);
 		printf("tmp = %s\n", tmp);
-/* 		if (parse->input[(*i)] == '}' && flag)
-			break ; */
-/* 		if (parse->input[(*i)] == '}')
-			break ; */
+ 		if (parse->input[(*i)] == '}' && flag)
+			break ;
+ 		if (parse->input[(*i)] == '}')
+			break ;
 		if (parse->input[(*i) + 1] == 34 || parse->input[(*i)] == '}')
 		{
 			(*i)++;
