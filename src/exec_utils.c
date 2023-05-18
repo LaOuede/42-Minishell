@@ -1,5 +1,55 @@
 #include "../include/minishell.h"
 
+void	ft_cmd_nb(t_exec *exec)
+{
+	int	j = 0;
+	
+	while(exec->readline[j])
+		j++;
+	exec->cmd_nb = j;
+	exec->pipes_nb = exec->cmd_nb - 1;
+}
+
+void	ft_is_redirin(t_exec *exec)
+{
+	int i = 0;
+	int	j = 0;
+	char **tmp;
+
+	tmp = exec->readline;
+	while (tmp[i])
+	{
+		while(tmp[i][j])
+		{
+			if (ft_strncmp(&tmp[i][j], "<", 1) == 0)
+				exec->fl_redirin = 1;
+			j++;
+		}
+		i++;
+	}
+	printf("exec->fl_redirin = %d\n", exec->fl_redirin);
+}
+
+void	ft_is_redirout(t_exec *exec)
+{
+	int i = 0;
+	int	j = 0;
+	char **tmp;
+
+	tmp = exec->readline;
+	while (tmp[i])
+	{
+		while(tmp[i][j])
+		{
+			if (ft_strncmp(&tmp[i][j], ">", 1) == 0)
+				exec->fl_redirout = 1;
+			j++;
+		}
+		i++;
+	}
+	printf("exec->fl_redirout = %d\n", exec->fl_redirout);
+}
+
 void	ft_free_exec(t_exec *exec)
 {
 	int	i;
@@ -95,6 +145,8 @@ t_exec	*ft_init_exec(int ac, char **av, char **envp)
 	exec->readline = ft_calloc(sizeof(char *), 1);
 	exec->pids = 0;
 	exec->line = NULL;
+	exec->fl_redirin = 0;
+	exec->fl_redirout = 0;
 	// exec->output = open(av[ac - 1], O_RDWR | O_CREAT | O_TRUNC, 0644);
 	// exec->input = open(exec->av[1], O_RDONLY);
 	// if (exec->output == -1)

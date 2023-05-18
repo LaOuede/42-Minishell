@@ -42,22 +42,15 @@ int	main(int ac, char **av, char **envp)
 	//exec = ft_init_exec(ac, av, envp);
 	while (LOULOU)
 	{
-		int j;
 		exec = ft_init_exec(ac, av, envp);
 		exec->line = readline("Minishell > ");
 		add_history(exec->line);
 		exec->readline = ft_split(exec->line, '|');
 
 		// //Printing What's inside 'exec->readline' variable
-		// int j = -1;
-		// while(exec->readline[++j])
-		// 	printf("exec->readline[%d] : %s\n", j, exec->readline[j]);
-		
-		j = 0;
-		while(exec->readline[j])
-			j++;
-		exec->cmd_nb = j;
-		exec->pipes_nb = exec->cmd_nb - 1;
+		int j = -1;
+		while(exec->readline[++j])
+			printf("exec->readline[%d] : %s\n", j, exec->readline[j]);
 		
 		// //Printing the cmd_nb
 		// printf("cmd_nb = %d\n", j);

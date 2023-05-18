@@ -21,6 +21,8 @@ typedef struct s_exec
 	int		cmd_nb;
 	int		**pipes;
 	pid_t	*pids;
+	int		fl_redirin;
+	int		fl_redirout;
 }			t_exec;
 
 /*
@@ -33,5 +35,10 @@ void	ft_create_pipes(t_exec *exec);
 void	ft_err(char *msg, t_exec *exec);
 void	ft_free_exec(t_exec *exec);
 void	ft_exec(t_exec *exec);
+
+/*	--	Temp fct, to delete once the parsing is ready	--	*/
+void	ft_cmd_nb(t_exec *exec);
+void	ft_is_redirin(t_exec *exec);
+void	ft_is_redirout(t_exec *exec);
 
 #endif
