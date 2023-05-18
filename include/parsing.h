@@ -34,6 +34,7 @@ typedef struct s_token
 	int				c_brackets;
 	int				p_brackets;
 	int				nb_cmd;
+	int				ws;
 	struct s_token	*next;
 	struct s_token	*prev;
 }	t_token;
@@ -53,6 +54,7 @@ typedef struct s_minishell
 	int				c_brackets;
 	int				p_brackets;
 	int				flag;
+	int				fl_ws;
 }	t_minishell;
 //TODO mieux gérer flag de brackets
 
@@ -77,5 +79,10 @@ void		ft_s_quotes_token(int *i, t_minishell *parse);
 char		*ft_stock_char(char *str, char c);
 char		*ft_strjoin_char(const char *s1, const char s2);
 void		ft_tokenization(t_minishell *parse);
+
+void		ft_lexer(t_minishell *parse);
+void		ft_deal_char(char c, int *i, t_minishell *parse);
+void		ft_deal_metac2(char c, int *i, t_minishell *parse);
+int			ft_ismetac2(char c);
 
 #endif

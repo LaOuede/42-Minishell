@@ -50,9 +50,8 @@ int	main(int ac, char **av, char **envp)
 		add_history(exec->line);
 		exec->readline = ft_split(exec->line, '|');
 
-		// /*
 		// **	Printing What's inside 'exec->readline' variable
-		// */
+		//
 		// int j = -1;
 		// while(exec->readline[++j])
 		// 	printf("exec->readline[%d] : %s\n", j, exec->readline[j]);
@@ -62,15 +61,11 @@ int	main(int ac, char **av, char **envp)
 			j++;
 		exec->cmd_nb = j;
 		exec->pipes_nb = exec->cmd_nb - 1;
-		// /*
 		// **	Printing the cmd_nb
-		// */
 		// printf("cmd_nb = %d\n", j);
 		// printf("pipes_nb = %d\n\n", exec->pipes_nb);
 
-		/*
-		**	The execution of all cmds starts here
-		*/
+		//	The execution of all cmds starts here
 		ft_exec(exec);
 		ft_free_exec(exec);
 	} */
