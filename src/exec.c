@@ -79,30 +79,26 @@ void	ft_run_cmd(t_exec *exec)
 void	ft_child_process(t_exec *exec, int i)
 {
 	exec->index = i;
-	if (exec->cmd_nb == 1)
-		ft_run_cmd(exec);
-	else
+	if (exec->index == 0)
 	{
-		if (exec->index == 0)
+		//TODO exec->input not used yet, need to implement redirection
+		if (exec->input == -1)
 		{
-			if (exec->input == -1)
-			{
-				ft_close_pipes(exec);
-				close(exec->input);
-				close(exec->output);
-				ft_err("Couldn't open the input file", exec);
-			}
-			dup2(0, STDIN_FILENO);
+			ft_close_pipes(exec);
+			close(exec->input);
+			close(exec->output);
+			ft_err("Couldn't open the input file", exec);
 		}
-		else
-			dup2(exec->pipes[i - 1][0], STDIN_FILENO);
-		if (exec->index == exec->cmd_nb - 1)
-			dup2(1, STDOUT_FILENO);
-		else
-			dup2(exec->pipes[i][1], STDOUT_FILENO);
-		ft_close_pipes(exec);
-		ft_run_cmd(exec);
+		dup2(0, STDIN_FILENO);
 	}
+	else
+		dup2(exec->pipes[i - 1][0], STDIN_FILENO);
+	if (exec->index == exec->cmd_nb - 1)
+		dup2(1, STDOUT_FILENO);
+	else
+		dup2(exec->pipes[i][1], STDOUT_FILENO);
+	ft_close_pipes(exec);
+	ft_run_cmd(exec);
 }
 
 void	ft_exec(t_exec *exec)
