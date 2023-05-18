@@ -92,16 +92,14 @@ void	ft_child_process(t_exec *exec, int i)
 				close(exec->output);
 				ft_err("Couldn't open the input file", exec);
 			}
-			dup2(exec->input, STDIN_FILENO);
+			dup2(0, STDIN_FILENO);
 		}
 		else
 			dup2(exec->pipes[i - 1][0], STDIN_FILENO);
 		if (exec->index == exec->cmd_nb - 1)
-			dup2(exec->output, STDOUT_FILENO);
+			dup2(1, STDOUT_FILENO);
 		else
 			dup2(exec->pipes[i][1], STDOUT_FILENO);
-		// close(exec->input);
-		// close(exec->output);
 		ft_close_pipes(exec);
 		ft_run_cmd(exec);
 	}
