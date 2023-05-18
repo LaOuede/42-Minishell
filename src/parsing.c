@@ -11,6 +11,7 @@ void	ft_reset_parse(t_minishell *parse)
 	parse->p_brackets = 0;
 	parse->c_brackets = 0;
 	parse->flag = 0;
+	parse->fl_ws = 0;
 }
 
 t_minishell	*ft_init_parse(char **envp)
@@ -32,6 +33,7 @@ t_minishell	*ft_init_parse(char **envp)
 		parse->p_brackets = 0;
 		parse->c_brackets = 0;
 		parse->flag = 0;
+		parse->fl_ws = 0;
 	}
 	return (parse);
 }
@@ -42,7 +44,8 @@ void	ft_parse(t_minishell *parse)
 
 	if (!*parse->input)
 		return ;
-	ft_tokenization(parse);
+	//ft_tokenization(parse);
+	ft_lexer(parse);
 	// Print linked-list
 	int	i = 0;
 	tmp = parse->line;

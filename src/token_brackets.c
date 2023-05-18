@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 
+//TODO test :  echo ${USER} to check because it doesn't work
 void	ft_brackets_token(int *i, t_minishell *parse)
 {
 	int		j;
@@ -72,6 +73,7 @@ void	ft_brackets_token(int *i, t_minishell *parse)
 			}
 		} */
 		parse->c_brackets = OPEN;
+		//parse->flag = 42;
 		printf("parse->c_brackets = %d\n", parse->c_brackets);
 		if (parse->c_brackets == OPEN)
 		{
