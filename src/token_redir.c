@@ -1,9 +1,10 @@
 #include "../include/minishell.h"
 
-void	ft_redirin_token(int *i, t_minishell *parse)
+void	ft_redin_token(int *i, t_minishell *parse)
 {
 	char	*tmp;
 
+	printf(KYEL "---------- FT_REDIN_TOKEN ----------\n" RESET);
 	tmp = NULL;
 	tmp = ft_stock_char(tmp, parse->input[(*i)]);
 	parse->type = REDIN;
@@ -13,10 +14,11 @@ void	ft_redirin_token(int *i, t_minishell *parse)
 	parse->type = ARG;
 }
 
-void	ft_redirout_token(int *i, t_minishell *parse)
+void	ft_redout_token(int *i, t_minishell *parse)
 {
 	char	*tmp;
 
+	printf(KYEL "---------- FT_REDOUT_TOKEN ----------\n" RESET);
 	tmp = NULL;
 	tmp = ft_stock_char(tmp, parse->input[(*i)]);
 	parse->type = REDOUT;
@@ -31,6 +33,7 @@ void	ft_appenred_token(int *i, t_minishell *parse)
 	char	*tmp;
 
 	tmp = NULL;
+	printf(KYEL "---------- FT_APPENRED_TOKEN ----------\n" RESET);
 	while (parse->input[(*i)] == '<')
 	{
 		tmp = ft_stock_char(tmp, parse->input[(*i)]);
@@ -47,6 +50,7 @@ void	ft_heredoc_token(int *i, t_minishell *parse)
 	char	*tmp;
 
 	tmp = NULL;
+	printf(KYEL "---------- FT_HEREDOC_TOKEN ----------\n" RESET);
 	while (parse->input[(*i)] == '>')
 	{
 		tmp = ft_stock_char(tmp, parse->input[(*i)]);

@@ -15,7 +15,8 @@ void	ft_char(char c, int *i, t_minishell *parse)
 		parse->fl_ws = 1;
 		(*i)++;
 	}
-	while (parse->input[(*i)] && ft_ismetachar(parse->input[(*i)]) == 0)
+	while (parse->input[(*i)] && ft_ismetachar(parse->input[(*i)]) == 0 \
+		&& ft_iswhitespace(parse->input[(*i)]) == 0)
 	{
 		printf("-> char = %c\n", parse->input[(*i)]);
 		tmp = ft_stock_char(tmp, parse->input[(*i)]);
@@ -30,6 +31,7 @@ void	ft_char(char c, int *i, t_minishell *parse)
 	printf("-> char fin = %c\n", parse->input[(*i)]);
 }
 
+// TODO need to handle curly_brackets and parenthesis_brackets!!
 /* Special char = whitespaces, pipe, < >, $ */
 void	ft_metachar(char c, int *i, t_minishell *parse)
 {
@@ -37,15 +39,15 @@ void	ft_metachar(char c, int *i, t_minishell *parse)
 	printf("-> char = %c\n", parse->input[(*i)]);
 	printf("-> i = %d\n", (*i));
 	if (c == '|')
-		ft_pipes_token(i, parse);
+		ft_pipe_token(i, parse);
 	else if (c == '<' && parse->input[(*i) + 1] == '<')
 		ft_appenred_token(i, parse);
 	else if (c == '<')
-		ft_redirin_token(i, parse);
+		ft_redin_token(i, parse);
 	else if (c == '>' && parse->input[(*i) + 1] == '>')
 		ft_heredoc_token(i, parse);
 	else if (c == '>')
-		ft_redirout_token(i, parse);
+		ft_redout_token(i, parse);
 	else if (c == '(' || c == ')' || c == '{' || c == '}')
 		ft_brackets_token(i, parse);
 	else if (c == '$')
@@ -59,7 +61,7 @@ void	ft_metachar(char c, int *i, t_minishell *parse)
 int	ft_ismetachar(char c)
 {
 	if (c == '|' || c == '<' || c == '>' || c == 34 || c == 39
-		|| c == '$' || c == '(' || c == ')' || c == '{' || c == '}')
+		|| c == '$' || c == '(' || c == '{')
 		return (1);
 	return (0);
 }
@@ -67,13 +69,12 @@ int	ft_ismetachar(char c)
 void	ft_lexer(t_minishell *parse)
 {
 	int	i;
-	int	len;
 
 	i = 0;
 	printf(KYEL "---------- FT_LEXER ---------- \n" RESET);
-	len = ft_strlen(parse->input);
-	printf("-> len = %d\n", len);
-	while (i < len)
+	parse->strlen = ft_strlen(parse->input);
+	printf("-> len = %zu\n", parse->strlen);
+	while (i < (int)parse->strlen)
 	{
 		printf("-> char = %c\n", parse->input[(i)]);
 		if (ft_ismetachar(parse->input[i]) == 1)
