@@ -31,7 +31,16 @@ void	ft_char(char c, int *i, t_minishell *parse)
 	printf("-> char fin = %c\n", parse->input[(*i)]);
 }
 
-// TODO need to handle curly_brackets and parenthesis_brackets!!
+/* TODO
+1) No need to handle curly_brackets and parenthesis_brackets you fool!! 
+So need to suppress functions
+2) Also need to deal better with $ expansion.
+https://www.gnu.org/software/bash/manual/html_node/Shell-Expansions.html 
+watch out for $ and $$...
+3) Check is whitespace flag is working. If not, handle it!
+4) Deal with double quotes and only after that deal with $ inside
+not both at the same time, the function is too huge!*/
+
 /* Special char = whitespaces, pipe, < >, $ */
 void	ft_metachar(char c, int *i, t_minishell *parse)
 {
@@ -77,6 +86,7 @@ void	ft_lexer(t_minishell *parse)
 	while (i < (int)parse->strlen)
 	{
 		printf("-> char = %c\n", parse->input[(i)]);
+		// TODO add flag for $ which is not an expansion but a normal char!
 		if (ft_ismetachar(parse->input[i]) == 1)
 			ft_metachar(parse->input[i], &i, parse);
 		else
