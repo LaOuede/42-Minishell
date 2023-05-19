@@ -19,8 +19,10 @@ void	ft_envvar_token(int *i, t_minishell *parse)
 			flag = 42;
 			(*i)++;
 		}
-		if (ft_ismetachar(parse->input[(*i)]) == 1
-			|| ft_iswhitespace(parse->input[(*i)]) == 1 || (parse->input[(*i)] == '}' && !flag))
+		if (ft_ismetachar(parse->input[(*i)]) == 1 \
+			|| ft_iswhitespace(parse->input[(*i)]) == 1 \
+			|| (parse->input[(*i)] == '}' && !flag) \
+			|| parse->input[(*i)] == '=')
 			break ;
 		if (parse->input[(*i)] == '}' && flag)
 		{	

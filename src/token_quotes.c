@@ -49,7 +49,7 @@ void	ft_d_quotes_token(int *i, t_minishell *parse)
 	if (tmp)
 		ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
 	ft_freenull(tmp);
-	parse->s_quotes = 0;
+	parse->d_quotes = 0;
 	parse->type = ARG;
 }
 
