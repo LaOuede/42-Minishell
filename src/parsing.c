@@ -44,19 +44,29 @@ void	ft_parse(t_minishell *parse)
 
 	if (!*parse->input)
 		return ;
+	printf(KYEL "---------- FT_LEXER ---------- \n" RESET);
 	//ft_tokenization(parse);
 	ft_lexer(parse);
-	// Print linked-list
+	/* Print linked-list */
 	int	i = 0;
 	tmp = parse->line;
 	while (tmp)
 	{
-		printf("node[%d] nb_cmd[%d] type[%d] Quote[%d] p_brackets[%d] c_brackets[%d] Str = %s\n"\
-		, i++, tmp->nb_cmd, tmp->type,tmp->d_quotes, tmp->p_brackets, tmp->c_brackets, tmp->str);
+		printf(KBLU "*******************************\n");
+		printf("*" KBLU KBLD "           NODE[%d]           " RESET KBLU "*\n", i++);
+		printf("*" KBLU KBLD " -> Cmd[%d]                   " RESET KBLU "*\n", tmp->nb_cmd);
+		printf("*" KBLU KBLD " -> Type[%d]                  " RESET KBLU "*\n", tmp->type);
+		printf("*" KBLU KBLD " -> D_Quotes[%d]              " RESET KBLU "*\n", tmp->d_quotes);
+		printf("*" KBLU KBLD " -> S_Quotes[%d]              " RESET KBLU "*\n", tmp->s_quotes);
+		printf("*" KBLU KBLD " -> P_brackets[%d]            " RESET KBLU "*\n", tmp->p_brackets);
+		printf("*" KBLU KBLD " -> C_brackets[%d]            " RESET KBLU "*\n", tmp->c_brackets);
+		printf("*" KBLU KBLD " -> Whitespace[%d]            " RESET KBLU "*\n", tmp->ws);
+		printf("*" KBLU KBLD " -> Str =          " RESET "%s"          KBLU "\n", tmp->str);
+		printf(KBLU "*******************************\n" RESET);
 		tmp = tmp->next;
 	}
 	free(tmp);
-	// Free linked-list between prompt & clean up
+	/* Free linked-list between prompt & clean up */
 	ft_reset_parse(parse);
 	ft_free_lst(&parse->line);
 	// TODO Fonction pour entrer la linked-list dans un tableau 2D

@@ -3,6 +3,21 @@
 
 # include <stdbool.h>
 
+/* --------------------COLORS--------------------- */
+# define KNRM "\x1B[m"
+# define KBLD "\x1B[1m"
+# define KGRE "\x1B[2m"
+# define KITA "\x1B[3m"
+# define KUND "\x1B[4m"
+# define KRST "\x1B[5m"
+# define KRED "\x1B[31m"
+# define KGRN "\x1B[32m"
+# define KYEL "\x1B[33m"
+# define KBLU "\x1B[34m"
+# define KMAG "\x1B[35m"
+# define KCYN "\x1B[36m"
+# define KWHT "\x1B[37m"
+
 //TODO add bracket type in function
 enum e_metac
 {
@@ -81,8 +96,8 @@ char		*ft_strjoin_char(const char *s1, const char s2);
 void		ft_tokenization(t_minishell *parse);
 
 void		ft_lexer(t_minishell *parse);
-void		ft_deal_char(char c, int *i, t_minishell *parse);
-void		ft_deal_metac2(char c, int *i, t_minishell *parse);
-int			ft_ismetac2(char c);
+void		ft_char(char c, int *i, t_minishell *parse);
+void		ft_metachar(char c, int *i, t_minishell *parse);
+int			ft_ismetachar(char c);
 
 #endif

@@ -46,7 +46,7 @@ void	ft_d_quotes_token(int *i, t_minishell *parse)
 		{
 			if (parse->input[(*i)] == '$')
 			{
-				if (ft_ismetac(parse->input[(*i) + 1]) == 0 || parse->input[(*i) + 1] == '{')
+				if (ft_ismetachar(parse->input[(*i) + 1]) == 0 || parse->input[(*i) + 1] == '{')
 				{
 					envvar = ft_envvar_quotes_token(i, parse, tmp);
 					if (tmp && envvar)

@@ -12,6 +12,7 @@ void	ft_brackets_token(int *i, t_minishell *parse)
 	flag = 0;
 	tmp = NULL;
 	envvar = NULL;
+	printf("TEST BRACKETS TOKEN\n");
 	if (parse->input[(*i)] == '(')
 	{
 		parse->p_brackets = OPEN;
@@ -82,9 +83,9 @@ void	ft_brackets_token(int *i, t_minishell *parse)
 					ft_envvar_token(i, parse);
 				}
 		}
-		//else if (parse->c_brackets == CLOSE)
-/* 		else
-		{
+/* 		else if (parse->c_brackets == CLOSE)
+		else
+		{ */
 			while (parse->input[(*i)])
 			{
 				if (ft_iswhitespace(parse->input[(*i)]) == 1)
@@ -117,8 +118,8 @@ void	ft_brackets_token(int *i, t_minishell *parse)
 			}
 			ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
 			parse->c_brackets = 0;
-		} */
-/* 	}
+/* 		}
+	}
 	else
 		return ; */
 	parse->type = ARG;

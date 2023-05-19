@@ -17,9 +17,11 @@ SRCS_LST	= 	error_handling.c \
 				exec_pipes.c \
 				exec.c \
 				freeing.c \
+				lexer.c \
+				lexer_linked_list.c \
+				lexer_memory.c \
 				main.c \
 				parsing.c \
-				tokenization.c \
 				token_brackets.c \
 				token_envvar.c \
 				token_pipe.c \

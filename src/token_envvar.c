@@ -20,7 +20,7 @@ void	ft_envvar_token(int *i, t_minishell *parse)
 			parse->flag = 42;
 		}
 		printf("flag = %d\n", parse->flag);
-		if (ft_ismetac(parse->input[(*i)]) == 1)
+		if (ft_ismetachar(parse->input[(*i)]) == 1)
 			break ;
 		tmp = ft_stock_char(tmp, parse->input[(*i)]);
 		if (parse->input[(*i) + 1] == '}')
@@ -93,20 +93,20 @@ void	ft_envvar_token(int *i, t_minishell *parse)
 
 char	*ft_envvar_quotes_token(int *i, t_minishell *parse, char *str)
 {
-	int		flag;
+	//int		flag;
 	char	*tmp;
 	int		j;
 	int		k;
 	size_t	len;
 
 	tmp = NULL;
-	flag = 0;
+	//flag = 0;
 	printf("TEST ENVVAR QUOTE\n");
 	while (parse->input[++(*i)])
 	{
 		printf("char = %c\n", parse->input[(*i)]);
-		if (parse->input[(*i)] == '{')
-			flag = 42;
+/* 		if (parse->input[(*i)] == '{')
+			flag = 42; */
 		if ((parse->input[(*i)] != '{') && (parse->input[(*i)] != '}') && (parse->input[(*i)] != 34))
 		//if (ft_ismetac(parse->input[(*i)]) == 0)
 			tmp = ft_stock_char(tmp, parse->input[(*i)]);
@@ -116,7 +116,7 @@ char	*ft_envvar_quotes_token(int *i, t_minishell *parse, char *str)
 /* 		if (parse->input[(*i)] == '}')
 			break ; */
 		//if (parse->input[(*i) + 1] == 34 || parse->input[(*i)] == '}')
-		if (ft_ismetac(parse->input[(*i) + 1]) == 1)
+		if (ft_ismetachar(parse->input[(*i) + 1]) == 1)
 		{
 			(*i)++;
 			break ;
