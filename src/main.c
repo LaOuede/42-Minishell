@@ -1,7 +1,7 @@
 #include "../include/minishell.h"
 
-#define GWEN 1
-#define LOULOU 0
+#define GWEN 0
+#define LOULOU 1
 
 /* t_ms	*ft_init_ms(int ac, char **av, char **envp)
 {
@@ -45,19 +45,27 @@ int	main(int ac, char **av, char **envp)
 		exec = ft_init_exec(ac, av, envp);
 		exec->line = readline("Minishell > ");
 		add_history(exec->line);
-		exec->readline = ft_split(exec->line, '|');
 
-		// //Printing What's inside 'exec->readline' variable
-		int j = -1;
-		while(exec->readline[++j])
-			printf("exec->readline[%d] : %s\n", j, exec->readline[j]);
+		exec->readline = ft_split(exec->line, ' ');
+
+		//TODO Write this command below
+		// ft_is_operator(exec);
 		
-		// //Printing the cmd_nb
-		// printf("cmd_nb = %d\n", j);
-		// printf("pipes_nb = %d\n\n", exec->pipes_nb);
-
+		ft_cmd_nb(exec);
+		ft_print_debug(exec);
+		// if (ft_is_redirout(exec))
+		// {
+		// 	exec->outfile = ft_split(exec->readline[exec->fl_redirout_i], '>');
+		// 	//Printing What's inside 'exec->outfile' variable
+		// 	printf("---	Printing exec->outfile[i]	---\n");
+		// 	int j = -1;
+		// 	while(exec->outfile[++j])
+		// 		printf("exec->outfile[%d] : %s\n", j, exec->outfile[j]);
+		// 	exec->output = open("output", O_RDWR | O_CREAT | O_TRUNC, 0644);
+		// }
+	
 		//The execution of all cmds starts here
-		ft_exec(exec);
+		// ft_exec(exec);
 		ft_free_exec(exec);
 	}
 	
