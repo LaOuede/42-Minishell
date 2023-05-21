@@ -60,6 +60,7 @@ typedef struct s_minishell
 	struct s_token	*line;
 	char			*input;
 	char			**envp;
+	size_t			strlen;
 	bool			fl_redin;
 	bool			fl_redout;
 	int				nb_pipe;
@@ -77,27 +78,27 @@ typedef struct s_minishell
 void		ft_add_token_bottom(t_token **lst, t_token *element);
 void		ft_appenred_token(int *i, t_minishell *parse);
 void		ft_brackets_token(int *i, t_minishell *parse);
+void		ft_char(char c, int *i, t_minishell *parse);
 void		ft_clean_up(t_minishell *parse);
 t_token		*ft_create_node(char *str, t_minishell *parse);
 void		ft_d_quotes_token(int *i, t_minishell *parse);
 void		ft_envvar_token(int *i, t_minishell *parse);
+char		*ft_envvar_brackets_token(int *i, t_minishell *parse, char *str);
 char		*ft_envvar_quotes_token(int *i, t_minishell *parse, char *str);
 void		ft_free_lst(t_token **lst);
 void		ft_heredoc_token(int *i, t_minishell *parse);
 t_minishell	*ft_init_parse(char **envp);
-int			ft_ismetac(char c);
+int			ft_ismetachar(char c);
+void		ft_lexer(t_minishell *parse);
+void		ft_metachar(char c, int *i, t_minishell *parse);
 void		ft_parse(t_minishell *parse);
-void		ft_pipes_token(int *i, t_minishell *parse);
-void		ft_redirin_token(int *i, t_minishell *parse);
-void		ft_redirout_token(int *i, t_minishell *parse);
+void		ft_pipe_token(int *i, t_minishell *parse);
+void		ft_redin_token(int *i, t_minishell *parse);
+void		ft_redout_token(int *i, t_minishell *parse);
 void		ft_s_quotes_token(int *i, t_minishell *parse);
 char		*ft_stock_char(char *str, char c);
 char		*ft_strjoin_char(const char *s1, const char s2);
-void		ft_tokenization(t_minishell *parse);
 
-void		ft_lexer(t_minishell *parse);
-void		ft_char(char c, int *i, t_minishell *parse);
-void		ft_metachar(char c, int *i, t_minishell *parse);
-int			ft_ismetachar(char c);
+void		ft_tokenization(t_minishell *parse);
 
 #endif

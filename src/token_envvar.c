@@ -5,30 +5,31 @@ void	ft_envvar_token(int *i, t_minishell *parse)
 	char	*tmp;
 	int		j;
 	int		k;
-	int		gate;
+	int		flag;
 	size_t	len;
 
 	tmp = NULL;
-	gate = 0;
-	printf("TEST ENVVAR\n");
-	while (parse->input[++(*i)])
+	flag = 0;
+	printf(KYEL "---------- FT_ENVVAR ----------\n" RESET);
+	while (++(*i) < (int)parse->strlen)
 	{
-		if (parse->input[(*i)] == '{' && !parse->flag && gate == 0)
-		//if (parse->input[(*i)] == '{' && parse->flag == 42)
+		printf("char = %c\n", parse->input[(*i)]);
+		if (parse->input[(*i)] == '{')
 		{
+			flag = 42;
 			(*i)++;
-			parse->flag = 42;
 		}
-		printf("flag = %d\n", parse->flag);
-		if (ft_ismetachar(parse->input[(*i)]) == 1)
+		if (ft_ismetachar(parse->input[(*i)]) == 1 \
+			|| ft_iswhitespace(parse->input[(*i)]) == 1 \
+			|| (parse->input[(*i)] == '}' && !flag) \
+			|| parse->input[(*i)] == '=')
 			break ;
+		if (parse->input[(*i)] == '}' && flag)
+		{	
+			(*i)++;
+			break ;
+		}
 		tmp = ft_stock_char(tmp, parse->input[(*i)]);
-		if (parse->input[(*i) + 1] == '}')
-		{
-			(*i)++;
-			break ;
-		}
-		gate = 1;
 	}
 	tmp = ft_stock_char(tmp, '=');
 	j = 0;
@@ -91,7 +92,60 @@ void	ft_envvar_token(int *i, t_minishell *parse)
 	free(tmp);
 } */
 
+
+// TODO Need to handle when $ with nothing behind or $$
 char	*ft_envvar_quotes_token(int *i, t_minishell *parse, char *str)
+{
+	int		flag;
+	char	*tmp;
+	int		j;
+	int		k;
+	size_t	len;
+
+	tmp = NULL;
+	flag = 0;
+	printf(KYEL "---------- FT_ENVVAR_QUOTES_TOKEN ----------\n" RESET);
+	while (++(*i) < (int)parse->strlen)
+	{
+		printf("char = %c\n", parse->input[(*i)]);
+		if (parse->input[(*i)] == '{')
+		{
+			flag = 42;
+			(*i)++;
+		}
+		if (ft_ismetachar(parse->input[(*i)]) == 1 \
+			|| ft_iswhitespace(parse->input[(*i)]) == 1 || (parse->input[(*i)] == '}' && !flag))
+		{
+			(*i)--;
+			break ;
+		}
+		if (parse->input[(*i)] == '}' && flag)
+		{	
+			(*i)++;
+			break ;
+		}
+		tmp = ft_stock_char(tmp, parse->input[(*i)]);
+	}
+	tmp = ft_stock_char(tmp, '=');
+	j = 0;
+	len = ft_strlen(tmp);
+	while (parse->envp[j] && ft_strncmp(parse->envp[j], tmp, len) != 0)
+		j++;
+	if (!parse->envp[j])
+	{
+		if (!str)
+			write(1, "\n", 1);
+		return (NULL);
+	}
+	tmp = NULL;
+	k = len - 1;
+	while (parse->envp[j][k++])
+		tmp = ft_stock_char(tmp, parse->envp[j][k]);
+	printf("char fin = %c\n", parse->input[(*i)]);
+	return (tmp);
+}
+
+char	*ft_envvar_brackets_token(int *i, t_minishell *parse, char *str)
 {
 	//int		flag;
 	char	*tmp;
@@ -101,16 +155,16 @@ char	*ft_envvar_quotes_token(int *i, t_minishell *parse, char *str)
 
 	tmp = NULL;
 	//flag = 0;
-	printf("TEST ENVVAR QUOTE\n");
+	printf(KYEL "---------- FT_ENVVAR_BRACKETS_TOKEN ----------\n" RESET);
 	while (parse->input[++(*i)])
 	{
 		printf("char = %c\n", parse->input[(*i)]);
-/* 		if (parse->input[(*i)] == '{')
-			flag = 42; */
+		if (parse->input[(*i)] == '{')
+			(*i)++;
 		if ((parse->input[(*i)] != '{') && (parse->input[(*i)] != '}') && (parse->input[(*i)] != 34))
 		//if (ft_ismetac(parse->input[(*i)]) == 0)
 			tmp = ft_stock_char(tmp, parse->input[(*i)]);
-		printf("tmp = %s\n", tmp);
+		//printf("tmp = %s\n", tmp);
 /* 		if (parse->input[(*i)] == '}' && flag)
 			break ; */
 /* 		if (parse->input[(*i)] == '}')

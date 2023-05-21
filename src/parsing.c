@@ -12,6 +12,7 @@ void	ft_reset_parse(t_minishell *parse)
 	parse->c_brackets = 0;
 	parse->flag = 0;
 	parse->fl_ws = 0;
+	parse->strlen = 0;
 }
 
 t_minishell	*ft_init_parse(char **envp)
@@ -24,6 +25,7 @@ t_minishell	*ft_init_parse(char **envp)
 		parse->input = NULL;
 		parse->line = NULL;
 		parse->envp = envp;
+		parse->strlen = 0;
 		parse->nb_pipe = 1;
 		parse->fl_redin = 0;
 		parse->fl_redout = 0;
@@ -44,7 +46,7 @@ void	ft_parse(t_minishell *parse)
 
 	if (!*parse->input)
 		return ;
-	printf(KYEL "---------- FT_LEXER ---------- \n" RESET);
+	printf(KYEL "---------- FT_PARSING ---------- \n" RESET);
 	//ft_tokenization(parse);
 	ft_lexer(parse);
 	/* Print linked-list */
