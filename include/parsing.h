@@ -22,15 +22,14 @@
 enum e_metac
 {
 	ARG = 0,
-	PIPE = 1,
-	REDIN = 2,
-	REDOUT = 3,
-	D_QUOTES = 4,
-	S_QUOTES = 5,
-	P_BRACKETS = 6,
-	C_BRACKETS = 7,
-	APPRED = 8,
-	HEREDOC = 9,
+	D_QUOTES = 1,
+	S_QUOTES = 2,
+	EXPAND = 3,
+	PIPE = 4,
+	REDIN = 5,
+	REDOUT = 6,
+	APPRED = 7,
+	HEREDOC = 8,
 };
 
 enum e_gate
@@ -70,7 +69,7 @@ typedef struct s_minishell
 	int				c_brackets;
 	int				p_brackets;
 	int				flag;
-	int				fl_ws;
+	int				flag_whitespace;
 }	t_minishell;
 //TODO mieux gérer flag de brackets
 
@@ -84,11 +83,15 @@ t_token		*ft_create_node(char *str, t_minishell *parse);
 void		ft_d_quotes_token(int *i, t_minishell *parse);
 void		ft_envvar_token(int *i, t_minishell *parse);
 char		*ft_envvar_brackets_token(int *i, t_minishell *parse, char *str);
-char		*ft_envvar_quotes_token(int *i, t_minishell *parse, char *str);
+//char		*ft_envvar_quotes_token(int *i, t_minishell *parse, char *str);
+char		*ft_envvar_quotes_token(char *str, t_minishell *parse);
+void		ft_expansion_quotes(t_token *list, t_minishell *parse);
+t_token		*ft_find_head(t_token **last);
 void		ft_free_lst(t_token **lst);
 void		ft_heredoc_token(int *i, t_minishell *parse);
 t_minishell	*ft_init_parse(char **envp);
-int			ft_ismetachar(char c);
+bool		ft_isenvvarchar(char c);
+bool		ft_ismetachar(char c);
 void		ft_lexer(t_minishell *parse);
 void		ft_metachar(char c, int *i, t_minishell *parse);
 void		ft_parse(t_minishell *parse);

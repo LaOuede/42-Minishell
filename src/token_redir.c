@@ -12,6 +12,7 @@ void	ft_redin_token(int *i, t_minishell *parse)
 	ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
 	(*i)++;
 	parse->type = ARG;
+	parse->flag_whitespace = 0;
 }
 
 void	ft_redout_token(int *i, t_minishell *parse)
@@ -26,6 +27,7 @@ void	ft_redout_token(int *i, t_minishell *parse)
 	ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
 	(*i)++;
 	parse->type = ARG;
+	parse->flag_whitespace = 0;
 }
 
 void	ft_appenred_token(int *i, t_minishell *parse)
@@ -43,6 +45,7 @@ void	ft_appenred_token(int *i, t_minishell *parse)
 	ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
 	(*i)++;
 	parse->type = ARG;
+	parse->flag_whitespace = 0;
 }
 
 void	ft_heredoc_token(int *i, t_minishell *parse)
@@ -60,4 +63,5 @@ void	ft_heredoc_token(int *i, t_minishell *parse)
 	ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
 	(*i)++;
 	parse->type = ARG;
+	parse->flag_whitespace = 0;
 }

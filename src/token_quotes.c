@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-void	ft_d_quotes_token(int *i, t_minishell *parse)
+/* void	ft_d_quotes_token(int *i, t_minishell *parse)
 {
 	int		j;
 	char	*tmp;
@@ -51,37 +51,60 @@ void	ft_d_quotes_token(int *i, t_minishell *parse)
 	ft_freenull(tmp);
 	parse->d_quotes = 0;
 	parse->type = ARG;
+	parse->flag_whitespace = 0;
+} */
+
+void	ft_d_quotes_token(int *i, t_minishell *parse)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	parse->type = D_QUOTES;
+	parse->d_quotes = OPEN;
+	printf(KYEL "-------------------- FT_D_QUOTES_TOKEN --------------------\n" RESET);
+	while (parse->input[++(*i)] != '\"')
+	{
+		tmp = ft_stock_char(tmp, parse->input[*i]);
+		if (parse->input[(*i)] == '$')
+			parse->type = EXPAND;
+	}
+	if (parse->input[(*i)] == '\"')
+	{
+		parse->d_quotes = CLOSE;
+		(*i)++;
+	}
+	printf("str = %s\n", tmp);
+/* 	tmp = ft_expansion_quotes(tmp, parse);
+	printf("new str = %s\n", tmp); */
+	tmp = ft_envvar_quotes_token(tmp, parse);
+	printf("str = %s\n", tmp);
+	if (tmp)
+		ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
+	ft_freenull(tmp);
+	parse->d_quotes = 0;
+	parse->type = ARG;
+	parse->flag_whitespace = 0;
 }
 
 void	ft_s_quotes_token(int *i, t_minishell *parse)
 {
-	int		j;
 	char	*tmp;
 
-	j = *i;
 	tmp = NULL;
 	parse->type = S_QUOTES;
 	parse->s_quotes = OPEN;
-	printf(KYEL "---------- FT_S_QUOTES_TOKEN ----------\n" RESET);
-	while (parse->input[++j])
+	printf(KYEL "-------------------- FT_S_QUOTES_TOKEN --------------------\n" RESET);
+	while (parse->input[++(*i)] != '\'')
+		tmp = ft_stock_char(tmp, parse->input[*i]);
+	if (parse->input[(*i)] == '\'')
 	{
-		printf("char = %c\n", parse->input[(*i)]);
-		if (parse->input[(j)] == 39)
-		{
-			parse->s_quotes = CLOSE;
-			break ;
-		}
-	}
-	while ((*i) < j)
-	{
-		if (parse->input[(*i)] != 39)
-			tmp = ft_stock_char(tmp, parse->input[*i]);
+		parse->s_quotes = CLOSE;
 		(*i)++;
 	}
 	if (tmp)
 		ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
 	ft_freenull(tmp);
-	++(*i);
 	parse->s_quotes = 0;
 	parse->type = ARG;
+	parse->flag_whitespace = 0;
 }

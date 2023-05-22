@@ -9,7 +9,7 @@ void	ft_free_lst(t_token **lst)
 	while (*lst)
 	{
 		ptr = (*lst)->next;
-		free(*lst);
+		ft_freenull(*lst);
 		*lst = ptr;
 	}
 	*lst = NULL;
