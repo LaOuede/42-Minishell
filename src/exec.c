@@ -18,8 +18,8 @@ void	ft_make_pids(t_exec *exec)
 			ft_child_process(exec, i);
 		// printf("--- Exit ft_chils_proc	---\n");
 	}
-	// close(exec->input);
-	// close(exec->output);
+	close(exec->input);
+	close(exec->output);
 	ft_close_pipes(exec);
 }
 

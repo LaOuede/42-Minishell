@@ -49,7 +49,7 @@ int	main(int ac, char **av, char **envp)
 		exec->readline = ft_split(exec->line, ' ');
 
 		//TODO Write this command below
-		// ft_is_operator(exec);
+		ft_is_operator(exec);
 		
 		ft_cmd_nb(exec);
 		ft_print_debug(exec);
@@ -61,7 +61,7 @@ int	main(int ac, char **av, char **envp)
 		// 	int j = -1;
 		// 	while(exec->outfile[++j])
 		// 		printf("exec->outfile[%d] : %s\n", j, exec->outfile[j]);
-		// 	exec->output = open("output", O_RDWR | O_CREAT | O_TRUNC, 0644);
+		
 		// }
 	
 		//The execution of all cmds starts here

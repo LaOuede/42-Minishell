@@ -15,14 +15,18 @@ typedef struct s_exec
 	char	**envp;
 	char	**path_var;
 	int		input;
+	char 	*input_file_name;
 	int		output;
+	char 	*output_file_name;
 	char	**outfile;
 	int		index;
 	int		pipes_nb;
+	int		pipes_op;
 	int		cmd_nb;
 	int		**pipes;
 	pid_t	*pids;
 	int		fl_redirout_i;
+	int		fl_pipe_op;
 	int		fl_redirin;
 	int		fl_redirout;
 }			t_exec;
@@ -38,6 +42,7 @@ void	ft_err(char *msg, t_exec *exec);
 void	ft_free_exec(t_exec *exec);
 void	ft_exec(t_exec *exec);
 void	ft_copy_env(t_exec *exec, char **envp);
+void	ft_is_operator(t_exec *exec);
 
 /*	--	Temp fct, to delete once the parsing is ready	--	*/
 void	ft_cmd_nb(t_exec *exec);
