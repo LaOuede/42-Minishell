@@ -12,7 +12,7 @@ t_token	*ft_create_node(char *str, t_minishell *parse)
 	new_node->d_quotes = parse->d_quotes;
 	new_node->p_brackets = parse->p_brackets;
 	new_node->c_brackets = parse->c_brackets;
-	new_node->ws = parse->fl_ws;
+	new_node->ws = parse->flag_whitespace;
 	new_node->prev = NULL;
 	new_node->next = NULL;
 	return (new_node);
@@ -35,4 +35,14 @@ void	ft_add_token_bottom(t_token **lst, t_token *new_node)
 		last = last->next;
 	last->next = new_node;
 	new_node->prev = last;
+}
+
+t_token	*ft_find_head(t_token **last)
+{
+	t_token	*node;
+
+	node = *last;
+	while (node->prev)
+		node = node->prev;
+	return (node);
 }
