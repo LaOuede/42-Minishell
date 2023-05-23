@@ -37,6 +37,28 @@ void	ft_add_token_bottom(t_token **lst, t_token *new_node)
 	new_node->prev = last;
 }
 
+void	ft_add_token(t_token **lst, t_token *new_node)
+{
+	t_token	*tmp1;
+	t_token	*tmp2;
+
+	if (!new_node)
+		return ;
+	if (*lst == NULL)
+	{
+		*lst = new_node;
+		new_node->prev = NULL;
+		return ;
+	}
+	tmp1 = *lst;
+	tmp2 = tmp1->next;
+	new_node->next = tmp1->next;
+	new_node->prev = tmp1;
+	tmp1->next = new_node;
+	tmp2->prev = new_node;
+}
+
+
 t_token	*ft_find_head(t_token **last)
 {
 	t_token	*node;

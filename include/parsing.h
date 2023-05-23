@@ -85,7 +85,8 @@ void		ft_envvar_token(int *i, t_minishell *parse);
 char		*ft_envvar_brackets_token(int *i, t_minishell *parse, char *str);
 //char		*ft_envvar_quotes_token(int *i, t_minishell *parse, char *str);
 char		*ft_envvar_quotes_token(char *str, t_minishell *parse);
-void		ft_expansion_quotes(t_token *list, t_minishell *parse);
+//void		ft_envvar_quotes_token(char *str, t_minishell *parse);
+void		ft_expansion_quotes(t_minishell *parse);
 t_token		*ft_find_head(t_token **last);
 void		ft_free_lst(t_token **lst);
 void		ft_heredoc_token(int *i, t_minishell *parse);
@@ -102,6 +103,8 @@ void		ft_s_quotes_token(int *i, t_minishell *parse);
 char		*ft_stock_char(char *str, char c);
 char		*ft_strjoin_char(const char *s1, const char s2);
 
+bool		ft_check_expansion(char *str);
+void		ft_add_token(t_token **lst, t_token *new_node);
 void		ft_tokenization(t_minishell *parse);
 
 #endif

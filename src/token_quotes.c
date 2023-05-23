@@ -73,11 +73,7 @@ void	ft_d_quotes_token(int *i, t_minishell *parse)
 		parse->d_quotes = CLOSE;
 		(*i)++;
 	}
-	printf("str = %s\n", tmp);
-/* 	tmp = ft_expansion_quotes(tmp, parse);
-	printf("new str = %s\n", tmp); */
-	tmp = ft_envvar_quotes_token(tmp, parse);
-	printf("str = %s\n", tmp);
+	printf("tmp = %s\n", tmp);
 	if (tmp)
 		ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
 	ft_freenull(tmp);

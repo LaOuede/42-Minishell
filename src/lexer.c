@@ -26,6 +26,7 @@ void	ft_char(char c, int *i, t_minishell *parse)
 	{
 		ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
 		tmp = NULL;
+		parse->flag_whitespace = 0;
 	}
 	//printf("-> i = %d\n", (*i));
 	//printf("-> char fin = %c\n", parse->input[(*i)]);

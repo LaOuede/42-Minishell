@@ -1,5 +1,20 @@
 #include "../include/minishell.h"
 
+bool	ft_check_expansion(char *str)
+{
+	int	i;
+	printf(KYEL "-------------------- FT_CHECK_EXPANSION --------------------\n" RESET);
+
+	printf("str = %s\n", str);
+	i = -1;
+	while (++str[i])
+	{
+		if (str[i] == '$')
+			return (true);
+	}
+	return (false);
+}
+
 char	*ft_find_envvar(char* str, t_minishell *parse)
 {
 	int		i;
@@ -38,69 +53,83 @@ void	ft_envvar_token(int *i, t_minishell *parse)
 	tmp = NULL;
 	while (ft_isenvvarchar(parse->input[++(*i)]))
 		tmp = ft_stock_char(tmp, parse->input[(*i)]);
-	tmp = ft_stock_char(tmp, '=');
-	tmp = ft_find_envvar(tmp, parse);
-	if (tmp)
+	if (!tmp)
+	{
+		tmp = ft_stock_char(tmp, '$');
 		ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
+	}
+	else
+	{
+		tmp = ft_stock_char(tmp, '=');
+		tmp = ft_find_envvar(tmp, parse);
+		if (tmp)
+			ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
+	}
 	ft_freenull(tmp);
 }
 
-char	*ft_strjoin_free(char *s1, char *s2)
+char	*ft_strjoin_free(char *str1, char *str2)
 {
 	char	*new_str;
 	size_t	i;
 	size_t	j;
-	size_t	s1len;
-	size_t	s2len;
+	size_t	len;
 
-	if (!s1 || !s2)
+	printf(KYEL "-------------------- FT_STRJOIN_FREE --------------------\n" RESET);
+	if (!str1 || !str2)
 		return (NULL);
-	s1len = ft_strlen(s1);
-	s2len = ft_strlen(s2);
-	new_str = (char *)ft_calloc((s1len + s2len + 1), sizeof(char));
+	len = 0;
+	while(*str2++)
+		len++;
+	len += ft_strlen(str1);
+	printf("len = %zu\n", len);
+	printf("str1 = %s\n", str1);
+	printf("str2 = %s\n", str2);
+	new_str = (char *)ft_calloc((len + 1), sizeof(char));
 	i = 0;
 	j = 0;
-	while (s1[i])
-		new_str[j++] = s1[i++];
+	while (str1[i])
+		new_str[j++] = str1[i++];
 	i = 0;
-	while (s2[i])
-		new_str[j++] = s2[i++];
+	while (str2[i])
+		new_str[j++] = str2[i++];
 	new_str[j] = '\0';
-	ft_freenull(s1);
-	ft_freenull(s2);
+	ft_freenull(str1);
 	return (new_str);
 }
 
-char	*ft_envvar_quotes_token(char *str, t_minishell *parse)
+/* char	*ft_envvar_quotes_token(char *str, t_minishell *parse)
 {
 	int		i;
 	char	*tmp;
 	char	*new_str;
 
 	printf(KYEL "-------------------- FT_ENVVAR_QUOTES_TOKEN --------------------\n" RESET);
+	(void)parse;
 	i = -1;
 	tmp = NULL;
-	new_str = ft_calloc(sizeof(char), 1);
-	//new_str = NULL;
+	new_str = (char *)ft_calloc(1, sizeof(char));
 	while (str[++i])
 	{
-		printf("test = %c\n", str[i]);
 		if (str[i] != '$')
 			tmp = ft_stock_char(tmp, str[i]);
 		else if (str[i] == '$')
 		{
-			while (ft_isenvvarchar(str[i]))
+			while (ft_isenvvarchar(str[++i]))
+			{
+				printf("test\n");
 				tmp = ft_stock_char(tmp, str[i]);
+			}
 			tmp = ft_find_envvar(tmp, parse);
+			printf("test tmp = %s\n", tmp);
 		}
-		printf("str = %s\n", tmp);
 		if (tmp)
 			new_str = ft_strjoin_free(new_str, tmp);
 		printf("new_str = %s\n", new_str);
 	}
 	ft_freenull(str);
 	return (new_str);
-}
+} */
 
 /* void	ft_envvar_quotes_token(char *str, t_minishell *parse)
 {
@@ -118,6 +147,7 @@ char	*ft_envvar_quotes_token(char *str, t_minishell *parse)
 	printf("tmp1 = %s\n", tmp1);
 	if (tmp1)
 		ft_add_token_bottom(&parse->line, ft_create_node(tmp1, parse));
+		ft_add_token(&parse->line, ft_create_node(tmp1, parse));
 	if (str[i] == '$')
 		i++;
 	while (ft_isenvvarchar(str[i]))
@@ -128,40 +158,69 @@ char	*ft_envvar_quotes_token(char *str, t_minishell *parse)
 	printf("tmp2 = %s\n", tmp2);
 	if (tmp2)
 		ft_add_token_bottom(&parse->line, ft_create_node(tmp2, parse));
+		ft_add_token(&parse->line, ft_create_node(tmp2, parse));
 	printf("str = %s\n", str);
 	ft_freenull(tmp1);
 	ft_freenull(tmp2);
 } */
 
-/* void	ft_expansion_quotes(t_token *list, t_minishell *parse)
+char	*ft_envvar_quotes_token(char *str, t_minishell *parse)
+{
+	(void)parse;
+	int		i;
+	char	*tmp1;
+	char	*tmp2;
+	char	*new_str;
+	printf(KYEL "-------------------- FT_ENVVAR_QUOTES_TOKEN --------------------\n" RESET);
+
+	i = -1;
+	tmp1 = NULL;
+	tmp2 = NULL;
+	new_str = ft_calloc(1, sizeof(char));
+	while (str[++i])
+	{
+		if (str[i] != '$')
+			tmp1 = ft_stock_char(tmp1, str[i]);
+		else
+		{
+			while (ft_isenvvarchar(str[++i]))
+				tmp2 = ft_stock_char(tmp2, str[i]);
+			tmp2 = ft_find_envvar(tmp2, parse);
+		}
+		if (tmp1 && tmp2)
+			new_str = ft_strjoin_free(tmp1, tmp2);
+	}
+	return (new_str);
+}
+
+void	ft_expansion_quotes(t_minishell *parse)
 {
 	printf(KYEL "-------------------- FT_EXPANSION_QUOTES --------------------\n" RESET);
 	t_token	*ptr;
 
-	ptr = list;
+	ptr = parse->line;
 	while (ptr)
 	{
 		printf("TEST function\n");
 		if (ptr->type == EXPAND)
 		{
 			printf(KRED "str expansion = %s\n" KRED, ptr->str);
-			//ft_envvar_quotes_token(ptr->str, parse);
 			ptr->str = ft_envvar_quotes_token(ptr->str, parse);
-			printf(KMAG "res = %s\n" RESET, ptr->str);
-			ptr->type = ARG;
+			//printf(KMAG "res = %s\n" RESET, ptr->str);
+			//ptr->type = ARG;
 		}
 		ptr = ptr->next;
 	}
-	while (ptr)
+/* 	while (ptr)
 		ptr = ptr->prev;
 	while (ptr)
 	{
 		printf(KMAG "essai = %s\n" RESET, ptr->str);
 		ptr = ptr->next;
 	}
-	list = ft_find_head(&ptr);
-	ft_free_lst(&ptr);
-} */
+	parse->line = ft_find_head(&ptr);
+	ft_free_lst(&ptr); */
+}
 
 /* void	ft_envvar_token(int *i, t_minishell *parse)
 {
