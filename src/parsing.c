@@ -48,7 +48,6 @@ void	ft_parse(t_minishell *parse)
 		return ;
 	printf(KYEL "-------------------- FT_PARSING -------------------- \n" RESET);
 	ft_lexer(parse);
-	ft_expansion_quotes(parse);
 	/* Print linked-list */
 	int	i = 0;
 	tmp = parse->line;

@@ -34,13 +34,17 @@ void	ft_char(char c, int *i, t_minishell *parse)
 
 /* TODO
 1) No need to handle curly_brackets and parenthesis_brackets you fool!! 
-So need to suppress functions
+So need to suppress functions - DONE
 2) Also need to deal better with $ expansion.
 https://www.gnu.org/software/bash/manual/html_node/Shell-Expansions.html 
-watch out for $ and $$...
+watch out for $ and $$... - DONE /// Need to deal with ${}
 3) Check is whitespace flag is working. If not, handle it! ==> I think it's ok
 4) Deal with double quotes and only after that deal with $ inside
-not both at the same time, the function is too huge!*/
+not both at the same time, the function is too huge! - DONE
+
+5) Check everything to make a list of what's missing.
+Lexer almost done. Parser here I come!
+*/
 
 /* Special char = whitespaces, pipe, < >, $ */
 void	ft_metachar(char c, int *i, t_minishell *parse)

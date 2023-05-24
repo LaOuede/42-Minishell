@@ -102,9 +102,11 @@ void		ft_redout_token(int *i, t_minishell *parse);
 void		ft_s_quotes_token(int *i, t_minishell *parse);
 char		*ft_stock_char(char *str, char c);
 char		*ft_strjoin_char(const char *s1, const char s2);
-
+char		*ft_strjoin_free(char *str1, char *str2);
 bool		ft_check_expansion(char *str);
 void		ft_add_token(t_token **lst, t_token *new_node);
 void		ft_tokenization(t_minishell *parse);
+char		*ft_quotes_expansion(char *str, t_minishell *parse);
+char	*ft_find_envvar(char *str, t_minishell *parse);
 
 #endif
