@@ -22,6 +22,7 @@ SRCS_LST	= 	error_handling.c \
 				lexer_memory.c \
 				main.c \
 				parsing.c \
+				token_brackets.c \
 				token_envvar.c \
 				token_envvar_quotes.c \
 				token_pipe.c \

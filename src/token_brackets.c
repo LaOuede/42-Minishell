@@ -1,7 +1,91 @@
 #include "../include/minishell.h"
 
 //TODO test :  echo ${USER} to check because it doesn't work
-void	ft_brackets_token(int *i, t_minishell *parse)
+void	ft_get_expand_brackets_quotes(int *i, char *str, t_minishell *parse)
+{
+	char	*tmp;
+
+	printf(KYEL "-------------------- FT_GET_EXPAND_BRACKETS_QUOTES --------------------\n" RESET);
+	tmp = NULL;
+	(*i)++;
+	while (ft_isenvvarchar(str[++(*i)]))
+	{
+		tmp = ft_stock_char(tmp, str[(*i)]);
+	}
+	if (!tmp)
+	{
+		(*i)++;
+		return ;
+	}
+	else
+	{
+		tmp = ft_stock_char(tmp, '=');
+		tmp = ft_find_envvar(tmp, parse);
+		if (tmp)
+			ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
+	}
+	ft_freenull(tmp);
+	if (str[(*i)] != '}')
+		return ; // put error message here
+	else
+		(*i)++;
+	printf("char get expand = %c\n", str[(*i)]);
+	parse->type = ARG;
+	parse->flag_whitespace = 0;
+}
+
+void	ft_get_expand_brackets(int *i, t_minishell *parse)
+{
+	char	*tmp;
+
+	printf(KYEL "-------------------- FT_GET_EXPAND_BRACKETS --------------------\n" RESET);
+	tmp = NULL;
+	(*i)++;
+	printf("char get expand = %c\n", parse->input[(*i)]);
+	while (ft_isenvvarchar(parse->input[++(*i)]))
+		tmp = ft_stock_char(tmp, parse->input[(*i)]);
+	if (!tmp)
+	{
+		(*i)++;
+		return ;
+	}
+	else
+	{
+		tmp = ft_stock_char(tmp, '=');
+		tmp = ft_find_envvar(tmp, parse);
+		if (tmp)
+			ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
+	}
+	ft_freenull(tmp);
+	if (parse->input[(*i)] != '}')
+		return ; // put error message here
+	else
+		(*i)++;
+	parse->type = ARG;
+	parse->flag_whitespace = 0;
+}
+
+bool	ft_check_expand_brackets(char *str, t_minishell *parse)
+{
+	int	i;
+
+	printf(KYEL "-------------------- FT_CHECK_EXPAND_BRACKETS --------------------\n" RESET);
+	i = 0;
+	parse->c_brackets = OPEN;
+	while (str[++i])
+	{
+		if(str[i] == '}')
+		{
+			parse->c_brackets = CLOSE;
+			break;
+		}
+	}
+	if (parse->c_brackets == CLOSE)
+		return (true);
+	return (false);
+}
+
+/* void	ft_brackets_token(int *i, t_minishell *parse)
 {
 	int		j;
 	int		flag;
@@ -103,9 +187,9 @@ void	ft_brackets_token(int *i, t_minishell *parse)
 		ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
 		parse->c_brackets = 0;
 	}
-}
+} */
 
-char	*ft_envvar_brackets_token(int *i, t_minishell *parse, char *str)
+/* char	*ft_envvar_brackets_token(int *i, t_minishell *parse, char *str)
 {
 	//int		flag;
 	char	*tmp;
@@ -125,10 +209,10 @@ char	*ft_envvar_brackets_token(int *i, t_minishell *parse, char *str)
 		//if (ft_ismetac(parse->input[(*i)]) == 0)
 			tmp = ft_stock_char(tmp, parse->input[(*i)]);
 		//printf("tmp = %s\n", tmp);
-/* 		if (parse->input[(*i)] == '}' && flag)
-			break ; */
-/* 		if (parse->input[(*i)] == '}')
-			break ; */
+		if (parse->input[(*i)] == '}' && flag)
+			break ;
+		if (parse->input[(*i)] == '}')
+			break ;
 		//if (parse->input[(*i) + 1] == 34 || parse->input[(*i)] == '}')
 		if (ft_ismetachar(parse->input[(*i) + 1]) == 1)
 		{
@@ -155,4 +239,4 @@ char	*ft_envvar_brackets_token(int *i, t_minishell *parse, char *str)
 		tmp = ft_stock_char(tmp, parse->envp[j][k]);
 	printf("tmp3 = %s\n", tmp);
 	return (tmp);
-}
+} */

@@ -37,23 +37,31 @@ void	ft_envvar_token(int *i, t_minishell *parse)
 	printf(KYEL "-------------------- FT_ENVVAR --------------------\n" RESET);
 	tmp = NULL;
 	parse->type = EXPAND;
-	while (ft_isenvvarchar(parse->input[++(*i)]))
-		tmp = ft_stock_char(tmp, parse->input[(*i)]);
-	if (!tmp)
+	if (parse->input[(*i)] == '$' && parse->input[(*i) + 1] == '{')
 	{
-		tmp = ft_stock_char(tmp, '$');
-		ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
+		if (ft_check_expand_brackets(parse->input, parse) == true)
+			ft_get_expand_brackets(i, parse);
 	}
 	else
 	{
-		tmp = ft_stock_char(tmp, '=');
-		tmp = ft_find_envvar(tmp, parse);
-		if (tmp)
+		while (ft_isenvvarchar(parse->input[++(*i)]))
+			tmp = ft_stock_char(tmp, parse->input[(*i)]);
+		if (!tmp)
+		{
+			tmp = ft_stock_char(tmp, '$');
 			ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
+		}
+		else
+		{
+			tmp = ft_stock_char(tmp, '=');
+			tmp = ft_find_envvar(tmp, parse);
+			if (tmp)
+				ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
+		}
+		ft_freenull(tmp);
+		parse->type = ARG;
+		parse->flag_whitespace = 0;
 	}
-	ft_freenull(tmp);
-	parse->type = ARG;
-	parse->flag_whitespace = 0;
 }
 
 char	*ft_strjoin_free(char *str1, char *str2)

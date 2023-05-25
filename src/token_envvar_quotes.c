@@ -7,14 +7,23 @@ void	*ft_get_expansion(char *str, int *i, t_minishell *parse)
 	printf("-------------------- FT_GET_EXPANSION --------------------\n");
 	tmp = NULL;
 	printf("i = %d\n", (*i));
-	while (ft_isenvvarchar(str[++(*i)]))
-		tmp = ft_stock_char(tmp, str[(*i)]);
-	if (!tmp && str[(*i)] == '$')
-		tmp = ft_stock_char(tmp, '$');
+	printf("char get expansion = %c\n", str[(*i)]);
+	if (str[(*i)] == '$' && str[(*i) + 1] == '{')
+	{
+		if (ft_check_expand_brackets(str, parse) == true)
+			ft_get_expand_brackets_quotes(i, str, parse);
+	}
 	else
 	{
-		tmp = ft_stock_char(tmp, '=');
-		tmp = ft_find_envvar(tmp, parse);
+		while (ft_isenvvarchar(str[++(*i)]))
+			tmp = ft_stock_char(tmp, str[(*i)]);
+		if (!tmp && str[(*i)] == '$')
+			tmp = ft_stock_char(tmp, '$');
+		else
+		{
+			tmp = ft_stock_char(tmp, '=');
+			tmp = ft_find_envvar(tmp, parse);
+		}
 	}
 	printf("tmp = %s\n", tmp);
 	return (tmp);
