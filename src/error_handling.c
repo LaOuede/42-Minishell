@@ -1,12 +1,12 @@
 #include "../include/minishell.h"
 
-void	ft_clean_up(t_minishell *parse)
+void	ft_clean_up(t_pars *pars)
 {
-	if (parse)
+	if (pars)
 	{
-		if (parse->input)
-			free(parse->input);
-		free(parse);
+		if (pars->input)
+			free(pars->input);
+		free(pars);
 	}
 	exit(EXIT_SUCCESS);
 }

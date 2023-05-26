@@ -1,25 +1,26 @@
 #include "../include/minishell.h"
 
-char	*ft_find_envvar(char *str, t_minishell *parse)
+char	*ft_find_envvar(char *str, t_pars *pars)
 {
+	printf(KYEL "-------------------- FT_FIND_ENVVAR" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 	int		i;
-	int		j;
 	size_t	len;
 	char	*tmp;
 
 	i = 0;
 	len = ft_strlen(str);
-	while (parse->envp[i] && ft_strncmp(parse->envp[i], str, len) != 0)
+	while (pars->envp[i] && ft_strncmp(pars->envp[i], str, len) != 0)
 		i++;
-	if (!parse->envp[i])
+	if (!pars->envp[i])
 	{
 		write(1, "\n", 1);
 		return (NULL);
 	}
 	tmp = NULL;
-	j = len - 1;
-	while (parse->envp[i][j++])
-		tmp = ft_stock_char(tmp, parse->envp[i][j]);
+	len -= 1;
+	while (pars->envp[i][len++])
+		tmp = ft_stock_char(tmp, pars->envp[i][len]);
+	printf(KYEL "-------------------- FT_FIND_ENVVAR" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 	return (tmp);
 }
 
@@ -30,66 +31,43 @@ bool	ft_isenvvarchar(char c)
 	return (false);
 }
 
-void	ft_envvar_token(int *i, t_minishell *parse)
+void	ft_envvar_token(int *i, t_pars *pars)
 {
+	printf(KYEL "-------------------- FT_ENVVAR_TOKEN" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 	char	*tmp;
 
-	printf(KYEL "-------------------- FT_ENVVAR --------------------\n" RESET);
 	tmp = NULL;
-	parse->type = EXPAND;
-	if (parse->input[(*i)] == '$' && parse->input[(*i) + 1] == '{')
+	while (ft_isenvvarchar(pars->input[++(*i)]))
+		tmp = ft_stock_char(tmp, pars->input[(*i)]);
+	if (!tmp)
 	{
-		if (ft_check_expand_brackets(parse->input, parse) == true)
-			ft_get_expand_brackets(i, parse);
+		tmp = ft_stock_char(tmp, '$');
+		ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
 	}
 	else
 	{
-		while (ft_isenvvarchar(parse->input[++(*i)]))
-			tmp = ft_stock_char(tmp, parse->input[(*i)]);
-		if (!tmp)
-		{
-			tmp = ft_stock_char(tmp, '$');
-			ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
-		}
-		else
-		{
-			tmp = ft_stock_char(tmp, '=');
-			tmp = ft_find_envvar(tmp, parse);
-			if (tmp)
-				ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
-		}
-		ft_freenull(tmp);
-		parse->type = ARG;
-		parse->flag_whitespace = 0;
+		tmp = ft_stock_char(tmp, '=');
+		tmp = ft_find_envvar(tmp, pars);
+		if (tmp)
+			ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
 	}
+	ft_freenull(tmp);
+	printf(KYEL "-------------------- FT_ENVVAR_TOKEN" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }
 
-char	*ft_strjoin_free(char *str1, char *str2)
+void	ft_envvar(int *i, t_pars *pars)
 {
-	char	*new_str;
-	size_t	i;
-	size_t	j;
-	size_t	len;
-
-	printf("-------------------- FT_STRJOIN_FREE --------------------\n");
-	if (!str1 || !str2)
-		return (NULL);
-	len = 0;
-	len = ft_strlen(str1) + ft_strlen(str2);
-	printf("len1 = %zu\n", ft_strlen(str1));
-	printf("len2 = %zu\n", ft_strlen(str2));
-	printf("len = %zu\n", len);
-	printf("str1 = %s\n", str1);
-	printf("str2 = %s\n", str2);
-	new_str = (char *)ft_calloc((len + 1), sizeof(char));
-	i = 0;
-	j = 0;
-	while (str1[i])
-		new_str[j++] = str1[i++];
-	i = 0;
-	while (str2[i])
-		new_str[j++] = str2[i++];
-	new_str[j] = '\0';
-	ft_freenull(str1);
-	return (new_str);
+	printf(KYEL "-------------------- FT_ENVVAR" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
+	pars->type = EXPAND;
+	if (pars->input[(*i)] == '$' && pars->input[(*i) + 1] == '{')
+	{
+		if (ft_check_expand_brackets(pars->input, pars) == true)
+			ft_get_expand_brackets(i, pars);
+		else
+			(*i)++;
+	}
+	else
+		ft_envvar_token(i, pars);
+	ft_reset_node(pars);
+	printf(KYEL "-------------------- FT_ENVVAR" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }

@@ -1,67 +1,61 @@
 #include "../include/minishell.h"
 
-void	ft_redin_token(int *i, t_minishell *parse)
+void	ft_redin_token(int *i, t_pars *pars)
 {
 	char	*tmp;
 
 	printf(KYEL "-------------------- FT_REDIN_TOKEN --------------------\n" RESET);
 	tmp = NULL;
-	tmp = ft_stock_char(tmp, parse->input[(*i)]);
-	parse->type = REDIN;
-	parse->fl_redin = 1;
-	ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
+	tmp = ft_stock_char(tmp, pars->input[(*i)]);
+	pars->type = REDIN;
+	ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
 	(*i)++;
-	parse->type = ARG;
-	parse->flag_whitespace = 0;
+	ft_reset_node(pars);
 }
 
-void	ft_redout_token(int *i, t_minishell *parse)
+void	ft_redout_token(int *i, t_pars *pars)
 {
 	char	*tmp;
 
 	printf(KYEL "-------------------- FT_REDOUT_TOKEN --------------------\n" RESET);
 	tmp = NULL;
-	tmp = ft_stock_char(tmp, parse->input[(*i)]);
-	parse->type = REDOUT;
-	parse->fl_redout = 1;
-	ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
+	tmp = ft_stock_char(tmp, pars->input[(*i)]);
+	pars->type = REDOUT;
+	ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
 	(*i)++;
-	parse->type = ARG;
-	parse->flag_whitespace = 0;
+	ft_reset_node(pars);
 }
 
-void	ft_appenred_token(int *i, t_minishell *parse)
+void	ft_appenred_token(int *i, t_pars *pars)
 {
 	char	*tmp;
 
 	tmp = NULL;
 	printf(KYEL "-------------------- FT_APPENRED_TOKEN --------------------\n" RESET);
-	while (parse->input[(*i)] == '<')
+	while (pars->input[(*i)] == '<')
 	{
-		tmp = ft_stock_char(tmp, parse->input[(*i)]);
+		tmp = ft_stock_char(tmp, pars->input[(*i)]);
 		(*i)++;
 	}
-	parse->type = APPRED;
-	ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
+	pars->type = APPRED;
+	ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
 	(*i)++;
-	parse->type = ARG;
-	parse->flag_whitespace = 0;
+	ft_reset_node(pars);
 }
 
-void	ft_heredoc_token(int *i, t_minishell *parse)
+void	ft_heredoc_token(int *i, t_pars *pars)
 {
 	char	*tmp;
 
 	tmp = NULL;
 	printf(KYEL "-------------------- FT_HEREDOC_TOKEN --------------------\n" RESET);
-	while (parse->input[(*i)] == '>')
+	while (pars->input[(*i)] == '>')
 	{
-		tmp = ft_stock_char(tmp, parse->input[(*i)]);
+		tmp = ft_stock_char(tmp, pars->input[(*i)]);
 		(*i)++;
 	}
-	parse->type = HEREDOC;
-	ft_add_token_bottom(&parse->line, ft_create_node(tmp, parse));
+	pars->type = HEREDOC;
+	ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
 	(*i)++;
-	parse->type = ARG;
-	parse->flag_whitespace = 0;
+	ft_reset_node(pars);
 }

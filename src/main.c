@@ -26,17 +26,17 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	(void)ac;
 	// t_ms		*ms;
-	t_minishell	*parse;
-	t_exec 		*exec;
+	t_pars	*pars;
+	t_exec 	*exec;
 
 	// printf("\n😈😈😈 Welcome to minishell ... or should I say " RED"🔥 MINIHELLLL 🔥 😈😈😈\n\n"WHT);
-	parse = ft_init_parse(envp);
+	pars = ft_init_pars(envp);
 	//ms = ft_init_ms(ac, av, envp);
 	while (GWEN)
 	{
-		parse->input = readline("Minishell > ");
-		add_history(parse->input);
-		ft_parse(parse);
+		pars->input = readline("Minishell > ");
+		add_history(pars->input);
+		ft_parsing(pars);
 	}
 	//printf("%p\n", exec);
 	//exec = ft_init_exec(ac, av, envp);

@@ -1,17 +1,17 @@
 #include "../include/minishell.h"
 
-void	*ft_get_expansion(char *str, int *i, t_minishell *parse)
+void	*ft_get_expansion(char *str, int *i, t_pars *pars)
 {
+	printf(KYEL "-------------------- FT_GET_EXPANSION" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 	char	*tmp;
 
-	printf("-------------------- FT_GET_EXPANSION --------------------\n");
 	tmp = NULL;
 	printf("i = %d\n", (*i));
 	printf("char get expansion = %c\n", str[(*i)]);
 	if (str[(*i)] == '$' && str[(*i) + 1] == '{')
 	{
-		if (ft_check_expand_brackets(str, parse) == true)
-			ft_get_expand_brackets_quotes(i, str, parse);
+		if (ft_check_expand_brackets(str, pars) == true)
+			ft_get_expand_brackets_quotes(i, str, pars);
 	}
 	else
 	{
@@ -22,25 +22,25 @@ void	*ft_get_expansion(char *str, int *i, t_minishell *parse)
 		else
 		{
 			tmp = ft_stock_char(tmp, '=');
-			tmp = ft_find_envvar(tmp, parse);
+			tmp = ft_find_envvar(tmp, pars);
 		}
 	}
 	printf("tmp = %s\n", tmp);
+	printf(KYEL "-------------------- FT_GET_EXPANSION" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 	return (tmp);
 }
 
 char	*ft_get_before(char *str, int *i)
 {
+	printf(KYEL "-------------------- FT_GET_BEFORE" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 	int		j;
 	int		len;
 	char	*save;
 
-	printf("-------------------- FT_GET_BEFORE --------------------\n");
 	len = 0;
-	printf("i = %d\n", (*i));
 	while (str[(*i)] || str[(*i)] != '$')
 	{
-		printf("c = %c\n", str[(*i)]);
+		printf("-> char = %c\n", str[(*i)]);
 		if (str[(*i)] == '$' || str[(*i)] == '\0')
 			break ;
 		(*i)++;
@@ -55,53 +55,35 @@ char	*ft_get_before(char *str, int *i)
 		save[len] = str[(j)];
 		j--;
 	}
-	printf("save = %s\n", save);
+	printf("-> save = %s\n", save);
+	printf(KYEL "-------------------- FT_GET_BEFORE" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 	return (save);
 }
 
-bool	ft_strchr_expansion(char *str)
+char	*ft_quotes_expansion(char *str, t_pars *pars)
 {
-	int	i;
-	printf("-------------------- FT_CHECK_EXPANSION --------------------\n");
-
-	printf("str = %s\n", str);
-	i = 0;
-	if (!str)
-		return (false);
-	while (str[i])
-	{
-		if (str[i] == '$')
-			return (true);
-		i++;
-	}
-	return (false);
-}
-
-char	*ft_quotes_expansion(char *str, t_minishell *parse)
-{
+	printf(KYEL "-------------------- FT_QUOTES_EXPANSION" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 	int		i;
-	char	*before;
-	char	*expansion;
+	char	*save;
 	char	*res;
 
-	printf(KYEL "-------------------- FT_QUOTES_EXPANSION --------------------\n" RESET);
 	i = 0;
-	before = NULL;
-	expansion = NULL;
+	save = NULL;
 	res = ft_calloc(1, sizeof(char));
 	while (str[i])
 	{
-		before = ft_get_before(str, &i);
-		if (before)
-			res = ft_strjoin_free(res, before);
-		before = NULL;
-		expansion = ft_get_expansion(str, &i, parse);
-		if (expansion)
-			res = ft_strjoin_free(res, expansion);
-		expansion = NULL;
+		save = ft_get_before(str, &i);
+		if (save)
+			res = ft_strjoin_free(res, save);
+		printf("-> before = %s\n", save);
+		save = NULL;
+		save = ft_get_expansion(str, &i, pars);
+		if (save)
+			res = ft_strjoin_free(res, save);
+		printf("-> expansion = %s\n", save);
+		save = NULL;
 	}
-	printf("before = %s\n", before);
-	printf("expansion = %s\n", expansion);
-	printf("res = %s\n", res);
+	printf("-> res = %s\n", res);
+	printf(KYEL "-------------------- FT_QUOTES_EXPANSION" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 	return (res);
 }

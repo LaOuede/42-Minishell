@@ -1,18 +1,18 @@
 #include "../include/minishell.h"
 
-t_token	*ft_create_node(char *str, t_minishell *parse)
+t_token	*ft_create_node(char *str, t_pars *pars)
 {
 	t_token	*new_node;
 
 	new_node = ft_calloc(1, sizeof(t_token));
-	new_node->type = parse->type;
+	new_node->type = pars->type;
 	new_node->str = ft_strdup(str);
-	new_node->nb_cmd = parse->nb_pipe;
-	new_node->s_quotes = parse->s_quotes;
-	new_node->d_quotes = parse->d_quotes;
-	new_node->p_brackets = parse->p_brackets;
-	new_node->c_brackets = parse->c_brackets;
-	new_node->ws = parse->flag_whitespace;
+	new_node->nb_cmd = pars->nb_pipe;
+	new_node->s_quotes = pars->s_quotes;
+	new_node->d_quotes = pars->d_quotes;
+	new_node->p_brackets = pars->p_brackets;
+	new_node->c_brackets = pars->c_brackets;
+	new_node->ws = pars->flag_whitespace;
 	new_node->prev = NULL;
 	new_node->next = NULL;
 	return (new_node);

@@ -19,7 +19,7 @@
 # define KWHT "\x1B[37m"
 
 //TODO add bracket type in function
-enum e_metac
+enum e_token_type
 {
 	ARG = 0,
 	D_QUOTES = 1,
@@ -54,61 +54,60 @@ typedef struct s_token
 }	t_token;
 
 // Parsing main structure prototype... incomplete
-typedef struct s_minishell
+typedef struct s_pars
 {
 	struct s_token	*line;
 	char			*input;
 	char			**envp;
 	size_t			strlen;
-	bool			fl_redin;
-	bool			fl_redout;
 	int				nb_pipe;
 	int				type;
 	int				s_quotes;
 	int				d_quotes;
 	int				c_brackets;
 	int				p_brackets;
-	int				flag;
 	int				flag_whitespace;
-}	t_minishell;
+}	t_pars;
 //TODO mieux gérer flag de brackets
 
 /* 		Lexer part functions 						*/
 void		ft_add_token_bottom(t_token **lst, t_token *element);
-void		ft_appenred_token(int *i, t_minishell *parse);
-void		ft_brackets_token(int *i, t_minishell *parse);
-void		ft_char(char c, int *i, t_minishell *parse);
-void		ft_clean_up(t_minishell *parse);
-t_token		*ft_create_node(char *str, t_minishell *parse);
-void		ft_d_quotes_token(int *i, t_minishell *parse);
-void		ft_envvar_token(int *i, t_minishell *parse);
-char		*ft_envvar_brackets_token(int *i, t_minishell *parse, char *str);
-//char		*ft_envvar_quotes_token(int *i, t_minishell *parse, char *str);
-char		*ft_envvar_quotes_token(char *str, t_minishell *parse);
-//void		ft_envvar_quotes_token(char *str, t_minishell *parse);
-void		ft_expansion_quotes(t_minishell *parse);
+void		ft_appenred_token(int *i, t_pars *pars);
+void		ft_brackets_token(int *i, t_pars *pars);
+void		ft_char(char c, int *i, t_pars *pars);
+void		ft_clean_up(t_pars *pars);
+t_token		*ft_create_node(char *str, t_pars *pars);
+void		ft_d_quotes_token(int *i, t_pars *pars);
+void		ft_envvar(int *i, t_pars *pars);
+void		ft_envvar_token(int *i, t_pars *pars);
+char		*ft_envvar_brackets_token(int *i, t_pars *pars, char *str);
+//char		*ft_envvar_quotes_token(int *i, t_pars *pars, char *str);
+char		*ft_envvar_quotes_token(char *str, t_pars *pars);
+//void		ft_envvar_quotes_token(char *str, t_pars *pars);
+void		ft_expansion_quotes(t_pars *pars);
 t_token		*ft_find_head(t_token **last);
 void		ft_free_lst(t_token **lst);
-void		ft_heredoc_token(int *i, t_minishell *parse);
-t_minishell	*ft_init_parse(char **envp);
+void		ft_heredoc_token(int *i, t_pars *pars);
+t_pars		*ft_init_pars(char **envp);
 bool		ft_isenvvarchar(char c);
 bool		ft_ismetachar(char c);
-void		ft_lexer(t_minishell *parse);
-void		ft_metachar(char c, int *i, t_minishell *parse);
-void		ft_parse(t_minishell *parse);
-void		ft_pipe_token(int *i, t_minishell *parse);
-void		ft_redin_token(int *i, t_minishell *parse);
-void		ft_redout_token(int *i, t_minishell *parse);
-void		ft_s_quotes_token(int *i, t_minishell *parse);
+void		ft_lexer(t_pars *pars);
+void		ft_metachar(char c, int *i, t_pars *pars);
+void		ft_parsing(t_pars *pars);
+void		ft_pipe_token(int *i, t_pars *pars);
+void		ft_redin_token(int *i, t_pars *pars);
+void		ft_redout_token(int *i, t_pars *pars);
+void		ft_reset_node(t_pars *pars);
+void		ft_s_quotes_token(int *i, t_pars *pars);
 char		*ft_stock_char(char *str, char c);
 char		*ft_strjoin_char(const char *s1, const char s2);
 char		*ft_strjoin_free(char *str1, char *str2);
 void		ft_add_token(t_token **lst, t_token *new_node);
-char		*ft_quotes_expansion(char *str, t_minishell *parse);
-char		*ft_find_envvar(char *str, t_minishell *parse);
-void		ft_get_expand_brackets(int *i, t_minishell *parse);
-bool		ft_check_expand_brackets(char *str, t_minishell *parse);
-void		ft_get_expand_brackets_quotes(int *i, char *str, t_minishell *parse);
+char		*ft_quotes_expansion(char *str, t_pars *pars);
+char		*ft_find_envvar(char *str, t_pars *pars);
+void		ft_get_expand_brackets(int *i, t_pars *pars);
+bool		ft_check_expand_brackets(char *str, t_pars *pars);
+void		ft_get_expand_brackets_quotes(int *i, char *str, t_pars *pars);
 
 
 
