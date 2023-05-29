@@ -42,22 +42,25 @@ char	*ft_stock_char(char *str, char c)
 
 char	*ft_strjoin_char(const char *s1, const char s2)
 {
-	size_t	i;
+	printf(KYEL "-------------------- FT_STRJOIN_CHAR" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 	char	*s3;
 	size_t	len;
 
-	len = (ft_strlen(s1) + 1);
-	s3 = ft_calloc((len + 1), sizeof(char));
+	len = (ft_strlen(s1));
+	s3 = ft_calloc((len + 2), sizeof(char));
 	if (!s3)
 		return (0);
 	len = 0;
 	while (s1[len])
 	{
+		printf("char = %c\n", s1[len]);
 		s3[len] = s1[len];
 		len++;
 	}
-	i = 0;
-	s3[len + i] = s2;
+	printf("len = %zu\n", len);
+	s3[len] = s2;
+	printf("s3 = %s\n", s3);
 	free((char *)s1);
+	printf(KYEL "-------------------- FT_STRJOIN_CHAR" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 	return (s3);
 }
