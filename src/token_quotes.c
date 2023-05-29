@@ -65,7 +65,8 @@ void	ft_d_quotes_token(int *i, t_pars *pars)
 	printf("d_quotes = %d\n", pars->d_quotes);
 	if (tmp)
 		ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
+	if (tmp)
+		ft_reset_node(pars);
 	ft_freenull(tmp);
-	ft_reset_node(pars);
 	printf(KYEL "-------------------- FT_D_QUOTES_TOKEN" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }

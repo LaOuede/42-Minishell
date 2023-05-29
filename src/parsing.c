@@ -1,6 +1,23 @@
 #include "../include/minishell.h"
 
-/* Print linked-list */
+void	ft_extract_cmd_debugger(t_pars *pars)
+{
+	t_token	*tmp;
+	int		i = 0;
+
+	tmp = pars->line;
+	while (tmp)
+	{
+		printf(KMAG "**************************************************************\n");
+		printf("*" KMAG KBLD "                          NODE[%d]                           " RESET KMAG "*\n", i++);
+		printf("*" KMAG KBLD " -> Type[%d]                                                 " RESET KMAG "*\n", tmp->type);
+		printf(KMAG KBLD " -> Str = " RESET KBLD "%s" RESET KMAG "\n", tmp->str);
+		printf(KMAG "**************************************************************\n" RESET);
+		tmp = tmp->next;
+	}
+	ft_free_lst(&tmp);
+}
+
 void	ft_rebuilder_debugger(t_pars *pars)
 {
 	t_token	*tmp;
@@ -11,6 +28,7 @@ void	ft_rebuilder_debugger(t_pars *pars)
 	{
 		printf(KGRN "**************************************************************\n");
 		printf("*" KGRN KBLD "                          NODE[%d]                           " RESET KGRN "*\n", i++);
+		printf("*" KGRN KBLD " -> Type[%d]                                                 " RESET KGRN "*\n", tmp->type);
 		printf(KGRN KBLD " -> Str = " RESET KBLD "%s" RESET KGRN "\n", tmp->str);
 		printf(KGRN "**************************************************************\n" RESET);
 		tmp = tmp->next;
@@ -91,9 +109,12 @@ void	ft_parsing(t_pars *pars)
 	ft_lexer_debugger(pars);
 	ft_rebuilder(pars);
 	ft_rebuilder_debugger(pars);
+	ft_extract_cmd(&pars->line, pars);
+	ft_extract_cmd_debugger(pars);
 	/* Free linked-list between prompt & clean up */
 	ft_reset_pars(pars);
 	ft_free_lst(&pars->line);
+	// TODO G
 	// TODO Fonction pour entrer la linked-list dans un tableau 2D
 	// TODO rajouter une fonction qui check les erreurs avant l'envoi à l'exec
 	// ex : if parse->s_quotes == OPEN alors retour d'erreur

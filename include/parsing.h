@@ -72,6 +72,7 @@ typedef struct s_pars
 
 /* 		Lexer part functions 						*/
 void		ft_add_token_bottom(t_token **lst, t_token *element);
+void		ft_add_token_top(t_token **lst, t_token *new_node);
 void		ft_appenred_token(int *i, t_pars *pars);
 void		ft_brackets_token(int *i, t_pars *pars);
 void		ft_char(char c, int *i, t_pars *pars);
@@ -85,6 +86,7 @@ char		*ft_envvar_brackets_token(int *i, t_pars *pars, char *str);
 char		*ft_envvar_quotes_token(char *str, t_pars *pars);
 //void		ft_envvar_quotes_token(char *str, t_pars *pars);
 void		ft_expansion_quotes(t_pars *pars);
+void		ft_extract_cmd(t_token **list, t_pars *pars);
 t_token		*ft_find_head(t_token **last);
 void		ft_free_lst(t_token **lst);
 void		ft_free_token(t_token *token);

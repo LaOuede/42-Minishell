@@ -16,6 +16,7 @@ SRCS_LST	= 	error_handling.c \
 				exec_utils.c \
 				exec_pipes.c \
 				exec.c \
+				extract_cmd.c \
 				freeing.c \
 				lexer.c \
 				lexer_linked_list.c \
