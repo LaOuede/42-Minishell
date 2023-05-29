@@ -2,7 +2,6 @@
 
 # define PRINT_DEBUG 1
 
-
 void	ft_print_debug(t_exec *exec)
 {
 	if (PRINT_DEBUG)
@@ -10,9 +9,10 @@ void	ft_print_debug(t_exec *exec)
 		int j = -1;
 
 		//Printing What's inside 'exec->readline' variable
+		printf(BLD);
 		printf("\n---------------------------------------------------\n");
-		printf("---		Print_debug "GRN"starts"RESET"		---\n");
-		printf("---------------------------------------------------\n\n");
+		printf("---		Print_debug "GRN"starts"RESET BLD"		---\n");
+		printf("---------------------------------------------------"RESET"\n\n");
 
 		printf("---------------------------------------------------\n");
 		printf("---	Printing exec->readline[i]		---\n");
@@ -33,35 +33,36 @@ void	ft_print_debug(t_exec *exec)
 		printf("---------------------------------------------------\n\n");
 
 		printf("---------------------------------------------------\n");
-		printf("---	Printing exec->pipe_op and flag		---\n");
+		printf("---	Printing exec->pipe_op & flag		---\n");
 		printf("|\n");
 		printf("|	pipe_op = %d\n", exec->pipes_op);
 		printf("|	fl_pipe_op = %d\n", exec->fl_pipe_op);
 		printf("|\n");
-		printf("---	Printing exec->pipe_op and flag ends	---\n");
+		printf("---	Printing exec->pipe_op & flag ends	---\n");
 		printf("---------------------------------------------------\n\n");
 
 		printf("---------------------------------------------------\n");
-		printf("---	Printing input_file_name and flag	---\n");
+		printf("---	Printing input_file_name & flag		---\n");
 		printf("|\n");
 		printf("|	input_file_name = %s\n", exec->input_file_name);
 		printf("|	fl_redirin = %d\n", exec->fl_redirin);
 		printf("|\n");
-		printf("---	Printing input_file_name and flag ends	---\n");
+		printf("---	Printing input_file_name & flag ends	---\n");
 		printf("---------------------------------------------------\n\n");
 
 		printf("---------------------------------------------------\n");
-		printf("---	Printing output_file_name and flag	---\n");
+		printf("---	Printing output_file_name & flag	---\n");
 		printf("|\n");
 		printf("|	output_file_name = %s\n", exec->output_file_name);
 		printf("|	fl_redirout = %d\n", exec->fl_redirout);
 		printf("|\n");
-		printf("---	Printing output_file_name and flag ends	---\n");
+		printf("---	Printing output_file_name & flag ends	---\n");
 		printf("---------------------------------------------------\n\n");
 
+		printf(BLD);
 		printf("---------------------------------------------------\n");
-		printf("---		Print_debug "RED"ends"RESET"		---\n");
-		printf("---------------------------------------------------\n\n");
+		printf("---		Print_debug "RED"ends"RESET BLD"		---\n");
+		printf("---------------------------------------------------"RESET"\n\n");
 	}
 }
 
@@ -70,14 +71,16 @@ void	ft_is_operator(t_exec *exec)
 	// TODO Write a fct that raise flags depending if there is an operatior (|, <, >, <<, >>) or not.
 	int		i;
 	char	**tmp;
-
-	tmp = exec->readline;
-	i = -1;
+	
+	// tmp = exec->readline;
+	tmp = ft_split(exec->line, ' ');
 	exec->pipes_op = 0;
 	exec->fl_pipe_op = 0;
 	exec->fl_redirin = 0;
+	exec->fl_redirout = 0;
 	exec->input_file_name = NULL;
 	exec->output_file_name = NULL;
+	i = -1;
 	while(tmp[++i])
 	{
 		// if 'pipe' then count pipes operator and raise flag
@@ -87,11 +90,14 @@ void	ft_is_operator(t_exec *exec)
 			exec->fl_pipe_op = 1;
 		}
 		// if '<' then redirin
+		// we only need to dup2 the last redirin shown on the cmd line, however we need to open each one to test if the file exist, if it doesn't the execution STOPS there.
 		if (*tmp[i] == '<')
 		{
 			exec->input_file_name = tmp[i + 1];
 			exec->fl_redirin = 1;
 			exec->input  = open(exec->input_file_name, O_RDONLY);
+			if (exec->input == -1)
+				ft_err("Error exec->file", exec);
 		}
 		// if '>' then redirout
 		if (*tmp[i] == '>')
@@ -133,57 +139,6 @@ void	ft_cmd_nb(t_exec *exec)
 		j++;
 	exec->cmd_nb = j;
 	exec->pipes_nb = exec->cmd_nb - 1;
-}
-
-void	ft_is_redirin(t_exec *exec)
-{
-	int i = 0;
-	char **tmp;
-	exec->fl_redirin = 0;
-
-	printf("\n--- ft_is_redirin starts ---\n");
-	int j = -1;
-	while(exec->readline[++j])
-		printf("exec->readline[%d] : %s\n", j, exec->readline[j]);
-
-	tmp = exec->readline;
-	while(tmp[i])
-	{
-		if (ft_strchr(tmp[i], '<') != 0)
-			exec->fl_redirin = 1;
-		i++;
-	}
-	printf("exec->fl_redirin = %d\n", exec->fl_redirin);
-	printf("--- ft_is_redirin ends ---\n");
-}
-
-int	ft_is_redirout(t_exec *exec)
-{
-	int i = 0;
-	char **tmp;
-
-	printf("\n--- ft_is_redirout starts ---\n");
-	int j = -1;
-	while(exec->readline[++j])
-		printf("exec->readline[%d] : %s\n", j, exec->readline[j]);
-	exec->fl_redirout = 0;
-	tmp = exec->readline;
-	while(tmp[i])
-	{
-		if (ft_strchr(tmp[i], '>') != 0)
-		{
-			exec->fl_redirout = 1;
-			exec->fl_redirout_i = i;
-			printf("exec->fl_redirout = %d\n", exec->fl_redirout);
-			printf("exec->fl_redirout_i = %d\n", exec->fl_redirout_i);
-			printf("--- ft_is_redirout ends ---\n\n");
-			return (exec->fl_redirout);
-		}
-		i++;
-	}
-	printf("exec->fl_redirout = %d\n", exec->fl_redirout);
-	printf("--- ft_is_redirout ends ---\n\n");
-	return (0);
 }
 
 void	ft_free_exec(t_exec *exec)
@@ -283,9 +238,6 @@ t_exec	*ft_init_exec(int ac, char **av, char **envp)
 	exec->readline = ft_calloc(sizeof(char *), 1);
 	exec->pids = 0;
 	exec->line = NULL;
-
-	// if (exec->output == -1)
-	// 	ft_err("Error ! Couldn't create the output file", exec);
 	return(exec);
 }
 

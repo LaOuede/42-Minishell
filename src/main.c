@@ -1,7 +1,7 @@
 #include "../include/minishell.h"
 
-#define GWEN 1
-#define LOULOU 0
+#define GWEN 0
+#define LOULOU 1
 
 /* t_ms	*ft_init_ms(int ac, char **av, char **envp)
 {
@@ -25,54 +25,35 @@ int	main(int ac, char **av, char **envp)
 {
 	(void)av;
 	(void)ac;
-	// t_ms		*ms;
 	t_pars	*pars;
 	t_exec 	*exec;
 
 	// printf("\n😈😈😈 Welcome to minishell ... or should I say " RED"🔥 MINIHELLLL 🔥 😈😈😈\n\n"WHT);
 	pars = ft_init_pars(envp);
-	//ms = ft_init_ms(ac, av, envp);
 	while (GWEN)
 	{
 		pars->input = readline("Minishell > ");
 		add_history(pars->input);
 		ft_parsing(pars);
 	}
-	//printf("%p\n", exec);
-	//exec = ft_init_exec(ac, av, envp);
 	while (LOULOU)
 	{
 		exec = ft_init_exec(ac, av, envp);
 		exec->line = readline("Minishell > ");
 		add_history(exec->line);
+		exec->readline = ft_split(exec->line, '|');
 
-		exec->readline = ft_split(exec->line, ' ');
-
-		//TODO Write this command below
+		// //Printing What's inside 'exec->readline' variable
+		// int j = -1;
+		// while(exec->readline[++j])
+		// 	printf("exec->readline[%d] : %s\n", j, exec->readline[j]);
 		ft_is_operator(exec);
-		
 		ft_cmd_nb(exec);
 		ft_print_debug(exec);
-		// if (ft_is_redirout(exec))
-		// {
-		// 	exec->outfile = ft_split(exec->readline[exec->fl_redirout_i], '>');
-		// 	//Printing What's inside 'exec->outfile' variable
-		// 	printf("---	Printing exec->outfile[i]	---\n");
-		// 	int j = -1;
-		// 	while(exec->outfile[++j])
-		// 		printf("exec->outfile[%d] : %s\n", j, exec->outfile[j]);
-		
-		// }
-	
 		//The execution of all cmds starts here
-		// ft_exec(exec);
+		ft_exec(exec);
 		ft_free_exec(exec);
 	}
-	
-	// //Printing What's inside 'PATH' variable
-	// int j = 0;
-	// while(exec->cmd_paths[j])
-	// 	printf("%s\n", exec->cmd_paths[j++]);
 	
 	// ft_clean_up(parse);
 	return (0);

@@ -4,6 +4,8 @@
 # include <stdlib.h>
 # include "minishell.h"
 
+# define BLD "\x1B[1m"
+
 /*
 **	Structure that holds all infomration needed for the execution
 */
