@@ -34,7 +34,7 @@ void	ft_char(char c, int *i, t_pars *pars)
 	{
 		ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
 		tmp = NULL;
-		pars->flag_whitespace = 0;
+		ft_reset_node(pars);
 	}
 	//printf("-> i = %d\n", (*i));
 	//printf("-> char fin = %c\n", parse->input[(*i)]);
@@ -104,12 +104,10 @@ void	ft_lexer(t_pars *pars)
 	while (i < (int)pars->strlen)
 	{
 		printf("-> char = %c\n", pars->input[(i)]);
-		// TODO add flag for $ which is not an expansion but a normal char!
 		if (ft_ismetachar(pars->input[i]) == true)
 			ft_metachar(pars->input[i], &i, pars);
 		else
 			ft_char(pars->input[i], &i, pars);
-		//printf("-> i = %d\n", i);
 	}
 	printf(KYEL "-------------------- FT_LEXER" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }

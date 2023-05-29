@@ -10,7 +10,8 @@ void	ft_redin_token(int *i, t_pars *pars)
 	pars->type = REDIN;
 	ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
 	(*i)++;
-	ft_reset_node(pars);
+	pars->flag_whitespace = 0;
+	//ft_reset_node(pars);
 }
 
 void	ft_redout_token(int *i, t_pars *pars)
@@ -23,7 +24,8 @@ void	ft_redout_token(int *i, t_pars *pars)
 	pars->type = REDOUT;
 	ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
 	(*i)++;
-	ft_reset_node(pars);
+	pars->flag_whitespace = 0;
+	//ft_reset_node(pars);
 }
 
 void	ft_appenred_token(int *i, t_pars *pars)
@@ -40,7 +42,8 @@ void	ft_appenred_token(int *i, t_pars *pars)
 	pars->type = APPRED;
 	ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
 	(*i)++;
-	ft_reset_node(pars);
+	pars->flag_whitespace = 0;
+	//ft_reset_node(pars);
 }
 
 void	ft_heredoc_token(int *i, t_pars *pars)
@@ -57,5 +60,6 @@ void	ft_heredoc_token(int *i, t_pars *pars)
 	pars->type = HEREDOC;
 	ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
 	(*i)++;
-	ft_reset_node(pars);
+	pars->flag_whitespace = 0;
+	//ft_reset_node(pars);
 }

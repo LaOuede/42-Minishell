@@ -14,3 +14,13 @@ void	ft_free_lst(t_token **lst)
 	}
 	*lst = NULL;
 }
+
+void	ft_free_token(t_token *token)
+{
+	if (token)
+	{
+		if (token->str)
+			ft_freenull(token->str);
+		ft_freenull(token);
+	}
+}

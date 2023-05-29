@@ -1,7 +1,24 @@
 #include "../include/minishell.h"
 
 /* Print linked-list */
-void	ft_debugger(t_pars *pars)
+void	ft_rebuilder_debugger(t_pars *pars)
+{
+	t_token	*tmp;
+	int		i = 0;
+
+	tmp = pars->line;
+	while (tmp)
+	{
+		printf(KGRN "**************************************************************\n");
+		printf("*" KGRN KBLD "                          NODE[%d]                           " RESET KGRN "*\n", i++);
+		printf(KGRN KBLD " -> Str = " RESET KBLD "%s" RESET KGRN "\n", tmp->str);
+		printf(KGRN "**************************************************************\n" RESET);
+		tmp = tmp->next;
+	}
+	ft_free_lst(&tmp);
+}
+
+void	ft_lexer_debugger(t_pars *pars)
 {
 	t_token	*tmp;
 	int		i = 0;
@@ -71,7 +88,9 @@ void	ft_parsing(t_pars *pars)
 	if (!*pars->input)
 		return ;
 	ft_lexer(pars);
-	ft_debugger(pars);
+	ft_lexer_debugger(pars);
+	ft_rebuilder(pars);
+	ft_rebuilder_debugger(pars);
 	/* Free linked-list between prompt & clean up */
 	ft_reset_pars(pars);
 	ft_free_lst(&pars->line);
