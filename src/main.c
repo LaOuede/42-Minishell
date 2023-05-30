@@ -47,7 +47,7 @@ int	main(int ac, char **av, char **envp)
 		// int j = -1;
 		// while(exec->readline[++j])
 		// 	printf("exec->readline[%d] : %s\n", j, exec->readline[j]);
-		ft_is_operator(exec);
+		// ft_is_operator(exec);
 		ft_cmd_nb(exec);
 		ft_print_debug(exec);
 		//The execution of all cmds starts here

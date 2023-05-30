@@ -20,7 +20,6 @@ typedef struct s_exec
 	char 	*input_file_name;
 	int		output;
 	char 	*output_file_name;
-	char	**outfile;
 	int		index;
 	int		pipes_nb;
 	int		pipes_op;

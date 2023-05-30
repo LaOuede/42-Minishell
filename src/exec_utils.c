@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-# define PRINT_DEBUG 1
+# define PRINT_DEBUG 0
 
 void	ft_print_debug(t_exec *exec)
 {
@@ -76,8 +76,8 @@ void	ft_is_operator(t_exec *exec)
 	tmp = ft_split(exec->line, ' ');
 	exec->pipes_op = 0;
 	exec->fl_pipe_op = 0;
-	exec->fl_redirin = 0;
-	exec->fl_redirout = 0;
+	// exec->fl_redirin = 1;
+	// exec->fl_redirout = 1;
 	exec->input_file_name = NULL;
 	exec->output_file_name = NULL;
 	i = -1;
@@ -180,7 +180,7 @@ void	ft_err(char *msg, t_exec *exec)
 {
 	ft_free_exec(exec);
 	perror(msg);
-	exit(1);
+	// exit(1);
 }
 
 int	ft_path_var_qty(char **path_var)

@@ -4,6 +4,18 @@ void	ft_make_pids(t_exec *exec)
 {
 	int	i;
 
+	//TODO remove the below
+	exec->fl_redirin = 1;
+	exec->fl_redirout = 0;
+	exec->input  = open("Makefile", O_RDONLY);
+	if (exec->input == -1)
+				ft_err("Error exec->file", exec);
+	exec->input  = open("supp.txt", O_RDONLY);
+	if (exec->input == -1)
+				ft_err("Error exec->file", exec);
+	exec->output = open("out", O_RDWR | O_CREAT | O_TRUNC, 0644);
+	//TODO remove the above
+	
 	exec->pids = ft_calloc(exec->cmd_nb, sizeof(pid_t *));
 	if (!exec->path_var)
 		return ;
@@ -54,6 +66,7 @@ char	*ft_cmd_path(t_exec *exec, char *cmds)
 void	ft_run_cmd(t_exec *exec)
 {
 	char	*path;
+	// char	*cmds[1] = {"ls"};
 	char	**cmds;
 	int		i;
 
@@ -84,19 +97,26 @@ void	ft_child_process(t_exec *exec, int i)
 	if (exec->index == 0)
 	{
 		//TODO exec->input not used yet, need to implement redirection
-		if (exec->input == -1)
-		{
-			ft_close_pipes(exec);
-			close(exec->input);
-			close(exec->output);
-			ft_err("Couldn't open the input file", exec);
-		}
-		dup2(0, STDIN_FILENO);
+		// if (exec->input == -1)
+		// {
+		// 	ft_close_pipes(exec);
+		// 	close(exec->input);
+		// 	close(exec->output);
+		// 	ft_err("Couldn't open the input file", exec);
+		// }
+		if (exec->fl_redirin == 1)
+			dup2(exec->input, STDIN_FILENO);
+		else
+			dup2(0, STDIN_FILENO);
 	}
 	else
 		dup2(exec->pipes[i - 1][0], STDIN_FILENO);
 	if (exec->index == exec->cmd_nb - 1)
+	{
+		if(exec->fl_redirout == 1)
+			dup2(exec->output, STDOUT_FILENO);
 		dup2(1, STDOUT_FILENO);
+	}
 	else
 		dup2(exec->pipes[i][1], STDOUT_FILENO);
 	ft_close_pipes(exec);
