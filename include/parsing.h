@@ -21,6 +21,7 @@
 //TODO add bracket type in function
 enum e_token_type
 {
+	CMD = -1,
 	ARG = 0,
 	D_QUOTES = 1,
 	S_QUOTES = 2,
@@ -92,6 +93,7 @@ void		ft_free_lst(t_token **lst);
 void		ft_free_token(t_token *token);
 void		ft_heredoc_token(int *i, t_pars *pars);
 t_pars		*ft_init_pars(char **envp);
+void		ft_insert_token(t_token **lst, t_token *prev, t_token *current, t_token *new_node);
 bool		ft_isenvvarchar(char c);
 bool		ft_ismetachar(char c);
 void		ft_lexer(t_pars *pars);

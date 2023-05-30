@@ -18,6 +18,21 @@ t_token	*ft_create_node(char *str, t_pars *pars)
 	return (new_node);
 }
 
+void	ft_insert_token(t_token **lst, t_token *prev, t_token *current, t_token *new_node)
+{
+	if (!new_node)
+		return ;
+	if (*lst == NULL)
+	{
+		return ;
+	}
+	new_node->type = CMD;
+	new_node->prev = prev;
+	prev->next = new_node;
+	new_node->next = current;
+	current->prev = new_node;
+}
+
 void	ft_add_token_top(t_token **lst, t_token *new_node)
 {
 	if (!new_node)
@@ -29,6 +44,7 @@ void	ft_add_token_top(t_token **lst, t_token *new_node)
 		new_node->next = NULL;
 		return ;
 	}
+	new_node->type = CMD;
 	new_node->prev = NULL;
 	new_node->next = *lst;
 	*lst = new_node;

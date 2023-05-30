@@ -94,6 +94,8 @@ void	ft_rebuilder(t_pars *pars)
 	t_token *tmp;
 
 	tmp = pars->line;
+	if (!pars->line)
+		return ;
 	while (tmp->next)
 	{
 		printf("TEST\n");
