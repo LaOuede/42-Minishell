@@ -1,42 +1,5 @@
 #include "../include/minishell.h"
 
-// Multiple file after token red
-/* void	ft_merge_red(t_token **list)
-{
-	printf(KYEL "-------------------- FT_MERGE_RED" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	t_token *sup;
-	t_token	*ptr;
-	char	*new_str;
-
-	ptr = *list;
-	new_str = ft_calloc(1, sizeof(char));
-	printf("str = %s\n", ptr->str);
-	printf("str next = %s\n", ptr->next->str);
-	printf("ptr->type = %d\n", ptr->type);
-	while (ptr->next && ptr->next->type < 4)
-	{
-		if (ptr->str && !ptr->next->str)
-			new_str = ft_strdup(ptr->str);
-		else if (!ptr->str && ptr->next->str)
-			new_str = ft_strdup(ptr->next->str);
-		else if (ptr->str && ptr->next->str)
-		{
-			ptr->str = ft_strjoin_char(ptr->str, ' ');
-			new_str = ft_strjoin(ptr->str, ptr->next->str);
-		}
-		ptr->str = ft_strdup(new_str);
-		ft_freenull(new_str);
-		printf("new_str = %s\n", new_str);
-		printf("ptr->str = %s\n", ptr->str);
-		printf("ptr->next->str = %s\n", ptr->next->str);
-		sup = ptr->next;
-		ft_free_token(sup);
-		printf("sup->str = %s\n", sup->str);
-		ptr->next = ptr->next->next;
-	}
-	printf(KYEL "-------------------- FT_MERGE_RED" KRED " END " RESET KYEL "--------------------\n" RESET);
-} */
-
 void	ft_merge_red(t_token **list)
 {
 	printf(KYEL "-------------------- FT_MERGE_RED" KGRN " START " RESET KYEL "--------------------\n" RESET);
@@ -109,10 +72,6 @@ void	ft_merge_arg(t_token **list)
 			ptr->next = ptr->next->next;
 		else
 			(ptr->next = NULL);
-/* 		if (ptr->prev)
-			ptr->next->prev = ptr; */
-		if (ptr->prev && ptr->prev->str)
-			printf("ptr->prev->str = %s\n", ptr->prev->str);
 		ft_free_token(sup);
 		printf("sup->str = %s\n", sup->str);
 	}
