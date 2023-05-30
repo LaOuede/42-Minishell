@@ -40,28 +40,6 @@ void	ft_char(char c, int *i, t_pars *pars)
 	//printf("-> char fin = %c\n", parse->input[(*i)]);
 }
 
-/* TODO
-1) DONE - No need to handle curly_brackets and parenthesis_brackets you fool!! 
-So need to suppress functions
-2) DONE - Also need to deal better with $ expansion.
-https://www.gnu.org/software/bash/manual/html_node/Shell-Expansions.html 
-watch out for $ and $$...
-DONE - Need to deal with ${}
-3) OK - Check if whitespace flag is working. If not, handle it! ==> I think it's ok
-4) DONE - Deal with double quotes and only after that deal with $ inside
-not both at the same time, the function is too huge!
-5) DONE - Cleaning up the code a little bit
-6) Handle memory wise girl !!
-7) Re-construct the arguments
-8) Clean up the linked-list
-9) Transfer linked-list into 2D table
-10) Parse commands
-11) Shoot error message when a parsing error is found
-
-12) Check everything to make a list of what's missing.
-Lexer almost done. Parser here I come!
-*/
-
 /* Special char = whitespaces, pipe, < >, $ */
 void	ft_metachar(char c, int *i, t_pars *pars)
 {

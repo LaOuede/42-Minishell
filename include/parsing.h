@@ -103,6 +103,7 @@ void		ft_pipe_token(int *i, t_pars *pars);
 void		ft_rebuilder(t_pars *pars);
 void		ft_redin_token(int *i, t_pars *pars);
 void		ft_redout_token(int *i, t_pars *pars);
+void		ft_remove_empty(t_token **list);
 void		ft_reset_node(t_pars *pars);
 void		ft_s_quotes_token(int *i, t_pars *pars);
 char		*ft_stock_char(char *str, char c);

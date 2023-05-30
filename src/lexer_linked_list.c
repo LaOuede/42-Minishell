@@ -70,34 +70,22 @@ void	ft_add_token_bottom(t_token **lst, t_token *new_node)
 	new_node->prev = last;
 }
 
-void	ft_add_token(t_token **lst, t_token *new_node)
+void	ft_remove_empty(t_token **list)
 {
-	t_token	*tmp1;
-	t_token	*tmp2;
+	printf(KYEL "-------------------- FT_REMOVE_EMPTY" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	t_token *sup;
+	t_token	*ptr;
 
-	if (!new_node)
-		return ;
-	if (*lst == NULL)
+	ptr = *list;
+	while (ptr)
 	{
-		*lst = new_node;
-		new_node->prev = NULL;
-		return ;
+		printf("TEST\n");
+		if (!ptr->str)
+		{
+			sup = ptr;
+			ft_free_token(sup);
+		}
+		ptr = ptr->next;
 	}
-	tmp1 = *lst;
-	tmp2 = tmp1->next;
-	new_node->next = tmp1->next;
-	new_node->prev = tmp1;
-	tmp1->next = new_node;
-	tmp2->prev = new_node;
-}
-
-
-t_token	*ft_find_head(t_token **last)
-{
-	t_token	*node;
-
-	node = *last;
-	while (node->prev)
-		node = node->prev;
-	return (node);
+	printf(KYEL "-------------------- FT_REMOVE_EMPTY" KRED " END " RESET KYEL "--------------------\n" RESET);
 }

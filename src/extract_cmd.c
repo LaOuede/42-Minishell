@@ -19,6 +19,7 @@ void	ft_extract_cmd(t_token **list, t_pars *pars)
 		{
 			i = 0;
 			start = -1;
+			printf("flag = %d\n", flag);
 			while (ft_isprint(ptr->str[i]) == 1 && ft_iswhitespace(ptr->str[i]) == 0)
 				i++;
 			printf("i = %d\n", i);
@@ -51,10 +52,13 @@ void	ft_extract_cmd(t_token **list, t_pars *pars)
 					flag = 0;
 				}
 				ft_freenull(tmp);
+				printf("flag = %d\n", flag);
 			}
-			if (ptr->type == PIPE)
-				flag = 42;
+			else
+				ptr->type = CMD;
 		}
+		if (ptr->type == PIPE)
+			flag = 42;
 		ptr = ptr->next;
 	}
 	printf(KYEL "-------------------- FT_EXTRACT_CMD" KRED " END " RESET KYEL "--------------------\n" RESET);

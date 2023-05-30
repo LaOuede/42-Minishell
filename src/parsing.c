@@ -103,21 +103,46 @@ and then returns a 2D arry to the executioner
 void	ft_parsing(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_PARSING" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
+	t_token	*tmp;
+
 
 	if (!*pars->input)
 		return ;
 	ft_lexer(pars);
-	ft_lexer_debugger(pars);
+	// ft_lexer_debugger(pars);
 	ft_rebuilder(pars);
-	ft_rebuilder_debugger(pars);
+	// ft_rebuilder_debugger(pars);
 	ft_extract_cmd(&pars->line, pars);
+	tmp = pars->line;
+		ft_remove_empty(&tmp);
 	ft_extract_cmd_debugger(pars);
 	/* Free linked-list between prompt & clean up */
 	ft_reset_pars(pars);
 	ft_free_lst(&pars->line);
-	// TODO G
-	// TODO Fonction pour entrer la linked-list dans un tableau 2D
 	// TODO rajouter une fonction qui check les erreurs avant l'envoi à l'exec
 	// ex : if parse->s_quotes == OPEN alors retour d'erreur
+	// TODO Fonction pour entrer la linked-list dans un tableau 2D
 	printf(KYEL "-------------------- FT_PARSING" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }
+
+/* TODO
+1) DONE - No need to handle curly_brackets and parenthesis_brackets you fool!! 
+So need to suppress functions
+2) DONE - Also need to deal better with $ expansion.
+https://www.gnu.org/software/bash/manual/html_node/Shell-Expansions.html 
+watch out for $ and $$...
+DONE - Need to deal with ${}
+3) DONE - Check if whitespace flag is working. If not, handle it! ==> I think it's ok
+4) DONE - Deal with double quotes and only after that deal with $ inside
+not both at the same time, the function is too huge!
+5) DONE - Cleaning up the code a little bit (Need to redo this one!)
+6) Handle memory wise girl !!
+7) DONE - Re-construct the arguments (seems ok so far)
+8) DONE - Clean up the linked-list (Remove empty node added)
+9) Parse commands
+10) Shoot error message when a parsing error is found
+11) Transfer linked-list into 2D table
+
+12) Check everything to make a list of what's missing.
+Lexer almost done. Parser here I come!
+*/
