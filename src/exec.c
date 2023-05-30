@@ -42,10 +42,10 @@ char	*ft_cmd_path(t_exec *exec, char *cmds)
 	char	*path;
 	int		i;
 
-	if (access(cmds, X_OK | F_OK) == 0)
+	if (access(cmds, F_OK | X_OK) == 0)
 		return (ft_strdup(cmds));
 	path = ft_strjoin("./", cmds);
-	if (access(path, X_OK | F_OK) == 0)
+	if (access(path, F_OK | X_OK) == 0)
 		return (path);
 	if (path)
 		free(path);
@@ -53,7 +53,7 @@ char	*ft_cmd_path(t_exec *exec, char *cmds)
 	while (exec->path_var[++i])
 	{
 		path = ft_strjoin(exec->path_var[i], cmds);
-		if (access(path, X_OK | F_OK) == 0)
+		if (access(path, F_OK | X_OK) == 0)
 			return (path);
 		if (path)
 			free(path);

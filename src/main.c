@@ -56,5 +56,6 @@ int	main(int ac, char **av, char **envp)
 	}
 	
 	// ft_clean_up(parse);
+	//TODO need to implement a fct that clears the history (fct clear_history exist in history.h)
 	return (0);
 }
