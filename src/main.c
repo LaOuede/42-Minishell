@@ -1,7 +1,7 @@
 #include "../include/minishell.h"
 
-#define GWEN 0
-#define LOULOU 1
+#define GWEN 1
+#define LOULOU 0 
 
 /* t_ms	*ft_init_ms(int ac, char **av, char **envp)
 {

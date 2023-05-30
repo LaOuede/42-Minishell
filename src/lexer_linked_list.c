@@ -18,6 +18,26 @@ t_token	*ft_create_node(char *str, t_pars *pars)
 	return (new_node);
 }
 
+void	ft_insert_token(t_token **lst, t_token *prev, t_token *current, t_token *new_node)
+{
+	printf(KYEL "-------------------- FT_INSERT_TOKEN" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	if (!new_node)
+		return ;
+	if (*lst == NULL)
+	{
+		return ;
+	}
+	new_node->type = CMD;
+	new_node->prev = prev;
+	prev->next = new_node;
+	new_node->next = current;
+	current->prev = new_node;
+	//printf("prev str = %s\n", prev->str);
+	printf("new_node str = %s\n", new_node->str);
+	printf("next str = %s\n", current->str);
+	printf(KYEL "-------------------- FT_INSERT_TOKEN" KRED " END " RESET KYEL "--------------------\n" RESET);
+}
+
 void	ft_add_token_top(t_token **lst, t_token *new_node)
 {
 	if (!new_node)
@@ -29,6 +49,7 @@ void	ft_add_token_top(t_token **lst, t_token *new_node)
 		new_node->next = NULL;
 		return ;
 	}
+	new_node->type = CMD;
 	new_node->prev = NULL;
 	new_node->next = *lst;
 	*lst = new_node;
@@ -54,34 +75,22 @@ void	ft_add_token_bottom(t_token **lst, t_token *new_node)
 	new_node->prev = last;
 }
 
-void	ft_add_token(t_token **lst, t_token *new_node)
+void	ft_remove_empty(t_token **list)
 {
-	t_token	*tmp1;
-	t_token	*tmp2;
+	printf(KYEL "-------------------- FT_REMOVE_EMPTY" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	t_token *sup;
+	t_token	*ptr;
 
-	if (!new_node)
-		return ;
-	if (*lst == NULL)
+	ptr = *list;
+	while (ptr)
 	{
-		*lst = new_node;
-		new_node->prev = NULL;
-		return ;
+		printf("TEST\n");
+		if (!ptr->str)
+		{
+			sup = ptr;
+			ft_free_token(sup);
+		}
+		ptr = ptr->next;
 	}
-	tmp1 = *lst;
-	tmp2 = tmp1->next;
-	new_node->next = tmp1->next;
-	new_node->prev = tmp1;
-	tmp1->next = new_node;
-	tmp2->prev = new_node;
-}
-
-
-t_token	*ft_find_head(t_token **last)
-{
-	t_token	*node;
-
-	node = *last;
-	while (node->prev)
-		node = node->prev;
-	return (node);
+	printf(KYEL "-------------------- FT_REMOVE_EMPTY" KRED " END " RESET KYEL "--------------------\n" RESET);
 }

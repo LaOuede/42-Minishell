@@ -7,8 +7,8 @@ void	ft_s_quotes_token(int *i, t_pars *pars)
 
 	tmp = NULL;
 	pars->type = S_QUOTES;
-	printf("s_quotes = %d\n", pars->s_quotes);
 	pars->s_quotes = OPEN;
+	printf("s_quotes = %d\n", pars->s_quotes);
 	while (pars->input[++(*i)])
 	{
 		if (pars->input[(*i)] == '\'')
@@ -22,8 +22,9 @@ void	ft_s_quotes_token(int *i, t_pars *pars)
 	}
 	if (tmp)
 		ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
+	if (tmp)
+		ft_reset_node(pars);
 	ft_freenull(tmp);
-	ft_reset_node(pars);
 	printf(KYEL "-------------------- FT_S_QUOTES_TOKEN" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }
 
