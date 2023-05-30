@@ -41,6 +41,8 @@ void	ft_extract_cmd(t_token **list, t_pars *pars)
 				printf("tmp = %s\n", tmp);
 				ptr->str = ft_substr(ptr->str, start, len);
 				printf("ptr->str = %s\n", ptr->str);
+				if (ptr->prev)
+					printf("ptr->prev->str = %s\n", ptr->prev->str);
 				if (ptr->prev == NULL)
 				{
 					ft_add_token_top(&pars->line, ft_create_node(tmp, pars));
@@ -48,6 +50,7 @@ void	ft_extract_cmd(t_token **list, t_pars *pars)
 				}
 				else
 				{
+					printf("TEST\n");
 					ft_insert_token(&pars->line, ptr->prev, ptr, ft_create_node(tmp, pars));
 					flag = 0;
 				}

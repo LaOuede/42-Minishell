@@ -39,7 +39,6 @@ void	ft_appenred_token(int *i, t_pars *pars)
 	}
 	pars->type = APPRED;
 	ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
-	(*i)++;
 	ft_reset_node(pars);
 }
 
@@ -56,6 +55,5 @@ void	ft_heredoc_token(int *i, t_pars *pars)
 	}
 	pars->type = HEREDOC;
 	ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
-	(*i)++;
 	ft_reset_node(pars);
 }

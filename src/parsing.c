@@ -109,9 +109,9 @@ void	ft_parsing(t_pars *pars)
 	if (!*pars->input)
 		return ;
 	ft_lexer(pars);
-	// ft_lexer_debugger(pars);
+	ft_lexer_debugger(pars);
 	ft_rebuilder(pars);
-	// ft_rebuilder_debugger(pars);
+	ft_rebuilder_debugger(pars);
 	ft_extract_cmd(&pars->line, pars);
 	tmp = pars->line;
 		ft_remove_empty(&tmp);

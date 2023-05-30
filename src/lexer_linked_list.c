@@ -20,6 +20,7 @@ t_token	*ft_create_node(char *str, t_pars *pars)
 
 void	ft_insert_token(t_token **lst, t_token *prev, t_token *current, t_token *new_node)
 {
+	printf(KYEL "-------------------- FT_INSERT_TOKEN" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	if (!new_node)
 		return ;
 	if (*lst == NULL)
@@ -31,6 +32,10 @@ void	ft_insert_token(t_token **lst, t_token *prev, t_token *current, t_token *ne
 	prev->next = new_node;
 	new_node->next = current;
 	current->prev = new_node;
+	//printf("prev str = %s\n", prev->str);
+	printf("new_node str = %s\n", new_node->str);
+	printf("next str = %s\n", current->str);
+	printf(KYEL "-------------------- FT_INSERT_TOKEN" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
 void	ft_add_token_top(t_token **lst, t_token *new_node)
