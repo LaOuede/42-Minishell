@@ -1,20 +1,10 @@
 #include "../include/minishell.h"
 
+void	ft_run_cmd(t_exec *exec);
+
 void	ft_make_pids(t_exec *exec)
 {
 	int	i;
-
-	//TODO remove the below
-	exec->fl_redirin = 1;
-	exec->fl_redirout = 0;
-	exec->input  = open("Makefile", O_RDONLY);
-	if (exec->input == -1)
-				ft_err("Error exec->file", exec);
-	exec->input  = open("supp.txt", O_RDONLY);
-	if (exec->input == -1)
-				ft_err("Error exec->file", exec);
-	exec->output = open("out", O_RDWR | O_CREAT | O_TRUNC, 0644);
-	//TODO remove the above
 	
 	exec->pids = ft_calloc(exec->cmd_nb, sizeof(pid_t *));
 	if (!exec->path_var)
@@ -27,7 +17,12 @@ void	ft_make_pids(t_exec *exec)
 			ft_err("Something went wrong during pid process:", exec);
 		// printf("--- Enter in ft_chils_proc	---\n");
 		if (exec->pids[i] == 0)
-			ft_child_process(exec, i);
+		{
+			//this is the child process
+			ft_dup_process(exec, i);
+			ft_run_cmd(exec);
+		}	
+
 		// printf("--- Exit ft_chils_proc	---\n");
 	}
 	if(exec->fl_redirin == 1)
@@ -91,19 +86,11 @@ void	ft_run_cmd(t_exec *exec)
 	exec->path_var = NULL;
 }
 
-void	ft_child_process(t_exec *exec, int i)
+void	ft_dup_process(t_exec *exec, int i)
 {
 	exec->index = i;
 	if (exec->index == 0)
 	{
-		//TODO exec->input not used yet, need to implement redirection
-		// if (exec->input == -1)
-		// {
-		// 	ft_close_pipes(exec);
-		// 	close(exec->input);
-		// 	close(exec->output);
-		// 	ft_err("Couldn't open the input file", exec);
-		// }
 		if (exec->fl_redirin == 1)
 			dup2(exec->input, STDIN_FILENO);
 		else
@@ -120,7 +107,6 @@ void	ft_child_process(t_exec *exec, int i)
 	else
 		dup2(exec->pipes[i][1], STDOUT_FILENO);
 	ft_close_pipes(exec);
-	ft_run_cmd(exec);
 }
 
 void	ft_exec(t_exec *exec)
@@ -128,16 +114,44 @@ void	ft_exec(t_exec *exec)
 	int	i;
 	int status;
 	
-	// printf("\n--- ft_create_pipes : Pipe creation starts ---\n");
-	ft_create_pipes(exec);
-	// printf("--- ft_create_pipes : Pipe creation ends ---\n\n");
+	//TODO remove the below
+	exec->fl_redirin = 1;
+	exec->fl_redirout = 1;
+	exec->input  = open("Makefile", O_RDONLY);
+	if (exec->input == -1)
+				ft_err("Error exec->file", exec);
+	exec->input  = open("supp.txt", O_RDONLY);
+	if (exec->input == -1)
+				ft_err("Error exec->file", exec);
+	exec->output = open("out", O_RDWR | O_CREAT | O_TRUNC, 0644);
+	//TODO remove the above
 
-	// printf("--- ft_make_pids : PIDs creation starts	---\n");
+	ft_create_pipes(exec);
 	ft_make_pids(exec);
-	// printf("--- ft_make_pids : PIDs creation ends	---\n\n");
 	i = -1;
 	while (++i < exec->cmd_nb)
 		waitpid(exec->pids[i], &status, 0);
 	//TODO clarifier le 2nd arg de waitpid
 	// ft_free_data(exec);
 }
+
+/*
+void	ft_exec(t_exec *exec)
+{
+	int	i;
+	int status;
+	
+	printf("\n--- ft_create_pipes : Pipe creation starts ---\n");
+	ft_create_pipes(exec);
+	printf("--- ft_create_pipes : Pipe creation ends ---\n\n");
+
+	printf("--- ft_make_pids : PIDs creation starts	---\n");
+	ft_make_pids(exec);
+	printf("--- ft_make_pids : PIDs creation ends	---\n\n");
+	i = -1;
+	while (++i < exec->cmd_nb)
+		waitpid(exec->pids[i], &status, 0);
+	//TODO clarifier le 2nd arg de waitpid
+	// ft_free_data(exec);
+}
+*/
