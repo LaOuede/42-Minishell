@@ -11,9 +11,7 @@
 */
 typedef struct s_exec
 {
-	char 	*line;
-	char	**av;
-	char	**readline;
+	//to keep
 	char	**envp;
 	char	**path_var;
 	int		input;
@@ -21,19 +19,22 @@ typedef struct s_exec
 	int		output;
 	char 	*output_file_name;
 	int		index;
-	int		pipes_nb;
-	int		pipes_op;
-	int		cmd_nb;
-	int		**pipes;
-	pid_t	*pids;
-	int		fl_pipe_op;
 	int		fl_redirin;
 	int		fl_redirout;
+	pid_t	*pids;
+	int		**pipes;
+	//to delete - will be in t_jct
+	int		cmd_nb;
+	int		pipes_nb;
+	//to delete - unused
+	char 	*line;
+	char	**readline;
+	char	**av;
+	int		pipes_op;
+	int		fl_pipe_op; 
 }			t_exec;
 
-/*
-**	Function Declarations for the execution of shell commands
-*/
+/*	--	Function Declarations for the execution of shell commands	--	*/
 t_exec	*ft_init_exec(int ac, char **av, char **envp);
 void	ft_dup_process(t_exec *exec, int i);
 void	ft_close_pipes(t_exec *exec);
