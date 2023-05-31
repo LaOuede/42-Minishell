@@ -21,6 +21,7 @@
 //TODO add bracket type in function
 enum e_token_type
 {
+	ERROR = -2,
 	CMD = -1,
 	ARG = 0,
 	D_QUOTES = 1,
@@ -28,8 +29,8 @@ enum e_token_type
 	EXPAND = 3,
 	PIPE = 4,
 	REDIN = 5,
-	REDOUT = 6,
-	APPRED = 7,
+	APPRED = 6,
+	REDOUT = 7,
 	HEREDOC = 8,
 };
 
@@ -109,13 +110,14 @@ void		ft_s_quotes_token(int *i, t_pars *pars);
 char		*ft_stock_char(char *str, char c);
 char		*ft_strjoin_char(const char *s1, const char s2);
 char		*ft_strjoin_free(char *str1, char *str2);
+void		ft_swap_node(t_token *swap1, t_token *swap2);
 void		ft_add_token(t_token **lst, t_token *new_node);
 char		*ft_quotes_expansion(char *str, t_pars *pars);
 char		*ft_find_envvar(char *str, t_pars *pars);
 void		ft_get_expand_brackets(int *i, t_pars *pars);
 bool		ft_check_expand_brackets(char *str, t_pars *pars);
 void		ft_get_expand_brackets_quotes(int *i, char *str, t_pars *pars);
-
+void		ft_clean_list(t_token **list);
 
 
 #endif

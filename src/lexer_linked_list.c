@@ -75,22 +75,32 @@ void	ft_add_token_bottom(t_token **lst, t_token *new_node)
 	new_node->prev = last;
 }
 
-void	ft_remove_empty(t_token **list)
+void	ft_clean_list(t_token **list)
 {
-	printf(KYEL "-------------------- FT_REMOVE_EMPTY" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	printf(KYEL "-------------------- FT_CLEAN_LIST" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token *sup;
 	t_token	*ptr;
 
+	if (!*list)
+		return ;
 	ptr = *list;
-	while (ptr)
+	while (ptr->next)
 	{
-		printf("TEST\n");
-		if (!ptr->str)
+		if (ptr->next->type == ERROR)
 		{
-			sup = ptr;
+			sup = ptr->next;
 			ft_free_token(sup);
+			if (ptr->next->next)
+			{
+				ptr->next = ptr->next->next;
+			}
+			else if (!ptr->next->next)
+			{
+				ptr->next = NULL;
+			}
 		}
-		ptr = ptr->next;
+		else if (ptr->next)
+			ptr = ptr->next;
 	}
-	printf(KYEL "-------------------- FT_REMOVE_EMPTY" KRED " END " RESET KYEL "--------------------\n" RESET);
+	printf(KYEL "-------------------- FT_CLEAN_LIST" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
