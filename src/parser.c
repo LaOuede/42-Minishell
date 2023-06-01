@@ -44,12 +44,12 @@ void    ft_ll_to_2Darray(t_jct *jct, t_pars *pars)
             }
             else if (column != ptr->tab_type && ptr->tab_type != -1)
             {
-                jct->tab[row][column] = "NULL";
+                jct->tab[row][column] = NULL;
                 printf("str = %s\n", jct->tab[row][column]);
             }
             else if (column != 3 && ptr->tab_type == -1)
             {
-                jct->tab[row][column] = "NULL";
+                jct->tab[row][column] = NULL;
                 printf("str = %s\n", jct->tab[row][column]);
             }
             if (ptr->next)
