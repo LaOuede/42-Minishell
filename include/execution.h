@@ -28,7 +28,7 @@ typedef struct s_exec
 	//to delete - will be in t_jct
 	int		cmd_nb;
 	int		pipes_nb;
-	//to delete - unused
+	//to delete - obselete
 	char 	*line;
 	char	**readline;
 	char	**av;

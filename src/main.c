@@ -54,17 +54,9 @@ int	main(int ac, char **av, char **envp)
 	while (LOULOU_JCT)
 	{
 		exec = ft_init_exec(ac, av, envp);
-		// exec->line = readline("Minishell > ");
 		pars->input = readline("Minishell > ");
 		add_history(pars->input);
 		ft_parsing(pars, jct);
-		// exec->readline = ft_split(exec->line, '|');
-
-		// //Printing What's inside 'exec->readline' variable
-		// int j = -1;
-		// while(exec->readline[++j])
-		// 	printf("exec->readline[%d] : %s\n", j, exec->readline[j]);
-		// ft_is_operator(exec);
 		exec->cmd_nb = jct->cmd_nb;
 		exec->pipes_nb = exec->cmd_nb - 1;
 		ft_print_debug(exec);
