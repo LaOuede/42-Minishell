@@ -106,13 +106,17 @@ void	ft_find_cmd(t_pars *pars)
 	flag = true;
 	while (ptr)
 	{
+		printf("ptr->type before = %d\n", ptr->type);
 		if ((ptr->type == ARG || ptr->type == EXPAND) && flag == true)
 		{
 			ptr->type = CMD;
 			flag = false;
 		}
-		if (ptr->type == PIPE)
+		else if (ptr->type == PIPE)
 			flag = true;
+		
+		printf("ptr->type after = %d\n", ptr->type);
+		printf("flag = %d\n", flag);
 		ptr = ptr->next;
 	}
 	printf(KYEL "-------------------- FT_FIND_CMD" KRED " END " RESET KYEL "--------------------\n" RESET);

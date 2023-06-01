@@ -27,15 +27,15 @@ typedef struct s_ms
 	struct s_exec		*exec;
 }	t_ms;
 
-/*
-**	Struct prototype to made the junction between the parsing and the execution
 
+//	Struct prototype to made the junction between the parsing and the execution
 typedef struct s_jct
 {
 	char	**tab;
 	int		pipe_nb;
 	int		cmd_nb;
-} 			t_jct
-*/
+}			t_jct;
+
+void		ft_clean_up_jct(t_jct *jct, char *err_msg);
 
 #endif

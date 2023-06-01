@@ -1,5 +1,23 @@
 #include "../include/minishell.h"
 
+void	ft_parser_debugger(t_pars *pars)
+{
+	t_token	*tmp;
+	int		i = 0;
+
+	tmp = pars->line;
+	while (tmp)
+	{
+		printf(KGRE "**************************************************************\n");
+		printf("*" KGRE KBLD "                          NODE[%d]                           " RESET KGRE "*\n", i++);
+		printf("*" KGRE KBLD " -> Type[%d]                                                 " RESET KGRE "*\n", tmp->tab_type);
+		printf(KGRE KBLD " -> Str = " RESET KBLD "%s" RESET KGRE "\n", tmp->str);
+		printf(KGRE "**************************************************************\n" RESET);
+		tmp = tmp->next;
+	}
+	ft_free_lst(&tmp);
+}
+
 void	ft_extract_cmd_debugger(t_pars *pars)
 {
 	t_token	*tmp;
@@ -110,7 +128,8 @@ void	ft_parsing(t_pars *pars)
 	ft_lexer_debugger(pars);
 	ft_rebuilder(pars);
 	ft_rebuilder_debugger(pars);
-	//ft_extract_cmd_debugger(pars);
+	ft_extract_cmd_debugger(pars);
+	ft_parser(pars);
 	/* Free linked-list between prompt & clean up */
 	ft_reset_pars(pars);
 	ft_free_lst(&pars->line);

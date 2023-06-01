@@ -23,6 +23,7 @@ SRCS_LST	= 	error_handling.c \
 				lexer_memory.c \
 				lexer_utils.c \
 				main.c \
+				parser.c \
 				parsing.c \
 				rebuilder.c \
 				token_brackets.c \

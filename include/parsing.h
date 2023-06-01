@@ -44,6 +44,7 @@ enum e_gate
 typedef struct s_token
 {
 	int				type; // cmd ou arg, ou flag ou operateur
+	int				tab_type;
 	char			*str;
 	int				s_quotes;
 	int				d_quotes;
@@ -78,7 +79,7 @@ void		ft_add_token_top(t_token **lst, t_token *new_node);
 void		ft_appenred_token(int *i, t_pars *pars);
 void		ft_brackets_token(int *i, t_pars *pars);
 void		ft_char(char c, int *i, t_pars *pars);
-void		ft_clean_up(t_pars *pars);
+void		ft_clean_up(t_pars *pars, char *err_msg);
 t_token		*ft_create_node(char *str, t_pars *pars);
 void		ft_d_quotes_token(int *i, t_pars *pars);
 void		ft_envvar(int *i, t_pars *pars);
@@ -118,6 +119,7 @@ void		ft_get_expand_brackets(int *i, t_pars *pars);
 bool		ft_check_expand_brackets(char *str, t_pars *pars);
 void		ft_get_expand_brackets_quotes(int *i, char *str, t_pars *pars);
 void		ft_clean_list(t_token **list);
-
+void		ft_parser(t_pars *pars);
+void		ft_parser_debugger(t_pars *pars);
 
 #endif
