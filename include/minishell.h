@@ -31,11 +31,12 @@ typedef struct s_ms
 //	Struct prototype to made the junction between the parsing and the execution
 typedef struct s_jct
 {
-	char	**tab;
+	char	***tab;
 	int		pipe_nb;
 	int		cmd_nb;
 }			t_jct;
 
 void		ft_clean_up_jct(t_jct *jct, char *err_msg);
+void		ft_ll_to_2Darray(t_jct *jct, t_pars *pars);
 
 #endif

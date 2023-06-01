@@ -14,7 +14,7 @@ void	ft_error(char *err_msg, int fd)
 	exit(EXIT_FAILURE);
 }
 
-void	ft_clean_up(t_pars *pars, char *err_msg)
+void	ft_clean_up(t_pars *pars)
 {
 	if (pars)
 	{
@@ -22,11 +22,6 @@ void	ft_clean_up(t_pars *pars, char *err_msg)
 			free(pars->input);
 		free(pars);
 	}
-	if (err_msg)
-		ft_error(err_msg, 2);
-	if (!err_msg)
-		exit(EXIT_SUCCESS);
-	exit(EXIT_SUCCESS);
 }
 
 void	ft_clean_up_jct(t_jct *jct, char *err_msg)
@@ -34,7 +29,7 @@ void	ft_clean_up_jct(t_jct *jct, char *err_msg)
 	if (jct)
 	{
 		if (jct->tab)
-			ft_free_tab_char(jct->tab);
+			ft_free_tab_char(*jct->tab);
 		free(jct);
 	}
 	if (err_msg)
