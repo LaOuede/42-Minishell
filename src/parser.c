@@ -1,85 +1,86 @@
 #include "../include/minishell.h"
 
-void	ft_print_tab(t_jct *jct)
+void    ft_print_tab(t_jct *jct)
 {
-	printf(KYEL "-------------------- FT_PRINT_TAB" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	int		row;
-	int		column;
-	char	***tab;
-
-	if (!jct->tab)
-		return ;
-	row = -1;
-	tab = jct->tab;
-	while (++row < jct->cmd_nb)
-	{
-		column = -1;
-		while (++column < 4)
-			printf("Block content = %s\n", tab[row][column]);
-	}
-	//ft_free_tab_char(*tab);
-	printf(KYEL "-------------------- FT_PRINT_TAB" KRED " END " RESET KYEL "--------------------\n" RESET);
+    printf(KYEL "-------------------- FT_PRINT_TAB" KGRN " START " RESET KYEL "--------------------\n" RESET);
+    int     row;
+    int     column;
+    char    ***tab;
+    if (!jct->tab)
+        return ;
+    row = -1;
+    tab = jct->tab;
+    while (++row < jct->cmd_nb)
+    {
+        column = -1;
+        while (++column < 4)
+            printf("Block content[%d][%d] = %s\n", row, column, tab[row][column]);
+    }
+    printf(KYEL "-------------------- FT_PRINT_TAB" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
 /* Store the nodes in a two-dimensionnal array */
-void	ft_ll_to_2Darray(t_jct *jct, t_pars *pars)
+void    ft_ll_to_2Darray(t_jct *jct, t_pars *pars)
 {
-	printf(KYEL "-------------------- FT_FILL_TAB" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	int		row;
-	int		column;
-	t_token	*ptr;
-
-	row = -1;
-	column = -1;
-	ptr = pars->line;
-	printf("jct->cmd_nb = %d\n", jct->cmd_nb);
-	while (++row < jct->cmd_nb && ptr)
-	{
-		while (++column < 4)
-		{
-			printf("column = %d\n", column);
-			printf("ptr->tab_type = %d\n", ptr->tab_type);
-			if (column == ptr->tab_type)
-			{
-				jct->tab[row][column] = ft_strdup(ptr->str);
-				printf("str = %s\n", jct->tab[row][column]);
-			}
-			else
-			{
-				jct->tab[row][column] = "EMPTY";
-				printf("str = %s\n", jct->tab[row][column]);
-			}
-			if (ptr->next)
-				ptr = ptr->next;
-		}
-	}
-	//ft_clean_up(pars);
-	printf(KYEL "-------------------- FT_FILL_TAB" KRED " END " RESET KYEL "--------------------\n" RESET);
+    printf(KYEL "-------------------- FT_FILL_TAB" KGRN " START " RESET KYEL "--------------------\n" RESET);
+    int     row;
+    int     column;
+    t_token *ptr;
+    row = -1;
+    ptr = pars->line;
+    printf("jct->cmd_nb = %d\n", jct->cmd_nb);
+    printf("pars->nb_pipe = %d\n", pars->nb_pipe);
+    while (++row < jct->cmd_nb && ptr)
+    {
+        column = -1;
+        while (++column < 4)
+        {
+            printf("column = %d\n", column);
+            printf("ptr->tab_type = %d\n", ptr->tab_type);
+            if (column == ptr->tab_type && ptr->tab_type != -1)
+            {
+                jct->tab[row][column] = ft_strdup(ptr->str);
+                printf("str = %s\n", jct->tab[row][column]);
+            }
+            else if (column != ptr->tab_type && ptr->tab_type != -1)
+            {
+                jct->tab[row][column] = "NULL";
+                printf("str = %s\n", jct->tab[row][column]);
+            }
+            else if (column != 3 && ptr->tab_type == -1)
+            {
+                jct->tab[row][column] = "NULL";
+                printf("str = %s\n", jct->tab[row][column]);
+            }
+            if (ptr->next)
+                ptr = ptr->next;
+        }
+    }
+    //ft_clean_up(pars);
+    printf(KYEL "-------------------- FT_FILL_TAB" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
-
 /* Initializes the two-dimensioonnal array. */
-void	ft_init_cmdtab(t_jct *jct)
+void    ft_init_cmdtab(t_jct *jct)
 {
-	int	i;
-	int	j;
-
-	jct->tab = ft_calloc(jct->cmd_nb, sizeof(char **));
-	if (!jct->tab)
-		ft_clean_up_jct(jct, KYEL"-> Failed to init the command tab <-"KNRM);
-	i = -1;
-	while (++i < jct->cmd_nb)
-	{
-		jct->tab[i] = ft_calloc(4, sizeof(char *));
-		if (!jct->tab[i])
-			ft_clean_up_jct(jct, KYEL"-> Failed to init the command tab <-"KNRM);
-		 j = -1;
-		while (++j < 4)
-		{
-			jct->tab[i][j] = ft_calloc(1, sizeof(char));
-			if (!jct->tab[i][j])
-				ft_clean_up_jct(jct, KYEL"-> Failed to init the command tab <-"KNRM);
-		}
-	}
+    int i;
+    int j;
+    jct->tab = ft_calloc(jct->cmd_nb, sizeof(char **));
+    if (!jct->tab)
+        ft_clean_up_jct(jct, KYEL"-> Failed to init the command tab <-"KNRM);
+    i = -1;
+    while (++i < jct->cmd_nb)
+    {
+        jct->tab[i] = ft_calloc(4, sizeof(char *));
+        if (!jct->tab[i])
+            ft_clean_up_jct(jct, KYEL"-> Failed to init the command tab <-"KNRM);
+         j = -1;
+        while (++j < 4)
+        {
+            jct->tab[i][j] = ft_calloc(1, sizeof(char));
+            if (!jct->tab[i][j])
+                ft_clean_up_jct(jct, KYEL"-> Failed to init the command tab <-"KNRM);
+        }
+    }
 }
 
 void	ft_cmd_type(t_token **list)
@@ -103,30 +104,29 @@ void	ft_cmd_type(t_token **list)
 	}
 }
 
-t_jct	*ft_init_jct(t_pars *pars)
+// t_jct	*ft_init_jct(t_pars *pars)
+// {
+// 	static t_jct	*jct;
+
+// 	if (!jct)
+// 	{
+// 		jct = ft_calloc(1, sizeof(t_jct));
+// 		jct->tab = NULL;
+// 		jct->pipe_nb = pars->nb_pipe;
+// 		jct->cmd_nb = pars->nb_pipe - 1;
+// 	}
+// 	return (jct);
+// }
+
+void	ft_parser(t_pars *pars, t_jct *jct)
 {
-	static t_jct	*jct;
-
-	if (!jct)
-	{
-		jct = ft_calloc(1, sizeof(t_jct));
-		jct->tab = NULL;
-		jct->pipe_nb = pars->nb_pipe;
-		jct->cmd_nb = pars->nb_pipe;
-	}
-	return (jct);
-}
-
-void	ft_parser(t_pars *pars)
-{
-	t_jct	*jct;
-
 	if (!pars)
 		return ;
-	jct = ft_init_jct(pars);
+	jct->cmd_nb = pars->nb_pipe;
+	// jct = ft_init_jct(pars);
 	ft_cmd_type(&pars->line);
-	ft_init_cmdtab(jct);
 	ft_parser_debugger(pars);
+	ft_init_cmdtab(jct);
 	ft_ll_to_2Darray(jct,pars);
-	ft_print_tab(jct);
+    ft_print_tab(jct);
 }

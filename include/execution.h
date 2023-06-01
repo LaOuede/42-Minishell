@@ -6,6 +6,8 @@
 
 # define BLD "\x1B[1m"
 
+typedef struct s_jct	t_jct;
+
 /*
 **	Structure that holds all infomration needed for the execution
 */
@@ -41,12 +43,15 @@ void	ft_close_pipes(t_exec *exec);
 void	ft_create_pipes(t_exec *exec);
 void	ft_err(char *msg, t_exec *exec);
 void	ft_free_exec(t_exec *exec);
+void	ft_exec_jct(t_exec *exec, t_jct *jct);
 void	ft_exec(t_exec *exec);
 void	ft_copy_env(t_exec *exec, char **envp);
 void	ft_is_operator(t_exec *exec);
 
 /*	--	Temp fct, to delete once the parsing is ready	--	*/
 void	ft_cmd_nb(t_exec *exec);
+void	ft_run_cmd_jct(t_exec *exec, t_jct *jct);
+void	ft_run_cmd(t_exec *exec);
 
 /*	--	Debug fct	--	*/
 void	ft_print_debug(t_exec *exec);

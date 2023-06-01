@@ -18,6 +18,8 @@
 # define KCYN "\x1B[36m"
 # define KWHT "\x1B[37m"
 
+typedef struct s_jct	t_jct;
+
 //TODO add bracket type in function
 enum e_token_type
 {
@@ -100,7 +102,7 @@ bool		ft_isenvvarchar(char c);
 bool		ft_ismetachar(char c);
 void		ft_lexer(t_pars *pars);
 void		ft_metachar(char c, int *i, t_pars *pars);
-void		ft_parsing(t_pars *pars);
+void		ft_parsing(t_pars *pars, t_jct *jct);
 void		ft_pipe_token(int *i, t_pars *pars);
 void		ft_rebuilder(t_pars *pars);
 void		ft_redin_token(int *i, t_pars *pars);
@@ -119,7 +121,8 @@ void		ft_get_expand_brackets(int *i, t_pars *pars);
 bool		ft_check_expand_brackets(char *str, t_pars *pars);
 void		ft_get_expand_brackets_quotes(int *i, char *str, t_pars *pars);
 void		ft_clean_list(t_token **list);
-void		ft_parser(t_pars *pars);
+void		ft_parser(t_pars *pars, t_jct *jct);
+
 void		ft_parser_debugger(t_pars *pars);
 
 #endif

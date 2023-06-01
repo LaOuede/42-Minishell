@@ -2,6 +2,7 @@
 
 #define GWEN 1
 #define LOULOU 0
+#define LOULOU_JCT 0
 
 /* t_ms	*ft_init_ms(int ac, char **av, char **envp)
 {
@@ -16,6 +17,18 @@
 	return (ms);
 } */
 
+
+t_jct	*ft_init_jct()
+{
+	t_jct	*jct;
+
+	jct = ft_calloc(1, sizeof(t_jct));
+	jct->tab = NULL;
+	// jct->pipe_nb = -1;
+	jct->cmd_nb = -1;
+	return (jct);
+}
+
 /*
 ** Main
 ** prints a welcome message on the terminal
@@ -27,14 +40,37 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	t_pars	*pars;
 	t_exec 	*exec;
+	t_jct	*jct;
 
 	// printf("\n😈😈😈 Welcome to minishell ... or should I say " RED"🔥 MINIHELLLL 🔥 😈😈😈\n\n"WHT);
 	pars = ft_init_pars(envp);
+	jct = ft_init_jct();
 	while (GWEN)
 	{
 		pars->input = readline("Minishell > ");
 		add_history(pars->input);
-		ft_parsing(pars);
+		ft_parsing(pars, jct);
+	}
+	while (LOULOU_JCT)
+	{
+		exec = ft_init_exec(ac, av, envp);
+		// exec->line = readline("Minishell > ");
+		pars->input = readline("Minishell > ");
+		add_history(pars->input);
+		ft_parsing(pars, jct);
+		// exec->readline = ft_split(exec->line, '|');
+
+		// //Printing What's inside 'exec->readline' variable
+		// int j = -1;
+		// while(exec->readline[++j])
+		// 	printf("exec->readline[%d] : %s\n", j, exec->readline[j]);
+		// ft_is_operator(exec);
+		exec->cmd_nb = jct->cmd_nb;
+		exec->pipes_nb = exec->cmd_nb - 1;
+		ft_print_debug(exec);
+		//The execution of all cmds starts here
+		ft_exec_jct(exec, jct);
+		ft_free_exec(exec);
 	}
 	while (LOULOU)
 	{

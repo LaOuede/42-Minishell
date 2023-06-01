@@ -118,7 +118,7 @@ t_pars	*ft_init_pars(char **envp)
 Main function for parsing. Calls Lexer and Parser
 and then returns a 2D arry to the executioner
 */
-void	ft_parsing(t_pars *pars)
+void	ft_parsing(t_pars *pars, t_jct *jct)
 {
 	printf(KYEL "-------------------- FT_PARSING" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 
@@ -129,7 +129,7 @@ void	ft_parsing(t_pars *pars)
 	ft_rebuilder(pars);
 	ft_rebuilder_debugger(pars);
 	ft_extract_cmd_debugger(pars);
-	ft_parser(pars);
+	ft_parser(pars, jct);
 	/* Free linked-list between prompt & clean up */
 	ft_reset_pars(pars);
 	ft_free_lst(&pars->line);

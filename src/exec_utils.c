@@ -129,6 +129,12 @@ void	ft_copy_env(t_exec *exec, char **envp)
 	exec->envp[j] = NULL;
 }
 
+void	ft_cmd_nb_jct(t_exec *exec, t_jct *jct)
+{
+	exec->cmd_nb = jct->cmd_nb;
+	exec->pipes_nb = exec->cmd_nb - 1;
+}
+
 void	ft_cmd_nb(t_exec *exec)
 {
 	int	j = 0;
