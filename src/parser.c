@@ -37,24 +37,23 @@ void    ft_ll_to_2Darray(t_jct *jct, t_pars *pars)
         {
             printf("column = %d\n", column);
             printf("ptr->tab_type = %d\n", ptr->tab_type);
+            if (ptr->tab_type == -1 && column == 0)
+            {
+                if (ptr->next)
+                    ptr = ptr->next;
+            }
             if (column == ptr->tab_type)
             {
                 jct->tab[row][column] = ft_strdup(ptr->str);
                 printf("str = %s\n", jct->tab[row][column]);
-                if (ptr->next)
-                    ptr = ptr->next;
             }
-            else if (ptr->tab_type == -1 && column < 4)
+            else if (column != ptr->tab_type && 0 < column)
             {
-                while (column < 4)
-                {
 					//TODO to change "NULL" to NULL below
                     jct->tab[row][column] = "NULL";
                     printf("str = %s\n", jct->tab[row][column]);
-                    column++;
-                }
             }
-            if (ptr->tab_type == -1)
+            if (ptr->next)
                 ptr = ptr->next;
         }
     }
@@ -95,6 +94,8 @@ void	ft_cmd_type(t_token **list)
 	ptr = *list;
 	while (ptr)
 	{
+        if (ptr->type == 4)
+			ptr->tab_type = -1;
 		if (ptr->type == -1)
 			ptr->tab_type = 0;
 		else if (ptr->type == 0)
