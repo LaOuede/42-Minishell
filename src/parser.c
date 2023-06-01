@@ -37,28 +37,31 @@ void    ft_ll_to_2Darray(t_jct *jct, t_pars *pars)
         {
             printf("column = %d\n", column);
             printf("ptr->tab_type = %d\n", ptr->tab_type);
-            if (column == ptr->tab_type && ptr->tab_type != -1)
+            if (column == ptr->tab_type)
             {
                 jct->tab[row][column] = ft_strdup(ptr->str);
                 printf("str = %s\n", jct->tab[row][column]);
+                if (ptr->next)
+                    ptr = ptr->next;
             }
-            else if (column != ptr->tab_type && ptr->tab_type != -1)
+            else if (ptr->tab_type == -1 && column < 4)
             {
-                jct->tab[row][column] = NULL;
-                printf("str = %s\n", jct->tab[row][column]);
+                while (column < 4)
+                {
+					//TODO to change "NULL" to NULL below
+                    jct->tab[row][column] = "NULL";
+                    printf("str = %s\n", jct->tab[row][column]);
+                    column++;
+                }
             }
-            else if (column != 3 && ptr->tab_type == -1)
-            {
-                jct->tab[row][column] = NULL;
-                printf("str = %s\n", jct->tab[row][column]);
-            }
-            if (ptr->next)
+            if (ptr->tab_type == -1)
                 ptr = ptr->next;
         }
     }
     //ft_clean_up(pars);
     printf(KYEL "-------------------- FT_FILL_TAB" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
+
 /* Initializes the two-dimensioonnal array. */
 void    ft_init_cmdtab(t_jct *jct)
 {
