@@ -62,7 +62,7 @@ void	ft_exec_jct(t_exec *exec, t_jct *jct)
 	
 	//TODO remove the below
 	exec->fl_redirin = 0; // <
-	exec->fl_redirout = 1; // >
+	exec->fl_redirout = 0; // >
 	// exec->fl_hdr = 1; // >>
 	// exec->fl_hdl = 0; // <<
 	exec->input  = open("Makefile", O_RDONLY);
@@ -71,12 +71,12 @@ void	ft_exec_jct(t_exec *exec, t_jct *jct)
 	exec->input  = open("supp.txt", O_RDONLY);
 	if (exec->input == -1)
 				ft_err("Error exec->file", exec);
-		//TODO to modify the below
-	if (exec->fl_redirout == 1 && exec->fl_hdr == 1)
-		exec->output = open("out", O_RDWR | O_CREAT | O_APPEND, 0644);
-	else
-		exec->output = open("out", O_RDWR | O_CREAT | O_TRUNC, 0644);
-		//TODO to modify the above
+	// 	//TODO to modify the below
+	// if (exec->fl_redirout == 1 && exec->fl_hdr == 1)
+	// 	exec->output = open("out", O_RDWR | O_CREAT | O_APPEND, 0644);
+	// else
+	// 	exec->output = open("out", O_RDWR | O_CREAT | O_TRUNC, 0644);
+	// 	//TODO to modify the above
 	exec->output = open("out", O_RDWR | O_CREAT | O_TRUNC, 0644);
 	//TODO remove the above
 
