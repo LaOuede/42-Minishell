@@ -122,7 +122,8 @@ bool		ft_check_expand_brackets(char *str, t_pars *pars);
 void		ft_get_expand_brackets_quotes(int *i, char *str, t_pars *pars);
 void		ft_clean_list(t_token **list);
 void		ft_parser(t_pars *pars, t_jct *jct);
-
+void		ft_clean_up_jct(t_jct *jct, char *err_msg);
+void		ft_fill_tab(t_jct *jct, t_pars *pars);
 void		ft_parser_debugger(t_pars *pars);
 
 #endif

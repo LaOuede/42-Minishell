@@ -36,7 +36,4 @@ typedef struct s_jct
 	int		cmd_nb;
 }			t_jct;
 
-void		ft_clean_up_jct(t_jct *jct, char *err_msg);
-void		ft_ll_to_2Darray(t_jct *jct, t_pars *pars);
-
 #endif
