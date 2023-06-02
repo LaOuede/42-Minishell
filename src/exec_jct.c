@@ -18,7 +18,7 @@ void	ft_make_pids_jct(t_exec *exec, t_jct *jct)
 		{
 			//this is the child process
 			ft_dup_process(exec, i);
-			ft_run_cmd_jct(exec, jct);
+			ft_run_cmd_jct(exec, jct, i);
 		}	
 
 		// printf("--- Exit ft_chils_proc	---\n");
@@ -30,24 +30,20 @@ void	ft_make_pids_jct(t_exec *exec, t_jct *jct)
 	ft_close_pipes(exec);
 }
 
-void	ft_run_cmd_jct(t_exec *exec, t_jct *jct)
+void	ft_run_cmd_jct(t_exec *exec, t_jct *jct, int r)
 {
 	char	*path;
 	char	***cmds;
 	int		i;
-	int		r;
 
 	cmds = jct->tab;
-	r = -1;
-	while (cmds[++r])
-	{
-		path = ft_cmd_path(exec, cmds[r][0]);
-		fprintf(stderr, "path = %s\n", path);
-		if (!path)
-			free(path);
-		else if (execve(path, *cmds, exec->envp) < 0)
-			ft_err("Error ! Something went wrong while executing: ", exec);
-	}
+	fprintf(stderr, "cmd[%d][0] = %s\n", r, cmds[r][0]);
+	path = ft_cmd_path(exec, cmds[r][0]);
+	fprintf(stderr, "path = %s\n", path);
+	if (!path)
+		free(path);
+	else if (execve(path, *cmds, exec->envp) < 0)
+		ft_err("Error ! Something went wrong while executing: ", exec);
 	//TODO ft_err exit if there is an error, so the below will never be executed
 	i = 0;
 	while (exec->path_var[i])
