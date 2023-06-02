@@ -23,6 +23,8 @@ typedef struct s_exec
 	int		index;
 	int		fl_redirin;
 	int		fl_redirout;
+	int		fl_hdr;
+	int		fl_hdl;
 	pid_t	*pids;
 	int		**pipes;
 	//to delete - will be in t_jct
