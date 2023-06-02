@@ -1,4 +1,3 @@
-cmd[0][0] = ls
 Makefile
 include
 libs

@@ -63,7 +63,7 @@ void	ft_exec_jct(t_exec *exec, t_jct *jct)
 	
 	//TODO remove the below
 	exec->fl_redirin = 0; // <
-	exec->fl_redirout = 0; // >
+	exec->fl_redirout = 1; // >
 	// exec->fl_hdr = 1; // >>
 	// exec->fl_hdl = 0; // <<
 	exec->input  = open("Makefile", O_RDONLY);

@@ -86,7 +86,7 @@ void	ft_clean_list(t_token **list)
 	ptr = *list;
 	while (ptr->next)
 	{
-		if (ptr->next->type == ERROR)
+		if (ptr->next->type == ERROR || (1 < ptr->next->type && ptr->next->type <= 2))
 		{
 			sup = ptr->next;
 			ft_free_token(sup);
