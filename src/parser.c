@@ -30,7 +30,7 @@ void    ft_ll_to_2Darray(t_jct *jct, t_pars *pars)
     ptr = pars->line;
     printf("jct->cmd_nb = %d\n", jct->cmd_nb);
     printf("pars->nb_pipe = %d\n", pars->nb_pipe);
-    while (++row < jct->cmd_nb && ptr)
+    while (++row < jct->cmd_nb && ptr->next)
     {
         column = -1;
         while (++column < 4)
@@ -38,23 +38,31 @@ void    ft_ll_to_2Darray(t_jct *jct, t_pars *pars)
             printf("column = %d\n", column);
             printf("ptr->tab_type = %d\n", ptr->tab_type);
             if (ptr->tab_type == -1 && column == 0)
-            {
-                if (ptr->next)
-                    ptr = ptr->next;
-            }
+                ptr = ptr->next;
             if (column == ptr->tab_type)
             {
                 jct->tab[row][column] = ft_strdup(ptr->str);
                 printf("str = %s\n", jct->tab[row][column]);
+                if (ptr->next)
+                    ptr = ptr->next;
             }
-            else if (column != ptr->tab_type && 0 < column)
+            else if (column != ptr->tab_type)
             {
-					//TODO to change "NULL" to NULL below
-                    jct->tab[row][column] = "NULL";
-                    printf("str = %s\n", jct->tab[row][column]);
+                    //TODO to change "NULL" to NULL below
+                    if (ptr->tab_type != -1)
+                    {
+                        jct->tab[row][column] = "NULL";
+                        printf("str = %s\n", jct->tab[row][column]);
+                    }
+                    else
+                    {
+                        while (column < 4)
+                        {
+                             jct->tab[row][column] = "NULL";
+                             column++;
+                        }
+                    }
             }
-            if (ptr->next)
-                ptr = ptr->next;
         }
     }
     //ft_clean_up(pars);
@@ -85,27 +93,27 @@ void    ft_init_cmdtab(t_jct *jct)
     }
 }
 
-void	ft_cmd_type(t_token **list)
+void    ft_cmd_type(t_token **list)
 {
-	t_token	*ptr;
+    t_token *ptr;
 
-	if (!list)
-		return ;
-	ptr = *list;
-	while (ptr)
-	{
-        if (ptr->type == 4)
-			ptr->tab_type = -1;
-		if (ptr->type == -1)
-			ptr->tab_type = 0;
-		else if (ptr->type == 0)
-			ptr->tab_type = 1;
-		else if (ptr->type == 5 || ptr->type == 6)
-			ptr->tab_type = 2;
-		else if (ptr->type == 7 || ptr->type == 8)
-			ptr->tab_type = 3;
-		ptr = ptr->next;
-	}
+    if (!list)
+        return ;
+    ptr = *list;
+    while (ptr)
+    {
+        if (ptr->type == -1)
+            ptr->tab_type = 0;
+        else if (0 <= ptr->type && ptr->type <= 3)
+            ptr->tab_type = 1;
+        else if (ptr->type == 4)
+            ptr->tab_type = -1;
+        else if (ptr->type == 5 || ptr->type == 6)
+            ptr->tab_type = 2;
+        else if (ptr->type == 7 || ptr->type == 8)
+            ptr->tab_type = 3;
+        ptr = ptr->next;
+    }
 }
 
 // t_jct	*ft_init_jct(t_pars *pars)
