@@ -32,7 +32,7 @@ void	ft_fill_tab(t_jct *jct, t_pars *pars)
 	ptr = pars->line;
 	printf("jct->cmd_nb = %d\n", jct->cmd_nb);
 	printf("pars->nb_pipe = %d\n", pars->nb_pipe);
-	while (++row < jct->cmd_nb && ptr->next)
+	while (++row < jct->cmd_nb && ptr)
 	{
 		column = -1;
 		while (++column < 4)
