@@ -87,7 +87,7 @@ void	ft_find_arg(t_pars *pars)
 	{
 		if ((ptr->type == ARG || ptr->type == EXPAND) && flag == true)
 			flag = false;
-		else if (ptr->type == ARG && flag == false)
+		else if ((ptr->type == ARG || ptr->type == EXPAND) && flag == false)
 			ptr->type = ERROR;
 		if (ptr->type == PIPE)
 			flag = true;

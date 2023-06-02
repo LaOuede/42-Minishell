@@ -72,6 +72,9 @@ typedef struct s_pars
 	int				c_brackets;
 	int				p_brackets;
 	int				flag_whitespace;
+	bool				flag_error_lexer;
+	bool				flag_error_rebuilder;
+	bool				flag_error_parser;
 }	t_pars;
 //TODO mieux gérer flag de brackets
 
@@ -125,5 +128,6 @@ void		ft_parser(t_pars *pars, t_jct *jct);
 void		ft_clean_up_jct(t_jct *jct, char *err_msg);
 void		ft_fill_tab(t_jct *jct, t_pars *pars);
 void		ft_parser_debugger(t_pars *pars);
+void		ft_error(char *err_msg);
 
 #endif

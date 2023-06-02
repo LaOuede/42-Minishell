@@ -90,6 +90,9 @@ void	ft_reset_pars(t_pars *pars)
 	pars->p_brackets = 0;
 	pars->c_brackets = 0;
 	pars->flag_whitespace = 0;
+	pars->flag_error_lexer = false;
+	pars->flag_error_rebuilder = false;
+	pars->flag_error_parser = false;
 }
 
 t_pars	*ft_init_pars(char **envp)
@@ -110,6 +113,9 @@ t_pars	*ft_init_pars(char **envp)
 		pars->p_brackets = 0;
 		pars->c_brackets = 0;
 		pars->flag_whitespace = 0;
+		pars->flag_error_lexer = false;
+		pars->flag_error_rebuilder = false;
+		pars->flag_error_parser = false;
 	}
 	return (pars);
 }
@@ -126,10 +132,13 @@ void	ft_parsing(t_pars *pars, t_jct *jct)
 		return ;
 	ft_lexer(pars);
 	ft_lexer_debugger(pars);
-	ft_rebuilder(pars);
-	ft_rebuilder_debugger(pars);
-	ft_extract_cmd_debugger(pars);
-	ft_parser(pars, jct);
+	if (pars->flag_error_lexer == false)
+	{
+		ft_rebuilder(pars);
+		ft_rebuilder_debugger(pars);
+		ft_extract_cmd_debugger(pars);
+		ft_parser(pars, jct);
+	}
 	/* Free linked-list between prompt & clean up */
 	ft_reset_pars(pars);
 	ft_free_lst(&pars->line);
