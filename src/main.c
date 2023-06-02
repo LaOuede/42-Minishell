@@ -1,8 +1,8 @@
 #include "../include/minishell.h"
 
-#define GWEN 1
+#define GWEN 0
 #define LOULOU 0
-#define LOULOU_JCT 0
+#define LOULOU_JCT 1
 
 /* t_ms	*ft_init_ms(int ac, char **av, char **envp)
 {
@@ -58,6 +58,8 @@ int	main(int ac, char **av, char **envp)
 		add_history(pars->input);
 		ft_parsing(pars, jct);
 		exec->cmd_nb = jct->cmd_nb;
+		printf("exec->cmd_nb = %d\n", exec->cmd_nb);
+		printf("jct->cmd_nb = %d\n", jct->cmd_nb);
 		exec->pipes_nb = exec->cmd_nb - 1;
 		ft_print_debug(exec);
 		//The execution of all cmds starts here

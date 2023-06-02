@@ -15,6 +15,7 @@ SRCS_DIR	=	./src/
 SRCS_LST	= 	error_handling.c \
 				exec_utils.c \
 				exec_pipes.c \
+				exec_jct.c \
 				exec.c \
 				extract_cmd.c \
 				freeing.c \
