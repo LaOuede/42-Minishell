@@ -66,24 +66,24 @@ int	main(int ac, char **av, char **envp)
 		ft_exec_jct(exec, jct);
 		ft_free_exec(exec);
 	}
-	// while (LOULOU)
-	// {
-	// 	exec = ft_init_exec(ac, av, envp);
-	// 	exec->line = readline("Minishell > ");
-	// 	add_history(exec->line);
-	// 	exec->readline = ft_split(exec->line, '|');
+	while (LOULOU)
+	{
+		exec = ft_init_exec(ac, av, envp);
+		exec->line = readline("Minishell > ");
+		add_history(exec->line);
+		exec->readline = ft_split(exec->line, '|');
 
-	// 	// //Printing What's inside 'exec->readline' variable
-	// 	// int j = -1;
-	// 	// while(exec->readline[++j])
-	// 	// 	printf("exec->readline[%d] : %s\n", j, exec->readline[j]);
-	// 	// ft_is_operator(exec);
-	// 	ft_cmd_nb(exec);
-	// 	ft_print_debug(exec);
-	// 	//The execution of all cmds starts here
-	// 	ft_exec(exec);
-	// 	ft_free_exec(exec);
-	// }
+		// //Printing What's inside 'exec->readline' variable
+		// int j = -1;
+		// while(exec->readline[++j])
+		// 	printf("exec->readline[%d] : %s\n", j, exec->readline[j]);
+		// ft_is_operator(exec);
+		ft_cmd_nb(exec);
+		ft_print_debug(exec);
+		//The execution of all cmds starts here
+		ft_exec(exec);
+		ft_free_exec(exec);
+	}
 	
 	// ft_clean_up(parse);
 	//TODO need to implement a fct that clears the history (fct clear_history exist in history.h)
