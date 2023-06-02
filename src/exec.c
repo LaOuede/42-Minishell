@@ -105,6 +105,11 @@ void	ft_dup_process(t_exec *exec, int i)
 	}
 	else
 		dup2(exec->pipes[i][1], STDOUT_FILENO);
+	//TODO close all input and/or output here (including here_doc)
+	if(exec->fl_redirin == 1)
+		close(exec->input);
+	if(exec->fl_redirout == 1)
+		close(exec->output);
 	ft_close_pipes(exec);
 }
 
