@@ -64,6 +64,7 @@ int	main(int ac, char **av, char **envp)
 		ft_print_debug(exec);
 		//The execution of all cmds starts here
 		ft_exec_jct(exec, jct);
+		//TODO implement a reset function instead of free fct
 		ft_free_exec(exec);
 	}
 	while (LOULOU)
