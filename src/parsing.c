@@ -68,7 +68,6 @@ void	ft_lexer_debugger(t_pars *pars)
 		printf("*" KBLU KBLD " -> Type[%d]                                                 " RESET KBLU "*\n", tmp->type);
 		printf("*" KBLU KBLD " -> D_Quotes[%d]                                             " RESET KBLU "*\n", tmp->d_quotes);
 		printf("*" KBLU KBLD " -> S_Quotes[%d]                                             " RESET KBLU "*\n", tmp->s_quotes);
-		printf("*" KBLU KBLD " -> P_brackets[%d]                                           " RESET KBLU "*\n", tmp->p_brackets);
 		printf("*" KBLU KBLD " -> C_brackets[%d]                                           " RESET KBLU "*\n", tmp->c_brackets);
 		printf("*" KBLU KBLD " -> Whitespace[%d]                                           " RESET KBLU "*\n", tmp->ws);
 		printf("*" KBLU KBLD " -> Str =          " RESET KBLD "%s" RESET KBLU "\n", tmp->str);
@@ -87,7 +86,6 @@ void	ft_reset_pars(t_pars *pars)
 	pars->type = ARG;
 	pars->d_quotes = 0;
 	pars->s_quotes = 0;
-	pars->p_brackets = 0;
 	pars->c_brackets = 0;
 	pars->flag_whitespace = 0;
 	pars->flag_error_lexer = false;
@@ -110,7 +108,6 @@ t_pars	*ft_init_pars(char **envp)
 		pars->type = ARG;
 		pars->d_quotes = 0;
 		pars->s_quotes = 0;
-		pars->p_brackets = 0;
 		pars->c_brackets = 0;
 		pars->flag_whitespace = 0;
 		pars->flag_error_lexer = false;
@@ -139,12 +136,8 @@ void	ft_parsing(t_pars *pars, t_jct *jct)
 		ft_extract_cmd_debugger(pars);
 		ft_parser(pars, jct);
 	}
-	/* Free linked-list between prompt & clean up */
 	ft_reset_pars(pars);
 	ft_free_lst(&pars->line);
-	// TODO rajouter une fonction qui check les erreurs avant l'envoi à l'exec
-	// ex : if parse->s_quotes == OPEN alors retour d'erreur
-	// TODO Fonction pour entrer la linked-list dans un tableau 2D
 	printf(KYEL "-------------------- FT_PARSING" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }
 
@@ -159,13 +152,14 @@ So need to suppress functions
 7) DONE - Re-construct the arguments (seems ok so far)
 8) DONE - Clean up the linked-list (Remove empty node added)
 9) DONE - Linked-list divided in cmd (CMD - ARG - REDIN - REDOUT)
+10) DONE - Transfer linked-list into 2D table
 
-Lexer almost done. Parser here I come!
+11) Parse commands & Shoot error message when a parsing error is found
+12) Handle memory wise girl !!
+13) Check everything to make a list of what's missing.
+14) Clean the code!
 
-10) Transfer linked-list into 2D table
-11) Parse commands
-12) Shoot error message when a parsing error is found
-13) Handle memory wise girl !!
-12) Check everything to make a list of what's missing.
-15) Clean the code!
+Things to check :
+	- somethimes space between <> and name file
+	- 
 */

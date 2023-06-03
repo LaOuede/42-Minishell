@@ -38,7 +38,7 @@ void	ft_appenred_token(int *i, t_pars *pars)
 	{
 		tmp = ft_stock_char(tmp, pars->input[(*i)]);
 		j++;
-		(*i)++;
+		++(*i);
 	}
 	printf("j = %d\n", j);
 	if (j > 2)
@@ -63,7 +63,7 @@ void	ft_heredoc_token(int *i, t_pars *pars)
 	{
 		tmp = ft_stock_char(tmp, pars->input[(*i)]);
 		j++;
-		(*i)++;
+		++(*i);
 	}
 	if (j > 2)
 	{

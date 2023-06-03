@@ -51,7 +51,6 @@ typedef struct s_token
 	int				s_quotes;
 	int				d_quotes;
 	int				c_brackets;
-	int				p_brackets;
 	int				nb_cmd;
 	int				ws;
 	struct s_token	*next;
@@ -72,9 +71,9 @@ typedef struct s_pars
 	int				c_brackets;
 	int				p_brackets;
 	int				flag_whitespace;
-	bool				flag_error_lexer;
-	bool				flag_error_rebuilder;
-	bool				flag_error_parser;
+	bool			flag_error_lexer;
+	bool			flag_error_rebuilder;
+	bool			flag_error_parser;
 }	t_pars;
 //TODO mieux gérer flag de brackets
 
@@ -83,7 +82,7 @@ void		ft_add_token_bottom(t_token **lst, t_token *element);
 void		ft_add_token_top(t_token **lst, t_token *new_node);
 void		ft_appenred_token(int *i, t_pars *pars);
 void		ft_brackets_token(int *i, t_pars *pars);
-void		ft_char(char c, int *i, t_pars *pars);
+void		ft_char(int *i, t_pars *pars);
 void		ft_clean_up(t_pars *pars);
 t_token		*ft_create_node(char *str, t_pars *pars);
 void		ft_d_quotes_token(int *i, t_pars *pars);

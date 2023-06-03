@@ -150,8 +150,7 @@ void	ft_merge_allredin(t_pars *pars)
 					new_str = ft_strdup(ptr2->str);
 				else if (ptr1->str && ptr2->str)
 				{
-					if (ptr2->ws == 1)
-						ptr1->str = ft_strjoin_char(ptr1->str, ' ');
+					ptr1->str = ft_strjoin_char(ptr1->str, ' ');
 					new_str = ft_strjoin(ptr1->str, ptr2->str);
 				}
 				ptr1->str = ft_strdup(new_str);
@@ -192,8 +191,7 @@ void	ft_merge_allredout(t_pars *pars)
 					new_str = ft_strdup(ptr2->str);
 				else if (ptr1->str && ptr2->str)
 				{
-					if (ptr2->ws == 1)
-						ptr1->str = ft_strjoin_char(ptr1->str, ' ');
+					ptr1->str = ft_strjoin_char(ptr1->str, ' ');
 					new_str = ft_strjoin(ptr1->str, ptr2->str);
 				}
 				ptr1->str = ft_strdup(new_str);
