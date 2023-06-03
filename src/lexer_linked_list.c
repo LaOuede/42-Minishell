@@ -86,7 +86,7 @@ void	ft_clean_list(t_token **list)
 	while (ptr->next)
 	{
 		printf("ptr->type = %d\n", ptr->type);
-		if (ptr->next->type == ERROR || (1 <= ptr->next->type && ptr->next->type <= 2))
+		if (ptr->next->type == ERROR)
 		{
 			sup = ptr->next;
 			if (ptr->next->next)

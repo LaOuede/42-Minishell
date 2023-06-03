@@ -15,8 +15,10 @@ void	ft_check_redir(t_pars *pars)
 		{
 			len = ft_strlen(ptr->str);
 			if (ptr->str[len - 1] == '<' || ptr->str[len - 1] == '>')
-			ft_error("REDIR NO FILE\n");
-			pars->flag_error_rebuilder = false;
+			{
+				ft_error("REDIR NO FILE\n");
+				pars->flag_error_rebuilder = false;
+			}
 		}
 		ptr = ptr->next;
 	}

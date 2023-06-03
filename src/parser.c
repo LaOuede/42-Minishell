@@ -1,5 +1,37 @@
 #include "../include/minishell.h"
 
+void	ft_clean_list_parser(t_token **list)
+{
+	printf(KYEL "-------------------- FT_CLEAN_LIST" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	t_token *sup;
+	t_token	*ptr;
+
+	if (!*list)
+		return ;
+	ptr = *list;
+	while (ptr->next)
+	{
+		printf("ptr->type = %d\n", ptr->tab_type);
+		printf("ptr->next->type = %d\n", ptr->next->tab_type);
+		if (ptr->tab_type == ptr->next->tab_type)
+		{
+			sup = ptr->next;
+			if (ptr->next->next)
+			{
+				ptr->next = ptr->next->next;
+			}
+			else if (!ptr->next->next)
+			{
+				ptr->next = NULL;
+			}
+			ft_free_token(sup);
+		}
+		else if (ptr->next)
+			ptr = ptr->next;
+	}
+	printf(KYEL "-------------------- FT_CLEAN_LIST" KRED " END " RESET KYEL "--------------------\n" RESET);
+}
+
 void	ft_check_error(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_CHECK_ERROR" KGRN " START " RESET KYEL "--------------------\n" RESET);
@@ -136,6 +168,7 @@ void	ft_parser(t_pars *pars, t_jct *jct)
 	jct->cmd_nb = pars->nb_pipe;
 	ft_cmd_type(&pars->line);
 	ft_check_error(pars);
+	ft_clean_list_parser(&pars->line);
 	ft_parser_debugger(pars);
 	if (pars->flag_error_parser == true)
 	{
