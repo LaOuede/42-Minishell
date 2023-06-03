@@ -161,4 +161,6 @@ So need to suppress functions
 14) Clean the code!
 
 check : echo """"salut""""" in void	ft_clean_list(t_token **list)
+check : echo "$USER" <in "salut" salut no good although echo "$USER" <in salut salut is good
+pb with EXPAND TYPE...
 */
