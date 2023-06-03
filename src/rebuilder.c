@@ -49,6 +49,7 @@ void	ft_find_redout(t_pars *pars)
 			ptr->type = ERROR;
 		if (ptr->type == PIPE)
 			flag = true;
+		printf("ptr->type = %d\n", ptr->type);
 		ptr = ptr->next;
 	}
 	printf(KYEL "-------------------- FT_FIND_REDOUT" KRED " END " RESET KYEL "--------------------\n" RESET);
@@ -70,6 +71,7 @@ void	ft_find_redin(t_pars *pars)
 			ptr->type = ERROR;
 		if (ptr->type == PIPE)
 			flag = true;
+		printf("ptr->type = %d\n", ptr->type);
 		ptr = ptr->next;
 	}
 	printf(KYEL "-------------------- FT_FIND_REDIN" KRED " END " RESET KYEL "--------------------\n" RESET);
@@ -77,7 +79,7 @@ void	ft_find_redin(t_pars *pars)
 
 void	ft_find_arg(t_pars *pars)
 {
-	printf(KYEL "-------------------- FT_FIND_CMD" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	printf(KYEL "-------------------- FT_FIND_ARG" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr;
 	bool	flag;
 
@@ -85,6 +87,7 @@ void	ft_find_arg(t_pars *pars)
 	flag = true;
 	while (ptr)
 	{
+		printf("str = %s\n", ptr->str);
 		if ((ptr->type == ARG || ptr->type == EXPAND) && flag == true)
 			flag = false;
 		else if ((ptr->type == ARG || ptr->type == EXPAND) && flag == false)
@@ -93,7 +96,7 @@ void	ft_find_arg(t_pars *pars)
 			flag = true;
 		ptr = ptr->next;
 	}
-	printf(KYEL "-------------------- FT_FIND_CMD" KRED " END " RESET KYEL "--------------------\n" RESET);
+	printf(KYEL "-------------------- FT_FIND_ARG" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
 void	ft_find_cmd(t_pars *pars)
