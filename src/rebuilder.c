@@ -9,7 +9,7 @@ void	ft_check_redir(t_pars *pars)
 	if (!pars->line)
 		return ;
 	ptr = pars->line;
-	while (ptr->next)
+	while (ptr)
 	{
 		if (5 <= ptr->type && ptr->type <= 8)
 		{
@@ -112,13 +112,16 @@ void	ft_find_arg(t_pars *pars)
 	flag = true;
 	while (ptr)
 	{
+		printf("flag = %d\n", flag);
 		printf("str = %s\n", ptr->str);
-		if ((ptr->type == ARG || ptr->type == EXPAND) && flag == true)
+		printf("str->type before= %d\n", ptr->type);
+		if ((0 <= ptr->type && ptr->type <= 3) && flag == true)
 			flag = false;
-		else if ((ptr->type == ARG || ptr->type == EXPAND) && flag == false)
+		else if ((0 <= ptr->type && ptr->type <= 3) && flag == false)
 			ptr->type = ERROR;
 		if (ptr->type == PIPE)
 			flag = true;
+		printf("str->type after = %d\n", ptr->type);
 		ptr = ptr->next;
 	}
 	printf(KYEL "-------------------- FT_FIND_ARG" KRED " END " RESET KYEL "--------------------\n" RESET);
