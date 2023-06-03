@@ -1,5 +1,28 @@
 #include "../include/minishell.h"
 
+void	ft_check_redir(t_pars *pars)
+{
+	printf(KYEL "-------------------- FT_CHECK_REDIR" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	t_token	*ptr;
+	int		len;
+
+	if (!pars->line)
+		return ;
+	ptr = pars->line;
+	while (ptr->next)
+	{
+		if (5 <= ptr->type && ptr->type <= 8)
+		{
+			len = ft_strlen(ptr->str);
+			if (ptr->str[len - 1] == '<' || ptr->str[len - 1] == '>')
+			ft_error("REDIR NO FILE\n");
+			pars->flag_error_rebuilder = false;
+		}
+		ptr = ptr->next;
+	}
+	printf(KYEL "-------------------- FT_CHECK_REDIR" KRED " END " RESET KYEL "--------------------\n" RESET);
+}
+
 void	ft_swap(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_SWAP" KGRN " START " RESET KYEL "--------------------\n" RESET);
@@ -307,6 +330,7 @@ void	ft_rebuilder(t_pars *pars)
 	ft_merge_red(pars);
 	ft_merge_allredin(pars);
 	ft_merge_allredout(pars);
+	ft_check_redir(pars);
 	ft_find_cmd(pars);
 	ft_merge_arg(pars);
 	ft_find_arg(pars);

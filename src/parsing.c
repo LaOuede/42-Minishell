@@ -88,9 +88,9 @@ void	ft_reset_pars(t_pars *pars)
 	pars->s_quotes = 0;
 	pars->c_brackets = 0;
 	pars->flag_whitespace = 0;
-	pars->flag_error_lexer = false;
-	pars->flag_error_rebuilder = false;
-	pars->flag_error_parser = false;
+	pars->flag_error_lexer = true;
+	pars->flag_error_rebuilder = true;
+	pars->flag_error_parser = true;
 }
 
 t_pars	*ft_init_pars(char **envp)
@@ -110,9 +110,9 @@ t_pars	*ft_init_pars(char **envp)
 		pars->s_quotes = 0;
 		pars->c_brackets = 0;
 		pars->flag_whitespace = 0;
-		pars->flag_error_lexer = false;
-		pars->flag_error_rebuilder = false;
-		pars->flag_error_parser = false;
+		pars->flag_error_lexer = true;
+		pars->flag_error_rebuilder = true;
+		pars->flag_error_parser = true;
 	}
 	return (pars);
 }
@@ -129,11 +129,12 @@ void	ft_parsing(t_pars *pars, t_jct *jct)
 		return ;
 	ft_lexer(pars);
 	ft_lexer_debugger(pars);
-	if (pars->flag_error_lexer == false)
+	if (pars->flag_error_lexer == true)
 	{
 		ft_rebuilder(pars);
 		ft_rebuilder_debugger(pars);
 		ft_extract_cmd_debugger(pars);
+		if (pars->flag_error_rebuilder == true)
 		ft_parser(pars, jct);
 	}
 	ft_reset_pars(pars);
@@ -158,4 +159,6 @@ So need to suppress functions
 12) Handle memory wise girl !!
 13) Check everything to make a list of what's missing.
 14) Clean the code!
+
+check : echo """"salut""""" in void	ft_clean_list(t_token **list)
 */

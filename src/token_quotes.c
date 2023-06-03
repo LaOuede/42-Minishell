@@ -24,7 +24,7 @@ void	ft_s_quotes_token(int *i, t_pars *pars)
 	{
 		ft_error("Simple Quotes Error\n");
 		printf("pars->flag_error_lexer = %d\n", pars->flag_error_lexer);
-		pars->flag_error_lexer = true;
+		pars->flag_error_lexer = false;
 	}
 	if (tmp)
 		ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
@@ -55,7 +55,7 @@ char	*ft_stock_quotes(int *i, char *str, t_pars *pars)
 	{
 		ft_error("Double Quotes Error\n");
 		printf("pars->flag_error_lexer = %d\n", pars->flag_error_lexer);
-		pars->flag_error_lexer = true;
+		pars->flag_error_lexer = false;
 	}
 	printf(KYEL "-------------------- FT_STOCK_QUOTES" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 	return (str);

@@ -44,7 +44,7 @@ void	ft_appenred_token(int *i, t_pars *pars)
 	if (j > 2)
 	{
 		ft_error("APPENRED ERROR\n");
-		pars->flag_error_lexer = true;
+		pars->flag_error_lexer = false;
 	}
 	pars->type = APPRED;
 	ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
@@ -68,7 +68,7 @@ void	ft_heredoc_token(int *i, t_pars *pars)
 	if (j > 2)
 	{
 		ft_error("HEREDOC ERROR\n");
-		pars->flag_error_lexer = true;
+		pars->flag_error_lexer = false;
 	}
 	pars->type = HEREDOC;
 	ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
