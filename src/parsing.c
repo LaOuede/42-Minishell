@@ -158,8 +158,4 @@ So need to suppress functions
 12) Handle memory wise girl !!
 13) Check everything to make a list of what's missing.
 14) Clean the code!
-
-Things to check :
-	- somethimes space between <> and name file
-	- 
 */

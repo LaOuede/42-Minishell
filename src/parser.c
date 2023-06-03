@@ -1,5 +1,24 @@
 #include "../include/minishell.h"
 
+void	ft_check_error(t_pars *pars)
+{
+	printf(KYEL "-------------------- FT_CHECK_ERROR" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	t_token	*ptr;
+
+	if (!pars->line)
+		return ;
+	ptr = pars->line;
+	while (ptr->next)
+		ptr = ptr->next;
+	printf("ptr->str[0] = %c\n", ptr->str[0]);
+	if (ptr->type == PIPE)
+	{
+		ft_error("PIPE AT THE END\n");
+		pars->flag_error_parser = true;
+	}
+	printf(KYEL "-------------------- FT_CHECK_ERROR" KRED " END " RESET KYEL "--------------------\n" RESET);
+}
+
 void	ft_print_tab(t_jct *jct)
 {
 	printf(KYEL "-------------------- FT_PRINT_TAB" KGRN " START " RESET KYEL "--------------------\n" RESET);
@@ -117,8 +136,12 @@ void	ft_parser(t_pars *pars, t_jct *jct)
 		return ;
 	jct->cmd_nb = pars->nb_pipe;
 	ft_cmd_type(&pars->line);
+	ft_check_error(pars);
 	ft_parser_debugger(pars);
-	ft_init_cmdtab(jct);
-	ft_fill_tab(jct,pars);
-	ft_print_tab(jct);
+	if (pars->flag_error_parser == false)
+	{
+		ft_init_cmdtab(jct);
+		ft_fill_tab(jct, pars);
+		ft_print_tab(jct);
+	}
 }
