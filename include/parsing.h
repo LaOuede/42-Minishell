@@ -19,7 +19,8 @@
 # define KWHT "\x1B[37m"
 
 /* --------------------ERROR MESSAGE--------------------- *///
-# define ERR_QUOTE	"Input Error : Invalid quotation (unclosed)\n"
+# define ERR_INFILE	"Input Error : No such file or directory\n"
+# define ERR_QUOTE	"Input Error : Quotation unclosed\n"
 # define ERR_TOKEN	"Input Error : Invalid token combination\n"
 
 typedef struct s_jct	t_jct;

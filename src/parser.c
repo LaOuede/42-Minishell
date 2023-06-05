@@ -1,8 +1,34 @@
 #include "../include/minishell.h"
 
+/* void	ft_check_redir(t_pars *pars)
+{
+	printf(KYEL "-------------------- FT_CHECK_INFILE" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	t_token	*ptr;
+	int		i;
+	char	*tmp;
+
+	if (!pars->line)
+		return ;
+	ptr = pars->line;
+	while (ptr)
+	{
+		i = 0;
+		if (ptr->type == REDIN)
+		{
+			while (ptr->str[i])
+			{
+				if (ft_iswhitespace(ptr->str[i]) == 1 || ptr->str[i] == '<')
+					i++;
+				else
+		}
+		ptr = ptr->next;
+	}
+	printf(KYEL "-------------------- FT_CHECK_INFILE" KRED " END " RESET KYEL "--------------------\n" RESET);
+} */
+
 void	ft_check_redir(t_pars *pars)
 {
-	printf(KYEL "-------------------- FT_CHECK_REDIR" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	printf(KYEL "-------------------- FT_CHECK_PIPE" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr;
 	int		len;
 
@@ -19,7 +45,7 @@ void	ft_check_redir(t_pars *pars)
 		}
 		ptr = ptr->next;
 	}
-	printf(KYEL "-------------------- FT_CHECK_REDIR" KRED " END " RESET KYEL "--------------------\n" RESET);
+	printf(KYEL "-------------------- FT_CHECK_PIPE" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
 void	ft_check_pipe(t_pars *pars)
@@ -134,6 +160,7 @@ void	ft_parser(t_pars *pars, t_jct *jct)
 		return ;
 	jct->cmd_nb = pars->nb_pipe;
 	ft_check_redir(pars);
+	//ft_check_infile(pars);
 	ft_check_pipe(pars);
 	ft_parser_debugger(pars);
 	if (pars->flag_error_parser == true)
