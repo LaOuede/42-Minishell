@@ -133,24 +133,33 @@ void	ft_fill_tab(t_jct *jct, t_pars *pars)
 void	ft_init_cmdtab(t_jct *jct)
 {
 	int	i;
-	int	j;
+	//int	j;
 
 	jct->tab = ft_calloc(jct->cmd_nb + 1, sizeof(char **));
 	if (!jct->tab)
-		ft_clean_up_jct(jct, KYEL"-> Failed to init the command tab <-"KNRM);
+	{
+		ft_free_3tab(jct);
+		return ;
+	}
 	i = -1;
 	while (++i < jct->cmd_nb)
 	{
 		jct->tab[i] = ft_calloc(4, sizeof(char *));
 		if (!jct->tab[i])
-			ft_clean_up_jct(jct, KYEL"-> Failed to init the command tab <-"KNRM);
-			j = -1;
+		{
+			ft_free_3tab(jct);
+			return ;
+		}
+/* 			j = -1;
 		while (++j < 4)
 		{
 			jct->tab[i][j] = ft_calloc(1, sizeof(char));
 			if (!jct->tab[i][j])
-				ft_clean_up_jct(jct, KYEL"-> Failed to init the command tab <-"KNRM);
-		}
+			{
+				ft_free_3tab(jct);
+				return ;
+			}
+		} */
 	}
 }
 
