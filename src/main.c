@@ -26,6 +26,7 @@ t_jct	*ft_init_jct()
 	jct->tab = NULL;
 	// jct->pipe_nb = -1;
 	jct->cmd_nb = -1;
+	jct->err_pars = true;
 	return (jct);
 }
 
@@ -58,15 +59,19 @@ int	main(int ac, char **av, char **envp)
 		pars->input = readline("Minishell > ");
 		add_history(pars->input);
 		ft_parsing(pars, jct);
-		exec = ft_init_exec(ac, av, envp);
-		exec->cmd_nb = jct->cmd_nb;
-		exec->pipes_nb = exec->cmd_nb - 1;
-		ft_print_debug(exec);
-		//The execution of all cmds starts here
-		ft_exec_jct(exec, jct);
-		//TODO implement a reset function instead of free fct
-		ft_free_3tab(jct);
-		ft_free_exec(exec);
+		if (jct->err_pars == true)
+		{
+			exec = ft_init_exec(ac, av, envp);
+			exec->cmd_nb = jct->cmd_nb;
+			exec->pipes_nb = exec->cmd_nb - 1;
+			ft_print_debug(exec);
+			//The execution of all cmds starts here
+			ft_exec_jct(exec, jct);
+			//TODO implement a reset function instead of free fct
+			ft_free_3tab(jct);
+			ft_free_exec(exec);
+		}
+		jct->err_pars = true;
 	}
 	// while (LOULOU)
 	// {

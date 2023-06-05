@@ -34,6 +34,7 @@ typedef struct s_jct
 	char	***tab;
 	int		pipe_nb;
 	int		cmd_nb;
+	bool	err_pars;
 }			t_jct;
 
 #endif
