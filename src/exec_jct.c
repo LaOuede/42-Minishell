@@ -27,8 +27,6 @@ void	ft_is_redirection(t_exec *exec, t_jct *jct)
 			exec->fl_redirin = 1;
 			printf("exec->input_file_name : %s\n", exec->input_file_name);
 			exec->input = open(exec->input_file_name, O_RDONLY);
-			if (exec->input == -1)
-				ft_err("Error exec->file", exec);
 			// printf("if statement cmds_tab[i][2]\n");
 			// while(cmds_tab[i][2][j])
 			// {
