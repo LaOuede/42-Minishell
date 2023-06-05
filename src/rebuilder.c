@@ -374,9 +374,12 @@ void	ft_merge_red(t_pars *pars)
 	{
 		if ((ptr->type == REDIN || ptr->type == REDOUT) && ptr->next->type == ARG)
 		{
-			file = open(ptr->next->str, O_RDONLY);
-			if (file == -1)
-				ft_error_parsing(ERR_INFILE, REBUILDER, pars);
+			if (ptr->type == REDIN)
+			{
+				file = open(ptr->next->str, O_RDONLY);
+				if (file == -1)
+					ft_error_parsing(ERR_INFILE, REBUILDER, pars);
+			}
 			if (ptr->str && !ptr->next->str)
 				new_str = ft_strdup(ptr->str);
 			else if (!ptr->str && ptr->next->str)

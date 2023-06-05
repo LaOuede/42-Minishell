@@ -1,8 +1,8 @@
 #include "../include/minishell.h"
 
-#define GWEN 1
+#define GWEN 0
 #define LOULOU 0
-#define LOULOU_JCT 0
+#define LOULOU_JCT 1
 
 /* t_ms	*ft_init_ms(int ac, char **av, char **envp)
 {
@@ -41,8 +41,10 @@ int	main(int ac, char **av, char **envp)
 	t_pars	*pars;
 	t_exec 	*exec;
 	t_jct	*jct;
+	int		test_mem;
 
 	// printf("\n😈😈😈 Welcome to minishell ... or should I say " RED"🔥 MINIHELLLL 🔥 😈😈😈\n\n"WHT);
+	(void)test_mem;
 	pars = ft_init_pars(envp);
 	jct = ft_init_jct();
 	while (GWEN)
