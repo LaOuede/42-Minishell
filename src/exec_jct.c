@@ -1,5 +1,69 @@
 #include "../include/minishell.h"
 
+void	ft_is_redirection(t_exec *exec, t_jct *jct)
+{
+	char 	***cmds_tab;
+	int		i;
+	int		j;
+
+	cmds_tab = jct->tab;
+	i = 0;
+	printf("---		ft_is_redirection starts	---\n");
+	while(cmds_tab[i])
+	{
+		printf("cmd_tab[%d][0] = %s\n", i, cmds_tab[i][0]);
+		printf("cmd_tab[%d][1] = %s\n", i, cmds_tab[i][1]);
+		printf("cmd_tab[%d][2] = %s\n", i, cmds_tab[i][2]);
+		printf("cmd_tab[%d][3] = %s\n", i, cmds_tab[i][3]);
+		i++;
+	}
+	i = 0;
+	while (cmds_tab[i])
+	{
+		j = 0;
+		if(cmds_tab[i][2])
+		{
+			exec->input_file_name = ft_strtrim(ft_strrchr(cmds_tab[i][2],'<'), "< ");
+			exec->fl_redirin = 1;
+			printf("exec->input_file_name : %s\n", exec->input_file_name);
+			exec->input = open(exec->input_file_name, O_RDONLY);
+			if (exec->input == -1)
+				ft_err("Error exec->file", exec);
+			// printf("if statement cmds_tab[i][2]\n");
+			// while(cmds_tab[i][2][j])
+			// {
+			// 	printf("j = %d\n", j);
+			// 	printf("cmd_tab[%d][2][j] = %c\n", i, cmds_tab[i][2][j]);
+			// 	j++;
+			// }
+		}
+		// if(cmds_tab[i][3])
+		// {
+			
+		// }
+		i++;
+	}
+	// exec->fl_redirin = 0; // <
+	// exec->fl_redirout = 0; // >
+	// // exec->fl_hdr = 1; // >>
+	// // exec->fl_hdl = 0; // <<
+	// exec->input  = open("Makefile", O_RDONLY);
+	// if (exec->input == -1)
+	// 			ft_err("Error exec->file", exec);
+	// exec->input  = open("supp.txt", O_RDONLY);
+	// if (exec->input == -1)
+	// 			ft_err("Error exec->file", exec);
+	// // 	//TODO to modify the below
+	// // if (exec->fl_redirout == 1 && exec->fl_hdr == 1)
+	// // 	exec->output = open("out", O_RDWR | O_CREAT | O_APPEND, 0644);
+	// // else
+		// exec->output = open("out", O_RDWR | O_CREAT | O_TRUNC, 0644);
+	// // 	//TODO to modify the above
+	// exec->output = open("out", O_RDWR | O_CREAT | O_TRUNC, 0644);
+	//TODO remove the above
+	printf("---		ft_is_redirection ends	---\n");
+}
+
 void	ft_make_pids_jct(t_exec *exec, t_jct *jct)
 {
 	int	i;
@@ -38,10 +102,10 @@ void	ft_run_cmd_jct(t_exec *exec, t_jct *jct, int r)
 	int		i;
 
 	cmds = jct->tab;
-	fprintf(stderr, "cmd[%d][0] = %s\n", r, cmds[r][0]);
-	fprintf(stderr, "cmd[%d][1] = %s\n", r, cmds[r][1]);
-	fprintf(stderr, "cmd[%d][2] = %s\n", r, cmds[r][2]);
-	fprintf(stderr, "cmd[%d][3] = %s\n", r, cmds[r][3]);
+	// fprintf(stderr, "cmd[%d][0] = %s\n", r, cmds[r][0]);
+	// fprintf(stderr, "cmd[%d][1] = %s\n", r, cmds[r][1]);
+	// fprintf(stderr, "cmd[%d][2] = %s\n", r, cmds[r][2]);
+	// fprintf(stderr, "cmd[%d][3] = %s\n", r, cmds[r][3]);
 	path = ft_cmd_path(exec, cmds[r][0]);
 	fprintf(stderr, "path = %s\n", path);
 	if (!path)
@@ -61,26 +125,7 @@ void	ft_exec_jct(t_exec *exec, t_jct *jct)
 	int	i;
 	int status;
 	
-	//TODO remove the below
-	exec->fl_redirin = 0; // <
-	exec->fl_redirout = 0; // >
-	// exec->fl_hdr = 1; // >>
-	// exec->fl_hdl = 0; // <<
-	exec->input  = open("Makefile", O_RDONLY);
-	if (exec->input == -1)
-				ft_err("Error exec->file", exec);
-	exec->input  = open("supp.txt", O_RDONLY);
-	if (exec->input == -1)
-				ft_err("Error exec->file", exec);
-	// 	//TODO to modify the below
-	// if (exec->fl_redirout == 1 && exec->fl_hdr == 1)
-	// 	exec->output = open("out", O_RDWR | O_CREAT | O_APPEND, 0644);
-	// else
-	// 	exec->output = open("out", O_RDWR | O_CREAT | O_TRUNC, 0644);
-	// 	//TODO to modify the above
-	exec->output = open("out", O_RDWR | O_CREAT | O_TRUNC, 0644);
-	//TODO remove the above
-
+	ft_is_redirection(exec, jct);
 	ft_create_pipes(exec);
 	ft_make_pids_jct(exec, jct);
 	i = -1;
