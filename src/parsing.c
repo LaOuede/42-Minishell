@@ -129,7 +129,7 @@ void	ft_parsing(t_pars *pars, t_jct *jct)
 		return ;
 	ft_lexer(pars);
 	ft_lexer_debugger(pars);
-	if (pars->flag_error_lexer == true)
+	if (pars->line && pars->flag_error_lexer == true)
 	{
 		ft_rebuilder(pars);
 		ft_rebuilder_debugger(pars);
@@ -163,5 +163,6 @@ So need to suppress functions
 check : echo """"salut""""" in void	ft_clean_list(t_token **list)
 check : echo "$USER" <in "salut" salut no good although echo "$USER" <in salut salut is good
 pb with EXPAND TYPE...
-check quand un seul espace
+check quand seulement des espaces dans le tableau
+strtrim
 */
