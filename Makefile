@@ -5,7 +5,7 @@ NAME		=	minishell
 # -- Compilation Flag -- #
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror
-# CFLAGS	=	-Wall -Wextra -Werror -Wunreachable-code -fsanitize=address -g
+# CFLAGS	=	-Wall -Wextra -Werror -Wunreachable-code -fsanitize=address
 
 # -- Remove -- #
 RM			=	rm -rf

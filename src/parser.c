@@ -69,7 +69,7 @@ void	ft_init_cmdtab(t_jct *jct)
 	int	i;
 	int	j;
 
-	jct->tab = ft_calloc(jct->cmd_nb, sizeof(char **));
+	jct->tab = ft_calloc(jct->cmd_nb + 1, sizeof(char **));
 	if (!jct->tab)
 		ft_clean_up_jct(jct, KYEL"-> Failed to init the command tab <-"KNRM);
 	i = -1;

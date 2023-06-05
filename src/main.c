@@ -45,46 +45,45 @@ int	main(int ac, char **av, char **envp)
 	// printf("\n😈😈😈 Welcome to minishell ... or should I say " RED"🔥 MINIHELLLL 🔥 😈😈😈\n\n"WHT);
 	pars = ft_init_pars(envp);
 	jct = ft_init_jct();
-	while (GWEN)
-	{
-		pars->input = readline("Minishell > ");
-		add_history(pars->input);
-		ft_parsing(pars, jct);
-	}
+	// while (GWEN)
+	// {
+	// 	pars->input = readline("Minishell > ");
+	// 	add_history(pars->input);
+	// 	ft_parsing(pars, jct);
+	// }
 	while (LOULOU_JCT)
 	{
-		exec = ft_init_exec(ac, av, envp);
 		pars->input = readline("Minishell > ");
 		add_history(pars->input);
 		ft_parsing(pars, jct);
+		exec = ft_init_exec(ac, av, envp);
 		exec->cmd_nb = jct->cmd_nb;
-		printf("exec->cmd_nb = %d\n", exec->cmd_nb);
-		printf("jct->cmd_nb = %d\n", jct->cmd_nb);
 		exec->pipes_nb = exec->cmd_nb - 1;
 		ft_print_debug(exec);
 		//The execution of all cmds starts here
 		ft_exec_jct(exec, jct);
 		//TODO implement a reset function instead of free fct
+		ft_free_3tab(jct);
 		ft_free_exec(exec);
 	}
-	while (LOULOU)
-	{
-		exec = ft_init_exec(ac, av, envp);
-		exec->line = readline("Minishell > ");
-		add_history(exec->line);
-		exec->readline = ft_split(exec->line, '|');
+	// while (LOULOU)
+	// {
+	// 	exec = ft_init_exec(ac, av, envp);
+	// 	exec->line = readline("Minishell > ");
+	// 	add_history(exec->line);
+	// 	exec->readline = ft_split(exec->line, '|');
 
-		// //Printing What's inside 'exec->readline' variable
-		// int j = -1;
-		// while(exec->readline[++j])
-		// 	printf("exec->readline[%d] : %s\n", j, exec->readline[j]);
-		// ft_is_operator(exec);
-		ft_cmd_nb(exec);
-		ft_print_debug(exec);
-		//The execution of all cmds starts here
-		ft_exec(exec);
-		ft_free_exec(exec);
-	}
+	// 	// //Printing What's inside 'exec->readline' variable
+	// 	// int j = -1;
+	// 	// while(exec->readline[++j])
+	// 	// 	printf("exec->readline[%d] : %s\n", j, exec->readline[j]);
+	// 	// ft_is_operator(exec);
+	// 	ft_cmd_nb(exec);
+	// 	ft_print_debug(exec);
+	// 	//The execution of all cmds starts here
+	// 	ft_exec(exec);
+	// 	ft_free_exec(exec);
+	// }
 	
 	// ft_clean_up(parse);
 	//TODO need to implement a fct that clears the history (fct clear_history exist in history.h)

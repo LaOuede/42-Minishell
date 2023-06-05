@@ -141,6 +141,21 @@ void	ft_cmd_nb(t_exec *exec)
 	exec->pipes_nb = exec->cmd_nb - 1;
 }
 
+void ft_free_3tab(t_jct *jct)
+{
+	int	i;
+	char ***tmp;
+
+	if (!jct->tab)
+        return ;
+	tmp = jct->tab;
+	i = 0;
+	while(tmp[i])
+		ft_free_tab_char(tmp[i++]);
+	free(tmp);
+	jct->tab = NULL;
+}
+
 void	ft_free_exec(t_exec *exec)
 {
 	int	i;
