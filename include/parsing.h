@@ -18,23 +18,12 @@
 # define KCYN "\x1B[36m"
 # define KWHT "\x1B[37m"
 
+/* --------------------ERROR MESSAGE--------------------- *///
+# define ERR_QUOTE	"Input Error : Invalid quotation (unclosed)\n"
+# define ERR_TOKEN	"Input Error : Invalid token combination\n"
+
 typedef struct s_jct	t_jct;
 
-//TODO add bracket type in function
-/* enum e_token_type
-{
-	ERROR = -2,
-	CMD = -1,
-	ARG = 0,
-	D_QUOTES = 1,
-	S_QUOTES = 2,
-	EXPAND = 3,
-	PIPE = 4,
-	REDIN = 5,
-	APPRED = 6,
-	REDOUT = 7,
-	HEREDOC = 8,
-}; */
 enum e_token_type
 {
 	ERROR = -1,
@@ -50,6 +39,13 @@ enum e_gate
 {
 	OPEN = 1,
 	CLOSE = 2,
+};
+
+enum e_step
+{
+	LEXER = 1,
+	REBUILDER = 2,
+	PARSER = 3,
 };
 
 // prototype de la liste chainee token
@@ -135,6 +131,7 @@ void		ft_parser(t_pars *pars, t_jct *jct);
 void		ft_clean_up_jct(t_jct *jct, char *err_msg);
 void		ft_fill_tab(t_jct *jct, t_pars *pars);
 void		ft_parser_debugger(t_pars *pars);
+void		ft_error_parsing(char *err_msg, int step, t_pars *pars);
 void		ft_error(char *err_msg);
 
 #endif

@@ -1,38 +1,28 @@
 #include "../include/minishell.h"
 
-void	ft_clean_list_parser(t_token **list)
+void	ft_check_redir(t_pars *pars)
 {
-	printf(KYEL "-------------------- FT_CLEAN_LIST" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	t_token *sup;
+	printf(KYEL "-------------------- FT_CHECK_REDIR" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr;
+	int		len;
 
-	if (!*list)
+	if (!pars->line)
 		return ;
-	ptr = *list;
-	while (ptr->next)
+	ptr = pars->line;
+	while (ptr)
 	{
-		printf("ptr->type = %d\n", ptr->tab_type);
-		printf("ptr->next->type = %d\n", ptr->next->tab_type);
-		if (ptr->tab_type == ptr->next->tab_type)
+		if (ptr->type == REDIN || ptr->type == REDOUT)
 		{
-			sup = ptr->next;
-			if (ptr->next->next)
-			{
-				ptr->next = ptr->next->next;
-			}
-			else if (!ptr->next->next)
-			{
-				ptr->next = NULL;
-			}
-			ft_free_token(sup);
+			len = ft_strlen(ptr->str);
+			if (ptr->str[len - 1] == '<' || ptr->str[len - 1] == '>')
+				ft_error_parsing(ERR_TOKEN, PARSER, pars);
 		}
-		else if (ptr->next)
-			ptr = ptr->next;
+		ptr = ptr->next;
 	}
-	printf(KYEL "-------------------- FT_CLEAN_LIST" KRED " END " RESET KYEL "--------------------\n" RESET);
+	printf(KYEL "-------------------- FT_CHECK_REDIR" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
-void	ft_check_error(t_pars *pars)
+void	ft_check_pipe(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_CHECK_ERROR" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr;
@@ -138,37 +128,13 @@ void	ft_init_cmdtab(t_jct *jct)
 	}
 }
 
-void	ft_cmd_type(t_token **list)
-{
-	t_token	*ptr;
-
-	if (!list)
-		return ;
-	ptr = *list;
-	while (ptr)
-	{
-		if (ptr->type == -1)
-			ptr->tab_type = 0;
-		else if (0 <= ptr->type && ptr->type <= 3)
-			ptr->tab_type = 1;
-		else if (ptr->type == 4)
-			ptr->tab_type = -1;
-		else if (ptr->type == 5 || ptr->type == 6)
-			ptr->tab_type = 2;
-		else if (ptr->type == 7 || ptr->type == 8)
-			ptr->tab_type = 3;
-		ptr = ptr->next;
-	}
-}
-
 void	ft_parser(t_pars *pars, t_jct *jct)
 {
 	if (!pars)
 		return ;
 	jct->cmd_nb = pars->nb_pipe;
-	//ft_cmd_type(&pars->line);
-	ft_check_error(pars);
-	//ft_clean_list_parser(&pars->line);
+	ft_check_redir(pars);
+	ft_check_pipe(pars);
 	ft_parser_debugger(pars);
 	if (pars->flag_error_parser == true)
 	{
