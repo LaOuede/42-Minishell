@@ -18,28 +18,34 @@
 # define KCYN "\x1B[36m"
 # define KWHT "\x1B[37m"
 
+/* --------------------ERROR MESSAGE--------------------- *///
+# define ERR_QUOTE	"Input Error : Invalid quotation (unclosed)\n"
+# define ERR_TOKEN	"Input Error : Invalid token combination\n"
+
 typedef struct s_jct	t_jct;
 
-//TODO add bracket type in function
 enum e_token_type
 {
-	ERROR = -2,
-	CMD = -1,
-	ARG = 0,
-	D_QUOTES = 1,
-	S_QUOTES = 2,
-	EXPAND = 3,
+	ERROR = -1,
+	CMD = 0,
+	ARG = 1,
+	REDIN = 2,
+	REDOUT = 3,
 	PIPE = 4,
-	REDIN = 5,
-	APPRED = 6,
-	REDOUT = 7,
-	HEREDOC = 8,
+	EXPAND = 5,
 };
 
 enum e_gate
 {
 	OPEN = 1,
 	CLOSE = 2,
+};
+
+enum e_step
+{
+	LEXER = 1,
+	REBUILDER = 2,
+	PARSER = 3,
 };
 
 // prototype de la liste chainee token
@@ -51,7 +57,6 @@ typedef struct s_token
 	int				s_quotes;
 	int				d_quotes;
 	int				c_brackets;
-	int				p_brackets;
 	int				nb_cmd;
 	int				ws;
 	struct s_token	*next;
@@ -72,9 +77,9 @@ typedef struct s_pars
 	int				c_brackets;
 	int				p_brackets;
 	int				flag_whitespace;
-	bool				flag_error_lexer;
-	bool				flag_error_rebuilder;
-	bool				flag_error_parser;
+	bool			flag_error_lexer;
+	bool			flag_error_rebuilder;
+	bool			flag_error_parser;
 }	t_pars;
 //TODO mieux gérer flag de brackets
 
@@ -83,7 +88,7 @@ void		ft_add_token_bottom(t_token **lst, t_token *element);
 void		ft_add_token_top(t_token **lst, t_token *new_node);
 void		ft_appenred_token(int *i, t_pars *pars);
 void		ft_brackets_token(int *i, t_pars *pars);
-void		ft_char(char c, int *i, t_pars *pars);
+void		ft_char(int *i, t_pars *pars);
 void		ft_clean_up(t_pars *pars);
 t_token		*ft_create_node(char *str, t_pars *pars);
 void		ft_d_quotes_token(int *i, t_pars *pars);
@@ -126,6 +131,7 @@ void		ft_parser(t_pars *pars, t_jct *jct);
 void		ft_clean_up_jct(t_jct *jct, char *err_msg);
 void		ft_fill_tab(t_jct *jct, t_pars *pars);
 void		ft_parser_debugger(t_pars *pars);
+void		ft_error_parsing(char *err_msg, int step, t_pars *pars);
 void		ft_error(char *err_msg);
 
 #endif

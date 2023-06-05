@@ -10,7 +10,6 @@ t_token	*ft_create_node(char *str, t_pars *pars)
 	new_node->nb_cmd = pars->nb_pipe;
 	new_node->s_quotes = pars->s_quotes;
 	new_node->d_quotes = pars->d_quotes;
-	new_node->p_brackets = pars->p_brackets;
 	new_node->c_brackets = pars->c_brackets;
 	new_node->ws = pars->flag_whitespace;
 	new_node->prev = NULL;
@@ -86,10 +85,10 @@ void	ft_clean_list(t_token **list)
 	ptr = *list;
 	while (ptr->next)
 	{
-		if (ptr->next->type == ERROR || (1 < ptr->next->type && ptr->next->type <= 2))
+		printf("ptr->type = %d\n", ptr->type);
+		if (ptr->next->type == ERROR)
 		{
 			sup = ptr->next;
-			ft_free_token(sup);
 			if (ptr->next->next)
 			{
 				ptr->next = ptr->next->next;
@@ -98,6 +97,7 @@ void	ft_clean_list(t_token **list)
 			{
 				ptr->next = NULL;
 			}
+			ft_free_token(sup);
 		}
 		else if (ptr->next)
 			ptr = ptr->next;

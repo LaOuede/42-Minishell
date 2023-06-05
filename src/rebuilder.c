@@ -1,5 +1,39 @@
 #include "../include/minishell.h"
 
+void	ft_merge_pipe(t_pars *pars)
+{
+	printf(KYEL "-------------------- FT_MERGE_IN" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	t_token	*ptr;
+	t_token	*sup;
+	char	*new_str;
+
+	if (!pars->line)
+		return ;
+	ptr = pars->line;
+	new_str = ft_calloc(1, sizeof(char));
+	while (ptr->next)
+	{
+		printf("str = %s\n", ptr->str);
+		printf("str next = %s\n", ptr->next->str);
+		if (ptr->type == PIPE && ptr->next->type == PIPE)
+		{
+			new_str = ft_strjoin(ptr->str, ptr->next->str);
+			ptr->str = ft_strdup(new_str);
+			printf("new str = %s\n", ptr->str);
+			ft_freenull(new_str);
+			sup = ptr->next;
+			if (ptr->next->next)
+				ptr->next = ptr->next->next;
+			else if (!ptr->next->next)
+				ptr->next = NULL;
+			ft_free_token(sup);
+		}
+		else
+			ptr = ptr->next;
+	}
+	printf(KYEL "-------------------- FT_MERGE_IN" KRED " END " RESET KYEL "--------------------\n" RESET);
+}
+
 void	ft_swap(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_SWAP" KGRN " START " RESET KYEL "--------------------\n" RESET);
@@ -43,12 +77,13 @@ void	ft_find_redout(t_pars *pars)
 	flag = true;
 	while (ptr)
 	{
-		if ((ptr->type == REDOUT || ptr->type == HEREDOC) && flag == true)
+		if (ptr->type == REDOUT && flag == true)
 			flag = false;
-		else if ((ptr->type == REDOUT || ptr->type == HEREDOC) && flag == false)
+		else if (ptr->type == REDOUT && flag == false)
 			ptr->type = ERROR;
 		if (ptr->type == PIPE)
 			flag = true;
+		printf("ptr->type = %d\n", ptr->type);
 		ptr = ptr->next;
 	}
 	printf(KYEL "-------------------- FT_FIND_REDOUT" KRED " END " RESET KYEL "--------------------\n" RESET);
@@ -64,12 +99,13 @@ void	ft_find_redin(t_pars *pars)
 	flag = true;
 	while (ptr)
 	{
-		if ((ptr->type == REDIN || ptr->type == APPRED) && flag == true)
+		if (ptr->type == REDIN && flag == true)
 			flag = false;
-		else if ((ptr->type == REDIN || ptr->type == APPRED) && flag == false)
+		else if (ptr->type == REDIN && flag == false)
 			ptr->type = ERROR;
 		if (ptr->type == PIPE)
 			flag = true;
+		printf("ptr->type = %d\n", ptr->type);
 		ptr = ptr->next;
 	}
 	printf(KYEL "-------------------- FT_FIND_REDIN" KRED " END " RESET KYEL "--------------------\n" RESET);
@@ -77,7 +113,7 @@ void	ft_find_redin(t_pars *pars)
 
 void	ft_find_arg(t_pars *pars)
 {
-	printf(KYEL "-------------------- FT_FIND_CMD" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	printf(KYEL "-------------------- FT_FIND_ARG" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr;
 	bool	flag;
 
@@ -85,15 +121,19 @@ void	ft_find_arg(t_pars *pars)
 	flag = true;
 	while (ptr)
 	{
-		if ((ptr->type == ARG || ptr->type == EXPAND) && flag == true)
+		printf("flag = %d\n", flag);
+		printf("str = %s\n", ptr->str);
+		printf("str->type before= %d\n", ptr->type);
+		if (ptr->type == ARG && flag == true)
 			flag = false;
-		else if ((ptr->type == ARG || ptr->type == EXPAND) && flag == false)
+		else if (ptr->type == ARG && flag == false)
 			ptr->type = ERROR;
 		if (ptr->type == PIPE)
 			flag = true;
+		printf("str->type after = %d\n", ptr->type);
 		ptr = ptr->next;
 	}
-	printf(KYEL "-------------------- FT_FIND_CMD" KRED " END " RESET KYEL "--------------------\n" RESET);
+	printf(KYEL "-------------------- FT_FIND_ARG" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
 void	ft_find_cmd(t_pars *pars)
@@ -107,14 +147,13 @@ void	ft_find_cmd(t_pars *pars)
 	while (ptr)
 	{
 		printf("ptr->type before = %d\n", ptr->type);
-		if ((ptr->type == ARG || ptr->type == EXPAND) && flag == true)
+		if (ptr->type == ARG && flag == true)
 		{
 			ptr->type = CMD;
 			flag = false;
 		}
 		else if (ptr->type == PIPE)
 			flag = true;
-		
 		printf("ptr->type after = %d\n", ptr->type);
 		printf("flag = %d\n", flag);
 		ptr = ptr->next;
@@ -139,7 +178,7 @@ void	ft_merge_allredin(t_pars *pars)
 		ptr2 = ptr1->next;
 		while (ptr2 && ptr2->type != 4)
 		{
-			if ((ptr1->type == 5 || ptr1->type == 6 ) && (ptr2->type == 5 || ptr2->type == 6))
+			if (ptr1->type == REDIN && ptr2->type == REDIN)
 			{
 				if (ptr1->str && !ptr2->str)
 					new_str = ft_strdup(ptr1->str);
@@ -147,8 +186,7 @@ void	ft_merge_allredin(t_pars *pars)
 					new_str = ft_strdup(ptr2->str);
 				else if (ptr1->str && ptr2->str)
 				{
-					if (ptr2->ws == 1)
-						ptr1->str = ft_strjoin_char(ptr1->str, ' ');
+					ptr1->str = ft_strjoin_char(ptr1->str, ' ');
 					new_str = ft_strjoin(ptr1->str, ptr2->str);
 				}
 				ptr1->str = ft_strdup(new_str);
@@ -181,7 +219,7 @@ void	ft_merge_allredout(t_pars *pars)
 		ptr2 = ptr1->next;
 		while (ptr2 && ptr2->type != 4)
 		{
-			if ((ptr1->type == 7 || ptr1->type == 8 ) && (ptr2->type == 7 || ptr2->type == 8))
+			if (ptr1->type == REDOUT && ptr2->type == REDOUT)
 			{
 				if (ptr1->str && !ptr2->str)
 					new_str = ft_strdup(ptr1->str);
@@ -189,8 +227,7 @@ void	ft_merge_allredout(t_pars *pars)
 					new_str = ft_strdup(ptr2->str);
 				else if (ptr1->str && ptr2->str)
 				{
-					if (ptr2->ws == 1)
-						ptr1->str = ft_strjoin_char(ptr1->str, ' ');
+					ptr1->str = ft_strjoin_char(ptr1->str, ' ');
 					new_str = ft_strjoin(ptr1->str, ptr2->str);
 				}
 				ptr1->str = ft_strdup(new_str);
@@ -204,6 +241,118 @@ void	ft_merge_allredout(t_pars *pars)
 		ptr1 = ptr1->next;
 	}
 	printf(KYEL "-------------------- FT_MERGE_ALLREDOUT" KRED " END " RESET KYEL "--------------------\n" RESET);
+}
+
+void	ft_check_error_pipe(t_pars *pars)
+{
+	printf(KYEL "-------------------- FT_CHECK_REDIR" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	t_token	*ptr;
+	int		len;
+
+	if (!pars->line)
+		return ;
+	ptr = pars->line;
+	while (ptr)
+	{
+		if (ptr->type == PIPE)
+		{
+			len = ft_strlen(ptr->str);
+			if (len > 1)
+				ft_error_parsing(ERR_TOKEN, REBUILDER, pars);
+		}
+		ptr = ptr->next;
+	}
+	printf(KYEL "-------------------- FT_CHECK_REDIR" KRED " END " RESET KYEL "--------------------\n" RESET);
+}
+
+void	ft_check_error_redir(t_pars *pars)
+{
+	printf(KYEL "-------------------- FT_CHECK_REDIR" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	t_token	*ptr;
+	int		len;
+
+	if (!pars->line)
+		return ;
+	ptr = pars->line;
+	while (ptr)
+	{
+		if (ptr->type == REDIN || ptr->type == REDOUT)
+		{
+			len = ft_strlen(ptr->str);
+			if (len > 2)
+				ft_error_parsing(ERR_TOKEN, REBUILDER, pars);
+		}
+		ptr = ptr->next;
+	}
+	printf(KYEL "-------------------- FT_CHECK_REDIR" KRED " END " RESET KYEL "--------------------\n" RESET);
+}
+
+void	ft_merge_out(t_pars *pars)
+{
+	printf(KYEL "-------------------- FT_MERGE_OUT" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	t_token	*ptr;
+	t_token	*sup;
+	char	*new_str;
+
+	if (!pars->line)
+		return ;
+	ptr = pars->line;
+	new_str = ft_calloc(1, sizeof(char));
+	while (ptr->next)
+	{
+		printf("str = %s\n", ptr->str);
+		printf("str next = %s\n", ptr->next->str);
+		if (ptr->type == REDOUT && ptr->next->type == REDOUT)
+		{
+			new_str = ft_strjoin(ptr->str, ptr->next->str);
+			ptr->str = ft_strdup(new_str);
+			printf("new str = %s\n", ptr->str);
+			ft_freenull(new_str);
+			sup = ptr->next;
+			if (ptr->next->next)
+				ptr->next = ptr->next->next;
+			else if (!ptr->next->next)
+				ptr->next = NULL;
+			ft_free_token(sup);
+		}
+		else
+			ptr = ptr->next;
+	}
+	printf(KYEL "-------------------- FT_MERGE_OUT" KRED " END " RESET KYEL "--------------------\n" RESET);
+}
+
+void	ft_merge_in(t_pars *pars)
+{
+	printf(KYEL "-------------------- FT_MERGE_IN" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	t_token	*ptr;
+	t_token	*sup;
+	char	*new_str;
+
+	if (!pars->line)
+		return ;
+	ptr = pars->line;
+	new_str = ft_calloc(1, sizeof(char));
+	while (ptr->next)
+	{
+		printf("str = %s\n", ptr->str);
+		printf("str next = %s\n", ptr->next->str);
+		if (ptr->type == REDIN && ptr->next->type == REDIN)
+		{
+			new_str = ft_strjoin(ptr->str, ptr->next->str);
+			ptr->str = ft_strdup(new_str);
+			printf("new str = %s\n", ptr->str);
+			ft_freenull(new_str);
+			sup = ptr->next;
+			if (ptr->next->next)
+				ptr->next = ptr->next->next;
+			else if (!ptr->next->next)
+				ptr->next = NULL;
+			ft_free_token(sup);
+		}
+		else
+			ptr = ptr->next;
+	}
+	printf(KYEL "-------------------- FT_MERGE_IN" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
 void	ft_merge_red(t_pars *pars)
@@ -222,7 +371,7 @@ void	ft_merge_red(t_pars *pars)
 	printf("ptr->type = %d\n", ptr->type); */
 	while (ptr->next)
 	{
-		if (5 <= ptr->type && ptr->type <= 8 && ptr->next->type < 4)
+		if ((ptr->type == REDIN || ptr->type == REDOUT) && ptr->next->type < PIPE)
 		{
 			if (ptr->str && !ptr->next->str)
 				new_str = ft_strdup(ptr->str);
@@ -275,7 +424,7 @@ void	ft_merge_arg(t_pars *pars)
 		ptr2 = ptr1->next;
 		while (ptr2 && ptr2->type != 4)
 		{
-			if ((0 <= ptr1->type && ptr1->type <= 3) && (0 <= ptr2->type && ptr2->type <= 3))
+			if (ptr1->type == ARG && ptr2->type == ARG)
 			{
 				if (ptr1->str && !ptr2->str)
 					new_str = ft_strdup(ptr1->str);
@@ -303,6 +452,11 @@ void	ft_merge_arg(t_pars *pars)
 void	ft_rebuilder(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_REBUILDER" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	ft_merge_pipe(pars);
+	ft_check_error_pipe(pars);
+	ft_merge_in(pars);
+	ft_merge_out(pars);
+	ft_check_error_redir(pars);
 	ft_merge_red(pars);
 	ft_merge_allredin(pars);
 	ft_merge_allredout(pars);

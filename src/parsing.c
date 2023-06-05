@@ -68,7 +68,6 @@ void	ft_lexer_debugger(t_pars *pars)
 		printf("*" KBLU KBLD " -> Type[%d]                                                 " RESET KBLU "*\n", tmp->type);
 		printf("*" KBLU KBLD " -> D_Quotes[%d]                                             " RESET KBLU "*\n", tmp->d_quotes);
 		printf("*" KBLU KBLD " -> S_Quotes[%d]                                             " RESET KBLU "*\n", tmp->s_quotes);
-		printf("*" KBLU KBLD " -> P_brackets[%d]                                           " RESET KBLU "*\n", tmp->p_brackets);
 		printf("*" KBLU KBLD " -> C_brackets[%d]                                           " RESET KBLU "*\n", tmp->c_brackets);
 		printf("*" KBLU KBLD " -> Whitespace[%d]                                           " RESET KBLU "*\n", tmp->ws);
 		printf("*" KBLU KBLD " -> Str =          " RESET KBLD "%s" RESET KBLU "\n", tmp->str);
@@ -87,12 +86,11 @@ void	ft_reset_pars(t_pars *pars)
 	pars->type = ARG;
 	pars->d_quotes = 0;
 	pars->s_quotes = 0;
-	pars->p_brackets = 0;
 	pars->c_brackets = 0;
 	pars->flag_whitespace = 0;
-	pars->flag_error_lexer = false;
-	pars->flag_error_rebuilder = false;
-	pars->flag_error_parser = false;
+	pars->flag_error_lexer = true;
+	pars->flag_error_rebuilder = true;
+	pars->flag_error_parser = true;
 }
 
 t_pars	*ft_init_pars(char **envp)
@@ -110,12 +108,11 @@ t_pars	*ft_init_pars(char **envp)
 		pars->type = ARG;
 		pars->d_quotes = 0;
 		pars->s_quotes = 0;
-		pars->p_brackets = 0;
 		pars->c_brackets = 0;
 		pars->flag_whitespace = 0;
-		pars->flag_error_lexer = false;
-		pars->flag_error_rebuilder = false;
-		pars->flag_error_parser = false;
+		pars->flag_error_lexer = true;
+		pars->flag_error_rebuilder = true;
+		pars->flag_error_parser = true;
 	}
 	return (pars);
 }
@@ -132,19 +129,16 @@ void	ft_parsing(t_pars *pars, t_jct *jct)
 		return ;
 	ft_lexer(pars);
 	ft_lexer_debugger(pars);
-	if (pars->flag_error_lexer == false)
+	if (pars->flag_error_lexer == true)
 	{
 		ft_rebuilder(pars);
 		ft_rebuilder_debugger(pars);
 		ft_extract_cmd_debugger(pars);
-		ft_parser(pars, jct);
+		if (pars->flag_error_rebuilder == true)
+			ft_parser(pars, jct);
 	}
-	/* Free linked-list between prompt & clean up */
 	ft_reset_pars(pars);
 	ft_free_lst(&pars->line);
-	// TODO rajouter une fonction qui check les erreurs avant l'envoi à l'exec
-	// ex : if parse->s_quotes == OPEN alors retour d'erreur
-	// TODO Fonction pour entrer la linked-list dans un tableau 2D
 	printf(KYEL "-------------------- FT_PARSING" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }
 
@@ -159,13 +153,15 @@ So need to suppress functions
 7) DONE - Re-construct the arguments (seems ok so far)
 8) DONE - Clean up the linked-list (Remove empty node added)
 9) DONE - Linked-list divided in cmd (CMD - ARG - REDIN - REDOUT)
+10) DONE - Transfer linked-list into 2D table
 
-Lexer almost done. Parser here I come!
+11) Parse commands & Shoot error message when a parsing error is found
+12) Handle memory wise girl !!
+13) Check everything to make a list of what's missing.
+14) Clean the code!
 
-10) Transfer linked-list into 2D table
-11) Parse commands
-12) Shoot error message when a parsing error is found
-13) Handle memory wise girl !!
-12) Check everything to make a list of what's missing.
-15) Clean the code!
+check : echo """"salut""""" in void	ft_clean_list(t_token **list)
+check : echo "$USER" <in "salut" salut no good although echo "$USER" <in salut salut is good
+pb with EXPAND TYPE...
+check quand un seul espace
 */

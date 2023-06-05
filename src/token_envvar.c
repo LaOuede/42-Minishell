@@ -58,7 +58,6 @@ void	ft_envvar_token(int *i, t_pars *pars)
 void	ft_envvar(int *i, t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_ENVVAR" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
-	pars->type = EXPAND;
 	if (pars->input[(*i)] == '$' && pars->input[(*i) + 1] == '{')
 	{
 		if (ft_check_expand_brackets(pars->input, pars) == true)

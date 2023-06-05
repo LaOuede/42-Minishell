@@ -1,5 +1,45 @@
 #include "../include/minishell.h"
 
+void	ft_check_redir(t_pars *pars)
+{
+	printf(KYEL "-------------------- FT_CHECK_REDIR" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	t_token	*ptr;
+	int		len;
+
+	if (!pars->line)
+		return ;
+	ptr = pars->line;
+	while (ptr)
+	{
+		if (ptr->type == REDIN || ptr->type == REDOUT)
+		{
+			len = ft_strlen(ptr->str);
+			if (ptr->str[len - 1] == '<' || ptr->str[len - 1] == '>')
+				ft_error_parsing(ERR_TOKEN, PARSER, pars);
+		}
+		ptr = ptr->next;
+	}
+	printf(KYEL "-------------------- FT_CHECK_REDIR" KRED " END " RESET KYEL "--------------------\n" RESET);
+}
+
+void	ft_check_pipe(t_pars *pars)
+{
+	printf(KYEL "-------------------- FT_CHECK_ERROR" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	t_token	*ptr;
+
+	if (!pars->line)
+		return ;
+	ptr = pars->line;
+	while (ptr->next)
+		ptr = ptr->next;
+	if (ptr->type == PIPE)
+	{
+		ft_error("PIPE AT THE END\n");
+		pars->flag_error_parser = false;
+	}
+	printf(KYEL "-------------------- FT_CHECK_ERROR" KRED " END " RESET KYEL "--------------------\n" RESET);
+}
+
 void	ft_print_tab(t_jct *jct)
 {
 	printf(KYEL "-------------------- FT_PRINT_TAB" KGRN " START " RESET KYEL "--------------------\n" RESET);
@@ -38,19 +78,19 @@ void	ft_fill_tab(t_jct *jct, t_pars *pars)
 		while (++column < 4)
 		{
 			printf("column = %d\n", column);
-			printf("ptr->tab_type = %d\n", ptr->tab_type);
-			if (ptr->tab_type == -1 && column == 0)
+			printf("ptr->type = %d\n", ptr->type);
+			if (ptr->type == 4 && column == 0)
 				ptr = ptr->next;
-			if (column == ptr->tab_type)
+			if (column == ptr->type)
 			{
 				jct->tab[row][column] = ft_strdup(ptr->str);
 				printf("str = %s\n", jct->tab[row][column]);
 				if (ptr->next)
 					ptr = ptr->next;
 			}
-			else if (column != ptr->tab_type)
+			else if (column != ptr->type)
 			{
-				if (ptr->tab_type != -1)
+				if (ptr->type != 4)
 					jct->tab[row][column] = NULL;
 				else
 				{
@@ -88,37 +128,18 @@ void	ft_init_cmdtab(t_jct *jct)
 	}
 }
 
-void	ft_cmd_type(t_token **list)
-{
-	t_token	*ptr;
-
-	if (!list)
-		return ;
-	ptr = *list;
-	while (ptr)
-	{
-		if (ptr->type == -1)
-			ptr->tab_type = 0;
-		else if (0 <= ptr->type && ptr->type <= 3)
-			ptr->tab_type = 1;
-		else if (ptr->type == 4)
-			ptr->tab_type = -1;
-		else if (ptr->type == 5 || ptr->type == 6)
-			ptr->tab_type = 2;
-		else if (ptr->type == 7 || ptr->type == 8)
-			ptr->tab_type = 3;
-		ptr = ptr->next;
-	}
-}
-
 void	ft_parser(t_pars *pars, t_jct *jct)
 {
 	if (!pars)
 		return ;
 	jct->cmd_nb = pars->nb_pipe;
-	ft_cmd_type(&pars->line);
+	ft_check_redir(pars);
+	ft_check_pipe(pars);
 	ft_parser_debugger(pars);
-	ft_init_cmdtab(jct);
-	ft_fill_tab(jct,pars);
-	ft_print_tab(jct);
+	if (pars->flag_error_parser == true)
+	{
+		ft_init_cmdtab(jct);
+		ft_fill_tab(jct, pars);
+		ft_print_tab(jct);
+	}
 }
