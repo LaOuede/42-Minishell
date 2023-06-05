@@ -21,7 +21,7 @@
 typedef struct s_jct	t_jct;
 
 //TODO add bracket type in function
-enum e_token_type
+/* enum e_token_type
 {
 	ERROR = -2,
 	CMD = -1,
@@ -34,6 +34,16 @@ enum e_token_type
 	APPRED = 6,
 	REDOUT = 7,
 	HEREDOC = 8,
+}; */
+enum e_token_type
+{
+	ERROR = -1,
+	CMD = 0,
+	ARG = 1,
+	REDIN = 2,
+	REDOUT = 3,
+	PIPE = 4,
+	EXPAND = 5,
 };
 
 enum e_gate

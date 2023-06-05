@@ -88,19 +88,19 @@ void	ft_fill_tab(t_jct *jct, t_pars *pars)
 		while (++column < 4)
 		{
 			printf("column = %d\n", column);
-			printf("ptr->tab_type = %d\n", ptr->tab_type);
-			if (ptr->tab_type == -1 && column == 0)
+			printf("ptr->type = %d\n", ptr->type);
+			if (ptr->type == 4 && column == 0)
 				ptr = ptr->next;
-			if (column == ptr->tab_type)
+			if (column == ptr->type)
 			{
 				jct->tab[row][column] = ft_strdup(ptr->str);
 				printf("str = %s\n", jct->tab[row][column]);
 				if (ptr->next)
 					ptr = ptr->next;
 			}
-			else if (column != ptr->tab_type)
+			else if (column != ptr->type)
 			{
-				if (ptr->tab_type != -1)
+				if (ptr->type != 4)
 					jct->tab[row][column] = NULL;
 				else
 				{
@@ -166,9 +166,9 @@ void	ft_parser(t_pars *pars, t_jct *jct)
 	if (!pars)
 		return ;
 	jct->cmd_nb = pars->nb_pipe;
-	ft_cmd_type(&pars->line);
+	//ft_cmd_type(&pars->line);
 	ft_check_error(pars);
-	ft_clean_list_parser(&pars->line);
+	//ft_clean_list_parser(&pars->line);
 	ft_parser_debugger(pars);
 	if (pars->flag_error_parser == true)
 	{

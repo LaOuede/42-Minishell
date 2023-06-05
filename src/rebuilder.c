@@ -11,7 +11,7 @@ void	ft_check_redir(t_pars *pars)
 	ptr = pars->line;
 	while (ptr)
 	{
-		if (5 <= ptr->type && ptr->type <= 8)
+		if (ptr->type == REDIN || ptr->type == REDOUT)
 		{
 			len = ft_strlen(ptr->str);
 			if (ptr->str[len - 1] == '<' || ptr->str[len - 1] == '>')
@@ -68,9 +68,9 @@ void	ft_find_redout(t_pars *pars)
 	flag = true;
 	while (ptr)
 	{
-		if ((ptr->type == REDOUT || ptr->type == HEREDOC) && flag == true)
+		if (ptr->type == REDOUT && flag == true)
 			flag = false;
-		else if ((ptr->type == REDOUT || ptr->type == HEREDOC) && flag == false)
+		else if (ptr->type == REDOUT && flag == false)
 			ptr->type = ERROR;
 		if (ptr->type == PIPE)
 			flag = true;
@@ -90,9 +90,9 @@ void	ft_find_redin(t_pars *pars)
 	flag = true;
 	while (ptr)
 	{
-		if ((ptr->type == REDIN || ptr->type == APPRED) && flag == true)
+		if (ptr->type == REDIN && flag == true)
 			flag = false;
-		else if ((ptr->type == REDIN || ptr->type == APPRED) && flag == false)
+		else if (ptr->type == REDIN && flag == false)
 			ptr->type = ERROR;
 		if (ptr->type == PIPE)
 			flag = true;
@@ -115,9 +115,9 @@ void	ft_find_arg(t_pars *pars)
 		printf("flag = %d\n", flag);
 		printf("str = %s\n", ptr->str);
 		printf("str->type before= %d\n", ptr->type);
-		if ((0 <= ptr->type && ptr->type <= 3) && flag == true)
+		if (ptr->type == ARG && flag == true)
 			flag = false;
-		else if ((0 <= ptr->type && ptr->type <= 3) && flag == false)
+		else if (ptr->type == ARG && flag == false)
 			ptr->type = ERROR;
 		if (ptr->type == PIPE)
 			flag = true;
@@ -138,14 +138,13 @@ void	ft_find_cmd(t_pars *pars)
 	while (ptr)
 	{
 		printf("ptr->type before = %d\n", ptr->type);
-		if ((ptr->type == ARG || ptr->type == EXPAND) && flag == true)
+		if (ptr->type == ARG && flag == true)
 		{
 			ptr->type = CMD;
 			flag = false;
 		}
 		else if (ptr->type == PIPE)
 			flag = true;
-		
 		printf("ptr->type after = %d\n", ptr->type);
 		printf("flag = %d\n", flag);
 		ptr = ptr->next;
@@ -170,7 +169,7 @@ void	ft_merge_allredin(t_pars *pars)
 		ptr2 = ptr1->next;
 		while (ptr2 && ptr2->type != 4)
 		{
-			if ((ptr1->type == 5 || ptr1->type == 6 ) && (ptr2->type == 5 || ptr2->type == 6))
+			if (ptr1->type == REDIN && ptr2->type == REDIN)
 			{
 				if (ptr1->str && !ptr2->str)
 					new_str = ft_strdup(ptr1->str);
@@ -211,7 +210,7 @@ void	ft_merge_allredout(t_pars *pars)
 		ptr2 = ptr1->next;
 		while (ptr2 && ptr2->type != 4)
 		{
-			if ((ptr1->type == 7 || ptr1->type == 8 ) && (ptr2->type == 7 || ptr2->type == 8))
+			if (ptr1->type == REDOUT && ptr2->type == REDOUT)
 			{
 				if (ptr1->str && !ptr2->str)
 					new_str = ft_strdup(ptr1->str);
@@ -251,7 +250,7 @@ void	ft_merge_red(t_pars *pars)
 	printf("ptr->type = %d\n", ptr->type); */
 	while (ptr->next)
 	{
-		if (5 <= ptr->type && ptr->type <= 8 && ptr->next->type < 4)
+		if ((ptr->type == REDIN || ptr->type == REDOUT) && ptr->next->type < PIPE)
 		{
 			if (ptr->str && !ptr->next->str)
 				new_str = ft_strdup(ptr->str);
@@ -304,7 +303,7 @@ void	ft_merge_arg(t_pars *pars)
 		ptr2 = ptr1->next;
 		while (ptr2 && ptr2->type != 4)
 		{
-			if ((0 <= ptr1->type && ptr1->type <= 3) && (0 <= ptr2->type && ptr2->type <= 3))
+			if (ptr1->type == ARG && ptr2->type == ARG)
 			{
 				if (ptr1->str && !ptr2->str)
 					new_str = ft_strdup(ptr1->str);

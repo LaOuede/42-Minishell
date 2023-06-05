@@ -12,7 +12,7 @@ void	ft_pipe_token(int *i, t_pars *pars)
 		if (pars->input[j] == '|')
 		{
 			ft_error("DOUBLE PIPE ERROR\n");
-			pars->flag_error_lexer = true;
+			pars->flag_error_lexer = false;
 		}
 		if (ft_iswhitespace(pars->input[j]) == 1)
 			j++;

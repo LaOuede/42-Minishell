@@ -6,7 +6,7 @@ void	ft_s_quotes_token(int *i, t_pars *pars)
 	char	*tmp;
 
 	tmp = NULL;
-	pars->type = S_QUOTES;
+	pars->type = ARG;
 	pars->s_quotes = OPEN;
 	printf("s_quotes = %d\n", pars->s_quotes);
 	while (pars->input[++(*i)])
@@ -67,7 +67,6 @@ void	ft_d_quotes_token(int *i, t_pars *pars)
 	char	*tmp;
 
 	tmp = NULL;
-	pars->type = D_QUOTES;
 	pars->d_quotes = OPEN;
 	printf("d_quotes = %d\n", pars->d_quotes);
 	tmp = ft_stock_quotes(i, tmp, pars);
@@ -75,6 +74,7 @@ void	ft_d_quotes_token(int *i, t_pars *pars)
 	if (pars->type == EXPAND)
 		tmp = ft_quotes_expansion(tmp, pars);
 	printf("d_quotes = %d\n", pars->d_quotes);
+	pars->type = ARG;
 	if (tmp)
 		ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
 	if (tmp)

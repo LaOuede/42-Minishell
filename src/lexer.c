@@ -45,12 +45,12 @@ void	ft_metachar(char c, int *i, t_pars *pars)
 	printf(KYEL "-------------------- FT_METACHAR --------------------\n" RESET);
 	if (c == '|')
 		ft_pipe_token(i, pars);
-	else if (c == '<' && pars->input[(*i) + 1] == '<')
-		ft_appenred_token(i, pars);
+/* 	else if (c == '<' && pars->input[(*i) + 1] == '<')
+		ft_appenred_token(i, pars); */
 	else if (c == '<')
 		ft_redin_token(i, pars);
-	else if (c == '>' && pars->input[(*i) + 1] == '>')
-		ft_heredoc_token(i, pars);
+/* 	else if (c == '>' && pars->input[(*i) + 1] == '>')
+		ft_heredoc_token(i, pars); */
 	else if (c == '>')
 		ft_redout_token(i, pars);
 	else if (c == '$')
@@ -77,6 +77,7 @@ void	ft_lexer(t_pars *pars)
 	pars->strlen = ft_strlen(pars->input);
 	while (i < (int)pars->strlen)
 	{
+		printf("-> i = %d\n", (i));
 		printf("-> char = %c\n", pars->input[(i)]);
 		if (ft_ismetachar(pars->input[i]) == true)
 			ft_metachar(pars->input[i], &i, pars);

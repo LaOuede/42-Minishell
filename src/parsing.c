@@ -135,7 +135,7 @@ void	ft_parsing(t_pars *pars, t_jct *jct)
 		ft_rebuilder_debugger(pars);
 		ft_extract_cmd_debugger(pars);
 		if (pars->flag_error_rebuilder == true)
-		ft_parser(pars, jct);
+			ft_parser(pars, jct);
 	}
 	ft_reset_pars(pars);
 	ft_free_lst(&pars->line);
