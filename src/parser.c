@@ -70,7 +70,7 @@ void	ft_check_pipe(t_pars *pars)
 	if (ptr->type == PIPE)
 	{
 		ft_error("PIPE AT THE END\n");
-		pars->flag_error_parser = false;
+		pars->err_parser = false;
 	}
 	printf(KYEL "-------------------- FT_CHECK_ERROR" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
@@ -181,7 +181,7 @@ void	ft_parser(t_pars *pars, t_jct *jct)
 	//ft_check_infile(pars);
 	ft_check_pipe(pars);
 	ft_parser_debugger(pars);
-	if (pars->flag_error_parser == true)
+	if (pars->err_parser == true)
 	{
 		ft_init_cmdtab(jct);
 		ft_fill_tab(jct, pars);

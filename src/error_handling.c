@@ -10,11 +10,11 @@ void	ft_error_parsing(char *err_msg, int step, t_pars *pars)
 	if (err_msg)
 		write(STDERR_FILENO, err_msg, ft_strlen(err_msg));
 	if (step == 1)
-		pars->flag_error_lexer = false;
+		pars->err_lexer = true;
 	else if (step == 2)
-		pars->flag_error_rebuilder = false;
+		pars->err_rebuilder = true;
 	else
-		pars->flag_error_parser = false;
+		pars->err_parser = true;
 }
 
 void	ft_error(char *err_msg)
