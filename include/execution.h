@@ -42,19 +42,16 @@ typedef struct s_exec
 t_exec	*ft_init_exec(char **envp, t_jct *jct);
 void	ft_dup_process(t_exec *exec, int i);
 void	ft_close_pipes(t_exec *exec);
-void		ft_create_pipes(t_exec *exec);
-// int		ft_create_pipes(t_exec *exec);
+int		ft_create_pipes(t_exec *exec);
 void	ft_err(char *msg, t_exec *exec);
 void	ft_free_exec(t_exec *exec);
 void	ft_exec_jct(t_exec *exec, t_jct *jct);
 void	ft_exec(t_exec *exec);
 void	ft_copy_env(t_exec *exec, char **envp);
-void	ft_is_operator(t_exec *exec);
 char	*ft_cmd_path(t_exec *exec, char *cmds);
 void	ft_free_3tab(t_jct *jct);
 
 /*	--	Temp fct, to delete once the parsing is ready	--	*/
-void	ft_cmd_nb(t_exec *exec);
 void	ft_run_cmd_jct(t_exec *exec, t_jct *jct, int i);
 void	ft_run_cmd(t_exec *exec);
 

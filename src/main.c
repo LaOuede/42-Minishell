@@ -74,7 +74,7 @@ int	main(int ac, char **av, char **envp)
 			ft_free_exec(exec);
 		}
 		jct->err_pars = false;
-		test_mem -= 1;
+		// test_mem -= 1;
 	}
 	// while (LOULOU)
 	// {

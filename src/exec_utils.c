@@ -66,53 +66,6 @@ void	ft_print_debug(t_exec *exec)
 	}
 }
 
-void	ft_is_operator(t_exec *exec)
-{
-	// TODO Write a fct that raise flags depending if there is an operatior (|, <, >, <<, >>) or not.
-	int		i;
-	char	**tmp;
-	
-	// tmp = exec->readline;
-	tmp = ft_split(exec->line, ' ');
-	exec->pipes_op = 0;
-	exec->fl_pipe_op = 0;
-	// exec->fl_redirin = 1;
-	// exec->fl_redirout = 1;
-	exec->input_file_name = NULL;
-	exec->output_file_name = NULL;
-	i = -1;
-	while(tmp[++i])
-	{
-		// if 'pipe' then count pipes operator and raise flag
-		if (*tmp[i] == '|')
-		{
-			exec->pipes_op++;
-			exec->fl_pipe_op = 1;
-		}
-		// if '<' then redirin
-		// we only need to dup2 the last redirin shown on the cmd line, however we need to open each one to test if the file exist, if it doesn't the execution STOPS there.
-		if (*tmp[i] == '<')
-		{
-			exec->input_file_name = tmp[i + 1];
-			exec->fl_redirin = 1;
-			exec->input  = open(exec->input_file_name, O_RDONLY);
-			if (exec->input == -1)
-				ft_err("Error exec->file", exec);
-		}
-		// if '>' then redirout
-		if (*tmp[i] == '>')
-		{
-			exec->output_file_name = tmp[i + 1];
-			exec->fl_redirout = 1;
-			exec->output = open(exec->output_file_name, O_RDWR | O_CREAT | O_TRUNC, 0644);
-		}
-		// if '>>' then ??
-
-		// if '<<' then ??
-	}
-
-}
-
 void	ft_copy_env(t_exec *exec, char **envp)
 {
 	int i;
@@ -127,18 +80,6 @@ void	ft_copy_env(t_exec *exec, char **envp)
 	while (envp[++i])
 		exec->envp[j++] = ft_strdup(envp[i]);
 	exec->envp[j] = NULL;
-}
-
-void	ft_cmd_nb(t_exec *exec)
-{
-	int	j = 0;
-	char	**tmp;
-
-	tmp = ft_split(exec->line, '|');
-	while(tmp[j])
-		j++;
-	exec->cmd_nb = j;
-	exec->pipes_nb = exec->cmd_nb - 1;
 }
 
 void ft_free_3tab(t_jct *jct)
@@ -158,32 +99,27 @@ void ft_free_3tab(t_jct *jct)
 
 void	ft_free_exec(t_exec *exec)
 {
-	if (exec)
-	{
-		if (exec->path_var)
-			ft_free_tab_char(exec->path_var);
-		if (exec->pipes)
-			ft_free_tab_int(exec->pipes, exec->pipes_nb);
-		if (exec->readline)
-			ft_free_tab_char(exec->readline);
-			//TODO may need to modify the 'exec->readline' variable to pars->input
-		if (exec->pids)
-			ft_freenull(exec->pids);
-		if (exec->envp)
-			ft_free_tab_char(exec->envp);
-		if (exec->input_file_name)
-			ft_freenull(exec->input_file_name);
-		if (exec->output_file_name)
-			ft_freenull(exec->output_file_name);
-		// if (exec->path_var)
-		// 	ft_free_tab_char(exec->path_var);
-		ft_freenull(exec);
-	}
+	if (exec->envp)
+		ft_free_tab_char(exec->envp);
+	if (exec->path_var)
+		ft_free_tab_char(exec->path_var);
+	if (exec->pipes)
+		ft_free_tab_int(exec->pipes, exec->pipes_nb);
+	if (exec->pids)
+		ft_freenull(exec->pids);
+	if (exec->input_file_name)
+		ft_freenull(exec->input_file_name);
+	if (exec->output_file_name)
+		ft_freenull(exec->output_file_name);
+	// if (exec->path_var)
+	// 	ft_free_tab_char(exec->path_var);
+	// ft_freenull(exec);
 }
 
 void	ft_err(char *msg, t_exec *exec)
 {
-	ft_free_exec(exec);
+	(void)exec;
+	// ft_free_exec(exec);
 	perror(msg);
 	// exit(1);
 }
@@ -234,13 +170,18 @@ t_exec	*ft_init_exec(char **envp, t_jct *jct)
 	exec = malloc(sizeof(t_exec));
 	if (!exec)
 			perror(NULL);
+	exec->envp = NULL;
 	ft_copy_env(exec, envp);
 	exec->path_var = ft_get_path(exec->envp, 0);
-	exec->pipes = 0;
+	exec->input = 0;
+	exec->input_file_name = NULL;
+	exec->output = 0;
+	exec->output_file_name = NULL;
 	exec->index = 0;
-	exec->readline = ft_calloc(sizeof(char *), 1);
+	exec->fl_redirin = 0;
+	exec->fl_redirout = 0;
 	exec->pids = 0;
-	exec->line = NULL;
+	exec->pipes = 0;
 	exec->cmd_nb = jct->cmd_nb;
 	exec->pipes_nb = exec->cmd_nb - 1;
 	return(exec);

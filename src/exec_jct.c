@@ -56,7 +56,7 @@ void	ft_make_pids_jct(t_exec *exec, t_jct *jct)
 	{
 		exec->pids[i] = fork();
 		if (exec->pids[i] == -1)
-			ft_err("Something went wrong during pid process:", exec);
+			perror("Something went wrong during pid process:");
 		// printf("--- Enter in ft_chils_proc	---\n");
 		if (exec->pids[i] == 0)
 		{
@@ -90,23 +90,8 @@ void	ft_run_cmd_jct(t_exec *exec, t_jct *jct, int r)
 	if (!path)
 		free(path);
 	else if (execve(path, cmds[r], exec->envp) < 0)
-		ft_err("Error ! Something went wrong while executing: ", exec);
+		perror("Error ! Something went wrong while executing: ");
 	//TODO ft_err exit if there is an error, so the below will never be executed	
-}
-
-void	ft_exec_jct(t_exec *exec, t_jct *jct)
-{
-	int	i;
-	int status;
-	
-	ft_is_redirection(exec, jct);
-	ft_create_pipes(exec);
-	ft_make_pids_jct(exec, jct);
-	i = -1;
-	while (++i < exec->cmd_nb)
-		waitpid(exec->pids[i], &status, 0);
-	//TODO clarifier le 2nd arg de waitpid
-	// ft_free_data(exec);
 }
 
 // void	ft_exec_jct(t_exec *exec, t_jct *jct)
@@ -115,8 +100,7 @@ void	ft_exec_jct(t_exec *exec, t_jct *jct)
 // 	int status;
 	
 // 	ft_is_redirection(exec, jct);
-// 	if (ft_create_pipes(exec) == 2)
-// 		return ;
+// 	ft_create_pipes(exec);
 // 	ft_make_pids_jct(exec, jct);
 // 	i = -1;
 // 	while (++i < exec->cmd_nb)
@@ -124,3 +108,18 @@ void	ft_exec_jct(t_exec *exec, t_jct *jct)
 // 	//TODO clarifier le 2nd arg de waitpid
 // 	// ft_free_data(exec);
 // }
+
+void	ft_exec_jct(t_exec *exec, t_jct *jct)
+{
+	int	i;
+	int status;
+	
+	ft_is_redirection(exec, jct);
+	if (ft_create_pipes(exec) == 2)
+		return ;
+	ft_make_pids_jct(exec, jct);
+	i = -1;
+	while (++i < exec->cmd_nb)
+		waitpid(exec->pids[i], &status, 0);
+	//TODO clarifier le 2nd arg de waitpid
+}
