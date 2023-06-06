@@ -2,19 +2,17 @@
 
 char	*ft_trim(char *str, char c)
 {
-	int		end;
-	int		start;
+	int		len;
+	int		i;
 	char	*s_trim;
 
 	if (!str)
 		return (NULL);
-	start = 0;
-	while (str[start] && ft_strchr(&c, str[start]))
-		start++;
-	end = ft_strlen(str);
-	while (end && ft_strchr(&c, str[end]))
-		end--;
-	s_trim = ft_substr(str, start, end - start + 1);
+	i = 0;
+	while (str[i] && ft_strchr(&c, str[i]))
+		i++;
+	len = ft_strlen(str);
+	s_trim = ft_substr(str, i, len - i + 1);
 	ft_freenull(str);
 	return (s_trim);
 }
