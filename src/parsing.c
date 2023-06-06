@@ -138,8 +138,12 @@ void	ft_parsing(t_pars *pars, t_jct *jct)
 		if (pars->err_rebuilder == false)
 			ft_parser(pars, jct);
 	}
+	printf("err_lexer = %d\n", pars->err_lexer);
+	printf("err_rebuilder = %d\n", pars->err_rebuilder);
+	printf("err_parser = %d\n", pars->err_parser);
 	if (pars->err_lexer == true || pars->err_rebuilder == true || pars->err_parser == true)
-		jct->err_pars = false;
+		jct->err_pars = true;
+	printf("err_pars = %d\n", jct->err_pars);
 	ft_reset_pars(pars);
 	printf(KYEL "-------------------- FT_PARSING" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }
