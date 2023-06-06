@@ -40,7 +40,7 @@ char	*ft_stock_char(char *str, char c)
 	return (str);
 }
 
-char	*ft_strjoin_char(const char *s1, const char s2)
+char	*ft_strjoin_char(char *s1, char s2)
 {
 	printf(KYEL "-------------------- FT_STRJOIN_CHAR" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 	char	*s3;
@@ -60,7 +60,7 @@ char	*ft_strjoin_char(const char *s1, const char s2)
 	printf("len = %zu\n", len);
 	s3[len] = s2;
 	printf("s3 = %s\n", s3);
-	free((char *)s1);
+	ft_freenull(s1);
 	printf(KYEL "-------------------- FT_STRJOIN_CHAR" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 	return (s3);
 }
