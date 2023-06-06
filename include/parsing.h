@@ -118,7 +118,7 @@ void		ft_remove_empty(t_token **list);
 void		ft_reset_node(t_pars *pars);
 void		ft_s_quotes_token(int *i, t_pars *pars);
 char		*ft_stock_char(char *str, char c);
-char		*ft_strjoin_char(const char *s1, const char s2);
+char		*ft_strjoin_char(char *s1, char s2);
 char		*ft_strjoin_free(char *str1, char *str2);
 void		ft_swap_node(t_token *swap1, t_token *swap2);
 void		ft_add_token(t_token **lst, t_token *new_node);

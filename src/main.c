@@ -59,8 +59,8 @@ int	main(int ac, char **av, char **envp)
 		add_history(pars->input);
 		ft_parsing(pars, jct);
 	}
-	//while (test_mem != 0)
-	while (LOULOU_JCT)
+	while (test_mem != 0)
+	//while (LOULOU_JCT)
 	{
 		pars->input = readline("Minishell > ");
 		add_history(pars->input);
@@ -75,7 +75,7 @@ int	main(int ac, char **av, char **envp)
 			ft_free_exec(exec);
 		}
 		jct->err_pars = false;
-		//test_mem -= 1;
+		test_mem -= 1;
 	}
 	// while (LOULOU)
 	// {
