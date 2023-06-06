@@ -1,30 +1,39 @@
 #include "../include/minishell.h"
 
-/* void	ft_check_redir(t_pars *pars)
+char	*ft_trim(char *str, char c)
 {
-	printf(KYEL "-------------------- FT_CHECK_INFILE" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	t_token	*ptr;
-	int		i;
-	char	*tmp;
+	int		end;
+	int		start;
+	char	*s_trim;
 
-	if (!pars->line)
-		return ;
-	ptr = pars->line;
-	while (ptr)
+	if (!str)
+		return (NULL);
+	start = 0;
+	while (str[start] && ft_strchr(&c, str[start]))
+		start++;
+	end = ft_strlen(str);
+	while (end && ft_strchr(&c, str[end]))
+		end--;
+	s_trim = ft_substr(str, start, end - start + 1);
+	ft_freenull(str);
+	return (s_trim);
+}
+
+void	ft_trim_cmd(t_jct *jct)
+{
+	printf(KYEL "-------------------- FT_TRIM_CMD" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	int		row;
+	int		column;
+
+	row = -1;
+	while (++row < jct->cmd_nb)
 	{
-		i = 0;
-		if (ptr->type == REDIN)
-		{
-			while (ptr->str[i])
-			{
-				if (ft_iswhitespace(ptr->str[i]) == 1 || ptr->str[i] == '<')
-					i++;
-				else
-		}
-		ptr = ptr->next;
+		column = 0;
+		jct->tab[row][0] = ft_trim(jct->tab[row][0], ' ');
+		printf("CMD = %s\n", jct->tab[row][0]);
 	}
-	printf(KYEL "-------------------- FT_CHECK_INFILE" KRED " END " RESET KYEL "--------------------\n" RESET);
-} */
+	printf(KYEL "-------------------- FT_TRIM_CMD" KRED " END " RESET KYEL "--------------------\n" RESET);
+}
 
 void	ft_check_redir(t_pars *pars)
 {
@@ -176,6 +185,7 @@ void	ft_parser(t_pars *pars, t_jct *jct)
 	{
 		ft_init_cmdtab(jct);
 		ft_fill_tab(jct, pars);
+		ft_trim_cmd(jct);
 		ft_print_tab(jct);
 	}
 }
