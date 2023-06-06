@@ -78,9 +78,9 @@ typedef struct s_pars
 	int				c_brackets;
 	int				p_brackets;
 	int				flag_whitespace;
-	bool			flag_error_lexer;
-	bool			flag_error_rebuilder;
-	bool			flag_error_parser;
+	bool			err_lexer;
+	bool			err_rebuilder;
+	bool			err_parser;
 }	t_pars;
 //TODO mieux gérer flag de brackets
 

@@ -89,9 +89,9 @@ void	ft_reset_pars(t_pars *pars)
 	pars->s_quotes = 0;
 	pars->c_brackets = 0;
 	pars->flag_whitespace = 0;
-	pars->flag_error_lexer = true;
-	pars->flag_error_rebuilder = true;
-	pars->flag_error_parser = true;
+	pars->err_lexer = false;
+	pars->err_rebuilder = false;
+	pars->err_parser = false;
 }
 
 t_pars	*ft_init_pars(char **envp)
@@ -111,9 +111,9 @@ t_pars	*ft_init_pars(char **envp)
 		pars->s_quotes = 0;
 		pars->c_brackets = 0;
 		pars->flag_whitespace = 0;
-		pars->flag_error_lexer = true;
-		pars->flag_error_rebuilder = true;
-		pars->flag_error_parser = true;
+		pars->err_lexer = false;
+		pars->err_rebuilder = false;
+		pars->err_parser = false;
 	}
 	return (pars);
 }
@@ -130,17 +130,16 @@ void	ft_parsing(t_pars *pars, t_jct *jct)
 		return ;
 	ft_lexer(pars);
 	ft_lexer_debugger(pars);
-	if (pars->line && pars->flag_error_lexer == true)
+	if (pars->line && pars->err_lexer == false)
 	{
 		ft_rebuilder(pars);
 		ft_rebuilder_debugger(pars);
 		ft_extract_cmd_debugger(pars);
-		if (pars->flag_error_rebuilder == true)
+		if (pars->err_rebuilder == false)
 			ft_parser(pars, jct);
 	}
-	//TODO inverse all flag statement in the if below
-	if (pars->flag_error_lexer == false || pars->flag_error_rebuilder == false || pars->flag_error_parser == false)
-		jct->err_pars = true;
+	if (pars->err_lexer == true || pars->err_rebuilder == true || pars->err_parser == true)
+		jct->err_pars = false;
 	ft_reset_pars(pars);
 	printf(KYEL "-------------------- FT_PARSING" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }
