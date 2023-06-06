@@ -160,8 +160,8 @@ So need to suppress functions
 8) DONE - Clean up the linked-list (Remove empty node added)
 9) DONE - Linked-list divided in cmd (CMD - ARG - REDIN - REDOUT)
 10) DONE - Transfer linked-list into 2D table
+11) DONE - Parse commands & Shoot error message when a parsing error is found
 
-11) Parse commands & Shoot error message when a parsing error is found
 12) Handle memory wise girl !!
 13) Check everything to make a list of what's missing.
 14) Clean the code!
