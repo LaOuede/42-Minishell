@@ -355,13 +355,30 @@ void	ft_merge_in(t_pars *pars)
 	printf(KYEL "-------------------- FT_MERGE_IN" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
+void	ft_open_file(t_token *node, t_pars *pars)
+{
+	printf(KYEL "-------------------- FT_OPEN_FILE" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	int	file;
+
+	if (node->type == REDIN)
+	{
+		printf("file name = %s\n", node->next->str);
+		file = open(node->next->str, O_RDONLY);
+		if (file == -1)
+			ft_error_parsing(ERR_INFILE, REBUILDER, pars);
+		printf("file = %d\n", file);
+		if (file)
+			close(file);
+	}
+	printf(KYEL "-------------------- FT_OPEN_FILE" KRED " END " RESET KYEL "--------------------\n" RESET);
+}
+
 void	ft_merge_red(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_MERGE_RED" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr;
 	t_token	*sup;
 	char	*new_str;
-	int	file;
 
 	if (!pars->line)
 		return ;
@@ -374,14 +391,7 @@ void	ft_merge_red(t_pars *pars)
 	{
 		if ((ptr->type == REDIN || ptr->type == REDOUT) && ptr->next->type == ARG)
 		{
-			if (ptr->type == REDIN)
-			{
-				file = open(ptr->next->str, O_RDONLY);
-				if (file == -1)
-					ft_error_parsing(ERR_INFILE, REBUILDER, pars);
-				if (file)
-					close(file);
-			}
+			ft_open_file(ptr, pars);
 			if (ptr->str && !ptr->next->str)
 				new_str = ft_strdup(ptr->str);
 			else if (!ptr->str && ptr->next->str)
