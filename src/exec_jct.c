@@ -4,7 +4,7 @@ void	ft_is_redirection(t_exec *exec, t_jct *jct)
 {
 	char 	***cmds_tab;
 	int		i;
-	int		j;
+	//int		j;
 
 	if(!jct->tab)
 		return ;
@@ -14,7 +14,7 @@ void	ft_is_redirection(t_exec *exec, t_jct *jct)
 	i = 0;
 	while (cmds_tab[i])
 	{
-		j = 0;
+		//j = 0;
 		if(cmds_tab[i][2])
 		{
 			exec->input_file_name = ft_strtrim(ft_strrchr(cmds_tab[i][2],'<'), "< ");

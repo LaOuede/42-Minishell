@@ -98,7 +98,7 @@ void	ft_clean_list(t_token **list)
 			printf("sup->str = %p\n", sup->str);
 			ft_free_token(sup);
 		}
-		if (ptr->next)
+		else
 			ptr = ptr->next;
 	}
 	printf(KYEL "-------------------- FT_CLEAN_LIST" KRED " END " RESET KYEL "--------------------\n" RESET);

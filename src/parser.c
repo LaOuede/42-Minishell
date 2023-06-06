@@ -20,15 +20,13 @@ char	*ft_trim(char *str, char c)
 void	ft_trim_cmd(t_jct *jct)
 {
 	printf(KYEL "-------------------- FT_TRIM_CMD" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	int		row;
-	int		column;
+	int		cmd;
 
-	row = -1;
-	while (++row < jct->cmd_nb)
+	cmd = -1;
+	while (++cmd < jct->cmd_nb)
 	{
-		column = 0;
-		jct->tab[row][0] = ft_trim(jct->tab[row][0], ' ');
-		printf("CMD = %s\n", jct->tab[row][0]);
+		jct->tab[cmd][0] = ft_trim(jct->tab[cmd][0], ' ');
+		printf("CMD = %s\n", jct->tab[cmd][0]);
 	}
 	printf(KYEL "-------------------- FT_TRIM_CMD" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
