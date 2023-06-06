@@ -6,17 +6,11 @@ void	ft_is_redirection(t_exec *exec, t_jct *jct)
 	int		i;
 	int		j;
 
+	if(!jct->tab)
+		return ;
 	cmds_tab = jct->tab;
 	i = 0;
 	printf("---		ft_is_redirection starts	---\n");
-	while(cmds_tab[i])
-	{
-		printf("cmd_tab[%d][0] = %s\n", i, cmds_tab[i][0]);
-		printf("cmd_tab[%d][1] = %s\n", i, cmds_tab[i][1]);
-		printf("cmd_tab[%d][2] = %s\n", i, cmds_tab[i][2]);
-		printf("cmd_tab[%d][3] = %s\n", i, cmds_tab[i][3]);
-		i++;
-	}
 	i = 0;
 	while (cmds_tab[i])
 	{
@@ -27,38 +21,26 @@ void	ft_is_redirection(t_exec *exec, t_jct *jct)
 			exec->fl_redirin = 1;
 			printf("exec->input_file_name : %s\n", exec->input_file_name);
 			exec->input = open(exec->input_file_name, O_RDONLY);
-			// printf("if statement cmds_tab[i][2]\n");
-			// while(cmds_tab[i][2][j])
-			// {
-			// 	printf("j = %d\n", j);
-			// 	printf("cmd_tab[%d][2][j] = %c\n", i, cmds_tab[i][2][j]);
-			// 	j++;
-			// }
 		}
-		// if(cmds_tab[i][3])
-		// {
-			
-		// }
+		if(cmds_tab[i][3])
+		{
+			exec->output_file_name = ft_strtrim(ft_strrchr(cmds_tab[i][3],'>'), "> ");
+			exec->fl_redirout = 1;
+			printf("exec->output_file_name : %s\n", exec->output_file_name);
+			exec->output = open(exec->output_file_name, O_RDWR | O_CREAT | O_TRUNC, 0644);
+		}
 		i++;
 	}
-	// exec->fl_redirin = 0; // <
-	// exec->fl_redirout = 0; // >
-	// // exec->fl_hdr = 1; // >>
-	// // exec->fl_hdl = 0; // <<
-	// exec->input  = open("Makefile", O_RDONLY);
-	// if (exec->input == -1)
-	// 			ft_err("Error exec->file", exec);
-	// exec->input  = open("supp.txt", O_RDONLY);
-	// if (exec->input == -1)
-	// 			ft_err("Error exec->file", exec);
-	// // 	//TODO to modify the below
-	// // if (exec->fl_redirout == 1 && exec->fl_hdr == 1)
-	// // 	exec->output = open("out", O_RDWR | O_CREAT | O_APPEND, 0644);
-	// // else
-		// exec->output = open("out", O_RDWR | O_CREAT | O_TRUNC, 0644);
-	// // 	//TODO to modify the above
+	// exec->fl_hdr = 1; // >>
+	// exec->fl_hdl = 0; // <<
+	// 	//TODO to modify the below
+	// if (exec->fl_redirout == 1 && exec->fl_hdr == 1)
+	// 	exec->output = open("out", O_RDWR | O_CREAT | O_APPEND, 0644);
+	// else
+	// 	exec->output = open("out", O_RDWR | O_CREAT | O_TRUNC, 0644);
+	// 	//TODO to modify the above
 	// exec->output = open("out", O_RDWR | O_CREAT | O_TRUNC, 0644);
-	//TODO remove the above
+	// //TODO remove the above
 	printf("---		ft_is_redirection ends	---\n");
 }
 
@@ -126,3 +108,19 @@ void	ft_exec_jct(t_exec *exec, t_jct *jct)
 	//TODO clarifier le 2nd arg de waitpid
 	// ft_free_data(exec);
 }
+
+// void	ft_exec_jct(t_exec *exec, t_jct *jct)
+// {
+// 	int	i;
+// 	int status;
+	
+// 	ft_is_redirection(exec, jct);
+// 	if (ft_create_pipes(exec) == 2)
+// 		return ;
+// 	ft_make_pids_jct(exec, jct);
+// 	i = -1;
+// 	while (++i < exec->cmd_nb)
+// 		waitpid(exec->pids[i], &status, 0);
+// 	//TODO clarifier le 2nd arg de waitpid
+// 	// ft_free_data(exec);
+// }
