@@ -68,11 +68,11 @@ void	ft_print_debug(t_exec *exec)
 
 void	ft_copy_env(t_exec *exec, char **envp)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
-	while(envp[i])
+	while (envp[i])
 		i++;
 	exec->envp = ft_calloc(sizeof(char **), i + 1);
 	i = -1;
@@ -82,16 +82,15 @@ void	ft_copy_env(t_exec *exec, char **envp)
 	exec->envp[j] = NULL;
 }
 
-void	ft_cmd_nb(t_exec *exec)
+char	*ft_free_2char(char **tab)
 {
-	int	j = 0;
-	char	**tmp;
+	int	i;
 
-	tmp = ft_split(exec->line, '|');
-	while(tmp[j])
-		j++;
-	exec->cmd_nb = j;
-	exec->pipes_nb = exec->cmd_nb - 1;
+	i = -1;
+	while (++i < 4)
+		free(tab[i]);
+	free(tab);
+	return (0);
 }
 
 void	ft_free_3tab(t_jct *jct)
