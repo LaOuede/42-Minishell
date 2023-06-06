@@ -1,8 +1,8 @@
 #include "../include/minishell.h"
 
-#define GWEN 1
+#define GWEN 0
 #define LOULOU 0
-#define LOULOU_JCT 0
+#define LOULOU_JCT 1
 
 /* t_ms	*ft_init_ms(int ac, char **av, char **envp)
 {
@@ -43,8 +43,8 @@ int	main(int ac, char **av, char **envp)
 	int		test_mem;
 
 	// printf("\n😈😈😈 Welcome to minishell ... or should I say " RED"🔥 MINIHELLLL 🔥 😈😈😈\n\n"WHT);
-	(void)test_mem;
-	//test_mem = 1;
+	//(void)test_mem;
+	test_mem = 1;
 	if (ac != 1)
 	{
 		printf("Too many arguments\nUsage: ./minishell\n");
@@ -58,8 +58,8 @@ int	main(int ac, char **av, char **envp)
 	// 	add_history(pars->input);
 	// 	ft_parsing(pars, jct);
 	// }
-	//while (test_mem != 0)
-	while (LOULOU_JCT)
+	while (test_mem != 0)
+	//while (LOULOU_JCT)
 	{
 		pars->input = readline("Minishell > ");
 		add_history(pars->input);

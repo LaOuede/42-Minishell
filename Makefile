@@ -4,7 +4,7 @@ NAME		=	minishell
 
 # -- Compilation Flag -- #
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror -g
+CFLAGS		=	-Wall -Wextra -Werror
 # CFLAGS	=	-Wall -Wextra -Werror -g -Wunreachable-code -fsanitize=address
 # CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
 
@@ -91,7 +91,7 @@ dir :
 leak: CFLAGS += -g
 leak: all
 	@reset
-	valgrind --track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all --suppressions=supp.txt ./$(NAME)
+	valgrind --track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=supp.txt ./$(NAME)
 
 leaks: all
 	@reset
