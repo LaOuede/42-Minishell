@@ -40,12 +40,13 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	(void)ac;
 	t_pars	*pars;
-	t_exec 	*exec;
+	t_exec	*exec;
 	t_jct	*jct;
 	int		test_mem;
 
 	// printf("\n😈😈😈 Welcome to minishell ... or should I say " RED"🔥 MINIHELLLL 🔥 😈😈😈\n\n"WHT);
 	(void)test_mem;
+	//test_mem = 1;
 	pars = ft_init_pars(envp);
 	jct = ft_init_jct();
 	while (GWEN)
@@ -54,6 +55,7 @@ int	main(int ac, char **av, char **envp)
 		add_history(pars->input);
 		ft_parsing(pars, jct);
 	}
+	//while (test_mem != 0)
 	while (LOULOU_JCT)
 	{
 		pars->input = readline("Minishell > ");
@@ -72,6 +74,7 @@ int	main(int ac, char **av, char **envp)
 			ft_free_exec(exec);
 		}
 		jct->err_pars = true;
+		//test_mem -= 1;
 	}
 	// while (LOULOU)
 	// {
@@ -94,5 +97,7 @@ int	main(int ac, char **av, char **envp)
 	
 	// ft_clean_up(parse);
 	//TODO need to implement a fct that clears the history (fct clear_history exist in history.h)
+	ft_free_pars(pars);
+	ft_free_jct(jct);
 	return (0);
 }

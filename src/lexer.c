@@ -32,7 +32,7 @@ void	ft_char(int *i, t_pars *pars)
 	if (tmp)
 	{
 		ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
-		tmp = NULL;
+		ft_freenull(tmp);
 		ft_reset_node(pars);
 	}
 	printf("-> i = %d\n", (*i));

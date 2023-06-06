@@ -10,7 +10,7 @@ void	ft_merge_pipe(t_pars *pars)
 	if (!pars->line)
 		return ;
 	ptr = pars->line;
-	new_str = ft_calloc(1, sizeof(char));
+	new_str = NULL;
 	while (ptr->next)
 	{
 		printf("str = %s\n", ptr->str);
@@ -172,7 +172,7 @@ void	ft_merge_allredin(t_pars *pars)
 		return ;
 	ptr1 = pars->line;
 	ptr2 = ptr1;
-	new_str = ft_calloc(1, sizeof(char));
+	new_str = NULL;
 	while (ptr1->next != NULL)
 	{
 		ptr2 = ptr1->next;
@@ -213,7 +213,7 @@ void	ft_merge_allredout(t_pars *pars)
 		return ;
 	ptr1 = pars->line;
 	ptr2 = ptr1;
-	new_str = ft_calloc(1, sizeof(char));
+	new_str = NULL;
 	while (ptr1->next != NULL)
 	{
 		ptr2 = ptr1->next;
@@ -297,7 +297,7 @@ void	ft_merge_out(t_pars *pars)
 	if (!pars->line)
 		return ;
 	ptr = pars->line;
-	new_str = ft_calloc(1, sizeof(char));
+	new_str = NULL;
 	while (ptr->next)
 	{
 		printf("str = %s\n", ptr->str);
@@ -331,7 +331,7 @@ void	ft_merge_in(t_pars *pars)
 	if (!pars->line)
 		return ;
 	ptr = pars->line;
-	new_str = ft_calloc(1, sizeof(char));
+	new_str = NULL;
 	while (ptr->next)
 	{
 		printf("str = %s\n", ptr->str);
@@ -366,7 +366,7 @@ void	ft_merge_red(t_pars *pars)
 	if (!pars->line)
 		return ;
 	ptr = pars->line;
-	new_str = ft_calloc(1, sizeof(char));
+	new_str = NULL;
 /* 	printf("str = %s\n", ptr->str);
 	printf("str next = %s\n", ptr->next->str);
 	printf("ptr->type = %d\n", ptr->type); */
@@ -379,6 +379,8 @@ void	ft_merge_red(t_pars *pars)
 				file = open(ptr->next->str, O_RDONLY);
 				if (file == -1)
 					ft_error_parsing(ERR_INFILE, REBUILDER, pars);
+				if (file)
+					close(file);
 			}
 			if (ptr->str && !ptr->next->str)
 				new_str = ft_strdup(ptr->str);
@@ -425,7 +427,7 @@ void	ft_merge_arg(t_pars *pars)
 		return ;
 	ptr1 = pars->line;
 	ptr2 = ptr1;
-	new_str = ft_calloc(1, sizeof(char));
+	new_str = NULL;
 	while (ptr1->next != NULL)
 	{
 		ptr2 = ptr1->next;

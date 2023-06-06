@@ -134,5 +134,6 @@ void		ft_fill_tab(t_jct *jct, t_pars *pars);
 void		ft_parser_debugger(t_pars *pars);
 void		ft_error_parsing(char *err_msg, int step, t_pars *pars);
 void		ft_error(char *err_msg);
+void		ft_free_pars(t_pars *pars);
 
 #endif

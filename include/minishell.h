@@ -27,7 +27,6 @@ typedef struct s_ms
 	struct s_exec		*exec;
 }	t_ms;
 
-
 //	Struct prototype to made the junction between the parsing and the execution
 typedef struct s_jct
 {
@@ -36,5 +35,7 @@ typedef struct s_jct
 	int		cmd_nb;
 	bool	err_pars;
 }			t_jct;
+
+void	ft_free_jct(t_jct *jct);
 
 #endif
