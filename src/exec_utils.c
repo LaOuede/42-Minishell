@@ -158,36 +158,22 @@ void ft_free_3tab(t_jct *jct)
 
 void	ft_free_exec(t_exec *exec)
 {
-	int	i;
 	if (exec)
 	{
-		i = 0;
 		if (exec->path_var)
-		{
-			while (exec->path_var[i])
-				ft_freenull(exec->path_var[i++]);
-			ft_freenull(exec->path_var);
-			exec->path_var = NULL;
-		}
-		i = 0;
+			ft_free_tab_char(exec->path_var);
 		if (exec->pipes)
-		{
-			while (i < exec->pipes_nb)
-				ft_freenull(exec->pipes[i++]);
-			ft_freenull(exec->pipes);
-			exec->pipes = NULL;
-		}
-		i = 0;
+			ft_free_tab_int(exec->pipes, exec->pipes_nb);
 		if (exec->readline)
-		{
-			while (exec->readline[i])
-				ft_freenull(exec->readline[i++]);
-			ft_freenull(exec->readline);
-			exec->readline = NULL;
-		}
+			ft_free_tab_char(exec->readline);
+			//TODO may need to modify the 'exec->readline' variable to pars->input
 		if (exec->pids)
 			ft_freenull(exec->pids);
-		// freenull(exec);
+		if (exec->envp)
+			ft_free_tab_char(exec->envp);
+		// if (exec->path_var)
+		// 	ft_free_tab_char(exec->path_var);
+		// ft_freenull(exec);
 	}
 }
 
@@ -237,12 +223,10 @@ char	**ft_get_path(char **envp, int i)
 	return (new_path_var);
 }
 
-t_exec	*ft_init_exec(int ac, char **av, char **envp)
+t_exec	*ft_init_exec(char **envp, t_jct *jct)
 {
 	static t_exec	*exec;
 
-	(void)ac;
-	(void)av;
 	exec = malloc(sizeof(t_exec));
 	if (!exec)
 			perror(NULL);
@@ -253,6 +237,8 @@ t_exec	*ft_init_exec(int ac, char **av, char **envp)
 	exec->readline = ft_calloc(sizeof(char *), 1);
 	exec->pids = 0;
 	exec->line = NULL;
+	exec->cmd_nb = jct->cmd_nb;
+	exec->pipes_nb = exec->cmd_nb - 1;
 	return(exec);
 }
 

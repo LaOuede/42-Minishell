@@ -1,8 +1,8 @@
 #include "../include/minishell.h"
 
-#define GWEN 1
+#define GWEN 0
 #define LOULOU 0
-#define LOULOU_JCT 0
+#define LOULOU_JCT 1
 
 /* t_ms	*ft_init_ms(int ac, char **av, char **envp)
 {
@@ -38,7 +38,6 @@ t_jct	*ft_init_jct()
 int	main(int ac, char **av, char **envp)
 {
 	(void)av;
-	(void)ac;
 	t_pars	*pars;
 	t_exec	*exec;
 	t_jct	*jct;
@@ -47,6 +46,11 @@ int	main(int ac, char **av, char **envp)
 	// printf("\n😈😈😈 Welcome to minishell ... or should I say " RED"🔥 MINIHELLLL 🔥 😈😈😈\n\n"WHT);
 	(void)test_mem;
 	//test_mem = 1;
+	if (ac != 1)
+	{
+		printf("Too many arguments\nUsage: ./minishell\n");
+		return(1);
+	}
 	pars = ft_init_pars(envp);
 	jct = ft_init_jct();
 	while (GWEN)
@@ -63,11 +67,8 @@ int	main(int ac, char **av, char **envp)
 		ft_parsing(pars, jct);
 		if (jct->err_pars == false)
 		{
-			exec = ft_init_exec(ac, av, envp);
-			exec->cmd_nb = jct->cmd_nb;
-			exec->pipes_nb = exec->cmd_nb - 1;
+			exec = ft_init_exec(envp, jct);
 			ft_print_debug(exec);
-			//The execution of all cmds starts here
 			ft_exec_jct(exec, jct);
 			//TODO implement a reset function instead of free fct
 			ft_free_3tab(jct);
@@ -97,6 +98,7 @@ int	main(int ac, char **av, char **envp)
 	
 	// ft_clean_up(parse);
 	//TODO need to implement a fct that clears the history (fct clear_history exist in history.h)
+	//TODO implement or add all free/reset function
 	ft_free_pars(pars);
 	ft_free_jct(jct);
 	return (0);

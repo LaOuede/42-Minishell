@@ -97,7 +97,6 @@ void	ft_run_cmd_jct(t_exec *exec, t_jct *jct, int r)
 {
 	char	*path;
 	char	***cmds;
-	int		i;
 
 	cmds = jct->tab;
 	// fprintf(stderr, "cmd[%d][0] = %s\n", r, cmds[r][0]);
@@ -110,12 +109,7 @@ void	ft_run_cmd_jct(t_exec *exec, t_jct *jct, int r)
 		free(path);
 	else if (execve(path, cmds[r], exec->envp) < 0)
 		ft_err("Error ! Something went wrong while executing: ", exec);
-	//TODO ft_err exit if there is an error, so the below will never be executed
-	i = 0;
-	while (exec->path_var[i])
-		free(exec->path_var[i++]);
-	free(exec->path_var);
-	exec->path_var = NULL;
+	//TODO ft_err exit if there is an error, so the below will never be executed	
 }
 
 void	ft_exec_jct(t_exec *exec, t_jct *jct)
