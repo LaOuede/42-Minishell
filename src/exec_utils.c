@@ -173,7 +173,7 @@ void	ft_free_exec(t_exec *exec)
 			ft_free_tab_char(exec->envp);
 		// if (exec->path_var)
 		// 	ft_free_tab_char(exec->path_var);
-		// ft_freenull(exec);
+		ft_freenull(exec);
 	}
 }
 
