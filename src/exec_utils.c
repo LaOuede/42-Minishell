@@ -82,17 +82,29 @@ void	ft_copy_env(t_exec *exec, char **envp)
 	exec->envp[j] = NULL;
 }
 
-void ft_free_3tab(t_jct *jct)
+void	ft_cmd_nb(t_exec *exec)
 {
-	int	i;
-	char ***tmp;
+	int	j = 0;
+	char	**tmp;
+
+	tmp = ft_split(exec->line, '|');
+	while(tmp[j])
+		j++;
+	exec->cmd_nb = j;
+	exec->pipes_nb = exec->cmd_nb - 1;
+}
+
+void	ft_free_3tab(t_jct *jct)
+{
+	int		i;
+	char	***tmp;
 
 	if (!jct->tab)
-        return ;
+		return ;
 	tmp = jct->tab;
-	i = 0;
-	while(tmp[i])
-		ft_free_tab_char(tmp[i++]);
+	i = -1;
+	while (++i < jct->cmd_nb)
+		ft_free_2char(tmp[i]);
 	free(tmp);
 	jct->tab = NULL;
 }

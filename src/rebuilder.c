@@ -372,7 +372,8 @@ void	ft_create_file(t_token *node, t_pars *pars)
 	if (node->type == REDOUT)
 	{
 		printf("file name = %s\n", node->next->str);
-		if (!(file = open(node->next->str, O_RDWR | O_CREAT | O_TRUNC, 0644)))
+		file = open(node->next->str, O_RDWR | O_CREAT | O_TRUNC, 0644);
+		if (!file)
 			ft_error_parsing(ERR_OUTFILE, REBUILDER, pars);
 		if (file)
 			close(file);
