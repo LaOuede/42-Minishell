@@ -171,6 +171,10 @@ void	ft_free_exec(t_exec *exec)
 			ft_freenull(exec->pids);
 		if (exec->envp)
 			ft_free_tab_char(exec->envp);
+		if (exec->input_file_name)
+			ft_freenull(exec->input_file_name);
+		if (exec->output_file_name)
+			ft_freenull(exec->output_file_name);
 		// if (exec->path_var)
 		// 	ft_free_tab_char(exec->path_var);
 		ft_freenull(exec);

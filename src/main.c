@@ -53,12 +53,12 @@ int	main(int ac, char **av, char **envp)
 	}
 	pars = ft_init_pars(envp);
 	jct = ft_init_jct();
-	while (GWEN)
-	{
-		pars->input = readline("Minishell > ");
-		add_history(pars->input);
-		ft_parsing(pars, jct);
-	}
+	// while (GWEN)
+	// {
+	// 	pars->input = readline("Minishell > ");
+	// 	add_history(pars->input);
+	// 	ft_parsing(pars, jct);
+	// }
 	//while (test_mem != 0)
 	while (LOULOU_JCT)
 	{
