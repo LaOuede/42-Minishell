@@ -138,8 +138,9 @@ void	ft_parsing(t_pars *pars, t_jct *jct)
 		if (pars->flag_error_rebuilder == true)
 			ft_parser(pars, jct);
 	}
+	//TODO inverse all flag statement in the if below
 	if (pars->flag_error_lexer == false || pars->flag_error_rebuilder == false || pars->flag_error_parser == false)
-		jct->err_pars = false;
+		jct->err_pars = true;
 	ft_reset_pars(pars);
 	printf(KYEL "-------------------- FT_PARSING" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }
