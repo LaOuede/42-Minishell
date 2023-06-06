@@ -18,8 +18,6 @@ void	ft_free_pars(t_pars *pars)
 			ft_freenull(pars->input);
 		if (pars->line)
 			ft_free_lst(&pars->line);
-		if (pars->envp)
-			ft_free_tab_char(pars->envp);
 		free(pars);
 	}
 }
@@ -47,7 +45,10 @@ void	ft_free_token(t_token *token)
 	if (token)
 	{
 		if (token->str)
-			ft_freenull(token->str);
-		ft_freenull(token);
+		{
+			free(token->str);
+			token->str = NULL;
+		}
+		free(token);
 	}
 }

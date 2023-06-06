@@ -80,26 +80,25 @@ void	ft_clean_list(t_token **list)
 	t_token *sup;
 	t_token	*ptr;
 
-	if (!*list)
+	if (!list || !*list)
 		return ;
 	ptr = *list;
 	while (ptr->next)
 	{
-		printf("ptr->type = %d\n", ptr->type);
+		printf("ptr->next->type = %d\n", ptr->next->type);
+		printf("ptr->next->str = %p\n", ptr->next->str);
 		if (ptr->next->type == ERROR)
 		{
 			sup = ptr->next;
 			if (ptr->next->next)
-			{
 				ptr->next = ptr->next->next;
-			}
 			else if (!ptr->next->next)
-			{
 				ptr->next = NULL;
-			}
+			printf("sup->str = %s\n", sup->str);
+			printf("sup->str = %p\n", sup->str);
 			ft_free_token(sup);
 		}
-		else if (ptr->next)
+		if (ptr->next)
 			ptr = ptr->next;
 	}
 	printf(KYEL "-------------------- FT_CLEAN_LIST" KRED " END " RESET KYEL "--------------------\n" RESET);

@@ -7,7 +7,7 @@ char	*ft_mem_alloc(char *str, int capacity)
 
 	new = ft_calloc(sizeof(new), (capacity * 2));
 	if (!new)
-		return (0);
+		return (NULL);
 	i = 0;
 	while (str[i])
 	{

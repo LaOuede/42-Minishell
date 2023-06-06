@@ -167,12 +167,14 @@ void	ft_merge_allredin(t_pars *pars)
 	t_token	*ptr1;
 	t_token	*ptr2;
 	char	*new_str;
+	char	*tmp;
 
 	if (!pars->line)
 		return ;
 	ptr1 = pars->line;
 	ptr2 = ptr1;
 	new_str = NULL;
+	tmp = NULL;
 	while (ptr1->next != NULL)
 	{
 		ptr2 = ptr1->next;
@@ -189,7 +191,9 @@ void	ft_merge_allredin(t_pars *pars)
 					ptr1->str = ft_strjoin_char(ptr1->str, ' ');
 					new_str = ft_strjoin(ptr1->str, ptr2->str);
 				}
+				tmp = ptr1->str;
 				ptr1->str = ft_strdup(new_str);
+				ft_freenull(tmp);
 				ft_freenull(new_str);
 				printf("new_str = %s\n", new_str);
 				printf("ptr->str = %s\n", ptr1->str);
@@ -199,6 +203,7 @@ void	ft_merge_allredin(t_pars *pars)
 		}
 		ptr1 = ptr1->next;
 	}
+	ft_freenull(new_str);
 	printf(KYEL "-------------------- FT_MERGE_ALLREDIN" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
@@ -208,12 +213,14 @@ void	ft_merge_allredout(t_pars *pars)
 	t_token	*ptr1;
 	t_token	*ptr2;
 	char	*new_str;
+	char	*tmp;
 
 	if (!pars->line)
 		return ;
 	ptr1 = pars->line;
 	ptr2 = ptr1;
 	new_str = NULL;
+	tmp = NULL;
 	while (ptr1->next != NULL)
 	{
 		ptr2 = ptr1->next;
@@ -230,7 +237,9 @@ void	ft_merge_allredout(t_pars *pars)
 					ptr1->str = ft_strjoin_char(ptr1->str, ' ');
 					new_str = ft_strjoin(ptr1->str, ptr2->str);
 				}
+				tmp = ptr1->str;
 				ptr1->str = ft_strdup(new_str);
+				ft_freenull(tmp);
 				ft_freenull(new_str);
 				printf("new_str = %s\n", new_str);
 				printf("ptr->str = %s\n", ptr1->str);
@@ -355,6 +364,22 @@ void	ft_merge_in(t_pars *pars)
 	printf(KYEL "-------------------- FT_MERGE_IN" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
+void	ft_create_file(t_token *node, t_pars *pars)
+{
+	printf(KYEL "-------------------- FT_CREATE_FILE" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	int	file;
+
+	if (node->type == REDOUT)
+	{
+		printf("file name = %s\n", node->next->str);
+		if (!(file = open(node->next->str, O_RDWR | O_CREAT | O_TRUNC, 0644)))
+			ft_error_parsing(ERR_OUTFILE, REBUILDER, pars);
+		if (file)
+			close(file);
+	}
+	printf(KYEL "-------------------- FT_CREATE_FILE" KRED " END " RESET KYEL "--------------------\n" RESET);
+}
+
 void	ft_open_file(t_token *node, t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_OPEN_FILE" KGRN " START " RESET KYEL "--------------------\n" RESET);
@@ -379,11 +404,13 @@ void	ft_merge_red(t_pars *pars)
 	t_token	*ptr;
 	t_token	*sup;
 	char	*new_str;
+	char	*tmp;
 
 	if (!pars->line)
 		return ;
 	ptr = pars->line;
 	new_str = NULL;
+	tmp = NULL;
 /* 	printf("str = %s\n", ptr->str);
 	printf("str next = %s\n", ptr->next->str);
 	printf("ptr->type = %d\n", ptr->type); */
@@ -392,6 +419,7 @@ void	ft_merge_red(t_pars *pars)
 		if ((ptr->type == REDIN || ptr->type == REDOUT) && ptr->next->type == ARG)
 		{
 			ft_open_file(ptr, pars);
+			ft_create_file(ptr, pars);
 			if (ptr->str && !ptr->next->str)
 				new_str = ft_strdup(ptr->str);
 			else if (!ptr->str && ptr->next->str)
@@ -401,7 +429,9 @@ void	ft_merge_red(t_pars *pars)
 				ptr->str = ft_strjoin_char(ptr->str, ' ');
 				new_str = ft_strjoin(ptr->str, ptr->next->str);
 			}
+			tmp = ptr->str;
 			ptr->str = ft_strdup(new_str);
+			ft_freenull(tmp);
 			ft_freenull(new_str);
 /* 			printf("new_str = %s\n", new_str);
 			printf("ptr->str = %s\n", ptr->str);
@@ -418,7 +448,6 @@ void	ft_merge_red(t_pars *pars)
 				ptr->next = NULL;
 			}
 			ft_free_token(sup);
-			printf("sup->str = %s\n", sup->str);
 		}
 		if (ptr->next)
 			ptr = ptr->next;
@@ -432,12 +461,14 @@ void	ft_merge_arg(t_pars *pars)
 	t_token	*ptr1;
 	t_token	*ptr2;
 	char	*new_str;
+	char	*tmp;
 
 	if (!pars->line)
 		return ;
 	ptr1 = pars->line;
-	ptr2 = ptr1;
+	ptr2 = pars->line;
 	new_str = NULL;
+	tmp = NULL;
 	while (ptr1->next != NULL)
 	{
 		ptr2 = ptr1->next;
@@ -455,9 +486,10 @@ void	ft_merge_arg(t_pars *pars)
 						ptr1->str = ft_strjoin_char(ptr1->str, ' ');
 					new_str = ft_strjoin(ptr1->str, ptr2->str);
 				}
+				tmp = ptr1->str;
 				ptr1->str = ft_strdup(new_str);
+				ft_freenull(tmp);
 				ft_freenull(new_str);
-				printf("new_str = %s\n", new_str);
 				printf("ptr->str = %s\n", ptr1->str);
 				printf("ptr->next->str = %s\n", ptr2->str);
 			}

@@ -173,7 +173,6 @@ void	ft_parser(t_pars *pars, t_jct *jct)
 		return ;
 	jct->cmd_nb = pars->nb_pipe;
 	ft_check_redir(pars);
-	//ft_check_infile(pars);
 	ft_check_pipe(pars);
 	ft_parser_debugger(pars);
 	if (pars->err_parser == false)

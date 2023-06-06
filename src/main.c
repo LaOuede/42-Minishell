@@ -1,8 +1,8 @@
 #include "../include/minishell.h"
 
-#define GWEN 0
+#define GWEN 1
 #define LOULOU 0
-#define LOULOU_JCT 1
+#define LOULOU_JCT 0
 
 /* t_ms	*ft_init_ms(int ac, char **av, char **envp)
 {
@@ -24,7 +24,6 @@ t_jct	*ft_init_jct()
 
 	jct = ft_calloc(1, sizeof(t_jct));
 	jct->tab = NULL;
-	// jct->pipe_nb = -1;
 	jct->cmd_nb = -1;
 	jct->err_pars = false;
 	return (jct);
@@ -59,8 +58,8 @@ int	main(int ac, char **av, char **envp)
 		add_history(pars->input);
 		ft_parsing(pars, jct);
 	}
-	while (test_mem != 0)
-	//while (LOULOU_JCT)
+	//while (test_mem != 0)
+	while (LOULOU_JCT)
 	{
 		pars->input = readline("Minishell > ");
 		add_history(pars->input);

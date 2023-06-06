@@ -57,11 +57,14 @@ void	ft_d_quotes_token(int *i, t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_D_QUOTES_TOKEN" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 	char	*tmp;
+	char	*tmp2;
 
 	tmp = NULL;
+	tmp2 = NULL;
 	pars->d_quotes = OPEN;
 	printf("d_quotes = %d\n", pars->d_quotes);
 	tmp = ft_stock_quotes(i, tmp, pars);
+	tmp2 = tmp;
 	printf("tmp = %s\n", tmp);
 	if (pars->type == EXPAND)
 		tmp = ft_quotes_expansion(tmp, pars);
@@ -72,5 +75,6 @@ void	ft_d_quotes_token(int *i, t_pars *pars)
 	if (tmp)
 		ft_reset_node(pars);
 	ft_freenull(tmp);
+	ft_freenull(tmp2);
 	printf(KYEL "-------------------- FT_D_QUOTES_TOKEN" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }

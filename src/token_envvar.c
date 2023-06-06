@@ -20,6 +20,7 @@ char	*ft_find_envvar(char *str, t_pars *pars)
 	len -= 1;
 	while (pars->envp[i][len++])
 		tmp = ft_stock_char(tmp, pars->envp[i][len]);
+	ft_freenull(str);
 	printf(KYEL "-------------------- FT_FIND_ENVVAR" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 	return (tmp);
 }
