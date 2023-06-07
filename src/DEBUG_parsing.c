@@ -41,7 +41,7 @@ void	DEBUG_parser(t_pars *pars)
 	ft_free_lst(&tmp);
 }
 
-void	DEBUG_build(t_pars *pars)
+void	DEBUG_builder(t_pars *pars)
 {
 	t_token	*tmp;
 	int		i = 0;

@@ -13,7 +13,11 @@ RM			=	rm -rf
 
 # -- SRC Files -- #
 SRCS_DIR	=	./src/
-SRCS_LST	= 	builder.c \
+SRCS_LST	= 	parsing/builder.c \
+				parsing/builder_args.c \
+				parsing/builder_finish.c \
+				parsing/builder_pipe.c \
+				parsing/builder_redirection.c \
 				DEBUG_parsing.c \
 				error_handling.c \
 				exec_utils.c \
@@ -22,7 +26,6 @@ SRCS_LST	= 	builder.c \
 				exec.c \
 				freeing.c \
 				main.c \
-				parser.c \
 				parsing/lexer.c \
 				parsing/lexer_token_1.c \
 				parsing/lexer_token_2.c \
@@ -31,6 +34,8 @@ SRCS_LST	= 	builder.c \
 				parsing/lexer_token_5.c \
 				parsing/lexer_utils_memory.c \
 				parsing/lexer_utils_list.c \
+				parsing/parser.c \
+				parsing/parser_tab.c \
 				parsing/parsing.c
 
 # -- Readline Library -- #

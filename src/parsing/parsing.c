@@ -64,7 +64,7 @@ void	ft_parsing(t_pars *pars, t_jct *jct)
 	if (pars->line && pars->err_lexer == false)
 	{
 		ft_builder(pars);
-		DEBUG_build(pars);
+		DEBUG_builder(pars);
 		if (pars->err_rebuilder == false)
 			ft_parser(pars, jct);
 	}
