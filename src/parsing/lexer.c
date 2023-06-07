@@ -1,15 +1,6 @@
-#include "../include/minishell.h"
-//TODO : gérer les parenthèses et les curly brackets
+#include "../../include/minishell.h"
 
-void	ft_reset_node(t_pars *pars)
-{
-	pars->type = ARG;
-	pars->flag_whitespace = 0;
-	pars->d_quotes = 0;
-	pars->s_quotes = 0;
-}
-
-/* All char that aren't meta char (whitespace and isprint)*/
+/* All char that aren't metachar (whitespace and isprint)*/
 void	ft_char(int *i, t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_CHAR --------------------\n" RESET);
@@ -39,18 +30,13 @@ void	ft_char(int *i, t_pars *pars)
 	printf("-> char fin = %c\n", pars->input[(*i)]);
 }
 
-/* Special char = whitespaces, pipe, < >, $ */
 void	ft_metachar(char c, int *i, t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_METACHAR --------------------\n" RESET);
 	if (c == '|')
 		ft_pipe_token(i, pars);
-/* 	else if (c == '<' && pars->input[(*i) + 1] == '<')
-		ft_appenred_token(i, pars); */
 	else if (c == '<')
 		ft_redin_token(i, pars);
-/* 	else if (c == '>' && pars->input[(*i) + 1] == '>')
-		ft_heredoc_token(i, pars); */
 	else if (c == '>')
 		ft_redout_token(i, pars);
 	else if (c == '$')
@@ -61,9 +47,10 @@ void	ft_metachar(char c, int *i, t_pars *pars)
 		ft_s_quotes_token(i, pars);
 }
 
+/* Special char = whitespaces, pipe, < >, $ */
 bool	ft_ismetachar(char c)
 {
-	if (c == '|' || c == '<' || c == '>' || c == '\'' || c == '\"' || c == '$')
+	if (c == '|' || c == '<' || c == '>' || c == '$' || c == '\"' || c == '\'')
 		return (true);
 	return (false);
 }

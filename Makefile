@@ -13,26 +13,26 @@ RM			=	rm -rf
 
 # -- SRC Files -- #
 SRCS_DIR	=	./src/
-SRCS_LST	= 	error_handling.c \
+SRCS_LST	= 	DEBUG_parsing.c \
+				error_handling.c \
 				exec_utils.c \
 				exec_pipes.c \
 				exec_jct.c \
 				exec.c \
 				freeing.c \
-				lexer.c \
 				lexer_linked_list.c \
 				lexer_memory.c \
 				lexer_utils.c \
 				main.c \
 				parser.c \
-				parsing.c \
+				parsing/parsing.c \
+				parsing/lexer.c \
+				parsing/lexer_token_1.c \
+				parsing/lexer_token_2.c \
+				parsing/lexer_token_3.c \
+				parsing/lexer_token_4.c \
+				parsing/lexer_token_5.c \
 				rebuilder.c \
-				token_brackets.c \
-				token_envvar.c \
-				token_envvar_quotes.c \
-				token_pipe.c \
-				token_quotes.c \
-				token_redir.c
 
 # -- Readline Library -- #
 LIBRLINE 		= readline-8.2
@@ -85,7 +85,7 @@ run: all
 
 # -- Create directory for *.o files -- #
 dir :
-	@mkdir -p $(OBJS_DIR)
+	@mkdir -p $(OBJS_DIR) $(OBJS_DIR)parsing
 	@mkdir -p $(LIBRLINE_DIR)
 
 leak: CFLAGS += -g
@@ -113,7 +113,7 @@ readline :
 clean :
 	@make -C $(LIBFT_DIR) clean
 	@printf "💥 $(RED)Removing $(NAME)'s objects...$(RESET)\t\t\t💥\n"
-	@$(RM) $(OBJS_DIR)
+	@$(RM) $(OBJS_DIR) $(OBJS_DIR)parsing
 	@printf "🗑️  $(CYAN)$(NAME)'s object successfully deleted.$(RESET)\t\t🗑️\n"
 
 # -- Removes objects (with clean) and executable -- #

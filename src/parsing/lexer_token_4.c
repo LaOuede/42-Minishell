@@ -1,4 +1,4 @@
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	ft_s_quotes_token(int *i, t_pars *pars)
 {

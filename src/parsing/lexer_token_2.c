@@ -1,4 +1,4 @@
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 char	*ft_find_envvar(char *str, t_pars *pars)
 {

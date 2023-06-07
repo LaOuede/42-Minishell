@@ -68,26 +68,6 @@ void	ft_check_pipe(t_pars *pars)
 	printf(KYEL "-------------------- FT_CHECK_ERROR" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
-void	ft_print_tab(t_jct *jct)
-{
-	printf(KYEL "-------------------- FT_PRINT_TAB" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	int		row;
-	int		column;
-	char	***tab;
-
-	if (!jct->tab)
-		return ;
-	row = -1;
-	tab = jct->tab;
-	while (++row < jct->cmd_nb)
-	{
-		column = -1;
-		while (++column < 4)
-			printf("[%d][%d] = %s\n", row, column, tab[row][column]);
-	}
-	printf(KYEL "-------------------- FT_PRINT_TAB" KRED " END " RESET KYEL "--------------------\n" RESET);
-}
-
 /* Store the nodes in a two-dimensionnal array */
 void	ft_fill_tab(t_jct *jct, t_pars *pars)
 {
@@ -172,12 +152,12 @@ void	ft_parser(t_pars *pars, t_jct *jct)
 	jct->cmd_nb = pars->nb_pipe;
 	ft_check_redir(pars);
 	ft_check_pipe(pars);
-	ft_parser_debugger(pars);
+	DEBUG_parser(pars);
 	if (pars->err_parser == false)
 	{
 		ft_init_cmdtab(jct);
 		ft_fill_tab(jct, pars);
 		ft_trim_cmd(jct);
-		ft_print_tab(jct);
+		DEBUG_tab(jct);
 	}
 }

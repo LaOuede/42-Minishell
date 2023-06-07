@@ -1,4 +1,4 @@
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	*ft_get_expansion(char *str, int *i, t_pars *pars)
 {
@@ -11,7 +11,7 @@ void	*ft_get_expansion(char *str, int *i, t_pars *pars)
 	if (str[(*i)] == '$' && str[(*i) + 1] == '{')
 	{
 		if (ft_check_expand_brackets(str, pars) == true)
-			ft_get_expand_brackets_quotes(i, str, pars);
+			tmp = ft_get_expand_brackets_quotes(i, str, pars);
 	}
 	else
 	{
@@ -52,7 +52,7 @@ char	*ft_get_before(char *str, int *i)
 		return (NULL);
 	while (len--)
 	{
-		save[len] = str[(j)];
+		save[len] = str[j];
 		j--;
 	}
 	printf("-> save = %s\n", save);
@@ -70,12 +70,13 @@ char	*ft_quotes_expansion(char *str, t_pars *pars)
 	i = 0;
 	save = NULL;
 	res = ft_calloc(1, sizeof(char));
-	while (str[i])
+	while (str[i] && pars->c_brackets != 1)
 	{
 		save = ft_get_before(str, &i);
 		if (save)
 			res = ft_strjoin_free(res, save);
 		printf("-> before = %s\n", save);
+		printf("-> res = %s\n", res);
 		save = NULL;
 		save = ft_get_expansion(str, &i, pars);
 		if (save)

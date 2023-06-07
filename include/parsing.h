@@ -83,7 +83,12 @@ typedef struct s_pars
 	bool			err_rebuilder;
 	bool			err_parser;
 }	t_pars;
-//TODO mieux gérer flag de brackets
+
+/* 		Debug functions 						*/
+void		DEBUG_build(t_pars *pars);
+void		DEBUG_lexer(t_pars *pars);
+void		DEBUG_parser(t_pars *pars);
+void		DEBUG_tab(t_jct *jct);
 
 /* 		Lexer part functions 						*/
 void		ft_add_token_bottom(t_token **lst, t_token *element);
@@ -127,7 +132,7 @@ char		*ft_quotes_expansion(char *str, t_pars *pars);
 char		*ft_find_envvar(char *str, t_pars *pars);
 void		ft_get_expand_brackets(int *i, t_pars *pars);
 bool		ft_check_expand_brackets(char *str, t_pars *pars);
-void		ft_get_expand_brackets_quotes(int *i, char *str, t_pars *pars);
+char		*ft_get_expand_brackets_quotes(int *i, char *str, t_pars *pars);
 void		ft_clean_list(t_token **list);
 void		ft_parser(t_pars *pars, t_jct *jct);
 void		ft_clean_up_jct(t_jct *jct, char *err_msg);
