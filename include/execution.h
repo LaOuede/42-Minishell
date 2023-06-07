@@ -23,8 +23,8 @@ typedef struct s_exec
 	int		index;
 	int		fl_redirin;
 	int		fl_redirout;
-	int		fl_hdr;
-	int		fl_hdl;
+	int		fl_hd_out;
+	int		fl_hd_in;
 	pid_t	*pids;
 	int		**pipes;
 	//to delete - will be in t_jct
@@ -43,7 +43,6 @@ t_exec	*ft_init_exec(char **envp, t_jct *jct);
 void	ft_dup_process(t_exec *exec, int i);
 void	ft_close_pipes(t_exec *exec);
 int		ft_create_pipes(t_exec *exec);
-void	ft_err(char *msg, t_exec *exec);
 void	ft_free_exec(t_exec *exec);
 void	ft_exec(t_exec *exec, t_jct *jct);
 void	ft_copy_env(t_exec *exec, char **envp);

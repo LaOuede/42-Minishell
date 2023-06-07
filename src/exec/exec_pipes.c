@@ -15,24 +15,25 @@ void	ft_close_pipes(t_exec *exec)
 int	ft_mem_pipes(t_exec *exec)
 {
 	int	i;
+
 	// printf("\n--- Pipes calloc starts ---\n");
 	exec->pipes = ft_calloc(exec->pipes_nb, sizeof(int *));
 	if (!exec->pipes)
 	{
 		perror("Error during pipe memory allocation");
-		return(1);
+		return (1);
 	}
 	i = -1;
 	while (++i < exec->pipes_nb)
-	{	
+	{
 		exec->pipes[i] = ft_calloc(2, sizeof(int));
 		if (!exec->pipes[i])
 		{
 			perror("Error during pipe memory allocation");
-			return(1);
+			return (1);
 		}
 	}
-	// printf("\n--- Pipe calloc ends	 ---\n");
+	// printf("\n--- Pipe calloc ends		---\n");
 	return (0);
 }
 

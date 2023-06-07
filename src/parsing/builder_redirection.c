@@ -189,8 +189,9 @@ void	ft_create_file(t_token *node, t_pars *pars)
 	if (node->type == REDOUT)
 	{
 		printf("file name = %s\n", node->next->str);
+		//TODO need to manage there the HD_out depending if there is a '>>' or not
 		file = open(node->next->str, O_RDWR | O_CREAT | O_TRUNC, 0644);
-		if (!file)
+		if (file == -1)
 			ft_error_parsing(ERR_OUTFILE, REBUILDER, pars);
 		if (file)
 			close(file);
@@ -237,7 +238,8 @@ void	ft_merge_red(t_pars *pars)
 		if ((ptr->type == REDIN || ptr->type == REDOUT) && ptr->next->type == ARG)
 		{
 			ft_open_file(ptr, pars);
-			ft_create_file(ptr, pars);
+			//TODO uncomment here to create file
+			// ft_create_file(ptr, pars);
 			if (ptr->str && !ptr->next->str)
 				new_str = ft_strdup(ptr->str);
 			else if (!ptr->str && ptr->next->str)

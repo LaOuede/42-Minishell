@@ -1,28 +1,27 @@
 #include "../../include/minishell.h"
 
-# define PRINT_DEBUG 0
+#define PRINT_DEBUG 0
 
 void	ft_print_debug(t_exec *exec)
 {
+	int	j;
+
 	if (PRINT_DEBUG)
 	{
-		int j = -1;
-
+		j = -1;
 		//Printing What's inside 'exec->readline' variable
 		printf(BLD);
 		printf("\n---------------------------------------------------\n");
-		printf("---		Print_debug "GRN"starts"RESET BLD"		---\n");
-		printf("---------------------------------------------------"RESET"\n\n");
-
+		printf("---		Print_debug " GRN "starts" RESET BLD "		---\n");
+		printf("---------------------------------------------------" RESET "\n\n");
 		printf("---------------------------------------------------\n");
 		printf("---	Printing exec->readline[i]		---\n");
 		printf("|\n");
-		while(exec->readline[++j])
+		while (exec->readline[++j])
 			printf("|	exec->readline[%d] : %s\n", j, exec->readline[j]);
 		printf("|\n");
 		printf("---	Printing exec->readline ends		---\n");
 		printf("---------------------------------------------------\n\n");
-
 		printf("---------------------------------------------------\n");
 		printf("---	Printing exec->cmd_nb			---\n");
 		printf("|\n");
@@ -31,7 +30,6 @@ void	ft_print_debug(t_exec *exec)
 		printf("|\n");
 		printf("---	Printing exec->cmb_nb ends		---\n");
 		printf("---------------------------------------------------\n\n");
-
 		printf("---------------------------------------------------\n");
 		printf("---	Printing exec->pipe_op & flag		---\n");
 		printf("|\n");
@@ -40,7 +38,6 @@ void	ft_print_debug(t_exec *exec)
 		printf("|\n");
 		printf("---	Printing exec->pipe_op & flag ends	---\n");
 		printf("---------------------------------------------------\n\n");
-
 		printf("---------------------------------------------------\n");
 		printf("---	Printing input_file_name & flag		---\n");
 		printf("|\n");
@@ -49,7 +46,6 @@ void	ft_print_debug(t_exec *exec)
 		printf("|\n");
 		printf("---	Printing input_file_name & flag ends	---\n");
 		printf("---------------------------------------------------\n\n");
-
 		printf("---------------------------------------------------\n");
 		printf("---	Printing output_file_name & flag	---\n");
 		printf("|\n");
@@ -58,11 +54,10 @@ void	ft_print_debug(t_exec *exec)
 		printf("|\n");
 		printf("---	Printing output_file_name & flag ends	---\n");
 		printf("---------------------------------------------------\n\n");
-
 		printf(BLD);
 		printf("---------------------------------------------------\n");
-		printf("---		Print_debug "RED"ends"RESET BLD"		---\n");
-		printf("---------------------------------------------------"RESET"\n\n");
+		printf("---		Print_debug " RED "ends" RESET BLD "		---\n");
+		printf("---------------------------------------------------" RESET "\n\n");
 	}
 }
 
@@ -127,14 +122,6 @@ void	ft_free_exec(t_exec *exec)
 	// ft_freenull(exec);
 }
 
-void	ft_err(char *msg, t_exec *exec)
-{
-	(void)exec;
-	// ft_free_exec(exec);
-	perror(msg);
-	// exit(1);
-}
-
 int	ft_path_var_qty(char **path_var)
 {
 	int	i;
@@ -180,7 +167,7 @@ t_exec	*ft_init_exec(char **envp, t_jct *jct)
 
 	exec = malloc(sizeof(t_exec));
 	if (!exec)
-			perror(NULL);
+		perror(NULL);
 	exec->envp = NULL;
 	ft_copy_env(exec, envp);
 	exec->path_var = ft_get_path(exec->envp, 0);
@@ -191,11 +178,13 @@ t_exec	*ft_init_exec(char **envp, t_jct *jct)
 	exec->index = 0;
 	exec->fl_redirin = 0;
 	exec->fl_redirout = 0;
+	exec->fl_hd_in = 0;
+	exec->fl_hd_out = 0;
 	exec->pids = 0;
 	exec->pipes = 0;
 	exec->cmd_nb = jct->cmd_nb;
 	exec->pipes_nb = exec->cmd_nb - 1;
-	return(exec);
+	return (exec);
 }
 
 /*
@@ -208,13 +197,14 @@ t_exec	*ft_init_exec(char **envp, t_jct *jct)
 *-----------------------------------------------------------------------------------------------------------------------------------------------*
 
 each cmds[i] should be stored in a 2D array
--> make a fct that recognize if there an operator (| , <, >, <<, >>) and switch flags 
+-> make a fct that recognize if there an operator (| , <, >, <<,
+		>>) and switch flags 
 
 typedef struct s_jct
 {
-	char **tab;
-	int	pipe_nb;
-	int	cmd_nb;
+	char	**tab;
+	int		pipe_nb;
+	int		cmd_nb;
 } 	t_jct
 
 */

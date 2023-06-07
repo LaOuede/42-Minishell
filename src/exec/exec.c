@@ -2,39 +2,56 @@
 
 void	ft_is_redirection(t_exec *exec, t_jct *jct)
 {
-	char 	***cmds_tab;
+	char	***cmds_tab;
 	int		i;
-	//int		j;
+	// int		flag;
 
-	if(!jct->tab)
+	if (!jct->tab)
 		return ;
 	cmds_tab = jct->tab;
-	i = 0;
 	printf("---		ft_is_redirection starts	---\n");
 	i = 0;
 	while (cmds_tab[i])
 	{
-		//j = 0;
-		if(cmds_tab[i][2])
+		if (cmds_tab[i][2])
 		{
-			exec->input_file_name = ft_strtrim(ft_strrchr(cmds_tab[i][2],'<'), "< ");
+			exec->input_file_name = ft_strtrim(ft_strrchr(cmds_tab[i][2], '<'),
+												"< ");
 			exec->fl_redirin = 1;
 			printf("exec->input_file_name : %s\n", exec->input_file_name);
 			exec->input = open(exec->input_file_name, O_RDONLY);
 		}
-		if(cmds_tab[i][3])
+		// exec->fl_hd_out = 1;
+		// if (exec->fl_hd_out == 1)
+		// 	flag = O_APPEND;
+		// flag = O_TRUNC;
+		if (cmds_tab[i][3])
 		{
-			exec->output_file_name = ft_strtrim(ft_strrchr(cmds_tab[i][3],'>'), "> ");
+			exec->output_file_name = ft_strtrim(ft_strrchr(cmds_tab[i][3], '>'), "> ");
 			exec->fl_redirout = 1;
+			exec->fl_hd_out = 1;
 			printf("exec->output_file_name : %s\n", exec->output_file_name);
-			exec->output = open(exec->output_file_name, O_RDWR | O_CREAT | O_TRUNC, 0644);
+			if (exec->fl_hd_out == 1 && exec->fl_redirout == 1)
+				exec->output = open(exec->output_file_name, O_CREAT | O_RDWR | O_APPEND, 0644);
+			else
+				exec->output = open(exec->output_file_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
+			// exec->output = open(exec->output_file_name, O_CREAT | O_RDWR | flag, 0666);
+			
+			// if (exec->fl_hd_out == 1)
+			// {
+			// 	printf("exec->fl_hd_out= %d\n", exec->fl_hd_out);
+			// 	exec->output = open(exec->output_file_name, O_RDWR | O_CREAT | O_APPEND, 0644);
+			// }
+			// if (exec->fl_redirout == 1 && exec->fl_hd_out == 0)
+			// else
+			// 	exec->output = open(exec->output_file_name,	O_RDWR | O_CREAT | O_TRUNC,	0644);
 		}
 		i++;
 	}
-	// exec->fl_hdr = 1; // >>
-	// exec->fl_hdl = 0; // <<
+	// exec->fl_hd_out = 1; // >>
+	// exec->fl_hd_in = 0; // <<
 	// 	//TODO to modify the below
-	// if (exec->fl_redirout == 1 && exec->fl_hdr == 1)
+	// if (exec->fl_redirout == 1 && exec->fl_hd_out == 1)
 	// 	exec->output = open("out", O_RDWR | O_CREAT | O_APPEND, 0644);
 	// else
 	// 	exec->output = open("out", O_RDWR | O_CREAT | O_TRUNC, 0644);
@@ -47,7 +64,7 @@ void	ft_is_redirection(t_exec *exec, t_jct *jct)
 void	ft_make_pids(t_exec *exec, t_jct *jct)
 {
 	int	i;
-	
+
 	exec->pids = ft_calloc(exec->cmd_nb, sizeof(pid_t *));
 	if (!exec->path_var)
 		return ;
@@ -63,14 +80,14 @@ void	ft_make_pids(t_exec *exec, t_jct *jct)
 			//this is the child process
 			ft_dup_process(exec, i);
 			ft_run_cmd(exec, jct, i);
-		}	
+		}
 		//TODO put waitpid here, maybe ?
 		// printf("--- Exit ft_chils_proc	---\n");
 	}
 	//TODO close all input and/or output here (including here_doc)
-	if(exec->fl_redirin == 1)
+	if (exec->fl_redirin == 1)
 		close(exec->input);
-	if(exec->fl_redirout == 1)
+	if (exec->fl_redirout == 1 || exec->fl_hd_out == 1)
 		close(exec->output);
 	ft_close_pipes(exec);
 }
@@ -96,7 +113,7 @@ char	*ft_cmd_path(t_exec *exec, char *cmds)
 		if (path)
 			free(path);
 	}
-	ft_err("Error ! Can't find path to program", exec);
+	perror("Error ! Can't find path to program");
 	path = NULL;
 	return (path);
 }
@@ -117,7 +134,7 @@ void	ft_run_cmd(t_exec *exec, t_jct *jct, int r)
 		free(path);
 	else if (execve(path, cmds[r], exec->envp) < 0)
 		perror("Error ! Something went wrong while executing: ");
-	//TODO ft_err exit if there is an error, so the below will never be executed	
+	//TODO ft_err exit if there is an error, so the below will never be executed
 }
 
 void	ft_dup_process(t_exec *exec, int i)
@@ -134,16 +151,16 @@ void	ft_dup_process(t_exec *exec, int i)
 		dup2(exec->pipes[i - 1][0], STDIN_FILENO);
 	if (exec->index == exec->cmd_nb - 1)
 	{
-		if(exec->fl_redirout == 1)
+		if (exec->fl_redirout == 1 || exec->fl_hd_out == 1)
 			dup2(exec->output, STDOUT_FILENO);
 		dup2(1, STDOUT_FILENO);
 	}
 	else
 		dup2(exec->pipes[i][1], STDOUT_FILENO);
 	//TODO close all input and/or output here (including here_doc)
-	if(exec->fl_redirin == 1)
+	if (exec->fl_redirin == 1)
 		close(exec->input);
-	if(exec->fl_redirout == 1)
+	if (exec->fl_redirout == 1 || exec->fl_hd_out == 1)
 		close(exec->output);
 	ft_close_pipes(exec);
 }
@@ -151,8 +168,8 @@ void	ft_dup_process(t_exec *exec, int i)
 void	ft_exec(t_exec *exec, t_jct *jct)
 {
 	int	i;
-	int status;
-	
+	int	status;
+
 	ft_is_redirection(exec, jct);
 	if (ft_create_pipes(exec) == 2)
 		return ;
@@ -167,7 +184,7 @@ void	ft_exec(t_exec *exec, t_jct *jct)
 // {
 // 	int	i;
 // 	int status;
-	
+
 // 	ft_is_redirection(exec, jct);
 // 	ft_create_pipes(exec);
 // 	ft_make_pids_jct(exec, jct);

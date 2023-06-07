@@ -35,6 +35,7 @@ enum e_token_type
 	REDOUT = 3,
 	PIPE = 4,
 	EXPAND = 5,
+	//TODO add token_type for here_doc
 };
 
 enum e_gate
