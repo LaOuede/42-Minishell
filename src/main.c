@@ -60,7 +60,7 @@ int	main(int ac, char **av, char **envp)
 			ft_free_exec(exec);
 		}
 		jct->err_pars = false;
-		// test_mem -= 1;
+		test_mem -= 1;
 	}
 	
 	//TODO need to implement a fct that clears the history (fct clear_history exist in history.h)

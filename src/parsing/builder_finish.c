@@ -30,13 +30,24 @@ void	ft_clean_list(t_token **list)
 	printf(KYEL "-------------------- FT_CLEAN_LIST" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
-void	ft_swap(t_pars *pars)
+void	ft_swap(t_token *ptr1, t_token *ptr2)
+{
+	char	*str;
+	int		swap;
+
+	swap = ptr1->type;
+	ptr1->type = ptr2->type;
+	ptr2->type = swap;
+	str = ptr1->str;
+	ptr1->str = ptr2->str;
+	ptr2->str = str;
+}
+
+void	ft_swap_node(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_SWAP" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr1;
 	t_token	*ptr2;
-	int		swap;
-	char	*str;
 
 	if (!pars->line)
 		return ;
@@ -48,14 +59,7 @@ void	ft_swap(t_pars *pars)
 		while (ptr2 && ptr2->type != 4)
 		{
 			if (ptr1->type > ptr2->type && ptr1->type != PIPE && ptr2->type != PIPE)
-			{
-				swap = ptr1->type;
-				ptr1->type = ptr2->type;
-				ptr2->type = swap;
-				str = ptr1->str;
-				ptr1->str = ptr2->str;
-				ptr2->str = str;
-			}
+				ft_swap(ptr1, ptr2);
 			ptr2 = ptr2->next;
 		}
 		ptr1 = ptr1->next;
@@ -66,5 +70,5 @@ void	ft_swap(t_pars *pars)
 void	ft_finish(t_pars *pars)
 {
 	ft_clean_list(&pars->line);
-	ft_swap(pars);
+	ft_swap_node(pars);
 }

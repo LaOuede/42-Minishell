@@ -26,6 +26,13 @@ SRCS_LST	= 	parsing/builder.c \
 				freeing.c \
 				main.c \
 				parsing/lexer.c \
+				parsing/builder.c \
+				parsing/builder_args.c \
+				parsing/builder_finish.c \
+				parsing/builder_pipe.c \
+				parsing/builder_redirection.c \
+				parsing/error.c \
+				parsing/free.c \
 				parsing/lexer_token_1.c \
 				parsing/lexer_token_2.c \
 				parsing/lexer_token_3.c \
