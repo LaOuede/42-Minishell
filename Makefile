@@ -13,17 +13,10 @@ RM			=	rm -rf
 
 # -- SRC Files -- #
 SRCS_DIR	=	./src/
-SRCS_LST	= 	parsing/builder.c \
-				parsing/builder_args.c \
-				parsing/builder_finish.c \
-				parsing/builder_pipe.c \
-				parsing/builder_redirection.c \
-				DEBUG_parsing.c \
-				error_handling.c \
+SRCS_LST	= 	DEBUG_parsing.c \
 				exec/exec_utils.c \
 				exec/exec_pipes.c \
 				exec/exec.c \
-				freeing.c \
 				main.c \
 				parsing/lexer.c \
 				parsing/builder.c \
