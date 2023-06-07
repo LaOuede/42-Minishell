@@ -22,7 +22,10 @@ char	*ft_get_expand_brackets_quotes(int *i, char *str, t_pars *pars)
 		printf("tmp = %s\n", tmp);
 	}
 	if (str[(*i)] != '}')
+	{
+		ft_error_parsing(ERR_TOKEN, LEXER, pars);
 		tmp = NULL ;
+	}
 	else
 		(*i)++;
 	printf("char get expand = %c\n", str[(*i)]);

@@ -2,7 +2,6 @@
 
 void	DEBUG_tab(t_jct *jct)
 {
-	printf(KYEL "-------------------- FT_PRINT_TAB" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	int		row;
 	int		column;
 	char	***tab;
@@ -11,21 +10,25 @@ void	DEBUG_tab(t_jct *jct)
 		return ;
 	row = -1;
 	tab = jct->tab;
+	printf(KMAG KBLD"--------------------------------------------------------------\n");
+	printf("-			DEBUG_tab			     -\n");
+	printf("--------------------------------------------------------------\n"RESET);
 	while (++row < jct->cmd_nb)
 	{
 		column = -1;
 		while (++column < 4)
 			printf(KMAG KBLD"[%d][%d] = %s\n"RESET, row, column, tab[row][column]);
 	}
-	printf(KYEL "-------------------- FT_PRINT_TAB" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
-
 void	DEBUG_parser(t_pars *pars)
 {
 	t_token	*tmp;
 	int		i = 0;
 
 	tmp = pars->line;
+	printf(KGRE KBLD"--------------------------------------------------------------\n");
+	printf("-			DEBUG_parser			     -\n");
+	printf("--------------------------------------------------------------\n"RESET);
 	while (tmp)
 	{
 		printf(KGRE "**************************************************************\n");
@@ -44,6 +47,9 @@ void	DEBUG_build(t_pars *pars)
 	int		i = 0;
 
 	tmp = pars->line;
+	printf(KGRN KBLD"--------------------------------------------------------------\n");
+	printf("-			DEBUG_build			     -\n");
+	printf("--------------------------------------------------------------\n"RESET);
 	while (tmp)
 	{
 		printf(KGRN "**************************************************************\n");
@@ -62,6 +68,9 @@ void	DEBUG_lexer(t_pars *pars)
 	int		i = 0;
 
 	tmp = pars->line;
+	printf(KBLU KBLD"--------------------------------------------------------------\n");
+	printf("-			DEBUG_lexer			     -\n");
+	printf("--------------------------------------------------------------\n"RESET);
 	while (tmp)
 	{
 		printf(KBLU "**************************************************************\n");
