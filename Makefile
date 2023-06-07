@@ -15,10 +15,9 @@ RM			=	rm -rf
 SRCS_DIR	=	./src/
 SRCS_LST	= 	DEBUG_parsing.c \
 				error_handling.c \
-				exec_utils.c \
-				exec_pipes.c \
-				exec_jct.c \
-				exec.c \
+				exec/exec_utils.c \
+				exec/exec_pipes.c \
+				exec/exec.c \
 				freeing.c \
 				lexer_linked_list.c \
 				lexer_memory.c \
@@ -85,7 +84,7 @@ run: all
 
 # -- Create directory for *.o files -- #
 dir :
-	@mkdir -p $(OBJS_DIR) $(OBJS_DIR)parsing
+	@mkdir -p $(OBJS_DIR) $(OBJS_DIR)parsing $(OBJS_DIR)exec
 	@mkdir -p $(LIBRLINE_DIR)
 
 leak: CFLAGS += -g
@@ -113,7 +112,7 @@ readline :
 clean :
 	@make -C $(LIBFT_DIR) clean
 	@printf "💥 $(RED)Removing $(NAME)'s objects...$(RESET)\t\t\t💥\n"
-	@$(RM) $(OBJS_DIR) $(OBJS_DIR)parsing
+	@$(RM) $(OBJS_DIR) $(OBJS_DIR)parsing $(OBJS_DIR)exec
 	@printf "🗑️  $(CYAN)$(NAME)'s object successfully deleted.$(RESET)\t\t🗑️\n"
 
 # -- Removes objects (with clean) and executable -- #

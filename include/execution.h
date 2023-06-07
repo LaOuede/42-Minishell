@@ -45,15 +45,11 @@ void	ft_close_pipes(t_exec *exec);
 int		ft_create_pipes(t_exec *exec);
 void	ft_err(char *msg, t_exec *exec);
 void	ft_free_exec(t_exec *exec);
-void	ft_exec_jct(t_exec *exec, t_jct *jct);
-void	ft_exec(t_exec *exec);
+void	ft_exec(t_exec *exec, t_jct *jct);
 void	ft_copy_env(t_exec *exec, char **envp);
 char	*ft_cmd_path(t_exec *exec, char *cmds);
 void	ft_free_3tab(t_jct *jct);
-
-/*	--	Temp fct, to delete once the parsing is ready	--	*/
-void	ft_run_cmd_jct(t_exec *exec, t_jct *jct, int i);
-void	ft_run_cmd(t_exec *exec);
+void	ft_run_cmd(t_exec *exec, t_jct *jct, int i);
 
 /*	--	Debug fct	--	*/
 void	ft_print_debug(t_exec *exec);

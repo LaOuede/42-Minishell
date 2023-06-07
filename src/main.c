@@ -68,7 +68,7 @@ int	main(int ac, char **av, char **envp)
 		{
 			exec = ft_init_exec(envp, jct);
 			ft_print_debug(exec);
-			ft_exec_jct(exec, jct);
+			ft_exec(exec, jct);
 			//TODO implement a reset function instead of free fct
 			ft_free_3tab(jct);
 			ft_free_exec(exec);
