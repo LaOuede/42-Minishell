@@ -501,7 +501,7 @@ void	ft_merge_arg(t_pars *pars)
 	printf(KYEL "-------------------- FT_MERGE_ARG" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
-void	ft_rebuilder(t_pars *pars)
+void	ft_builder(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_REBUILDER" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	ft_merge_pipe(pars);

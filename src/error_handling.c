@@ -1,10 +1,5 @@
 #include "../include/minishell.h"
 
-/*
-This function :
-	- return an error message to the user,
-	- close fd if necessary.
-*/
 void	ft_error_parsing(char *err_msg, int step, t_pars *pars)
 {
 	if (err_msg)

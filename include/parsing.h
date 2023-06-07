@@ -84,60 +84,55 @@ typedef struct s_pars
 	bool			err_parser;
 }	t_pars;
 
-/* 		Debug functions 						*/
+/* 		Debug functions 							*/
 void		DEBUG_build(t_pars *pars);
 void		DEBUG_lexer(t_pars *pars);
 void		DEBUG_parser(t_pars *pars);
 void		DEBUG_tab(t_jct *jct);
 
 /* 		Lexer part functions 						*/
-void		ft_add_token_bottom(t_token **lst, t_token *element);
-void		ft_add_token_top(t_token **lst, t_token *new_node);
-void		ft_appenred_token(int *i, t_pars *pars);
-void		ft_brackets_token(int *i, t_pars *pars);
 void		ft_char(int *i, t_pars *pars);
-void		ft_clean_up(t_pars *pars);
-t_token		*ft_create_node(char *str, t_pars *pars);
+bool		ft_check_expand_brackets(char *str, t_pars *pars);
 void		ft_d_quotes_token(int *i, t_pars *pars);
 void		ft_envvar(int *i, t_pars *pars);
 void		ft_envvar_token(int *i, t_pars *pars);
-char		*ft_envvar_brackets_token(int *i, t_pars *pars, char *str);
-char		*ft_envvar_quotes_token(char *str, t_pars *pars);
-void		ft_expansion_quotes(t_pars *pars);
-void		ft_extract_cmd(t_token **list, t_pars *pars);
-t_token		*ft_find_head(t_token **last);
-void		ft_free_lst(t_token **lst);
-void		ft_free_token(t_token *token);
-void		ft_heredoc_token(int *i, t_pars *pars);
-t_pars		*ft_init_pars(char **envp);
-void		ft_insert_token(t_token **lst, t_token *prev, t_token *current, t_token *new_node);
+char		*ft_find_envvar(char *str, t_pars *pars);
+char		*ft_get_before(char *str, int *i);
+void		ft_get_expand_brackets(int *i, t_pars *pars);
+char		*ft_get_expand_brackets_quotes(int *i, char *str, t_pars *pars);
+void		*ft_get_expansion(char *str, int *i, t_pars *pars);
 bool		ft_isenvvarchar(char c);
 bool		ft_ismetachar(char c);
 void		ft_lexer(t_pars *pars);
 void		ft_metachar(char c, int *i, t_pars *pars);
-void		ft_parsing(t_pars *pars, t_jct *jct);
 void		ft_pipe_token(int *i, t_pars *pars);
-void		ft_rebuilder(t_pars *pars);
+char		*ft_quotes_expansion(char *str, t_pars *pars);
 void		ft_redin_token(int *i, t_pars *pars);
 void		ft_redout_token(int *i, t_pars *pars);
-void		ft_remove_empty(t_token **list);
-void		ft_reset_node(t_pars *pars);
 void		ft_s_quotes_token(int *i, t_pars *pars);
+char		*ft_stock_quotes(int *i, char *str, t_pars *pars);
+
+/* 		Lexer utils part functions 						*/
+void		ft_add_token_bottom(t_token **lst, t_token *element);
+void		ft_clean_list(t_token **list);
+t_token		*ft_create_node(char *str, t_pars *pars);
+char		*ft_mem_alloc(char *str, int capacity);
 char		*ft_stock_char(char *str, char c);
 char		*ft_strjoin_char(char *s1, char s2);
 char		*ft_strjoin_free(char *str1, char *str2);
-void		ft_swap_node(t_token *swap1, t_token *swap2);
-void		ft_add_token(t_token **lst, t_token *new_node);
-char		*ft_quotes_expansion(char *str, t_pars *pars);
-char		*ft_find_envvar(char *str, t_pars *pars);
-void		ft_get_expand_brackets(int *i, t_pars *pars);
-bool		ft_check_expand_brackets(char *str, t_pars *pars);
-char		*ft_get_expand_brackets_quotes(int *i, char *str, t_pars *pars);
-void		ft_clean_list(t_token **list);
+
+/* 		Builder part functions 						*/
+void		ft_builder(t_pars *pars);
+void		ft_clean_up(t_pars *pars);
+t_token		*ft_create_node(char *str, t_pars *pars);
+void		ft_free_lst(t_token **lst);
+void		ft_free_token(t_token *token);
+t_pars		*ft_init_pars(char **envp);
+void		ft_parsing(t_pars *pars, t_jct *jct);
+void		ft_reset_node(t_pars *pars);
 void		ft_parser(t_pars *pars, t_jct *jct);
 void		ft_clean_up_jct(t_jct *jct, char *err_msg);
 void		ft_fill_tab(t_jct *jct, t_pars *pars);
-void		ft_parser_debugger(t_pars *pars);
 void		ft_error_parsing(char *err_msg, int step, t_pars *pars);
 void		ft_error(char *err_msg);
 void		ft_free_pars(t_pars *pars);
