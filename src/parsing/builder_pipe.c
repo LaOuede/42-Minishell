@@ -7,8 +7,6 @@ void	ft_merge_pipe(t_pars *pars)
 	t_token	*sup;
 	char	*new_str;
 
-	if (!pars->line)
-		return ;
 	ptr = pars->line;
 	new_str = NULL;
 	while (ptr->next)

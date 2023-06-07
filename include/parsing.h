@@ -85,85 +85,90 @@ typedef struct s_pars
 }	t_pars;
 
 /* 		Debug functions 							*/
-void		DEBUG_builder(t_pars *pars);
-void		DEBUG_lexer(t_pars *pars);
-void		DEBUG_parser(t_pars *pars);
-void		DEBUG_tab(t_jct *jct);
+void	DEBUG_builder(t_pars *pars);
+void	DEBUG_lexer(t_pars *pars);
+void	DEBUG_parser(t_pars *pars);
+void	DEBUG_tab(t_jct *jct);
+
+/* 		Parsing functions 							*/
+void	ft_parsing(t_pars *pars, t_jct *jct);
+t_pars	*ft_init_pars(char **envp);
+void	ft_reset_node(t_pars *pars);
+void	ft_reset_pars(t_pars *pars);
 
 /* 		Lexer part functions 						*/
-void		ft_char(int *i, t_pars *pars);
-bool		ft_check_expand_brackets(char *str, t_pars *pars);
-void		ft_d_quotes_token(int *i, t_pars *pars);
-void		ft_envvar(int *i, t_pars *pars);
-void		ft_envvar_token(int *i, t_pars *pars);
-char		*ft_find_envvar(char *str, t_pars *pars);
-char		*ft_get_before(char *str, int *i);
-void		ft_get_expand_brackets(int *i, t_pars *pars);
-char		*ft_get_expand_brackets_quotes(int *i, char *str, t_pars *pars);
-void		*ft_get_expansion(char *str, int *i, t_pars *pars);
-bool		ft_isenvvarchar(char c);
-bool		ft_ismetachar(char c);
-void		ft_lexer(t_pars *pars);
-void		ft_metachar(char c, int *i, t_pars *pars);
-void		ft_pipe_token(int *i, t_pars *pars);
-char		*ft_quotes_expansion(char *str, t_pars *pars);
-void		ft_redin_token(int *i, t_pars *pars);
-void		ft_redout_token(int *i, t_pars *pars);
-void		ft_s_quotes_token(int *i, t_pars *pars);
-char		*ft_stock_quotes(int *i, char *str, t_pars *pars);
+void	ft_char(int *i, t_pars *pars);
+bool	ft_check_expand_brackets(char *str, t_pars *pars);
+void	ft_d_quotes_token(int *i, t_pars *pars);
+void	ft_envvar(int *i, t_pars *pars);
+void	ft_envvar_token(int *i, t_pars *pars);
+char	*ft_find_envvar(char *str, t_pars *pars);
+char	*ft_get_before(char *str, int *i);
+void	ft_get_expand_brackets(int *i, t_pars *pars);
+char	*ft_get_expand_brackets_quotes(int *i, char *str, t_pars *pars);
+void	*ft_get_expansion(char *str, int *i, t_pars *pars);
+bool	ft_isenvvarchar(char c);
+bool	ft_ismetachar(char c);
+void	ft_lexer(t_pars *pars);
+void	ft_metachar(char c, int *i, t_pars *pars);
+void	ft_pipe_token(int *i, t_pars *pars);
+char	*ft_quotes_expansion(char *str, t_pars *pars);
+void	ft_redin_token(int *i, t_pars *pars);
+void	ft_redout_token(int *i, t_pars *pars);
+void	ft_s_quotes_token(int *i, t_pars *pars);
+char	*ft_stock_quotes(int *i, char *str, t_pars *pars);
 
 /* 		Lexer utils part functions 						*/
-void		ft_add_token_bottom(t_token **lst, t_token *element);
-t_token		*ft_create_node(char *str, t_pars *pars);
-char		*ft_mem_alloc(char *str, int capacity);
-char		*ft_stock_char(char *str, char c);
-char		*ft_strjoin_char(char *s1, char s2);
-char		*ft_strjoin_free(char *str1, char *str2);
+void	ft_add_token_bottom(t_token **lst, t_token *element);
+t_token	*ft_create_node(char *str, t_pars *pars);
+char	*ft_mem_alloc(char *str, int capacity);
+char	*ft_stock_char(char *str, char c);
+char	*ft_strjoin_char(char *s1, char s2);
+char	*ft_strjoin_free(char *str1, char *str2);
 
 /* 		Builder part functions 						*/
-void		ft_args(t_pars *pars);
-void		ft_builder(t_pars *pars);
-void		ft_clean_list(t_token **list);
-void		ft_check_error_pipe(t_pars *pars);
-void		ft_check_error_redir(t_pars *pars);
-void		ft_create_file(t_token *node, t_pars *pars);
-void		ft_find_arg(t_pars *pars);
-void		ft_find_cmd(t_pars *pars);
-void		ft_find_redin(t_pars *pars);
-void		ft_find_redout(t_pars *pars);
-void		ft_finish(t_pars *pars);
-void		ft_merge_allredin(t_pars *pars);
-void		ft_merge_allredout(t_pars *pars);
-void		ft_merge_arg(t_pars *pars);
-void		ft_merge_in(t_pars *pars);
-void		ft_merge_out(t_pars *pars);
-void		ft_merge_pipe(t_pars *pars);
-void		ft_merge_red(t_pars *pars);
-void		ft_open_file(t_token *node, t_pars *pars);
-void		ft_pipe(t_pars *pars);
-void		ft_redirection(t_pars *pars);
+void	ft_args(t_pars *pars);
+void	ft_builder(t_pars *pars);
+void	ft_clean_list(t_token **list);
+void	ft_check_error_pipe(t_pars *pars);
+void	ft_check_error_redir(t_pars *pars);
+void	ft_create_file(t_token *node, t_pars *pars);
+void	ft_find_arg(t_pars *pars);
+void	ft_find_cmd(t_pars *pars);
+void	ft_find_redin(t_pars *pars);
+void	ft_find_redout(t_pars *pars);
+void	ft_finish(t_pars *pars);
+void	ft_merge_allredin(t_pars *pars);
+void	ft_merge_allredout(t_pars *pars);
+void	ft_merge_arg(t_pars *pars);
+void	ft_merge_in(t_pars *pars);
+void	ft_merge_out(t_pars *pars);
+void	ft_merge_pipe(t_pars *pars);
+void	ft_merge_red(t_pars *pars);
+void	ft_open_file(t_token *node, t_pars *pars);
+void	ft_pipe(t_pars *pars);
+void	ft_redirection(t_pars *pars);
+void	ft_swap_node(t_pars *pars);
 
-/* 		Builder part functions 						*/
-void		ft_parser(t_pars *pars, t_jct *jct);
-void		ft_check_pipe(t_pars *pars);
-void		ft_check_redir(t_pars *pars);
-void		ft_fill_tab(t_jct *jct, t_pars *pars);
-void		ft_init_cmdtab(t_jct *jct);
-char		*ft_trim(char *str, char c);
-void		ft_trim_cmd(t_jct *jct);
+/* 		Parser part functions 						*/
+void	ft_parser(t_pars *pars, t_jct *jct);
+void	ft_check_pipe(t_pars *pars);
+void	ft_check_redir(t_pars *pars);
+void	ft_fill_tab(t_jct *jct, t_pars *pars);
+void	ft_init_cmdtab(t_jct *jct);
+char	*ft_trim(char *str, char c);
+void	ft_trim_cmd(t_jct *jct);
 
 
-void		ft_clean_up(t_pars *pars);
-t_token		*ft_create_node(char *str, t_pars *pars);
-void		ft_free_lst(t_token **lst);
-void		ft_free_token(t_token *token);
-t_pars		*ft_init_pars(char **envp);
-void		ft_parsing(t_pars *pars, t_jct *jct);
-void		ft_reset_node(t_pars *pars);
-void		ft_clean_up_jct(t_jct *jct, char *err_msg);
-void		ft_fill_tab(t_jct *jct, t_pars *pars);
-void		ft_error_parsing(char *err_msg, int step, t_pars *pars);
-void		ft_error(char *err_msg);
-void		ft_free_pars(t_pars *pars);
+/* 		Free functions 								*/
+void	ft_free_lst(t_token **lst);
+void	ft_free_pars(t_pars *pars);
+void	ft_free_token(t_token *token);
+
+/* 		Error functions 								*/
+void	ft_error(char *err_msg);
+void	ft_clean_up(t_pars *pars);
+void	ft_clean_up_jct(t_jct *jct, char *err_msg);
+void	ft_error_parsing(char *err_msg, int step, t_pars *pars);
 
 #endif

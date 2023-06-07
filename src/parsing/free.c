@@ -1,4 +1,4 @@
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	ft_free_jct(t_jct *jct)
 {

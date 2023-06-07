@@ -21,6 +21,7 @@ void	*ft_get_expansion(char *str, int *i, t_pars *pars)
 			tmp = ft_stock_char(tmp, '$');
 		else
 		{
+			printf("tmp = %s\n", tmp);
 			tmp = ft_stock_char(tmp, '=');
 			tmp = ft_find_envvar(tmp, pars);
 		}
@@ -38,6 +39,7 @@ char	*ft_get_before(char *str, int *i)
 	char	*save;
 
 	len = 0;
+	save = NULL;
 	while (str[(*i)] || str[(*i)] != '$')
 	{
 		printf("-> char = %c\n", str[(*i)]);
@@ -48,8 +50,6 @@ char	*ft_get_before(char *str, int *i)
 	}
 	j = (*i) - 1;
 	save = ft_calloc(len + 1, sizeof(char));
-	if (!save)
-		return (NULL);
 	while (len--)
 	{
 		save[len] = str[j];
@@ -66,9 +66,11 @@ char	*ft_quotes_expansion(char *str, t_pars *pars)
 	int		i;
 	char	*save;
 	char	*res;
+	char	*tmp;
 
 	i = 0;
 	save = NULL;
+	tmp = NULL;
 	res = ft_calloc(1, sizeof(char));
 	while (str[i] && pars->c_brackets != 1)
 	{
@@ -79,8 +81,12 @@ char	*ft_quotes_expansion(char *str, t_pars *pars)
 		printf("-> res = %s\n", res);
 		save = NULL;
 		save = ft_get_expansion(str, &i, pars);
+		printf("save = %s\n", save);
 		if (save)
+		{
+			printf("test");
 			res = ft_strjoin_free(res, save);
+		}
 		printf("-> expansion = %s\n", save);
 		save = NULL;
 	}

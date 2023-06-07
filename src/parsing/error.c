@@ -1,4 +1,4 @@
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	ft_error_parsing(char *err_msg, int step, t_pars *pars)
 {

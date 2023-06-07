@@ -1,6 +1,5 @@
 #include "../../include/minishell.h"
 
-//TODO test :  echo ${USER} to check because it doesn't work
 char	*ft_get_expand_brackets_quotes(int *i, char *str, t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_GET_EXPAND_BRACKETS_QUOTES" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
@@ -29,8 +28,8 @@ char	*ft_get_expand_brackets_quotes(int *i, char *str, t_pars *pars)
 	else
 		(*i)++;
 	printf("char get expand = %c\n", str[(*i)]);
-	return (tmp);
 	printf(KYEL "-------------------- FT_GET_EXPAND_BRACKETS_QUOTES" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
+	return (tmp);
 }
 
 void	ft_get_expand_brackets(int *i, t_pars *pars)
@@ -45,8 +44,8 @@ void	ft_get_expand_brackets(int *i, t_pars *pars)
 		tmp = ft_stock_char(tmp, pars->input[(*i)]);
 	if (!tmp)
 	{
+		tmp = ft_stock_char(tmp, '$');
 		(*i)++;
-		return ;
 	}
 	else
 	{
@@ -57,7 +56,10 @@ void	ft_get_expand_brackets(int *i, t_pars *pars)
 	}
 	ft_freenull(tmp);
 	if (pars->input[(*i)] != '}')
-		return ; // put error message here
+	{
+		ft_error_parsing(ERR_TOKEN, LEXER, pars);
+		tmp = NULL ;
+	}
 	else
 		(*i)++;
 	ft_reset_node(pars);

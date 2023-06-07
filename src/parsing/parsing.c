@@ -56,7 +56,6 @@ and then returns a 2D arry to the executioner
 void	ft_parsing(t_pars *pars, t_jct *jct)
 {
 	printf(KYEL "-------------------- FT_PARSING" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
-
 	if (!*pars->input)
 		return ;
 	ft_lexer(pars);
@@ -68,12 +67,9 @@ void	ft_parsing(t_pars *pars, t_jct *jct)
 		if (pars->err_rebuilder == false)
 			ft_parser(pars, jct);
 	}
-	if (pars->err_lexer == true || pars->err_rebuilder == true || pars->err_parser == true)
+	if (pars->err_lexer == true || pars->err_rebuilder == true \
+		|| pars->err_parser == true)
 		jct->err_pars = true;
-	printf("err_lexer = %d\n", pars->err_lexer);
-	printf("err_rebuilder = %d\n", pars->err_rebuilder);
-	printf("err_parser = %d\n", pars->err_parser);
-	printf("err_pars = %d\n", jct->err_pars);
 	ft_reset_pars(pars);
 	printf(KYEL "-------------------- FT_PARSING" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }
@@ -91,10 +87,7 @@ So need to suppress functions
 9) DONE - Linked-list divided in cmd (CMD - ARG - REDIN - REDOUT)
 10) DONE - Transfer linked-list into 2D table
 11) DONE - Parse commands & Shoot error message when a parsing error is found
-
-12) DONE (for now) - Handle memory wise girl !!
-13) Check everything to make a list of what's missing.
+12) Handle memory wise girl !!
+13) Check everything to make a list of what's missing in FIX ISSUES Notion
 14) Clean the code!
-
-check : mem leaks with $expand quotes
 */
