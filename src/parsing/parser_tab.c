@@ -41,6 +41,10 @@ void	ft_fill_tab(t_jct *jct, t_pars *pars)
 
 	row = -1;
 	ptr = pars->line;
+	//TODO J'ai 
+	jct->file_out = pars->file_out;
+	printf("jct->file_out : %d\n", jct->file_out);
+	printf("pars->file_out : %d\n", pars->file_out);
 	printf("jct->cmd_nb = %d\n", jct->cmd_nb);
 	printf("pars->nb_pipe = %d\n", pars->nb_pipe);
 	while (++row < jct->cmd_nb && ptr)

@@ -41,7 +41,7 @@ void	ft_print_debug(t_exec *exec)
 		printf("---------------------------------------------------\n");
 		printf("---	Printing input_file_name & flag		---\n");
 		printf("|\n");
-		printf("|	input_file_name = %s\n", exec->input_file_name);
+		printf("|	input_file_name = %s\n", exec->file_in);
 		printf("|	fl_redirin = %d\n", exec->fl_redirin);
 		printf("|\n");
 		printf("---	Printing input_file_name & flag ends	---\n");
@@ -49,7 +49,7 @@ void	ft_print_debug(t_exec *exec)
 		printf("---------------------------------------------------\n");
 		printf("---	Printing output_file_name & flag	---\n");
 		printf("|\n");
-		printf("|	output_file_name = %s\n", exec->output_file_name);
+		printf("|	output_file_name = %s\n", exec->file_out);
 		printf("|	fl_redirout = %d\n", exec->fl_redirout);
 		printf("|\n");
 		printf("---	Printing output_file_name & flag ends	---\n");
@@ -113,10 +113,10 @@ void	ft_free_exec(t_exec *exec)
 		ft_free_tab_int(exec->pipes, exec->pipes_nb);
 	if (exec->pids)
 		ft_freenull(exec->pids);
-	if (exec->input_file_name)
-		ft_freenull(exec->input_file_name);
-	if (exec->output_file_name)
-		ft_freenull(exec->output_file_name);
+	if (exec->file_in)
+		ft_freenull(exec->file_in);
+	if (exec->file_out)
+		ft_freenull(exec->file_out);
 	// if (exec->path_var)
 	// 	ft_free_tab_char(exec->path_var);
 	// ft_freenull(exec);
@@ -172,9 +172,9 @@ t_exec	*ft_init_exec(char **envp, t_jct *jct)
 	ft_copy_env(exec, envp);
 	exec->path_var = ft_get_path(exec->envp, 0);
 	exec->input = 0;
-	exec->input_file_name = NULL;
+	exec->file_in = NULL;
 	exec->output = 0;
-	exec->output_file_name = NULL;
+	exec->file_out = NULL;
 	exec->index = 0;
 	exec->fl_redirin = 0;
 	exec->fl_redirout = 0;

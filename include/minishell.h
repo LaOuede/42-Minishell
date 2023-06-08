@@ -33,6 +33,8 @@ typedef struct s_jct
 	char	***tab;
 	int		pipe_nb;
 	int		cmd_nb;
+	int		file_out;
+	int		file_in;
 	bool	err_pars;
 }			t_jct;
 

@@ -17,9 +17,9 @@ typedef struct s_exec
 	char	**envp;
 	char	**path_var;
 	int		input;
-	char 	*input_file_name;
+	char 	*file_in;
 	int		output;
-	char 	*output_file_name;
+	char 	*file_out;
 	int		index;
 	int		fl_redirin;
 	int		fl_redirout;

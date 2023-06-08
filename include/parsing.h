@@ -80,6 +80,8 @@ typedef struct s_pars
 	int				c_brackets;
 	int				p_brackets;
 	int				flag_whitespace;
+	int				file_out;
+	int				file_in;
 	bool			err_lexer;
 	bool			err_rebuilder;
 	bool			err_parser;
@@ -134,6 +136,7 @@ void	ft_clean_list(t_token **list);
 void	ft_check_error_pipe(t_pars *pars);
 void	ft_check_error_redir(t_pars *pars);
 void	ft_create_file(t_token *node, t_pars *pars);
+// void	ft_create_file(t_token *node, t_pars *pars, t_jct *jct);
 void	ft_find_arg(t_pars *pars);
 void	ft_find_cmd(t_pars *pars);
 void	ft_find_redin(t_pars *pars);

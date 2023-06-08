@@ -42,6 +42,7 @@ t_pars	*ft_init_pars(char **envp)
 		pars->s_quotes = 0;
 		pars->c_brackets = 0;
 		pars->flag_whitespace = 0;
+		pars->file_out = -1;
 		pars->err_lexer = false;
 		pars->err_rebuilder = false;
 		pars->err_parser = false;
