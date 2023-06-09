@@ -60,17 +60,16 @@ void	ft_create_file(t_token *node, t_pars *pars)
 	{
 		printf("file name = %s\n", node->next->str);
 		printf("node->str = %s\n", node->str);
+		//TODO need to manage there the HD_out depending if there is a '>>' or not
 		if (ft_strncmp(node->str, str, 2) == 0)
-			pars->file_out = open(node->next->str, \
-				O_RDWR | O_CREAT | O_APPEND, 0644);
+			pars->file_out = open(node->next->str, O_RDWR | O_CREAT | O_APPEND, 0644);
 		else
-			pars->file_out = open(node->next->str, \
-				O_RDWR | O_CREAT | O_TRUNC, 0644);
+			pars->file_out = open(node->next->str, O_RDWR | O_CREAT | O_TRUNC, 0644);
 		if (pars->file_out == -1)
 			ft_error_parsing(ERR_OUTFILE, REBUILDER, pars);
 		printf("pars->file_out : %d\n", pars->file_out);
 		// if (file)
-		// 	close(file);
+		//  close(file);
 	}
 	printf(KYEL "-------------------- FT_CREATE_FILE" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
@@ -78,17 +77,21 @@ void	ft_create_file(t_token *node, t_pars *pars)
 void	ft_open_file(t_token *node, t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_OPEN_FILE" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	int	file;
+	char *str;
 
+	str = "<<";
 	if (node->type == REDIN)
 	{
-		printf("file name = %s\n", node->next->str);
-		file = open(node->next->str, O_RDONLY);
-		if (file == -1)
+		printf("file name or delimiter = %s\n", node->next->str);
+		if (ft_strncmp(node->str, str, 2) == 0)
+			exec_hd(pars, node->next->str);
+		else
+			pars->file_in = open(node->next->str, O_RDONLY);
+		if (pars->file_in == -1)
 			ft_error_parsing(ERR_INFILE, REBUILDER, pars);
-		printf("file = %d\n", file);
-		if (file)
-			close(file);
+		printf("pars->file_in = %d\n", pars->file_in);
+		// if (file)
+		//  close(file);
 	}
 	printf(KYEL "-------------------- FT_OPEN_FILE" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
