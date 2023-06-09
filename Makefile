@@ -14,6 +14,7 @@ RM			=	rm -rf
 # -- SRC Files -- #
 SRCS_DIR	=	./src/
 SRCS_LST	= 	DEBUG_parsing.c \
+				exec/exec_hd.c \
 				exec/exec_utils.c \
 				exec/exec_pipes.c \
 				exec/exec.c \

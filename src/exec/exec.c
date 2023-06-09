@@ -15,19 +15,21 @@ void	ft_is_redirection(t_exec *exec, t_jct *jct)
 	{
 		if (cmds_tab[i][2])
 		{
-			exec->file_in = ft_strtrim(ft_strrchr(cmds_tab[i][2], '<'), "< ");
-			exec->fl_redirin = 1;
-			printf("exec->file_in : %s\n", exec->file_in);
-			exec->input = open(exec->file_in, O_RDONLY);
+			// dup2(jct->file_in, exec->input);
+			exec->input = dup(jct->file_in);
+			close(jct->file_in);
+			printf("exec->input : %d\n", exec->input);
+			// exec->file_in = ft_strtrim(ft_strrchr(cmds_tab[i][2], '<'), "< ");
+			// exec->fl_redirin = 1;
+			// printf("exec->file_in : %s\n", exec->file_in);
+			// exec->input = open(exec->file_in, O_RDONLY);
 		}
-		// exec->fl_hd_out = 1;
-		// if (exec->fl_hd_out == 1)
-		// 	flag = O_APPEND;
-		// flag = O_TRUNC;
 		if (cmds_tab[i][3])
 		{
 			// exec->file_out = ft_strtrim(ft_strrchr(cmds_tab[i][3], '>'), "> ");
-			exec->output = jct->file_out;
+			// exec->output = jct->file_out;
+			exec->output = dup(jct->file_out);
+			close(jct->file_out);
 			printf("exec->output : %d\n", exec->output);
 			// if (exec->fl_hd_out == 1 && exec->fl_redirout == 1)
 			// 	exec->output = open(exec->file_out, O_CREAT | O_RDWR | O_APPEND,
@@ -74,7 +76,7 @@ void	ft_make_pids(t_exec *exec, t_jct *jct)
 	{
 		exec->pids[i] = fork();
 		if (exec->pids[i] == -1)
-			perror("Something went wrong during pid process:");
+			perror("Error ! Pid creation failed:");
 		// printf("--- Enter in ft_chils_proc	---\n");
 		if (exec->pids[i] == 0)
 		{
@@ -86,7 +88,7 @@ void	ft_make_pids(t_exec *exec, t_jct *jct)
 		// printf("--- Exit ft_chils_proc	---\n");
 	}
 	//TODO close all input and/or output here (including here_doc)
-	if (exec->fl_redirin == 1)
+	if (exec->input)
 		close(exec->input);
 	if (exec->output)
 		close(exec->output);
@@ -143,7 +145,7 @@ void	ft_dup_process(t_exec *exec, int i)
 	exec->index = i;
 	if (exec->index == 0)
 	{
-		if (exec->fl_redirin == 1)
+		if (exec->input)
 			dup2(exec->input, STDIN_FILENO);
 		else
 			dup2(0, STDIN_FILENO);
@@ -159,7 +161,7 @@ void	ft_dup_process(t_exec *exec, int i)
 	else
 		dup2(exec->pipes[i][1], STDOUT_FILENO);
 	//TODO close all input and/or output here (including here_doc)
-	if (exec->fl_redirin == 1)
+	if (exec->input)
 		close(exec->input);
 	if (exec->output)
 		close(exec->output);

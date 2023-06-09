@@ -20,6 +20,7 @@ void	ft_reset_pars(t_pars *pars)
 	pars->s_quotes = 0;
 	pars->c_brackets = 0;
 	pars->flag_whitespace = 0;
+	pars->file_in = -1;
 	pars->file_out = -1;
 	pars->err_lexer = false;
 	pars->err_rebuilder = false;
@@ -44,6 +45,7 @@ t_pars	*ft_init_pars(char **envp)
 		pars->c_brackets = 0;
 		pars->flag_whitespace = 0;
 		//TODO check if it needs to be -1 or 0 (may trigger an error if -1)
+		pars->file_in = -1;
 		pars->file_out = -1;
 		pars->err_lexer = false;
 		pars->err_rebuilder = false;
