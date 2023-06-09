@@ -40,7 +40,7 @@ void	ft_metachar(char c, int *i, t_pars *pars)
 	else if (c == '>')
 		ft_redout_token(i, pars);
 	else if (c == '$')
-		ft_envvar(i, pars);
+		ft_envvar(i, pars->input, pars);
 	else if (c == '\"')
 		ft_d_quotes_token(i, pars);
 	else if (c == '\'')

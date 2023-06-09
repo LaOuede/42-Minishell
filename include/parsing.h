@@ -101,13 +101,14 @@ void	ft_reset_pars(t_pars *pars);
 
 /* 		Lexer part functions 						*/
 void	ft_char(int *i, t_pars *pars);
+void	ft_char_quotes(int *i, char *str, t_pars *pars);
 bool	ft_check_expand_brackets(char *str, t_pars *pars);
 void	ft_d_quotes_token(int *i, t_pars *pars);
-void	ft_envvar(int *i, t_pars *pars);
-void	ft_envvar_token(int *i, t_pars *pars);
+void	ft_envvar(int *i, char *str, t_pars *pars);
+void	ft_envvar_token(int *i, char *str, t_pars *pars);
 char	*ft_find_envvar(char *str, t_pars *pars);
 char	*ft_get_before(char *str, int *i);
-void	ft_get_expand_brackets(int *i, t_pars *pars);
+void	ft_get_expand_brackets(int *i, char *str, t_pars *pars);
 char	*ft_get_expand_brackets_quotes(int *i, char *str, t_pars *pars);
 void	*ft_get_expansion(char *str, int *i, t_pars *pars);
 bool	ft_isenvvarchar(char c);
