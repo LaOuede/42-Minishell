@@ -74,7 +74,6 @@ void	ft_builder(t_pars *pars)
 	printf(KYEL "-------------------- FT_REBUILDER" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	ft_pipe(pars);
 	ft_redirection(pars);
-	ft_find_cmd(pars);
 	ft_args(pars);
 	ft_find_redin(pars);
 	ft_find_redout(pars);
