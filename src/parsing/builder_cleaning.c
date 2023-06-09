@@ -1,13 +1,34 @@
 #include "../../include/minishell.h"
 
+void	ft_check_error_pipe(t_pars *pars)
+{
+	printf(KYEL "-------------------- FT_CHECK_ERROR_PIPE" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	t_token	*ptr;
+
+	ptr = pars->line;
+	if (ptr->type == PIPE)
+		ft_error_parsing(ERR_TOKEN, REBUILDER, pars);
+	while (ptr->next)
+	{
+		printf("str = %s\n", ptr->str);
+		printf("str next = %s\n", ptr->next->str);
+		if (ptr->type == PIPE && ptr->next->type == PIPE)
+		{
+			ft_error_parsing(ERR_TOKEN, REBUILDER, pars);
+			break ;
+		}
+		else
+			ptr = ptr->next;
+	}
+	printf(KYEL "-------------------- FT_CHECK_ERROR_PIPE" KRED " END " RESET KYEL "--------------------\n" RESET);
+}
+
 void	ft_clean_list(t_token **list)
 {
 	printf(KYEL "-------------------- FT_CLEAN_LIST" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	t_token *sup;
+	t_token	*sup;
 	t_token	*ptr;
 
-	if (!list || !*list)
-		return ;
 	ptr = *list;
 	while (ptr->next)
 	{
@@ -49,8 +70,6 @@ void	ft_swap_node(t_pars *pars)
 	t_token	*ptr1;
 	t_token	*ptr2;
 
-	if (!pars->line)
-		return ;
 	ptr1 = pars->line;
 	ptr2 = ptr1;
 	while (ptr1->next != NULL)
@@ -58,7 +77,8 @@ void	ft_swap_node(t_pars *pars)
 		ptr2 = ptr1->next;
 		while (ptr2 && ptr2->type != 4)
 		{
-			if (ptr1->type > ptr2->type && ptr1->type != PIPE && ptr2->type != PIPE)
+			if (ptr1->type > ptr2->type && ptr1->type != PIPE \
+				&& ptr2->type != PIPE)
 				ft_swap(ptr1, ptr2);
 			ptr2 = ptr2->next;
 		}
@@ -67,8 +87,9 @@ void	ft_swap_node(t_pars *pars)
 	printf(KYEL "-------------------- FT_SWAP" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
-void	ft_finish(t_pars *pars)
+void	ft_cleaning(t_pars *pars)
 {
+	ft_check_error_pipe(pars);
 	ft_clean_list(&pars->line);
 	ft_swap_node(pars);
 }
