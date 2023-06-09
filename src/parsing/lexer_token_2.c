@@ -24,10 +24,7 @@ void	ft_get_expand_brackets(int *i, char *str, t_pars *pars)
 	}
 	ft_freenull(tmp);
 	if (str[(*i)] != '}')
-	{
 		ft_error_parsing(ERR_TOKEN, LEXER, pars);
-		tmp = NULL ;
-	}
 	else
 		(*i)++;
 	ft_reset_node(pars);
@@ -78,13 +75,6 @@ char	*ft_find_envvar(char *str, t_pars *pars)
 	ft_freenull(str);
 	printf(KYEL "-------------------- FT_FIND_ENVVAR" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 	return (tmp);
-}
-
-bool	ft_isenvvarchar(char c)
-{
-	if (ft_isalnum(c) || c == '_')
-		return (true);
-	return (false);
 }
 
 void	ft_envvar_token(int *i, char *str, t_pars *pars)

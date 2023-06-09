@@ -139,6 +139,7 @@ void	ft_find_cmd(t_pars *pars);
 void	ft_find_redin(t_pars *pars);
 void	ft_find_redout(t_pars *pars);
 void	ft_finish(t_pars *pars);
+void	ft_merge(t_token *node, t_token *next);
 void	ft_merge_allredin(t_pars *pars);
 void	ft_merge_allredout(t_pars *pars);
 void	ft_merge_arg(t_pars *pars);

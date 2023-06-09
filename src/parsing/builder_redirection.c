@@ -32,9 +32,9 @@ void	ft_merge_allredin(t_pars *pars)
 				}
 				tmp = ptr1->str;
 				ptr1->str = ft_strdup(new_str);
+				printf("new_str = %s\n", new_str);
 				ft_freenull(tmp);
 				ft_freenull(new_str);
-				printf("new_str = %s\n", new_str);
 				printf("ptr->str = %s\n", ptr1->str);
 				printf("ptr->next->str = %s\n", ptr2->str);
 			}
@@ -42,7 +42,6 @@ void	ft_merge_allredin(t_pars *pars)
 		}
 		ptr1 = ptr1->next;
 	}
-	ft_freenull(new_str);
 	printf(KYEL "-------------------- FT_MERGE_ALLREDIN" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
@@ -54,8 +53,6 @@ void	ft_merge_allredout(t_pars *pars)
 	char	*new_str;
 	char	*tmp;
 
-	if (!pars->line)
-		return ;
 	ptr1 = pars->line;
 	ptr2 = ptr1;
 	new_str = NULL;
@@ -78,9 +75,9 @@ void	ft_merge_allredout(t_pars *pars)
 				}
 				tmp = ptr1->str;
 				ptr1->str = ft_strdup(new_str);
+				printf("new_str = %s\n", new_str);
 				ft_freenull(tmp);
 				ft_freenull(new_str);
-				printf("new_str = %s\n", new_str);
 				printf("ptr->str = %s\n", ptr1->str);
 				printf("ptr->next->str = %s\n", ptr2->str);
 			}

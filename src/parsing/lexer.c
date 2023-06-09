@@ -1,5 +1,12 @@
 #include "../../include/minishell.h"
 
+bool	ft_isenvvarchar(char c)
+{
+	if (ft_isalnum(c) || c == '_')
+		return (true);
+	return (false);
+}
+
 /* All char that aren't metachar (whitespace and isprint)*/
 void	ft_char(int *i, t_pars *pars)
 {
