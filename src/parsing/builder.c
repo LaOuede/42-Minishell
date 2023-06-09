@@ -44,39 +44,31 @@ void	ft_find_redin(t_pars *pars)
 	printf(KYEL "-------------------- FT_FIND_REDIN" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
-void	ft_find_cmd(t_pars *pars)
+void	ft_merge(t_token *node, t_token *next)
 {
-	printf(KYEL "-------------------- FT_FIND_CMD" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	t_token	*ptr;
-	bool	flag;
+	printf(KYEL "-------------------- FT_MERGE" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	char	*new_str;
+	char	*tmp;
 
-	ptr = pars->line;
-	flag = true;
-	while (ptr)
-	{
-		printf("ptr->type before = %d\n", ptr->type);
-		if (ptr->type == ARG && flag == true)
-		{
-			ptr->type = CMD;
-			flag = false;
-		}
-		else if (ptr->type == PIPE)
-			flag = true;
-		printf("ptr->type after = %d\n", ptr->type);
-		printf("flag = %d\n", flag);
-		ptr = ptr->next;
-	}
-	printf(KYEL "-------------------- FT_FIND_CMD" KRED " END " RESET KYEL "--------------------\n" RESET);
+	new_str = NULL;
+	tmp = NULL;
+	new_str = ft_strjoin(node->str, next->str);
+	tmp = node->str;
+	node->str = ft_strdup(new_str);
+	ft_freenull(tmp);
+	ft_freenull(new_str);
+	printf("ptr->str = %s\n", node->str);
+	printf("ptr->next->str = %s\n", next->str);
+	printf(KYEL "-------------------- FT_MERGE" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
 void	ft_builder(t_pars *pars)
 {
-	printf(KYEL "-------------------- FT_REBUILDER" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	ft_pipe(pars);
+	printf(KYEL "-------------------- FT_BUILDER" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	ft_redirection(pars);
-	ft_args(pars);
 	ft_find_redin(pars);
 	ft_find_redout(pars);
-	ft_finish(pars);
-	printf(KYEL "-------------------- FT_REBUILDER" KRED " END " RESET KYEL "--------------------\n" RESET);
+	ft_args(pars);
+	ft_cleaning(pars);
+	printf(KYEL "-------------------- FT_BUILDER" KRED " END " RESET KYEL "--------------------\n" RESET);
 }

@@ -8,7 +8,6 @@ void	ft_s_quotes_token(int *i, t_pars *pars)
 	tmp = NULL;
 	pars->type = ARG;
 	pars->s_quotes = OPEN;
-	printf("s_quotes = %d\n", pars->s_quotes);
 	while (pars->input[++(*i)])
 	{
 		if (pars->input[(*i)] == '\'')
@@ -22,6 +21,7 @@ void	ft_s_quotes_token(int *i, t_pars *pars)
 	}
 	else
 		ft_error_parsing(ERR_QUOTE, LEXER, pars);
+	printf("s_quotes = %d\n", pars->s_quotes);
 	if (tmp)
 		ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
 	if (tmp)

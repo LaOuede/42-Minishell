@@ -21,9 +21,9 @@ SRCS_LST	= 	DEBUG_parsing.c \
 				parsing/lexer.c \
 				parsing/builder.c \
 				parsing/builder_args.c \
-				parsing/builder_finish.c \
-				parsing/builder_pipe.c \
-				parsing/builder_redirection.c \
+				parsing/builder_cleaning.c \
+				parsing/builder_redirection_1.c \
+				parsing/builder_redirection_2.c \
 				parsing/error.c \
 				parsing/free.c \
 				parsing/lexer_token_1.c \
@@ -32,7 +32,6 @@ SRCS_LST	= 	DEBUG_parsing.c \
 				parsing/lexer_utils_memory.c \
 				parsing/lexer_utils_list.c \
 				parsing/parser.c \
-				parsing/parser_tab.c \
 				parsing/parsing.c
 
 # -- Readline Library -- #

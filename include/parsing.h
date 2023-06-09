@@ -132,34 +132,27 @@ void	ft_builder(t_pars *pars);
 void	ft_clean_list(t_token **list);
 void	ft_check_error_pipe(t_pars *pars);
 void	ft_check_error_redir(t_pars *pars);
+void	ft_cleaning(t_pars *pars);
 void	ft_create_file(t_token *node, t_pars *pars);
-// void	ft_create_file(t_token *node, t_pars *pars, t_jct *jct);
 void	ft_find_arg(t_pars *pars);
 void	ft_find_cmd(t_pars *pars);
 void	ft_find_redin(t_pars *pars);
 void	ft_find_redout(t_pars *pars);
-void	ft_finish(t_pars *pars);
 void	ft_merge(t_token *node, t_token *next);
 void	ft_merge_allredin(t_pars *pars);
 void	ft_merge_allredout(t_pars *pars);
 void	ft_merge_arg(t_pars *pars);
-void	ft_merge_in(t_pars *pars);
-void	ft_merge_out(t_pars *pars);
-void	ft_merge_pipe(t_pars *pars);
 void	ft_merge_red(t_pars *pars);
 void	ft_open_file(t_token *node, t_pars *pars);
-void	ft_pipe(t_pars *pars);
 void	ft_redirection(t_pars *pars);
 void	ft_swap_node(t_pars *pars);
 
 /* 		Parser part functions 						*/
 void	ft_parser(t_pars *pars, t_jct *jct);
-void	ft_check_pipe(t_pars *pars);
+void	ft_check_pipe_tail(t_pars *pars);
 void	ft_check_redir(t_pars *pars);
 void	ft_fill_tab(t_jct *jct, t_pars *pars);
 void	ft_init_cmdtab(t_jct *jct);
-char	*ft_trim(char *str, char c);
-void	ft_trim_cmd(t_jct *jct);
 
 
 /* 		Free functions 								*/
