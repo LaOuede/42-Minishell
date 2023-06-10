@@ -20,6 +20,8 @@ void	ft_check_error_pipe(t_pars *pars)
 		else
 			ptr = ptr->next;
 	}
+	if (ptr->next == NULL && ptr->type == PIPE)
+		ft_error_parsing(ERR_TOKEN, REBUILDER, pars);
 	printf(KYEL "-------------------- FT_CHECK_ERROR_PIPE" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 

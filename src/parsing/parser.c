@@ -111,7 +111,7 @@ void	ft_parser(t_pars *pars, t_jct *jct)
 		return ;
 	jct->cmd_nb = pars->nb_pipe;
 	ft_check_redir(pars);
-	ft_check_pipe_tail(pars);
+	//ft_check_pipe_tail(pars);
 	DEBUG_parser(pars);
 	if (pars->err_parser == false)
 	{

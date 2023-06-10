@@ -1,30 +1,5 @@
 #include "../../include/minishell.h"
 
-void	ft_find_arg(t_pars *pars)
-{
-	printf(KYEL "-------------------- FT_FIND_ARG" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	t_token	*ptr;
-	bool	flag;
-
-	ptr = pars->line;
-	flag = true;
-	while (ptr)
-	{
-		printf("flag = %d\n", flag);
-		printf("str = %s\n", ptr->str);
-		printf("str->type before= %d\n", ptr->type);
-		if (ptr->type == ARG && flag == true)
-			flag = false;
-		else if (ptr->type == ARG && flag == false)
-			ptr->type = ERROR;
-		if (ptr->type == PIPE)
-			flag = true;
-		printf("str->type after = %d\n", ptr->type);
-		ptr = ptr->next;
-	}
-	printf(KYEL "-------------------- FT_FIND_ARG" KRED " END " RESET KYEL "--------------------\n" RESET);
-}
-
 void	ft_merge_all_arg(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_MERGE_ALL_ARG" KGRN " START " RESET KYEL "--------------------\n" RESET);
@@ -43,6 +18,7 @@ void	ft_merge_all_arg(t_pars *pars)
 				if (ptr2->ws == 1)
 					ptr1->str = ft_strjoin_char(ptr1->str, ' ');
 				ft_merge(ptr1, ptr2);
+				ptr2->type = ERROR;
 			}
 			ptr2 = ptr2->next;
 		}
@@ -106,5 +82,4 @@ void	ft_args(t_pars *pars)
 	ft_merge_arg(pars);
 	ft_find_cmd(pars);
 	ft_merge_all_arg(pars);
-	ft_find_arg(pars);
 }
