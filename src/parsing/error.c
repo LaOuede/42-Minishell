@@ -18,16 +18,6 @@ void	ft_error(char *err_msg)
 		write(STDERR_FILENO, err_msg, ft_strlen(err_msg));
 }
 
-void	ft_clean_up(t_pars *pars)
-{
-	if (pars)
-	{
-		if (pars->input)
-			free(pars->input);
-		free(pars);
-	}
-}
-
 void	ft_clean_up_jct(t_jct *jct, char *err_msg)
 {
 	if (jct)

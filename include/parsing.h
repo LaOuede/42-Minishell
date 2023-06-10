@@ -51,6 +51,13 @@ enum e_step
 	PARSER = 3,
 };
 
+typedef struct s_tab
+{
+	int				row;
+	int				column;
+	struct s_token	*ptr;
+}	t_tab;
+
 // prototype de la liste chainee token
 typedef struct s_token
 {
@@ -124,36 +131,34 @@ t_token	*ft_create_node(char *str, t_pars *pars);
 char	*ft_mem_alloc(char *str, int capacity);
 char	*ft_stock_char(char *str, char c);
 char	*ft_strjoin_char(char *s1, char s2);
-char	*ft_strjoin_free(char *str1, char *str2);
 
 /* 		Builder part functions 						*/
 void	ft_args(t_pars *pars);
 void	ft_builder(t_pars *pars);
-void	ft_clean_list(t_token **list);
-void	ft_check_pipe(t_pars *pars);
-void	ft_check_redir(t_pars *pars);
 void	ft_check_error_redir(t_pars *pars);
+void	ft_clean_list(t_token **list);
 void	ft_create_file(t_token *node, t_pars *pars);
-void	ft_end_builder(t_pars *pars);
 void	ft_find_cmd(t_pars *pars);
-void	ft_find_redin(t_pars *pars);
-void	ft_find_redout(t_pars *pars);
 void	ft_merge(t_token *node, t_token *next);
+void	ft_merge_all_arg(t_pars *pars);
 void	ft_merge_allredin(t_pars *pars);
 void	ft_merge_allredout(t_pars *pars);
+void	ft_merge_angle_brackets_in(t_pars *pars);
+void	ft_merge_angle_brackets_out(t_pars *pars);
 void	ft_merge_arg(t_pars *pars);
 void	ft_merge_red(t_pars *pars);
 void	ft_open_file(t_token *node, t_pars *pars);
 void	ft_redirection(t_pars *pars);
+void	ft_swap(t_token *ptr1, t_token *ptr2);
 void	ft_swap_node(t_pars *pars);
 
 /* 		Parser part functions 						*/
 void	ft_parser(t_pars *pars, t_jct *jct);
-void	ft_check_pipe_tail(t_pars *pars);
 void	ft_check_redir(t_pars *pars);
-void	ft_fill_tab(t_jct *jct, t_pars *pars);
+void	ft_check_pipe(t_pars *pars);
 void	ft_init_cmdtab(t_jct *jct);
-
+t_tab	*ft_init_tab(t_pars *pars);
+void	ft_fill_tab(t_jct *jct, t_pars *pars, t_tab *tab);
 
 /* 		Free functions 								*/
 void	ft_free_lst(t_token **lst);
@@ -162,7 +167,6 @@ void	ft_free_token(t_token *token);
 
 /* 		Error functions 								*/
 void	ft_error(char *err_msg);
-void	ft_clean_up(t_pars *pars);
 void	ft_clean_up_jct(t_jct *jct, char *err_msg);
 void	ft_error_parsing(char *err_msg, int step, t_pars *pars);
 

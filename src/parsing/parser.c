@@ -1,15 +1,9 @@
 #include "../../include/minishell.h"
 
 /* Store the nodes in a two-dimensionnal array */
-void	ft_fill_tab(t_jct *jct, t_pars *pars)
+void	ft_fill_tab(t_jct *jct, t_pars *pars, t_tab *tab)
 {
 	printf(KYEL "-------------------- FT_FILL_TAB" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	int		row;
-	int		column;
-	t_token	*ptr;
-
-	row = -1;
-	ptr = pars->line;
 	jct->file_out = dup(pars->file_out);
 	jct->file_in = dup(pars->file_in);
 	close(pars->file_in);
@@ -20,29 +14,29 @@ void	ft_fill_tab(t_jct *jct, t_pars *pars)
 	printf("pars->file_in : %d\n", pars->file_in);
 	printf("jct->cmd_nb = %d\n", jct->cmd_nb);
 	printf("pars->nb_pipe = %d\n", pars->nb_pipe);
-	while (++row < jct->cmd_nb && ptr)
+	while (++tab->row < jct->cmd_nb && tab->ptr)
 	{
-		column = -1;
-		while (++column < 4)
+		tab->column = -1;
+		while (++tab->column < 4)
 		{
-			printf("column = %d\n", column);
-			printf("ptr->type = %d\n", ptr->type);
-			if (ptr->type == PIPE && column == 0)
-				ptr = ptr->next;
-			if (column == ptr->type)
+			printf("column = %d\n", tab->column);
+			printf("ptr->type = %d\n", tab->ptr->type);
+			if (tab->ptr->type == PIPE && tab->column == 0)
+				tab->ptr = tab->ptr->next;
+			if (tab->column == tab->ptr->type)
 			{
-				jct->tab[row][column] = ft_strdup(ptr->str);
-				printf("str = %s\n", jct->tab[row][column]);
-				if (ptr->next)
-					ptr = ptr->next;
+				jct->tab[tab->row][tab->column] = ft_strdup(tab->ptr->str);
+				printf("str = %s\n", jct->tab[tab->row][tab->column]);
+				if (tab->ptr->next)
+					tab->ptr = tab->ptr->next;
 			}
-			else if (column != ptr->type)
+			else if (tab->column != tab->ptr->type)
 			{
-				if (ptr->type != PIPE)
-					jct->tab[row][column] = NULL;
+				if (tab->ptr->type != PIPE)
+					jct->tab[tab->row][tab->column] = NULL;
 				else
-					while (column < 4)
-						jct->tab[row][column++] = NULL;
+					while (tab->column < 4)
+						jct->tab[tab->row][tab->column++] = NULL;
 			}
 		}
 	}
@@ -79,21 +73,21 @@ void	ft_check_pipe(t_pars *pars)
 
 	ptr = pars->line;
 	if (ptr->type == PIPE)
-		ft_error_parsing(ERR_TOKEN, REBUILDER, pars);
+		ft_error_parsing(ERR_TOKEN, PARSER, pars);
 	while (ptr->next)
 	{
 		printf("str = %s\n", ptr->str);
 		printf("str next = %s\n", ptr->next->str);
 		if (ptr->type == PIPE && ptr->next->type == PIPE)
 		{
-			ft_error_parsing(ERR_TOKEN, REBUILDER, pars);
+			ft_error_parsing(ERR_TOKEN, PARSER, pars);
 			break ;
 		}
 		else
 			ptr = ptr->next;
 	}
 	if (ptr->next == NULL && ptr->type == PIPE)
-		ft_error_parsing(ERR_TOKEN, REBUILDER, pars);
+		ft_error_parsing(ERR_TOKEN, PARSER, pars);
 	printf(KYEL "-------------------- FT_CHECK_PIPE" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
@@ -119,8 +113,9 @@ void	ft_check_redir(t_pars *pars)
 
 void	ft_parser(t_pars *pars, t_jct *jct)
 {
-	if (!pars)
-		return ;
+	t_tab	*tab;
+
+	tab = NULL;
 	jct->cmd_nb = pars->nb_pipe;
 	ft_check_redir(pars);
 	ft_check_pipe(pars);
@@ -128,7 +123,9 @@ void	ft_parser(t_pars *pars, t_jct *jct)
 	if (pars->err_parser == false)
 	{
 		ft_init_cmdtab(jct);
-		ft_fill_tab(jct, pars);
+		tab = ft_init_tab(pars);
+		ft_fill_tab(jct, pars, tab);
+		free(tab);
 		DEBUG_tab(jct);
 	}
 }

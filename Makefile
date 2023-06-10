@@ -29,8 +29,7 @@ SRCS_LST	= 	DEBUG_parsing.c \
 				parsing/lexer_token_1.c \
 				parsing/lexer_token_2.c \
 				parsing/lexer_token_3.c \
-				parsing/lexer_utils_memory.c \
-				parsing/lexer_utils_list.c \
+				parsing/lexer_utils.c \
 				parsing/parser.c \
 				parsing/parsing.c
 

@@ -1,5 +1,16 @@
 #include "../../include/minishell.h"
 
+t_tab	*ft_init_tab(t_pars *pars)
+{
+	t_tab	*tab;
+
+	tab = ft_calloc(1, sizeof(t_tab));
+	tab->row = -1;
+	tab->column = -1;
+	tab->ptr = pars->line;
+	return (tab);
+}
+
 void	ft_reset_node(t_pars *pars)
 {
 	pars->type = ARG;
