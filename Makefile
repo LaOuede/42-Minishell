@@ -22,7 +22,6 @@ SRCS_LST	= 	DEBUG_parsing.c \
 				parsing/lexer.c \
 				parsing/builder.c \
 				parsing/builder_args.c \
-				parsing/builder_cleaning.c \
 				parsing/builder_redirection_1.c \
 				parsing/builder_redirection_2.c \
 				parsing/error.c \
