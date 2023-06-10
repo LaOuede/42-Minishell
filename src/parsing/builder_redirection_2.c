@@ -17,6 +17,7 @@ void	ft_merge_allredin(t_pars *pars)
 			{
 				ptr1->str = ft_strjoin_char(ptr1->str, ' ');
 				ft_merge(ptr1, ptr2);
+				ptr2->type = ERROR;
 			}
 			ptr2 = ptr2->next;
 		}
@@ -42,6 +43,7 @@ void	ft_merge_allredout(t_pars *pars)
 			{
 				ptr1->str = ft_strjoin_char(ptr1->str, ' ');
 				ft_merge(ptr1, ptr2);
+				ptr2->type = ERROR;
 			}
 			ptr2 = ptr2->next;
 		}
