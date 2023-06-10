@@ -69,8 +69,10 @@ void	ft_merge_arg(t_pars *pars)
 			{
 				ft_merge(ptr1, ptr2);
 				ptr2->type = ERROR;
+				ptr2 = ptr2->next;
 			}
-			ptr2 = ptr2->next;
+			else
+				break ;
 		}
 		ptr1 = ptr1->next;
 	}
