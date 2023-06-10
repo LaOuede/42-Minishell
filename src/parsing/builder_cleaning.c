@@ -1,30 +1,5 @@
 #include "../../include/minishell.h"
 
-void	ft_check_error_pipe(t_pars *pars)
-{
-	printf(KYEL "-------------------- FT_CHECK_ERROR_PIPE" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	t_token	*ptr;
-
-	ptr = pars->line;
-	if (ptr->type == PIPE)
-		ft_error_parsing(ERR_TOKEN, REBUILDER, pars);
-	while (ptr->next)
-	{
-		printf("str = %s\n", ptr->str);
-		printf("str next = %s\n", ptr->next->str);
-		if (ptr->type == PIPE && ptr->next->type == PIPE)
-		{
-			ft_error_parsing(ERR_TOKEN, REBUILDER, pars);
-			break ;
-		}
-		else
-			ptr = ptr->next;
-	}
-	if (ptr->next == NULL && ptr->type == PIPE)
-		ft_error_parsing(ERR_TOKEN, REBUILDER, pars);
-	printf(KYEL "-------------------- FT_CHECK_ERROR_PIPE" KRED " END " RESET KYEL "--------------------\n" RESET);
-}
-
 void	ft_clean_list(t_token **list)
 {
 	printf(KYEL "-------------------- FT_CLEAN_LIST" KGRN " START " RESET KYEL "--------------------\n" RESET);
@@ -89,9 +64,8 @@ void	ft_swap_node(t_pars *pars)
 	printf(KYEL "-------------------- FT_SWAP" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
-void	ft_cleaning(t_pars *pars)
+void	ft_end_builder(t_pars *pars)
 {
-	ft_check_error_pipe(pars);
 	ft_clean_list(&pars->line);
 	ft_swap_node(pars);
 }

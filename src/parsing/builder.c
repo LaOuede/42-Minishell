@@ -69,6 +69,6 @@ void	ft_builder(t_pars *pars)
 	ft_find_redin(pars);
 	ft_find_redout(pars);
 	ft_args(pars);
-	ft_cleaning(pars);
+	ft_end_builder(pars);
 	printf(KYEL "-------------------- FT_BUILDER" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
