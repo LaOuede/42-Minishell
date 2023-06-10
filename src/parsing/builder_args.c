@@ -80,14 +80,21 @@ void	ft_merge_arg(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_MERGE_ARG" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr1;
+	t_token	*ptr2;
 
 	ptr1 = pars->line;
+	ptr2 = pars->line;
 	while (ptr1->next)
 	{
-		if (ptr1->type == ARG && ptr1->next->type == ARG && ptr1->next->ws == 0)
+		ptr2 = ptr1->next;
+		while (ptr2 && ptr2->type != 4)
 		{
-			ft_merge(ptr1, ptr1->next);
-			ptr1->next->type = ERROR;
+			if (ptr1->type == ARG && ptr2->type == ARG && ptr2->ws == 0)
+			{
+				ft_merge(ptr1, ptr2);
+				ptr2->type = ERROR;
+			}
+			ptr2 = ptr2->next;
 		}
 		ptr1 = ptr1->next;
 	}

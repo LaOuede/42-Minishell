@@ -41,10 +41,8 @@ void	ft_fill_tab(t_jct *jct, t_pars *pars)
 				if (ptr->type != PIPE)
 					jct->tab[row][column] = NULL;
 				else
-				{
 					while (column < 4)
 						jct->tab[row][column++] = NULL;
-				}
 			}
 		}
 	}
