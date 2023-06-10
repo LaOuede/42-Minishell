@@ -55,18 +55,19 @@ void	ft_merge_allredout(t_pars *pars)
 void	ft_create_file(t_token *node, t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_CREATE_FILE" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	char *str;
+	char	*str;
 
 	str = ">>";
 	if (node->type == REDOUT)
 	{
 		printf("file name = %s\n", node->next->str);
 		printf("node->str = %s\n", node->str);
-		//TODO need to manage there the HD_out depending if there is a '>>' or not
 		if (ft_strncmp(node->str, str, 2) == 0)
-			pars->file_out = open(node->next->str, O_RDWR | O_CREAT | O_APPEND, 0644);
+			pars->file_out = open(node->next->str, \
+				O_RDWR | O_CREAT | O_APPEND, 0644);
 		else
-			pars->file_out = open(node->next->str, O_RDWR | O_CREAT | O_TRUNC, 0644);
+			pars->file_out = open(node->next->str, \
+				O_RDWR | O_CREAT | O_TRUNC, 0644);
 		if (pars->file_out == -1)
 			ft_error_parsing(ERR_OUTFILE, REBUILDER, pars);
 		printf("pars->file_out : %d\n", pars->file_out);
