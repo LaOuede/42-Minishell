@@ -23,6 +23,7 @@
 # define ERR_OUTFILE	"Input Error : File creation failed\n"
 # define ERR_QUOTE		"Input Error : Quotation unclosed\n"
 # define ERR_TOKEN		"Input Error : Invalid token combination\n"
+# define ERR_STATUS		"Need to print here the last exist status\n"
 
 typedef struct s_jct	t_jct;
 
@@ -35,7 +36,6 @@ enum e_token_type
 	REDOUT = 3,
 	PIPE = 4,
 	EXPAND = 5,
-	//TODO add token_type for here_doc
 };
 
 enum e_gate
@@ -70,7 +70,6 @@ typedef struct s_token
 	int				nb_cmd;
 	int				ws;
 	struct s_token	*next;
-	struct s_token	*prev;
 }	t_token;
 
 // Parsing main structure prototype... incomplete

@@ -111,6 +111,11 @@ void	ft_envvar(int *i, char *str, t_pars *pars)
 		else
 			(*i)++;
 	}
+	else if (str[(*i)] == '$' && str[(*i) + 1] == '?')
+	{
+		(*i) += 2;
+		ft_error_parsing(ERR_STATUS, LEXER, pars);
+	}
 	else
 		ft_envvar_token(i, str, pars);
 	ft_reset_node(pars);

@@ -12,7 +12,6 @@ t_token	*ft_create_node(char *str, t_pars *pars)
 	new_node->d_quotes = pars->d_quotes;
 	new_node->c_brackets = pars->c_brackets;
 	new_node->ws = pars->flag_whitespace;
-	new_node->prev = NULL;
 	new_node->next = NULL;
 	return (new_node);
 }
@@ -26,7 +25,6 @@ void	ft_add_token_bottom(t_token **lst, t_token *new_node)
 	if (*lst == NULL)
 	{
 		*lst = new_node;
-		new_node->prev = NULL;
 		new_node->next = NULL;
 		return ;
 	}
@@ -34,7 +32,6 @@ void	ft_add_token_bottom(t_token **lst, t_token *new_node)
 	while (last->next != NULL)
 		last = last->next;
 	last->next = new_node;
-	new_node->prev = last;
 }
 
 char	*ft_mem_alloc(char *str, int capacity)
