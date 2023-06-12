@@ -10,36 +10,52 @@ void	ft_is_redirection(t_exec *exec, t_jct *jct)
 	cmds_tab = jct->tab;
 	printf("---		ft_is_redirection starts	---\n");
 	i = 0;
-	while (cmds_tab[i])
-	{
-		if (cmds_tab[i][2])
-		{
-			exec->input = dup(jct->file_in);
-			close(jct->file_in);
-			printf("exec->input : %d\n", exec->input);
-		}
-		if (cmds_tab[i][3])
-		{
-			if(jct->fl_redirout > 0)
-			{
-				exec->output = dup(jct->file_out);
-				close(jct->file_out);
-			}
-			printf("exec->output : %d\n", exec->output);
-		}
-		i++;
-	}
+	
+	if (jct->fl_redirout != 0)
+    {
+        exec->output = dup(jct->file_out);
+        close(jct->file_out);
+    }
+    if (exec->input)
+    {
+        exec->input = dup(jct->file_in);
+        close(jct->file_in);
+    }
+	
+	// while (cmds_tab[i])
+	// {
+	// 	if (cmds_tab[i][2])
+	// 	{
+	// 		exec->input = dup(jct->file_in);
+	// 		close(jct->file_in);
+	// 		printf("exec->input : %d\n", exec->input);
+	// 	}
+	// 	if (cmds_tab[i][3])
+	// 	{
+	// 		if(jct->fl_redirout > 0)
+	// 		{
+	// 			exec->output = dup(jct->file_out);
+	// 			close(jct->file_out);
+	// 		}
+	// 		printf("exec->output : %d\n", exec->output);
+	// 	}
+	// 	i++;
+	// }
 	printf("---		ft_is_redirection ends	---\n");
 }
 
 void	ft_make_pids(t_exec *exec, t_jct *jct)
 {
 	int	i;
+	// int	fd_in;
+	// int fd_out;
 
 	exec->pids = ft_calloc(exec->cmd_nb, sizeof(pid_t *));
 	if (!exec->path_var)
 		return ;
 	i = -1;
+	// fd_in = dup(STDIN_FILENO);
+	// fd_out = dup(STDOUT_FILENO);
 	while (++i < exec->cmd_nb)
 	{
 		exec->pids[i] = fork();
@@ -49,12 +65,14 @@ void	ft_make_pids(t_exec *exec, t_jct *jct)
 		if (exec->pids[i] == 0)
 		{
 			//this is the child process
-			ft_dup_process(exec, i);
+			ft_dup_process(exec, jct, i);
 			ft_run_cmd(exec, jct, i);
 		}
 		//TODO put waitpid here, maybe ?
 		// printf("--- Exit ft_chils_proc	---\n");
 	}
+	// dup2(fd_in, STDIN_FILENO);
+	// dup2(fd_out, STDOUT_FILENO);
 	//TODO close all input and/or output here (including here_doc)
 	if (exec->input)
 		close(exec->input);
@@ -108,10 +126,10 @@ void	ft_run_cmd(t_exec *exec, t_jct *jct, int r)
 	//TODO ft_err exit if there is an error, so the below will never be executed
 }
 
-void	ft_dup_process(t_exec *exec, int i)
+void	ft_dup_process(t_exec *exec, t_jct *jct, int i)
 {
 	fprintf(stderr, "exec->cmd = %d\n", exec->cmd_nb);
-	fprintf(stderr, "exec->fl_redirout : %d\n", exec->fl_redirout);
+	fprintf(stderr, "jct->fl_redirout : %d\n", jct->fl_redirout);
 	exec->index = i;
 	if (exec->index == 0)
 	{
@@ -124,11 +142,12 @@ void	ft_dup_process(t_exec *exec, int i)
 		dup2(exec->pipes[i - 1][0], STDIN_FILENO);
 	if (exec->index == exec->cmd_nb - 1)
 	{
-		if (exec->fl_redirout)
+		if (jct->fl_redirout != 0)
 		{
 			fprintf(stderr, "Dup2 exec->output\n");
 			fprintf(stderr, "exec->output = %d\n", exec->output);
 			dup2(exec->output, STDOUT_FILENO);
+			jct->fl_redirout = 0;
 		}
 		dup2(1, STDOUT_FILENO);
 	}
@@ -137,9 +156,8 @@ void	ft_dup_process(t_exec *exec, int i)
 	//TODO close all input and/or output here (including here_doc)
 	if (exec->input)
 		close(exec->input);
-	if (exec->output)
+	if (jct->fl_redirout != 0)
 		close(exec->output);
-	// exec->fl_redirout = 0;
 	ft_close_pipes(exec);
 }
 

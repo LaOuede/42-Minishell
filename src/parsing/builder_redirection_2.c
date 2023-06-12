@@ -78,6 +78,7 @@ void	ft_create_file(t_token *node, t_pars *pars)
 		if (pars->file_out == -1)
 			ft_error_parsing(ERR_OUTFILE, REBUILDER, 2, pars);
 		printf("pars->file_out : %d\n", pars->file_out);
+		printf("pars->fl_redirout : %d\n", pars->fl_redirout);
 		// if (file)
 		//  close(file);
 	}

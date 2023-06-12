@@ -5,10 +5,12 @@ void	ft_fill_tab(t_jct *jct, t_pars *pars, t_tab *tab)
 {
 	printf(KYEL "-------------------- FT_FILL_TAB" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	jct ->fl_redirout = pars->fl_redirout;
+	printf("pars->fl_redirout : %d\n", pars->fl_redirout);
+	printf("jct->fl_redirout : %d\n", jct->fl_redirout);
 	jct->file_out = dup(pars->file_out);
+	close(pars->file_out);
 	jct->file_in = dup(pars->file_in);
 	close(pars->file_in);
-	close(pars->file_out);
 	printf("jct->file_out : %d\n", jct->file_out);
 	printf("pars->file_out : %d\n", pars->file_out);
 	printf("jct->file_in : %d\n", jct->file_in);
