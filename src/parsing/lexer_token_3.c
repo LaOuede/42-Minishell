@@ -20,7 +20,7 @@ void	ft_s_quotes_token(int *i, t_pars *pars)
 		(*i)++;
 	}
 	else
-		ft_error_parsing(ERR_QUOTE, LEXER, pars);
+		ft_error_parsing(ERR_QUOTE, LEXER, 2, pars);
 	printf("s_quotes = %d\n", pars->s_quotes);
 	if (tmp)
 		ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
@@ -68,7 +68,7 @@ char	*ft_stock_quotes(int *i, char *str, t_pars *pars)
 		(*i)++;
 	}
 	else
-		ft_error_parsing(ERR_QUOTE, LEXER, pars);
+		ft_error_parsing(ERR_QUOTE, LEXER, 2, pars);
 	printf(KYEL "-------------------- FT_STOCK_QUOTES" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 	return (str);
 }

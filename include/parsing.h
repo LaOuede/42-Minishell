@@ -21,9 +21,8 @@
 /* --------------------ERROR MESSAGE--------------------- *///
 # define ERR_INFILE		"Input Error : No such file or directory\n"
 # define ERR_OUTFILE	"Input Error : File creation failed\n"
-# define ERR_QUOTE		"Input Error : Quotation unclosed\n"
-# define ERR_TOKEN		"Input Error : Invalid token combination\n"
-# define ERR_STATUS		"Need to print here the last exist status\n"
+# define ERR_QUOTE		"Input Error : Quotation unclosed\n" //exit_status == 2
+# define ERR_TOKEN		"Input Error : Invalid token combination\n" //exit_status == 2
 
 typedef struct s_jct	t_jct;
 
@@ -61,7 +60,7 @@ typedef struct s_tab
 // prototype de la liste chainee token
 typedef struct s_token
 {
-	int				type; // cmd ou arg, ou flag ou operateur
+	int				type;
 	int				tab_type;
 	char			*str;
 	int				s_quotes;
@@ -88,6 +87,8 @@ typedef struct s_pars
 	int				flag_whitespace;
 	int				file_out;
 	int				file_in;
+	int				exit_status;
+	bool			EXIT_STATUS;
 	bool			err_lexer;
 	bool			err_rebuilder;
 	bool			err_parser;
@@ -167,6 +168,7 @@ void	ft_free_token(t_token *token);
 /* 		Error functions 								*/
 void	ft_error(char *err_msg);
 void	ft_clean_up_jct(t_jct *jct, char *err_msg);
-void	ft_error_parsing(char *err_msg, int step, t_pars *pars);
+void	ft_error_parsing(char *err_msg, int step, int exit, t_pars *pars);
+void	ft_exit_status(t_pars *pars);
 
 #endif

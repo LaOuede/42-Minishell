@@ -15,7 +15,7 @@ void	ft_check_error_redir(t_pars *pars)
 		{
 			len = ft_strlen(ptr->str);
 			if (len > 2)
-				ft_error_parsing(ERR_TOKEN, REBUILDER, pars);
+				ft_error_parsing(ERR_TOKEN, REBUILDER, 2, pars);
 		}
 		ptr = ptr->next;
 	}

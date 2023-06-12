@@ -1,15 +1,32 @@
 #include "../../include/minishell.h"
 
-void	ft_error_parsing(char *err_msg, int step, t_pars *pars)
+void	ft_exit_status(t_pars *pars)
+{
+	printf("%d\n", pars->exit_status);
+	pars->exit_status = 0;
+	pars->EXIT_STATUS = true;
+}
+
+void	ft_error_parsing(char *err_msg, int step, int exit, t_pars *pars)
 {
 	if (err_msg)
 		write(STDERR_FILENO, err_msg, ft_strlen(err_msg));
 	if (step == 1)
+	{
 		pars->err_lexer = true;
+		pars->exit_status = exit;
+	}
 	else if (step == 2)
+	{
 		pars->err_rebuilder = true;
+		pars->exit_status = exit;
+	}
 	else
+	{
 		pars->err_parser = true;
+		pars->exit_status = exit;
+	}
+	printf("exit_status = %d\n", pars->exit_status);
 }
 
 void	ft_error(char *err_msg)

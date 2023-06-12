@@ -24,7 +24,7 @@ void	ft_get_expand_brackets(int *i, char *str, t_pars *pars)
 	}
 	ft_freenull(tmp);
 	if (str[(*i)] != '}')
-		ft_error_parsing(ERR_TOKEN, LEXER, pars);
+		ft_error_parsing(ERR_TOKEN, LEXER, 2, pars);
 	else
 		(*i)++;
 	ft_reset_node(pars);
@@ -44,7 +44,7 @@ bool	ft_check_expand_brackets(char *str, t_pars *pars)
 		}
 	}
 	if (pars->c_brackets != 2)
-		ft_error_parsing(ERR_QUOTE, LEXER, pars);
+		ft_error_parsing(ERR_QUOTE, LEXER, 2, pars);
 	printf("pars->c_brackets = %d\n", pars->c_brackets);
 	printf(KYEL "-------------------- FT_CHECK_EXPAND_BRACKETS" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 	if (pars->c_brackets == CLOSE)
@@ -114,7 +114,7 @@ void	ft_envvar(int *i, char *str, t_pars *pars)
 	else if (str[(*i)] == '$' && str[(*i) + 1] == '?')
 	{
 		(*i) += 2;
-		ft_error_parsing(ERR_STATUS, LEXER, pars);
+		ft_exit_status(pars);
 	}
 	else
 		ft_envvar_token(i, str, pars);

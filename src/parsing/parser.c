@@ -73,21 +73,21 @@ void	ft_check_pipe(t_pars *pars)
 
 	ptr = pars->line;
 	if (ptr->type == PIPE)
-		ft_error_parsing(ERR_TOKEN, PARSER, pars);
+		ft_error_parsing(ERR_TOKEN, PARSER, 2, pars);
 	while (ptr->next)
 	{
 		printf("str = %s\n", ptr->str);
 		printf("str next = %s\n", ptr->next->str);
 		if (ptr->type == PIPE && ptr->next->type == PIPE)
 		{
-			ft_error_parsing(ERR_TOKEN, PARSER, pars);
+			ft_error_parsing(ERR_TOKEN, PARSER, 2, pars);
 			break ;
 		}
 		else
 			ptr = ptr->next;
 	}
 	if (ptr->next == NULL && ptr->type == PIPE)
-		ft_error_parsing(ERR_TOKEN, PARSER, pars);
+		ft_error_parsing(ERR_TOKEN, PARSER, 2, pars);
 	printf(KYEL "-------------------- FT_CHECK_PIPE" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
@@ -104,7 +104,7 @@ void	ft_check_redir(t_pars *pars)
 		{
 			len = ft_strlen(ptr->str);
 			if (ptr->str[len - 1] == '<' || ptr->str[len - 1] == '>')
-				ft_error_parsing(ERR_TOKEN, PARSER, pars);
+				ft_error_parsing(ERR_TOKEN, PARSER, 2, pars);
 		}
 		ptr = ptr->next;
 	}
@@ -116,12 +116,13 @@ void	ft_parser(t_pars *pars, t_jct *jct)
 	t_tab	*tab;
 
 	tab = NULL;
-	jct->cmd_nb = pars->nb_pipe;
 	ft_check_redir(pars);
 	ft_check_pipe(pars);
 	DEBUG_parser(pars);
 	if (pars->err_parser == false)
 	{
+		jct->cmd_nb = pars->nb_pipe;
+		jct->exit_status = pars->exit_status;
 		ft_init_cmdtab(jct);
 		tab = ft_init_tab(pars);
 		ft_fill_tab(jct, pars, tab);
