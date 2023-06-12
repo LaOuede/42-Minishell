@@ -4,6 +4,7 @@
 void	ft_fill_tab(t_jct *jct, t_pars *pars, t_tab *tab)
 {
 	printf(KYEL "-------------------- FT_FILL_TAB" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	jct ->fl_redirout = pars->fl_redirout;
 	jct->file_out = dup(pars->file_out);
 	jct->file_in = dup(pars->file_in);
 	close(pars->file_in);

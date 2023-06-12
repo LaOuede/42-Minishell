@@ -34,6 +34,7 @@ void	ft_reset_pars(t_pars *pars)
 	pars->file_in = -1;
 	pars->file_out = -1;
 	pars->EXIT_STATUS = false;
+	pars->fl_redirout = 0;
 	pars->err_lexer = false;
 	pars->err_rebuilder = false;
 	pars->err_parser = false;
@@ -61,6 +62,7 @@ t_pars	*ft_init_pars(char **envp)
 		pars->file_out = -1;
 		pars->exit_status = 0;
 		pars->EXIT_STATUS = false;
+		pars->fl_redirout = 0;
 		pars->err_lexer = false;
 		pars->err_rebuilder = false;
 		pars->err_parser = false;

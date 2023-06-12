@@ -36,6 +36,7 @@ typedef struct s_jct
 	int		file_out;
 	int		file_in;
 	int		exit_status;
+	int		fl_redirout;
 	bool	err_pars;
 }			t_jct;
 

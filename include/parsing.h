@@ -89,6 +89,7 @@ typedef struct s_pars
 	int				file_in;
 	int				exit_status;
 	bool			EXIT_STATUS;
+	int				fl_redirout;
 	bool			err_lexer;
 	bool			err_rebuilder;
 	bool			err_parser;
