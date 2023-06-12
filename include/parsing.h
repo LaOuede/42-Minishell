@@ -88,6 +88,7 @@ typedef struct s_pars
 	int				flag_whitespace;
 	int				file_out;
 	int				file_in;
+	int				fl_redirout;
 	bool			err_lexer;
 	bool			err_rebuilder;
 	bool			err_parser;

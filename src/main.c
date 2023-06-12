@@ -13,6 +13,7 @@ t_jct	*ft_init_jct()
 	jct->cmd_nb = -1;
 	jct->file_in = 0;
 	jct->file_out = 0;
+	jct->fl_redirout = 0;
 	jct->err_pars = false;
 	return (jct);
 }

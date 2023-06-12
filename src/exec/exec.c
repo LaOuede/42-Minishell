@@ -5,7 +5,6 @@ void	ft_is_redirection(t_exec *exec, t_jct *jct)
 	char	***cmds_tab;
 	int		i;
 
-	// int		flag;
 	if (!jct->tab)
 		return ;
 	cmds_tab = jct->tab;
@@ -15,52 +14,21 @@ void	ft_is_redirection(t_exec *exec, t_jct *jct)
 	{
 		if (cmds_tab[i][2])
 		{
-			// dup2(jct->file_in, exec->input);
 			exec->input = dup(jct->file_in);
 			close(jct->file_in);
 			printf("exec->input : %d\n", exec->input);
-			// exec->file_in = ft_strtrim(ft_strrchr(cmds_tab[i][2], '<'), "< ");
-			// exec->fl_redirin = 1;
-			// printf("exec->file_in : %s\n", exec->file_in);
-			// exec->input = open(exec->file_in, O_RDONLY);
 		}
 		if (cmds_tab[i][3])
 		{
-			// exec->file_out = ft_strtrim(ft_strrchr(cmds_tab[i][3], '>'), "> ");
-			// exec->output = jct->file_out;
-			exec->output = dup(jct->file_out);
-			close(jct->file_out);
+			if(jct->fl_redirout > 0)
+			{
+				exec->output = dup(jct->file_out);
+				close(jct->file_out);
+			}
 			printf("exec->output : %d\n", exec->output);
-			// if (exec->fl_hd_out == 1 && exec->fl_redirout == 1)
-			// 	exec->output = open(exec->file_out, O_CREAT | O_RDWR | O_APPEND,
-						// 0644);
-			// else
-			// 	exec->output = open(exec->file_out, O_CREAT | O_RDWR | O_TRUNC,
-						// 0644);
-			// exec->output = open(exec->file_out, O_CREAT | O_RDWR | flag,
-					// 0666);
-			// if (exec->fl_hd_out == 1)
-			// {
-			// 	printf("exec->fl_hd_out= %d\n", exec->fl_hd_out);
-			// 	exec->output = open(exec->file_out, O_RDWR | O_CREAT | O_APPEND,
-						// 0644);
-			// }
-			// if (exec->fl_redirout == 1 && exec->fl_hd_out == 0)
-			// else
-			// 	exec->output = open(exec->file_out,	O_RDWR | O_CREAT | O_TRUNC,	0644);
 		}
 		i++;
 	}
-	// exec->fl_hd_out = 1; // >>
-	// exec->fl_hd_in = 0; // <<
-	// 	//TODO to modify the below
-	// if (exec->fl_redirout == 1 && exec->fl_hd_out == 1)
-	// 	exec->output = open("out", O_RDWR | O_CREAT | O_APPEND, 0644);
-	// else
-	// 	exec->output = open("out", O_RDWR | O_CREAT | O_TRUNC, 0644);
-	// 	//TODO to modify the above
-	// exec->output = open("out", O_RDWR | O_CREAT | O_TRUNC, 0644);
-	// //TODO remove the above
 	printf("---		ft_is_redirection ends	---\n");
 }
 
@@ -142,6 +110,8 @@ void	ft_run_cmd(t_exec *exec, t_jct *jct, int r)
 
 void	ft_dup_process(t_exec *exec, int i)
 {
+	fprintf(stderr, "exec->cmd = %d\n", exec->cmd_nb);
+	fprintf(stderr, "exec->fl_redirout : %d\n", exec->fl_redirout);
 	exec->index = i;
 	if (exec->index == 0)
 	{
@@ -154,8 +124,12 @@ void	ft_dup_process(t_exec *exec, int i)
 		dup2(exec->pipes[i - 1][0], STDIN_FILENO);
 	if (exec->index == exec->cmd_nb - 1)
 	{
-		if (exec->output)
+		if (exec->fl_redirout)
+		{
+			fprintf(stderr, "Dup2 exec->output\n");
+			fprintf(stderr, "exec->output = %d\n", exec->output);
 			dup2(exec->output, STDOUT_FILENO);
+		}
 		dup2(1, STDOUT_FILENO);
 	}
 	else
@@ -165,6 +139,7 @@ void	ft_dup_process(t_exec *exec, int i)
 		close(exec->input);
 	if (exec->output)
 		close(exec->output);
+	// exec->fl_redirout = 0;
 	ft_close_pipes(exec);
 }
 
