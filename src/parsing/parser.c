@@ -4,17 +4,17 @@
 void	ft_fill_tab(t_pars *pars, t_tab *tab)
 {
 	printf(KYEL "-------------------- FT_FILL_TAB" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	g_jct ->fl_redirout = pars->fl_redirout;
-	printf("pars->fl_redirout : %d\n", pars->fl_redirout);
-	printf("g_jct->fl_redirout : %d\n", g_jct->fl_redirout);
-	g_jct->file_out = dup(pars->file_out);
-	close(pars->file_out);
-	g_jct->file_in = dup(pars->file_in);
-	close(pars->file_in);
-	printf("g_jct->file_out : %d\n", g_jct->file_out);
-	printf("pars->file_out : %d\n", pars->file_out);
-	printf("g_jct->file_in : %d\n", g_jct->file_in);
-	printf("pars->file_in : %d\n", pars->file_in);
+	// g_jct ->fl_redirout = pars->fl_redirout;
+	// printf("pars->fl_redirout : %d\n", pars->fl_redirout);
+	// printf("g_jct->fl_redirout : %d\n", g_jct->fl_redirout);
+	// g_jct->file_out = dup(pars->file_out);
+	// close(pars->file_out);
+	// g_jct->file_in = dup(pars->file_in);
+	// close(pars->file_in);
+	// printf("g_jct->file_out : %d\n", g_jct->file_out);
+	// printf("pars->file_out : %d\n", pars->file_out);
+	// printf("g_jct->file_in : %d\n", g_jct->file_in);
+	// printf("pars->file_in : %d\n", pars->file_in);
 	printf("g_jct->cmd_nb = %d\n", g_jct->cmd_nb);
 	printf("pars->nb_pipe = %d\n", pars->nb_pipe);
 	while (++tab->row < g_jct->cmd_nb && tab->ptr)

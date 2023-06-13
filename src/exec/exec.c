@@ -65,7 +65,7 @@ void	ft_make_pids(t_exec *exec, t_jct *jct)
 		if (exec->pids[i] == 0)
 		{
 			//this is the child process
-			ft_dup_process(exec, jct, i);
+			ft_dup_process(exec, i);
 			ft_run_cmd(exec, jct, i);
 		}
 		//TODO put waitpid here, maybe ?
@@ -126,12 +126,12 @@ void	ft_run_cmd(t_exec *exec, t_jct *jct, int r)
 	//TODO ft_err exit if there is an error, so the below will never be executed
 }
 
-void	ft_dup_process(t_exec *exec, t_jct *jct, int i)
+void	ft_dup_process(t_exec *exec, int i)
 {
 	fprintf(stderr, "exec->cmd = %d\n", exec->cmd_nb);
-	fprintf(stderr, "jct->fl_redirout : %d\n", jct->fl_redirout);
+	fprintf(stderr, "jct->fl_redirout : %d\n", g_jct->fl_redirout);
 	exec->index = i;
-	if (exec->index == 0)
+	if (exec->index == 0) //si t'es la 1ere commande
 	{
 		if (exec->input)
 			dup2(exec->input, STDIN_FILENO);
@@ -140,24 +140,23 @@ void	ft_dup_process(t_exec *exec, t_jct *jct, int i)
 	}
 	else
 		dup2(exec->pipes[i - 1][0], STDIN_FILENO);
-	if (exec->index == exec->cmd_nb - 1)
+	if (g_jct->tab[i][3])
 	{
-		if (jct->fl_redirout != 0)
+		if (g_jct->fds[i])
 		{
 			fprintf(stderr, "Dup2 exec->output\n");
-			fprintf(stderr, "exec->output = %d\n", exec->output);
-			dup2(exec->output, STDOUT_FILENO);
-			jct->fl_redirout = 0;
+			fprintf(stderr, "g_jct->fds[%d] = %d\n", i, g_jct->fds[i]);
+			dup2(g_jct->fds[i], STDOUT_FILENO);
 		}
-		dup2(1, STDOUT_FILENO);
+		// dup2(exec->pipes[i][1], STDOUT_FILENO);
 	}
 	else
-		dup2(exec->pipes[i][1], STDOUT_FILENO);
+		dup2(1, STDOUT_FILENO);
 	//TODO close all input and/or output here (including here_doc)
 	if (exec->input)
 		close(exec->input);
-	if (jct->fl_redirout != 0)
-		close(exec->output);
+	if (g_jct->fds[i])
+		close(g_jct->fds[i]);
 	ft_close_pipes(exec);
 }
 
