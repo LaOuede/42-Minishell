@@ -137,7 +137,7 @@ void	ft_args(t_pars *pars);
 void	ft_builder(t_pars *pars);
 void	ft_check_error_redir(t_pars *pars);
 void	ft_clean_list(t_token **list);
-void	ft_create_file(t_token *node, t_pars *pars);
+void	ft_create_file(t_pars *pars);
 void	ft_find_cmd(t_pars *pars);
 void	ft_merge(t_token *node, t_token *next);
 void	ft_merge_all_arg(t_pars *pars);

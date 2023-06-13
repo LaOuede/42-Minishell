@@ -17,6 +17,7 @@ t_jct	*ft_init_jct(void)
 	jct->file_out = 0;
 	jct->exit_status = -1;
 	jct->fl_redirout = 0;
+	jct->fds = NULL;
 	jct->err_pars = false;
 	return (jct);
 }
@@ -49,12 +50,17 @@ int	main(int ac, char **av, char **envp)
 	// 	add_history(pars->input);
 	// 	ft_parsing(pars, jct);
 	// }
-	while (test_mem != 0)
-	// while (LOULOU_JCT)
+	//while (test_mem != 0)
+	signal(SIGINT, &sig_handler);
+	signal(SIGQUIT, NULL);
+	while (LOULOU_JCT)
 	{
-/* 		signal(SIGINT, signals_handler);
-		signal(SIGQUIT, SIG_IGN); */
 		pars->input = readline("Minishell > ");
+		if (!pars->input)
+		{
+			printf("exit");
+			break ;
+		}
 		add_history(pars->input);
 		ft_parsing(pars);
 		if (g_jct->err_pars == false)
@@ -67,7 +73,7 @@ int	main(int ac, char **av, char **envp)
 			ft_free_exec(exec);
 		}
 		g_jct->err_pars = false;
-		//test_mem -= 1;
+		test_mem -= 1;
 	}
 	
 	//TODO need to implement a fct that clears the history (fct clear_history exist in history.h)

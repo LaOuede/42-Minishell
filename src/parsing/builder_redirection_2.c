@@ -52,34 +52,47 @@ void	ft_merge_allredout(t_pars *pars)
 	printf(KYEL "-------------------- FT_MERGE_ALLREDOUT" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
-void	ft_create_file(t_token *node, t_pars *pars)
+void	ft_create_file(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_CREATE_FILE" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	char	*str;
+	char		*str;
+	t_token		*ptr;
+	int	i;
 
+	i = 0;
 	str = ">>";
-	if (node->type == REDOUT)
+	ptr = pars->line;
+	g_jct->fds = ft_calloc(pars->nb_pipe, sizeof(int));
+	while (ptr->next)
 	{
-		printf("file name = %s\n", node->next->str);
-		printf("node->str = %s\n", node->str);
-		if (ft_strncmp(node->str, str, 2) == 0)
+		if (ptr->type == REDOUT && ptr->next->type == ARG)
 		{
-			pars->file_out = open(node->next->str, \
-				O_RDWR | O_CREAT | O_APPEND, 0644);
-			pars->fl_redirout = 2;
+			printf("file name = %s\n", ptr->next->str);
+			printf("ptr->str = %s\n", ptr->str);
+			if (g_jct->fds[i])
+				close(g_jct->fds[i]);
+			if (ft_strncmp(ptr->str, str, 2) == 0)
+			{
+				g_jct->fds[i] = open(ptr->next->str, \
+					O_RDWR | O_CREAT | O_APPEND, 0644);
+				//pars->fl_redirout = 2;
+			}
+			else
+			{
+				g_jct->fds[i] = open(ptr->next->str, \
+					O_RDWR | O_CREAT | O_TRUNC, 0644);
+				//pars->fl_redirout = 1;
+			}
+			if (g_jct->fds[i] == -1)
+				ft_error_parsing(ERR_OUTFILE, REBUILDER, 1, pars);
+			printf("g_jct->fds[%d] : %d\n", i, g_jct->fds[i]);
+			//printf("pars->fl_redirout : %d\n", pars->fl_redirout);
+			// if (file)
+			//  close(file);
 		}
-		else
-		{
-			pars->file_out = open(node->next->str, \
-				O_RDWR | O_CREAT | O_TRUNC, 0644);
-			pars->fl_redirout = 1;
-		}
-		if (pars->file_out == -1)
-			ft_error_parsing(ERR_OUTFILE, REBUILDER, 1, pars);
-		printf("pars->file_out : %d\n", pars->file_out);
-		printf("pars->fl_redirout : %d\n", pars->fl_redirout);
-		// if (file)
-		//  close(file);
+		else if (ptr->type == PIPE)
+			i++;
+		ptr = ptr->next;
 	}
 	printf(KYEL "-------------------- FT_CREATE_FILE" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
@@ -119,7 +132,7 @@ void	ft_merge_red(t_pars *pars)
 		if ((ptr->type == REDIN || ptr->type == REDOUT) && ptr->next->type == ARG)
 		{
 			ft_open_file(ptr, pars);
-			ft_create_file(ptr, pars);
+			//ft_create_file(ptr, pars);
 			ptr->str = ft_strjoin_char(ptr->str, ' ');
 			ft_merge(ptr, ptr->next);
 			sup = ptr->next;

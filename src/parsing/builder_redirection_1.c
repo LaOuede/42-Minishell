@@ -85,6 +85,7 @@ void	ft_redirection(t_pars *pars)
 	ft_merge_angle_brackets_in(pars);
 	ft_merge_angle_brackets_out(pars);
 	ft_check_error_redir(pars);
+	ft_create_file(pars);
 	ft_merge_red(pars);
 	ft_merge_allredin(pars);
 	ft_merge_allredout(pars);

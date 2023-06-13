@@ -3,10 +3,11 @@
 # define MINISHELL_H
 
 # define READLINE_LIBRARY
-# include <unistd.h>
+# include <fcntl.h>
+# include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <fcntl.h>
+# include <unistd.h>
 # include "../libs/libft/includes/libft.h"
 # include "readline.h"
 # include "parsing.h"
@@ -39,6 +40,7 @@ typedef struct s_jct
 	int		file_in;
 	int		exit_status;
 	int		fl_redirout;
+	int		*fds;
 	bool	err_pars;
 }			t_jct;
 
@@ -46,6 +48,6 @@ typedef struct s_jct
 void	ft_free_jct(t_jct *jct);
 
 /* 		Signal functions 							*/
-void	signals_handler(int signal);
+void	sig_handler(int sig);
 
 #endif

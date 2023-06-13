@@ -2,20 +2,13 @@
 #include "../../include/minishell.h"
 
 /*
-ctrl-C affiche un nouveau prompt sur une nouvelle ligne
-ctrl-D quitte le shell.
-ctrl-\ ne fait rien.
+ctrl-C = display a new prompt on a new line
+ctrl-D = exit shell.
+ctrl-\ = don't do anything.
 */
-void	signals_handler(int signal)
+void	sig_handler(int sig)
 {
-	if (signal == SIGQUIT)
-	{
-		printf("exit\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-	else if (signal == SIGINT)
+	if (sig == SIGINT)
 	{
 		g_jct->exit_status = 1;
 		printf("\n");
