@@ -17,7 +17,8 @@ t_jct	*ft_init_jct(void)
 	jct->file_out = 0;
 	jct->exit_status = -1;
 	jct->fl_redirout = 0;
-	jct->fds = NULL;
+	jct->fds_in = NULL;
+	jct->fds_out = NULL;
 	jct->err_pars = false;
 	return (jct);
 }

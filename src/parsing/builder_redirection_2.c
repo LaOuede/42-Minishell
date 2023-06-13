@@ -68,17 +68,17 @@ void	ft_create_file(t_pars *pars)
 		{
 			printf("file name = %s\n", ptr->next->str);
 			printf("ptr->str = %s\n", ptr->str);
-			if (g_jct->fds[i])
-				close(g_jct->fds[i]);
+			if (g_jct->fds_out[i])
+				close(g_jct->fds_out[i]);
 			if (ft_strncmp(ptr->str, str, 2) == 0)
-				g_jct->fds[i] = open(ptr->next->str, \
+				g_jct->fds_out[i] = open(ptr->next->str, \
 					O_RDWR | O_CREAT | O_APPEND, 0644);
 			else
-				g_jct->fds[i] = open(ptr->next->str, \
+				g_jct->fds_out[i] = open(ptr->next->str, \
 					O_RDWR | O_CREAT | O_TRUNC, 0644);
-			if (g_jct->fds[i] == -1)
+			if (g_jct->fds_out[i] == -1)
 				ft_error_parsing(ERR_OUTFILE, REBUILDER, 1, pars);
-			printf("g_jct->fds[%d] : %d\n", i, g_jct->fds[i]);
+			printf("g_jct->fds_out[%d] : %d\n", i, g_jct->fds_out[i]);
 		}
 		else if (ptr->type == PIPE)
 			i++;
@@ -102,15 +102,15 @@ void	ft_open_file(t_pars *pars)
 		if (ptr->type == REDIN && ptr->next->type == ARG)
 		{
 			printf("file name or delimiter = %s\n", ptr->next->str);
-			if (g_jct->fds[i])
-				close(g_jct->fds[i]);
+			if (g_jct->fds_in[i])
+				close(g_jct->fds_in[i]);
 			if (ft_strncmp(ptr->str, str, 2) == 0)
 				exec_hd(pars, ptr->next->str, i);
 			else
-				g_jct->fds[i] = open(ptr->next->str, O_RDONLY);
-			if (g_jct->fds[i] == -1)
+				g_jct->fds_in[i] = open(ptr->next->str, O_RDONLY);
+			if (g_jct->fds_in[i] == -1)
 				ft_error_parsing(ERR_INFILE, REBUILDER, 1, pars);
-			printf("g_jct->fds[i] = %d\n", g_jct->fds[i]);
+			printf("g_jct->fds_in[i] = %d\n", g_jct->fds_in[i]);
 		}
 		else if (ptr->type == PIPE)
 			i++;

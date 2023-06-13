@@ -40,7 +40,8 @@ typedef struct s_jct
 	int		file_in;
 	int		exit_status;
 	int		fl_redirout;
-	int		*fds;
+	int		*fds_in;
+	int		*fds_out;
 	bool	err_pars;
 }			t_jct;
 

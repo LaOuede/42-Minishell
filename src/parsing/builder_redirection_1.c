@@ -82,12 +82,13 @@ void	ft_merge_angle_brackets_in(t_pars *pars)
 
 void	ft_redirection(t_pars *pars)
 {
-	g_jct->fds = ft_calloc(pars->nb_pipe, sizeof(int));
+	g_jct->fds_in = ft_calloc(pars->nb_pipe, sizeof(int));
+	g_jct->fds_out = ft_calloc(pars->nb_pipe, sizeof(int));
 	ft_merge_angle_brackets_in(pars);
 	ft_merge_angle_brackets_out(pars);
 	ft_check_error_redir(pars);
-	ft_create_file(pars);
 	ft_open_file(pars);
+	ft_create_file(pars);
 	ft_merge_red(pars);
 	ft_merge_allredin(pars);
 	ft_merge_allredout(pars);

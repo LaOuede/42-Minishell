@@ -74,10 +74,10 @@ void	ft_make_pids(t_exec *exec, t_jct *jct)
 	// dup2(fd_in, STDIN_FILENO);
 	// dup2(fd_out, STDOUT_FILENO);
 	//TODO close all input and/or output here (including here_doc)
-	if (exec->input)
-		close(exec->input);
-	if (exec->output)
-		close(exec->output);
+	if (g_jct->fds_in[i])
+		close(g_jct->fds_in[i]);
+	if (g_jct->fds_out[i])
+		close(g_jct->fds_out[i]);
 	ft_close_pipes(exec);
 }
 
@@ -131,32 +131,44 @@ void	ft_dup_process(t_exec *exec, int i)
 	fprintf(stderr, "exec->cmd = %d\n", exec->cmd_nb);
 	fprintf(stderr, "jct->fl_redirout : %d\n", g_jct->fl_redirout);
 	exec->index = i;
-	if (exec->index == 0) //si t'es la 1ere commande
+	// if (exec->index == 0) //si t'es la 1ere commande
+	// {
+	// 	if (exec->input)
+	// 		dup2(exec->input, STDIN_FILENO);
+	// 	else
+	// 		dup2(0, STDIN_FILENO);
+	// }
+	// else
+	// 	dup2(exec->pipes[i - 1][0], STDIN_FILENO);
+	if (g_jct->tab[i][2])
 	{
-		if (exec->input)
-			dup2(exec->input, STDIN_FILENO);
-		else
-			dup2(0, STDIN_FILENO);
+		if (g_jct->fds_in[i])
+		{
+			fprintf(stderr, "Dup2 exec->input\n");
+			fprintf(stderr, "g_jct->fds_in[%d] = %d\n", i, g_jct->fds_in[i]);
+			dup2(g_jct->fds_in[i], STDIN_FILENO);
+		}
+		// dup2(exec->pipes[i][1], STDOUT_FILENO);
 	}
 	else
-		dup2(exec->pipes[i - 1][0], STDIN_FILENO);
+		dup2(0, STDIN_FILENO);
 	if (g_jct->tab[i][3])
 	{
-		if (g_jct->fds[i])
+		if (g_jct->fds_out[i])
 		{
 			fprintf(stderr, "Dup2 exec->output\n");
-			fprintf(stderr, "g_jct->fds[%d] = %d\n", i, g_jct->fds[i]);
-			dup2(g_jct->fds[i], STDOUT_FILENO);
+			fprintf(stderr, "g_jct->fds_out[%d] = %d\n", i, g_jct->fds_out[i]);
+			dup2(g_jct->fds_out[i], STDOUT_FILENO);
 		}
 		// dup2(exec->pipes[i][1], STDOUT_FILENO);
 	}
 	else
 		dup2(1, STDOUT_FILENO);
 	//TODO close all input and/or output here (including here_doc)
-	if (exec->input)
-		close(exec->input);
-	if (g_jct->fds[i])
-		close(g_jct->fds[i]);
+	if (g_jct->fds_in[i])
+		close(g_jct->fds_in[i]);
+	if (g_jct->fds_out[i])
+		close(g_jct->fds_out[i]);
 	ft_close_pipes(exec);
 }
 
@@ -165,7 +177,7 @@ void	ft_exec(t_exec *exec, t_jct *jct)
 	int	i;
 	int	status;
 
-	ft_is_redirection(exec, jct);
+	// ft_is_redirection(exec, jct);
 	if (ft_create_pipes(exec) == 2)
 		return ;
 	ft_make_pids(exec, jct);
