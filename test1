@@ -1,1 +1,10 @@
-/Users/csenand/Documents/Minishell
+Makefile
+include
+libs
+minishell
+minishell.dSYM
+obj
+src
+supp.txt
+test0
+test1

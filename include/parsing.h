@@ -147,7 +147,7 @@ void	ft_merge_angle_brackets_in(t_pars *pars);
 void	ft_merge_angle_brackets_out(t_pars *pars);
 void	ft_merge_arg(t_pars *pars);
 void	ft_merge_red(t_pars *pars);
-void	ft_open_file(t_token *node, t_pars *pars);
+void	ft_open_file(t_pars *pars);
 void	ft_redirection(t_pars *pars);
 void	ft_swap(t_token *ptr1, t_token *ptr2);
 void	ft_swap_node(t_pars *pars);

@@ -55,14 +55,13 @@ void	ft_merge_allredout(t_pars *pars)
 void	ft_create_file(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_CREATE_FILE" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	char		*str;
-	t_token		*ptr;
-	int	i;
+	char	*str;
+	t_token	*ptr;
+	int		i;
 
 	i = 0;
 	str = ">>";
 	ptr = pars->line;
-	g_jct->fds = ft_calloc(pars->nb_pipe, sizeof(int));
 	while (ptr->next)
 	{
 		if (ptr->type == REDOUT && ptr->next->type == ARG)
@@ -72,23 +71,14 @@ void	ft_create_file(t_pars *pars)
 			if (g_jct->fds[i])
 				close(g_jct->fds[i]);
 			if (ft_strncmp(ptr->str, str, 2) == 0)
-			{
 				g_jct->fds[i] = open(ptr->next->str, \
 					O_RDWR | O_CREAT | O_APPEND, 0644);
-				//pars->fl_redirout = 2;
-			}
 			else
-			{
 				g_jct->fds[i] = open(ptr->next->str, \
 					O_RDWR | O_CREAT | O_TRUNC, 0644);
-				//pars->fl_redirout = 1;
-			}
 			if (g_jct->fds[i] == -1)
 				ft_error_parsing(ERR_OUTFILE, REBUILDER, 1, pars);
 			printf("g_jct->fds[%d] : %d\n", i, g_jct->fds[i]);
-			//printf("pars->fl_redirout : %d\n", pars->fl_redirout);
-			// if (file)
-			//  close(file);
 		}
 		else if (ptr->type == PIPE)
 			i++;
@@ -97,24 +87,34 @@ void	ft_create_file(t_pars *pars)
 	printf(KYEL "-------------------- FT_CREATE_FILE" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
-void	ft_open_file(t_token *node, t_pars *pars)
+void	ft_open_file(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_OPEN_FILE" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	char *str;
+	char	*str;
+	t_token	*ptr;
+	int		i;
 
+	i = 0;
 	str = "<<";
-	if (node->type == REDIN)
+	ptr = pars->line;
+	while (ptr->next)
 	{
-		printf("file name or delimiter = %s\n", node->next->str);
-		if (ft_strncmp(node->str, str, 2) == 0)
-			exec_hd(pars, node->next->str);
-		else
-			pars->file_in = open(node->next->str, O_RDONLY);
-		if (pars->file_in == -1)
-			ft_error_parsing(ERR_INFILE, REBUILDER, 1, pars);
-		printf("pars->file_in = %d\n", pars->file_in);
-		// if (file)
-		//  close(file);
+		if (ptr->type == REDIN && ptr->next->type == ARG)
+		{
+			printf("file name or delimiter = %s\n", ptr->next->str);
+			if (g_jct->fds[i])
+				close(g_jct->fds[i]);
+			if (ft_strncmp(ptr->str, str, 2) == 0)
+				exec_hd(pars, ptr->next->str, i);
+			else
+				g_jct->fds[i] = open(ptr->next->str, O_RDONLY);
+			if (g_jct->fds[i] == -1)
+				ft_error_parsing(ERR_INFILE, REBUILDER, 1, pars);
+			printf("g_jct->fds[i] = %d\n", g_jct->fds[i]);
+		}
+		else if (ptr->type == PIPE)
+			i++;
+		ptr = ptr->next;
 	}
 	printf(KYEL "-------------------- FT_OPEN_FILE" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
@@ -131,8 +131,6 @@ void	ft_merge_red(t_pars *pars)
 	{
 		if ((ptr->type == REDIN || ptr->type == REDOUT) && ptr->next->type == ARG)
 		{
-			ft_open_file(ptr, pars);
-			//ft_create_file(ptr, pars);
 			ptr->str = ft_strjoin_char(ptr->str, ' ');
 			ft_merge(ptr, ptr->next);
 			sup = ptr->next;

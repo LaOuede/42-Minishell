@@ -45,7 +45,7 @@ typedef struct s_jct
 }			t_jct;
 
 /* 		Jct functions 							*/
-void	ft_free_jct(t_jct *jct);
+void	ft_free_jct(void);
 
 /* 		Signal functions 							*/
 void	sig_handler(int sig);

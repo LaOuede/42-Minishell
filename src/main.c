@@ -79,6 +79,6 @@ int	main(int ac, char **av, char **envp)
 	//TODO need to implement a fct that clears the history (fct clear_history exist in history.h)
 	//TODO implement or add all free/reset function
 	ft_free_pars(pars);
-	ft_free_jct(g_jct);
+	ft_free_jct();
 	return (0);
 }
