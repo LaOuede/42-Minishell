@@ -1,23 +1,23 @@
 #include "../../include/minishell.h"
 
 /* Store the nodes in a two-dimensionnal array */
-void	ft_fill_tab(t_jct *jct, t_pars *pars, t_tab *tab)
+void	ft_fill_tab(t_pars *pars, t_tab *tab)
 {
 	printf(KYEL "-------------------- FT_FILL_TAB" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	jct ->fl_redirout = pars->fl_redirout;
+	g_jct ->fl_redirout = pars->fl_redirout;
 	printf("pars->fl_redirout : %d\n", pars->fl_redirout);
-	printf("jct->fl_redirout : %d\n", jct->fl_redirout);
-	jct->file_out = dup(pars->file_out);
+	printf("g_jct->fl_redirout : %d\n", g_jct->fl_redirout);
+	g_jct->file_out = dup(pars->file_out);
 	close(pars->file_out);
-	jct->file_in = dup(pars->file_in);
+	g_jct->file_in = dup(pars->file_in);
 	close(pars->file_in);
-	printf("jct->file_out : %d\n", jct->file_out);
+	printf("g_jct->file_out : %d\n", g_jct->file_out);
 	printf("pars->file_out : %d\n", pars->file_out);
-	printf("jct->file_in : %d\n", jct->file_in);
+	printf("g_jct->file_in : %d\n", g_jct->file_in);
 	printf("pars->file_in : %d\n", pars->file_in);
-	printf("jct->cmd_nb = %d\n", jct->cmd_nb);
+	printf("g_jct->cmd_nb = %d\n", g_jct->cmd_nb);
 	printf("pars->nb_pipe = %d\n", pars->nb_pipe);
-	while (++tab->row < jct->cmd_nb && tab->ptr)
+	while (++tab->row < g_jct->cmd_nb && tab->ptr)
 	{
 		tab->column = -1;
 		while (++tab->column < 4)
@@ -28,18 +28,18 @@ void	ft_fill_tab(t_jct *jct, t_pars *pars, t_tab *tab)
 				tab->ptr = tab->ptr->next;
 			if (tab->column == tab->ptr->type)
 			{
-				jct->tab[tab->row][tab->column] = ft_strdup(tab->ptr->str);
-				printf("str = %s\n", jct->tab[tab->row][tab->column]);
+				g_jct->tab[tab->row][tab->column] = ft_strdup(tab->ptr->str);
+				printf("str = %s\n", g_jct->tab[tab->row][tab->column]);
 				if (tab->ptr->next)
 					tab->ptr = tab->ptr->next;
 			}
 			else if (tab->column != tab->ptr->type)
 			{
 				if (tab->ptr->type != PIPE)
-					jct->tab[tab->row][tab->column] = NULL;
+					g_jct->tab[tab->row][tab->column] = NULL;
 				else
 					while (tab->column < 4)
-						jct->tab[tab->row][tab->column++] = NULL;
+						g_jct->tab[tab->row][tab->column++] = NULL;
 			}
 		}
 	}
@@ -47,23 +47,23 @@ void	ft_fill_tab(t_jct *jct, t_pars *pars, t_tab *tab)
 }
 
 /* Initializes the two-dimensionnal array. */
-void	ft_init_cmdtab(t_jct *jct)
+void	ft_init_cmdtab(void)
 {
 	int	i;
 
-	jct->tab = ft_calloc(jct->cmd_nb + 1, sizeof(char **));
-	if (!jct->tab)
+	g_jct->tab = ft_calloc(g_jct->cmd_nb + 1, sizeof(char **));
+	if (!g_jct->tab)
 	{
-		ft_free_3tab(jct);
+		ft_free_3tab(g_jct);
 		return ;
 	}
 	i = -1;
-	while (++i < jct->cmd_nb)
+	while (++i < g_jct->cmd_nb)
 	{
-		jct->tab[i] = ft_calloc(4, sizeof(char *));
-		if (!jct->tab[i])
+		g_jct->tab[i] = ft_calloc(4, sizeof(char *));
+		if (!g_jct->tab[i])
 		{
-			ft_free_3tab(jct);
+			ft_free_3tab(g_jct);
 			return ;
 		}
 	}
@@ -114,7 +114,7 @@ void	ft_check_redir(t_pars *pars)
 	printf(KYEL "-------------------- FT_CHECK_REDIR" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
-void	ft_parser(t_pars *pars, t_jct *jct)
+void	ft_parser(t_pars *pars)
 {
 	t_tab	*tab;
 
@@ -124,12 +124,12 @@ void	ft_parser(t_pars *pars, t_jct *jct)
 	DEBUG_parser(pars);
 	if (pars->err_parser == false)
 	{
-		jct->cmd_nb = pars->nb_pipe;
-		jct->exit_status = pars->exit_status;
-		ft_init_cmdtab(jct);
+		g_jct->cmd_nb = pars->nb_pipe;
+		g_jct->exit_status = g_jct->exit_status;
+		ft_init_cmdtab();
 		tab = ft_init_tab(pars);
-		ft_fill_tab(jct, pars, tab);
+		ft_fill_tab(pars, tab);
 		free(tab);
-		DEBUG_tab(jct);
+		DEBUG_tab(g_jct);
 	}
 }

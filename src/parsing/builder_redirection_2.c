@@ -57,7 +57,6 @@ void	ft_create_file(t_token *node, t_pars *pars)
 	printf(KYEL "-------------------- FT_CREATE_FILE" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	char	*str;
 
-	//TODO check for exit_status code (put 2 but not sure...)
 	str = ">>";
 	if (node->type == REDOUT)
 	{
@@ -76,7 +75,7 @@ void	ft_create_file(t_token *node, t_pars *pars)
 			pars->fl_redirout = 1;
 		}
 		if (pars->file_out == -1)
-			ft_error_parsing(ERR_OUTFILE, REBUILDER, 2, pars);
+			ft_error_parsing(ERR_OUTFILE, REBUILDER, 1, pars);
 		printf("pars->file_out : %d\n", pars->file_out);
 		printf("pars->fl_redirout : %d\n", pars->fl_redirout);
 		// if (file)
@@ -90,7 +89,6 @@ void	ft_open_file(t_token *node, t_pars *pars)
 	printf(KYEL "-------------------- FT_OPEN_FILE" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	char *str;
 
-	//TODO check for exit_status code (put 2 but not sure...)
 	str = "<<";
 	if (node->type == REDIN)
 	{
@@ -100,7 +98,7 @@ void	ft_open_file(t_token *node, t_pars *pars)
 		else
 			pars->file_in = open(node->next->str, O_RDONLY);
 		if (pars->file_in == -1)
-			ft_error_parsing(ERR_INFILE, REBUILDER, 2, pars);
+			ft_error_parsing(ERR_INFILE, REBUILDER, 1, pars);
 		printf("pars->file_in = %d\n", pars->file_in);
 		// if (file)
 		//  close(file);

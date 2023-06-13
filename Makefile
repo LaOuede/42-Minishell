@@ -31,7 +31,8 @@ SRCS_LST	= 	DEBUG_parsing.c \
 				parsing/lexer_token_3.c \
 				parsing/lexer_utils.c \
 				parsing/parser.c \
-				parsing/parsing.c
+				parsing/parsing.c \
+				sig/signals.c
 
 # -- Readline Library -- #
 LIBRLINE 		= readline-8.2
@@ -84,7 +85,7 @@ run: all
 
 # -- Create directory for *.o files -- #
 dir :
-	@mkdir -p $(OBJS_DIR) $(OBJS_DIR)parsing $(OBJS_DIR)exec
+	@mkdir -p $(OBJS_DIR) $(OBJS_DIR)parsing $(OBJS_DIR)exec $(OBJS_DIR)sig
 	@mkdir -p $(LIBRLINE_DIR)
 
 leak: CFLAGS += -g

@@ -87,7 +87,6 @@ typedef struct s_pars
 	int				flag_whitespace;
 	int				file_out;
 	int				file_in;
-	int				exit_status;
 	bool			EXIT_STATUS;
 	int				fl_redirout;
 	bool			err_lexer;
@@ -102,7 +101,7 @@ void	DEBUG_parser(t_pars *pars);
 void	DEBUG_tab(t_jct *jct);
 
 /* 		Parsing functions 							*/
-void	ft_parsing(t_pars *pars, t_jct *jct);
+void	ft_parsing(t_pars *pars);
 t_pars	*ft_init_pars(char **envp);
 void	ft_reset_node(t_pars *pars);
 void	ft_reset_pars(t_pars *pars);
@@ -154,12 +153,12 @@ void	ft_swap(t_token *ptr1, t_token *ptr2);
 void	ft_swap_node(t_pars *pars);
 
 /* 		Parser part functions 						*/
-void	ft_parser(t_pars *pars, t_jct *jct);
+void	ft_parser(t_pars *pars);
 void	ft_check_redir(t_pars *pars);
 void	ft_check_pipe(t_pars *pars);
-void	ft_init_cmdtab(t_jct *jct);
+void	ft_init_cmdtab(void);
 t_tab	*ft_init_tab(t_pars *pars);
-void	ft_fill_tab(t_jct *jct, t_pars *pars, t_tab *tab);
+void	ft_fill_tab(t_pars *pars, t_tab *tab);
 
 /* 		Free functions 								*/
 void	ft_free_lst(t_token **lst);
@@ -168,7 +167,7 @@ void	ft_free_token(t_token *token);
 
 /* 		Error functions 								*/
 void	ft_error(char *err_msg);
-void	ft_clean_up_jct(t_jct *jct, char *err_msg);
+void	ft_clean_up_jct(char *err_msg);
 void	ft_error_parsing(char *err_msg, int step, int exit, t_pars *pars);
 void	ft_exit_status(t_pars *pars);
 

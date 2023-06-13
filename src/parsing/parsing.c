@@ -60,7 +60,6 @@ t_pars	*ft_init_pars(char **envp)
 		//TODO check if it needs to be -1 or 0 (may trigger an error if -1)
 		pars->file_in = -1;
 		pars->file_out = -1;
-		pars->exit_status = 0;
 		pars->EXIT_STATUS = false;
 		pars->fl_redirout = 0;
 		pars->err_lexer = false;
@@ -74,7 +73,7 @@ t_pars	*ft_init_pars(char **envp)
 Main function for parsing. Calls Lexer and Parser
 and then returns a 2D arry to the executioner
 */
-void	ft_parsing(t_pars *pars, t_jct *jct)
+void	ft_parsing(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_PARSING" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 	if (!*pars->input)
@@ -86,11 +85,11 @@ void	ft_parsing(t_pars *pars, t_jct *jct)
 		ft_builder(pars);
 		DEBUG_builder(pars);
 		if (pars->err_rebuilder == false)
-			ft_parser(pars, jct);
+			ft_parser(pars);
 	}
 	if (pars->err_lexer == true || pars->err_rebuilder == true \
 			|| pars->err_parser == true || pars->EXIT_STATUS == true)
-			jct->err_pars = true;
+			g_jct->err_pars = true;
 			ft_reset_pars(pars);
 	printf(KYEL "-------------------- FT_PARSING" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }
