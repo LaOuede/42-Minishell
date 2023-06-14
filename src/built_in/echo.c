@@ -22,7 +22,7 @@ bool	ft_flag(char *str, int *j)
 
 	if (str[(*j)] == '-')
 	{
-		while(str[(*j)++])
+		while (str[(*j)++])
 		{
 			if (ft_iswhitespace(str[(*j)]) == 1)
 				return (true);
