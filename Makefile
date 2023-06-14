@@ -13,7 +13,9 @@ RM			=	rm -rf
 
 # -- SRC Files -- #
 SRCS_DIR	=	./src/
-SRCS_LST	= 	DEBUG_parsing.c \
+SRCS_LST	= 	built_in/built_in.c \
+				built_in/echo.c \
+				DEBUG_parsing.c \
 				exec/exec_hd.c \
 				exec/exec_utils.c \
 				exec/exec_pipes.c \
@@ -113,7 +115,7 @@ readline :
 clean :
 	@make -C $(LIBFT_DIR) clean
 	@printf "💥 $(RED)Removing $(NAME)'s objects...$(RESET)\t\t\t💥\n"
-	@$(RM) $(OBJS_DIR) $(OBJS_DIR)parsing $(OBJS_DIR)exec
+	@$(RM) $(OBJS_DIR) $(OBJS_DIR)parsing $(OBJS_DIR)exec $(OBJS_DIR)sig
 	@printf "🗑️  $(CYAN)$(NAME)'s object successfully deleted.$(RESET)\t\t🗑️\n"
 
 # -- Removes objects (with clean) and executable -- #
