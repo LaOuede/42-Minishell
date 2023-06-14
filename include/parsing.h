@@ -75,6 +75,7 @@ typedef struct s_token
 typedef struct s_pars
 {
 	struct s_token	*line;
+	struct s_jct	*jct;
 	char			*input;
 	char			**envp;
 	size_t			strlen;
@@ -87,8 +88,8 @@ typedef struct s_pars
 	int				flag_whitespace;
 	int				file_out;
 	int				file_in;
-	bool			EXIT_STATUS;
 	int				fl_redirout;
+	bool			EXIT_STATUS;
 	bool			err_lexer;
 	bool			err_rebuilder;
 	bool			err_parser;
@@ -156,7 +157,7 @@ void	ft_swap_node(t_pars *pars);
 void	ft_parser(t_pars *pars);
 void	ft_check_redir(t_pars *pars);
 void	ft_check_pipe(t_pars *pars);
-void	ft_init_cmdtab(void);
+void	ft_init_cmdtab(t_pars *pars);
 t_tab	*ft_init_tab(t_pars *pars);
 void	ft_fill_tab(t_pars *pars, t_tab *tab);
 
@@ -167,7 +168,7 @@ void	ft_free_token(t_token *token);
 
 /* 		Error functions 								*/
 void	ft_error(char *err_msg);
-void	ft_clean_up_jct(char *err_msg);
+void	ft_clean_up_jct(char *err_msg, t_jct *jct);
 void	ft_error_parsing(char *err_msg, int step, int exit, t_pars *pars);
 void	ft_exit_status(t_pars *pars);
 

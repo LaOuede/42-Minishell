@@ -74,10 +74,10 @@ void	ft_make_pids(t_exec *exec, t_jct *jct)
 	// dup2(fd_in, STDIN_FILENO);
 	// dup2(fd_out, STDOUT_FILENO);
 	//TODO close all input and/or output here (including here_doc)
-	if (g_jct->fds_in[i])
-		close(g_jct->fds_in[i]);
-	if (g_jct->fds_out[i])
-		close(g_jct->fds_out[i]);
+	if (exec->jct->fds_in[i])
+		close(exec->jct->fds_in[i]);
+	if (exec->jct->fds_out[i])
+		close(exec->jct->fds_out[i]);
 	ft_close_pipes(exec);
 }
 
@@ -129,7 +129,7 @@ void	ft_run_cmd(t_exec *exec, t_jct *jct, int r)
 void	ft_dup_process(t_exec *exec, int i)
 {
 	fprintf(stderr, "exec->cmd = %d\n", exec->cmd_nb);
-	fprintf(stderr, "jct->fl_redirout : %d\n", g_jct->fl_redirout);
+	fprintf(stderr, "jct->fl_redirout : %d\n", exec->jct->fl_redirout);
 	exec->index = i;
 	// if (exec->index == 0) //si t'es la 1ere commande
 	// {
@@ -140,35 +140,35 @@ void	ft_dup_process(t_exec *exec, int i)
 	// }
 	// else
 	// 	dup2(exec->pipes[i - 1][0], STDIN_FILENO);
-	if (g_jct->tab[i][2])
+	if (exec->jct->tab[i][2])
 	{
-		if (g_jct->fds_in[i])
+		if (exec->jct->fds_in[i])
 		{
 			fprintf(stderr, "Dup2 exec->input\n");
-			fprintf(stderr, "g_jct->fds_in[%d] = %d\n", i, g_jct->fds_in[i]);
-			dup2(g_jct->fds_in[i], STDIN_FILENO);
+			fprintf(stderr, "exec->jct->fds_in[%d] = %d\n", i, exec->jct->fds_in[i]);
+			dup2(exec->jct->fds_in[i], STDIN_FILENO);
 		}
 		// dup2(exec->pipes[i][1], STDOUT_FILENO);
 	}
 	else
 		dup2(0, STDIN_FILENO);
-	if (g_jct->tab[i][3])
+	if (exec->jct->tab[i][3])
 	{
-		if (g_jct->fds_out[i])
+		if (exec->jct->fds_out[i])
 		{
 			fprintf(stderr, "Dup2 exec->output\n");
-			fprintf(stderr, "g_jct->fds_out[%d] = %d\n", i, g_jct->fds_out[i]);
-			dup2(g_jct->fds_out[i], STDOUT_FILENO);
+			fprintf(stderr, "exec->jct->fds_out[%d] = %d\n", i, exec->jct->fds_out[i]);
+			dup2(exec->jct->fds_out[i], STDOUT_FILENO);
 		}
 		// dup2(exec->pipes[i][1], STDOUT_FILENO);
 	}
 	else
 		dup2(1, STDOUT_FILENO);
 	//TODO close all input and/or output here (including here_doc)
-	if (g_jct->fds_in[i])
-		close(g_jct->fds_in[i]);
-	if (g_jct->fds_out[i])
-		close(g_jct->fds_out[i]);
+	if (exec->jct->fds_in[i])
+		close(exec->jct->fds_in[i]);
+	if (exec->jct->fds_out[i])
+		close(exec->jct->fds_out[i]);
 	ft_close_pipes(exec);
 }
 

@@ -15,9 +15,9 @@ void	ft_fill_tab(t_pars *pars, t_tab *tab)
 	// printf("pars->file_out : %d\n", pars->file_out);
 	// printf("g_jct->file_in : %d\n", g_jct->file_in);
 	// printf("pars->file_in : %d\n", pars->file_in);
-	printf("g_jct->cmd_nb = %d\n", g_jct->cmd_nb);
+	printf("pars->jct->cmd_nb = %d\n", pars->jct->cmd_nb);
 	printf("pars->nb_pipe = %d\n", pars->nb_pipe);
-	while (++tab->row < g_jct->cmd_nb && tab->ptr)
+	while (++tab->row < pars->jct->cmd_nb && tab->ptr)
 	{
 		tab->column = -1;
 		while (++tab->column < 4)
@@ -28,18 +28,18 @@ void	ft_fill_tab(t_pars *pars, t_tab *tab)
 				tab->ptr = tab->ptr->next;
 			if (tab->column == tab->ptr->type)
 			{
-				g_jct->tab[tab->row][tab->column] = ft_strdup(tab->ptr->str);
-				printf("str = %s\n", g_jct->tab[tab->row][tab->column]);
+				pars->jct->tab[tab->row][tab->column] = ft_strdup(tab->ptr->str);
+				printf("str = %s\n", pars->jct->tab[tab->row][tab->column]);
 				if (tab->ptr->next)
 					tab->ptr = tab->ptr->next;
 			}
 			else if (tab->column != tab->ptr->type)
 			{
 				if (tab->ptr->type != PIPE)
-					g_jct->tab[tab->row][tab->column] = NULL;
+					pars->jct->tab[tab->row][tab->column] = NULL;
 				else
 					while (tab->column < 4)
-						g_jct->tab[tab->row][tab->column++] = NULL;
+						pars->jct->tab[tab->row][tab->column++] = NULL;
 			}
 		}
 	}
@@ -47,23 +47,23 @@ void	ft_fill_tab(t_pars *pars, t_tab *tab)
 }
 
 /* Initializes the two-dimensionnal array. */
-void	ft_init_cmdtab(void)
+void	ft_init_cmdtab(t_pars *pars)
 {
 	int	i;
 
-	g_jct->tab = ft_calloc(g_jct->cmd_nb + 1, sizeof(char **));
-	if (!g_jct->tab)
+	pars->jct->tab = ft_calloc(pars->jct->cmd_nb + 1, sizeof(char **));
+	if (!pars->jct->tab)
 	{
-		ft_free_3tab(g_jct);
+		ft_free_3tab(pars->jct);
 		return ;
 	}
 	i = -1;
-	while (++i < g_jct->cmd_nb)
+	while (++i < pars->jct->cmd_nb)
 	{
-		g_jct->tab[i] = ft_calloc(4, sizeof(char *));
-		if (!g_jct->tab[i])
+		pars->jct->tab[i] = ft_calloc(4, sizeof(char *));
+		if (!pars->jct->tab[i])
 		{
-			ft_free_3tab(g_jct);
+			ft_free_3tab(pars->jct);
 			return ;
 		}
 	}
@@ -124,12 +124,12 @@ void	ft_parser(t_pars *pars)
 	DEBUG_parser(pars);
 	if (pars->err_parser == false)
 	{
-		g_jct->cmd_nb = pars->nb_pipe;
-		g_jct->exit_status = g_jct->exit_status;
-		ft_init_cmdtab();
+		pars->jct->cmd_nb = pars->nb_pipe;
+		pars->jct->exit_status = pars->jct->exit_status;
+		ft_init_cmdtab(pars);
 		tab = ft_init_tab(pars);
 		ft_fill_tab(pars, tab);
 		free(tab);
-		DEBUG_tab(g_jct);
+		DEBUG_tab(pars->jct);
 	}
 }

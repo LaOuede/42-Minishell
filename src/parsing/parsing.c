@@ -49,6 +49,7 @@ t_pars	*ft_init_pars(char **envp)
 		pars = ft_calloc(1, sizeof(t_pars));
 		pars->input = NULL;
 		pars->line = NULL;
+		pars->jct = ft_init_jct();
 		pars->envp = envp;
 		pars->strlen = 0;
 		pars->nb_pipe = 1;
@@ -89,7 +90,7 @@ void	ft_parsing(t_pars *pars)
 	}
 	if (pars->err_lexer == true || pars->err_rebuilder == true \
 			|| pars->err_parser == true || pars->EXIT_STATUS == true)
-			g_jct->err_pars = true;
+			pars->jct->err_pars = true;
 			ft_reset_pars(pars);
 	printf(KYEL "-------------------- FT_PARSING" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }

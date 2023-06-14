@@ -22,8 +22,6 @@
 # define YEL 	"\x1B[33m"
 # define RESET	"\033[1;0m"
 
-extern t_jct	*g_jct;
-
 typedef struct s_ms
 {
 	struct s_minishell	*parsing;
@@ -46,7 +44,8 @@ typedef struct s_jct
 }			t_jct;
 
 /* 		Jct functions 							*/
-void	ft_free_jct(void);
+t_jct	*ft_init_jct(void);
+void	ft_free_jct(t_jct *jct);
 
 /* 		Signal functions 							*/
 void	sig_handler(int sig);

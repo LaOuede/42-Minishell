@@ -50,10 +50,10 @@ void	ft_child_hd(char *delim, t_pars *pars)
 
 void	exec_hd(t_pars *pars, char *delim, int i)
 {
-	g_jct->fds_in[i] = open("/tmp/here_doc", O_CREAT | O_TRUNC | O_RDWR, 0644);
-	if (g_jct->fds_in[i] < 0)
-		perror("Error ! g_jct->fds_in:");
+	pars->jct->fds_in[i] = open("/tmp/here_doc", O_CREAT | O_TRUNC | O_RDWR, 0644);
+	if (pars->jct->fds_in[i] < 0)
+		perror("Error ! pars->jct->fds_in:");
 	ft_child_hd(delim, pars);
-	close(g_jct->fds_in[i]);
-	g_jct->fds_in[i] = open("/tmp/here_doc", O_RDONLY, 0644);
+	close(pars->jct->fds_in[i]);
+	pars->jct->fds_in[i] = open("/tmp/here_doc", O_RDONLY, 0644);
 }

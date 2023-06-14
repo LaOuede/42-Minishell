@@ -16,6 +16,7 @@ typedef struct s_exec
 	//to keep
 	char	**envp;
 	char	**path_var;
+	struct s_jct	*jct;
 	int		input;
 	char 	*file_in;
 	int		output;

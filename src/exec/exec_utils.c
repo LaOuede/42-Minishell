@@ -169,6 +169,7 @@ t_exec	*ft_init_exec(char **envp, t_jct *jct)
 	if (!exec)
 		perror(NULL);
 	exec->envp = NULL;
+	exec->jct = ft_init_jct();
 	ft_copy_env(exec, envp);
 	exec->path_var = ft_get_path(exec->envp, 0);
 	exec->input = 0;

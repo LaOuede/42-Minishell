@@ -1,15 +1,15 @@
 #include "../../include/minishell.h"
 
-void	ft_free_jct(void)
+void	ft_free_jct(t_jct *jct)
 {
-	if (g_jct)
+	if (jct)
 	{
-		if (g_jct->tab)
-			ft_free_3tab(g_jct);
+		if (jct->tab)
+			ft_free_3tab(jct);
 /* 		printf("TEST = %d\n", g_jct->cmd_nb);
 		if (g_jct->fds)
 			TODO : to do */
-		free(g_jct);
+		free(jct);
 	}
 }
 
