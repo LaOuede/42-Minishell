@@ -61,6 +61,7 @@ int	main(int ac, char **av, char **envp)
 	while (LOULOU_JCT)
 	{
 		pars->input = readline("Minishell > ");
+		printf("pars->input = %s\n", pars->input);
 		if (!pars->input)
 		{
 			printf("exit");
@@ -68,6 +69,7 @@ int	main(int ac, char **av, char **envp)
 		}
 		add_history(pars->input);
 		ft_parsing(pars);
+		printf("jct->err_pars = %d\n", jct->err_pars);
 		if (jct->err_pars == false)
 		{
 			exec = ft_init_exec(envp, jct);

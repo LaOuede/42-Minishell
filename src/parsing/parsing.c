@@ -77,9 +77,12 @@ and then returns a 2D arry to the executioner
 void	ft_parsing(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_PARSING" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
-	if (!pars || !(*pars->input))
-		return ;
 	ft_lexer(pars);
+	if (!pars->line)
+	{
+		pars->jct->err_pars = true;
+		return ;
+	}
 	DEBUG_lexer(pars);
 	if (pars->line && pars->err_lexer == false && pars->EXIT_STATUS == false)
 	{
