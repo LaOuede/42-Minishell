@@ -4,6 +4,8 @@
 #define LOULOU 0
 #define LOULOU_JCT 1
 
+int	g_exit_status;
+
 t_jct	*ft_init_jct(void)
 {
 	static t_jct	*jct;
@@ -15,7 +17,7 @@ t_jct	*ft_init_jct(void)
 		jct->cmd_nb = -1;
 		jct->file_in = 0;
 		jct->file_out = 0;
-		jct->exit_status = -1;
+		//jct->exit_status = -1;
 		jct->fl_redirout = 0;
 		jct->fds_in = NULL;
 		jct->fds_out = NULL;

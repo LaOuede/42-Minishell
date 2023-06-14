@@ -125,7 +125,6 @@ void	ft_parser(t_pars *pars)
 	if (pars->err_parser == false)
 	{
 		pars->jct->cmd_nb = pars->nb_pipe;
-		pars->jct->exit_status = pars->jct->exit_status;
 		ft_init_cmdtab(pars);
 		tab = ft_init_tab(pars);
 		ft_fill_tab(pars, tab);

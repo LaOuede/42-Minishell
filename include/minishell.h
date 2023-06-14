@@ -22,6 +22,8 @@
 # define YEL 	"\x1B[33m"
 # define RESET	"\033[1;0m"
 
+extern int	g_exit_status;
+
 typedef struct s_ms
 {
 	struct s_minishell	*parsing;

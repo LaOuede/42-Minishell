@@ -6,9 +6,10 @@ void	ft_free_jct(t_jct *jct)
 	{
 		if (jct->tab)
 			ft_free_3tab(jct);
-/* 		printf("TEST = %d\n", g_jct->cmd_nb);
-		if (g_jct->fds)
-			TODO : to do */
+		if (jct->fds_in)
+			free(jct->fds_in);
+		if (jct->fds_out)
+			free(jct->fds_out);
 		free(jct);
 	}
 }
