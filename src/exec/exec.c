@@ -83,7 +83,7 @@ void	ft_make_pids(t_exec *exec, t_jct *jct)
 		close(exec->jct->fds_in[i]);
 	if (exec->jct->fds_out[i])
 		close(exec->jct->fds_out[i]);
-	ft_close_pipes(exec);
+	// ft_close_pipes(exec);
 }
 
 char	*ft_cmd_path(t_exec *exec, char *cmds)
@@ -136,26 +136,36 @@ void	ft_dup_process(t_exec *exec, int i)
 {
 	fprintf(stderr, "exec->cmd = %d\n", exec->cmd_nb);
 	fprintf(stderr, "jct->fl_redirout : %d\n", exec->jct->fl_redirout);
-	if (exec->cmd_nb == 1 && !exec->pipes) //cas avc une seule cmd SANS pipe
+	if (exec->cmd_nb == 1) //cas avc une seule cmd SANS pipe
 	{
 		if (exec->jct->tab[i][1]) //cas avc une seule cmd SANS pipe MAIS avec une redirection in
 			dup2(exec->jct->fds_in[i], STDIN_FILENO); //cas redrection in avec une seule cmd
-		if (exec->jct->tab[i][2]) //cas avc une seule cmd SANS pipe MAIS avec une redirection in
+		if (exec->jct->tab[i][2]) //cas avc une seule cmd SANS pipe MAIS avec une redirection out
 			dup2(exec->jct->fds_out[i], STDOUT_FILENO); //cas redrection out avec une seule cmd
+	}
+	if (exec->cmd_nb > 1) //cas avc plus qu'une seule cmd (donc il y a forcement pipes[i][0] et pipes[i][1] créés dans ft_create_pipes)
+	{
+		if (exec->jct->tab[i][2]) //cas avc plus qu'une cmd AVEC pipe ET avec une redirection out
+			dup2(exec->jct->fds_out[i], exec->pipes[1]);
+		else
+		{
+			dup2(exec->pipes[0], STDIN_FILENO);
+			dup2(exec->pipes[1], STDOUT_FILENO);
+		}
 	}
 	//TODO close all input and/or output here (including here_doc)
 	if (exec->jct->fds_in[i])
 		close(exec->jct->fds_in[i]);
 	if (exec->jct->fds_out[i])
 		close(exec->jct->fds_out[i]);
-	ft_close_pipes(exec);
+	// ft_close_pipes(exec);
 }
 
 // void	ft_dup_process(t_exec *exec, int i)
 // {
 // 	fprintf(stderr, "exec->cmd = %d\n", exec->cmd_nb);
 // 	fprintf(stderr, "jct->fl_redirout : %d\n", exec->jct->fl_redirout);
-// 	exec->index = i;
+	
 // 	if (exec->jct->tab[i][1])
 // 	{
 // 		if (exec->jct->fds_in[i])

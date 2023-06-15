@@ -110,7 +110,8 @@ void	ft_free_exec(t_exec *exec)
 	if (exec->path_var)
 		ft_free_tab_char(exec->path_var);
 	if (exec->pipes)
-		ft_free_tab_int(exec->pipes, exec->pipes_nb);
+		ft_freenull(exec->pipes);
+		// ft_free_tab_int(exec->pipes, exec->pipes_nb);
 	if (exec->pids)
 		ft_freenull(exec->pids);
 	if (exec->file_in)
