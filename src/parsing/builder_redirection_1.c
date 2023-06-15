@@ -27,10 +27,8 @@ void	ft_merge_angle_brackets_out(t_pars *pars)
 	printf(KYEL "-------------------- FT_MERGE_ANGLE_BRACKETS_OUT" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr;
 	t_token	*sup;
-	char	*new_str;
 
 	ptr = pars->line;
-	new_str = NULL;
 	while (ptr->next)
 	{
 		printf("str = %s\n", ptr->str);
@@ -56,10 +54,8 @@ void	ft_merge_angle_brackets_in(t_pars *pars)
 	printf(KYEL "-------------------- FT_MERGE_ANGLE_BRACKETS_IN" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr;
 	t_token	*sup;
-	char	*new_str;
 
 	ptr = pars->line;
-	new_str = NULL;
 	while (ptr->next)
 	{
 		printf("str = %s\n", ptr->str);

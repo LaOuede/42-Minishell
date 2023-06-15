@@ -87,7 +87,7 @@ run: all
 
 # -- Create directory for *.o files -- #
 dir :
-	@mkdir -p $(OBJS_DIR) $(OBJS_DIR)parsing $(OBJS_DIR)exec $(OBJS_DIR)sig
+	@mkdir -p $(OBJS_DIR) $(OBJS_DIR)parsing $(OBJS_DIR)exec $(OBJS_DIR)sig $(OBJS_DIR)built_in
 	@mkdir -p $(LIBRLINE_DIR)
 
 leak: CFLAGS += -g
@@ -115,7 +115,7 @@ readline :
 clean :
 	@make -C $(LIBFT_DIR) clean
 	@printf "💥 $(RED)Removing $(NAME)'s objects...$(RESET)\t\t\t💥\n"
-	@$(RM) $(OBJS_DIR) $(OBJS_DIR)parsing $(OBJS_DIR)exec $(OBJS_DIR)sig
+	@$(RM) $(OBJS_DIR) $(OBJS_DIR)parsing $(OBJS_DIR)exec $(OBJS_DIR)sig $(OBJS_DIR)built_in
 	@printf "🗑️  $(CYAN)$(NAME)'s object successfully deleted.$(RESET)\t\t🗑️\n"
 
 # -- Removes objects (with clean) and executable -- #
