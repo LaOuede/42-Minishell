@@ -15,6 +15,8 @@ RM			=	rm -rf
 SRCS_DIR	=	./src/
 SRCS_LST	= 	built_in/built_in.c \
 				built_in/echo.c \
+				built_in/env.c \
+				built_in/pwd.c \
 				DEBUG_parsing.c \
 				exec/exec_hd.c \
 				exec/exec_utils.c \

@@ -10,4 +10,18 @@ Prototype :
 	env
 */
 
+void	ft_msh_env(t_exec *exec)
+{
+	printf(KYEL "-------------------- FT_MSH_ENV" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	int	i;
 
+	i = -1;
+	if (exec->envp)
+	{
+		while (exec->envp[++i])
+			printf("%s\n", exec->envp[i]);
+		if (exec->jct->cmd_nb == 1)
+			exit(EXIT_SUCCESS);
+	}
+	printf(KYEL "-------------------- FT_MSH_ENV" KRED " END " RESET KYEL "--------------------\n" RESET);
+}

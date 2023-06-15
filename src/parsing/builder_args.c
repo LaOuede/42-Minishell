@@ -16,7 +16,8 @@ void	ft_merge_all_arg(t_pars *pars)
 			if (ptr1->type == ARG && ptr2->type == ARG)
 			{
 				if (ptr2->ws == 1)
-					ptr1->str = ft_strjoin_char(ptr1->str, ' ');
+					//ptr1->str = ft_strjoin_char(ptr1->str, ' ');
+					ptr1->str = ft_strjoin_char(ptr1->str, "\0");
 				ft_merge(ptr1, ptr2);
 				ptr2->type = ERROR;
 			}

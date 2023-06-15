@@ -33,20 +33,20 @@ bool	ft_flag(char *str, int *j)
 	return (false);
 }
 
-void	ft_msh_echo(t_jct *jct, int i)
+void	ft_msh_echo(t_exec *exec, int i)
 {
 	printf(KYEL "-------------------- FT_MSH_ECHO" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	int	j;
 
 	j = 0;
-	if (jct->tab[i][1])
+	if (exec->jct->tab[i][1])
 	{
-		if (ft_flag(jct->tab[i][1], &j) == true)
-			ft_print(jct->tab[i][1], j);
+		if (ft_flag(exec->jct->tab[i][1], &j) == true)
+			ft_print(exec->jct->tab[i][1], j);
 		else
 		{
 			j = -1;
-			ft_print(jct->tab[i][1], j);
+			ft_print(exec->jct->tab[i][1], j);
 			write(1, "\n", 1);
 		}
 	}
