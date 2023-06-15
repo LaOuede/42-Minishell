@@ -14,4 +14,31 @@ Exit Status :
 	>0 An error occurred
 */
 
+/* GETCWD
+Definition :
+	It determines the path name of the working directory and stores it in buffer.
+Return value :
+	If successful, getcwd() returns a pointer to the buffer.
+	If unsuccessful, getcwd() returns a NULL pointer and sets errno to a value.
+*/
+void	ft_msh_pwd(t_exec *exec)
+{
+	printf(KYEL "-------------------- FT_MSH_PWD" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	char *buf;
 
+	buf = getcwd(NULL, sizeof(buf));
+	if (buf)
+	{
+		printf("buf = %s\n", buf);
+		if (exec->jct->cmd_nb == 1)
+			exit(EXIT_SUCCESS);
+	}
+	else
+	{
+		printf("ERROR\n");
+		// TODO error message to setup and exit_status to define
+		if (exec->jct->cmd_nb == 1)
+			exit(EXIT_FAILURE);
+	}
+	printf(KYEL "-------------------- FT_MSH_PWD" KRED " END " RESET KYEL "--------------------\n" RESET);
+}
