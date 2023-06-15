@@ -30,36 +30,43 @@ int		(*builtin_fct[])(char **) = \
 void	ft_is_builtin(t_exec *exec, int i)
 {
 	printf(KYEL "-------------------- FT_IS_BUILTIN" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	char	*cmd;
+	char	**cmd;
 
-	cmd = exec->jct->tab[i][0];
-	if (strcmp(cmd, "echo") == 0)
-		ft_msh_echo(exec, i);
+	cmd = ft_split(exec->jct->tab[i][0], ' ');
+	if (strcmp(cmd[0], "echo") == 0)
+		ft_msh_echo(cmd);
 /* 	else if (strcmp(cmd, "cd") == 0)
 		ft_msh_cd(); */
-	else if (strcmp(cmd, "pwd") == 0)
+	else if (strcmp(cmd[0], "pwd") == 0)
 		ft_msh_pwd(exec);
 /* 	else if (strcmp(cmd, "export") == 0)
 		ft_msh_export();
 	else if (strcmp(cmd, "unset") == 0)
 		ft_msh_unseto(); */
-	else if (strcmp(cmd, "env") == 0)
+	else if (strcmp(cmd[0], "env") == 0)
 		ft_msh_env(exec);
 /* 	else if (strcmp(cmd, "exit") == 0)
 		ft_msh_exit(); */
+		ft_free_tab_char(cmd);
 	printf(KYEL "-------------------- FT_IS_BUILTIN" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
 bool	ft_check_builtin(t_exec *exec, int i)
 {
-	char	*cmd;
+	char	**cmd;
 
-	cmd = exec->jct->tab[i][0];
-	if (strcmp(cmd, "echo") == 0 || strcmp(cmd, "cd") == 0 || \
-		strcmp(cmd, "pwd") == 0 || strcmp(cmd, "export") == 0 || \
-		strcmp(cmd, "unset") == 0 || strcmp(cmd, "env") == 0 || \
-		strcmp(cmd, "exit") == 0)
+	cmd = ft_split(exec->jct->tab[i][0], ' ');
+	if (strcmp(cmd[0], "echo") == 0 || strcmp(cmd[0], "cd") == 0 || \
+		strcmp(cmd[0], "pwd") == 0 || strcmp(cmd[0], "export") == 0 || \
+		strcmp(cmd[0], "unset") == 0 || strcmp(cmd[0], "env") == 0 || \
+		strcmp(cmd[0], "exit") == 0)
+	{
+		ft_free_tab_char(cmd);
 		return (true);
+	}
 	else
+	{
+		ft_free_tab_char(cmd);
 		return (false);
+	}
 }
