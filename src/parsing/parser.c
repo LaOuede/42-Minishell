@@ -20,7 +20,7 @@ void	ft_fill_tab(t_pars *pars, t_tab *tab)
 	while (++tab->row < pars->jct->cmd_nb && tab->ptr)
 	{
 		tab->column = -1;
-		while (++tab->column < 4)
+		while (++tab->column < 3)
 		{
 			printf("column = %d\n", tab->column);
 			printf("ptr->type = %d\n", tab->ptr->type);
@@ -38,7 +38,7 @@ void	ft_fill_tab(t_pars *pars, t_tab *tab)
 				if (tab->ptr->type != PIPE)
 					pars->jct->tab[tab->row][tab->column] = NULL;
 				else
-					while (tab->column < 4)
+					while (tab->column < 3)
 						pars->jct->tab[tab->row][tab->column++] = NULL;
 			}
 		}
@@ -60,7 +60,7 @@ void	ft_init_cmdtab(t_pars *pars)
 	i = -1;
 	while (++i < pars->jct->cmd_nb)
 	{
-		pars->jct->tab[i] = ft_calloc(4, sizeof(char *));
+		pars->jct->tab[i] = ft_calloc(3, sizeof(char *));
 		if (!pars->jct->tab[i])
 		{
 			ft_free_3tab(pars->jct);

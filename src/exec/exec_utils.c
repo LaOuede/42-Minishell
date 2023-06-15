@@ -82,7 +82,7 @@ char	*ft_free_2char(char **tab)
 	int	i;
 
 	i = -1;
-	while (++i < 4)
+	while (++i < 3)
 		free(tab[i]);
 	free(tab);
 	return (0);

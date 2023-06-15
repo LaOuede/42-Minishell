@@ -11,9 +11,9 @@ void	ft_merge_all_arg(t_pars *pars)
 	while (ptr1->next != NULL)
 	{
 		ptr2 = ptr1->next;
-		while (ptr2 && ptr2->type != 4)
+		while (ptr2 && ptr2->type != PIPE)
 		{
-			if (ptr1->type == ARG && ptr2->type == ARG)
+			if ((ptr1->type == ARG || ptr1->type == CMD) && ptr2->type == ARG)
 			{
 				if (ptr2->ws == 1)
 					ptr1->str = ft_strjoin_char(ptr1->str, ' ');
@@ -63,7 +63,7 @@ void	ft_merge_arg(t_pars *pars)
 	while (ptr1->next)
 	{
 		ptr2 = ptr1->next;
-		while (ptr2 && ptr2->type != 4)
+		while (ptr2 && ptr2->type != PIPE)
 		{
 			if (ptr1->type == ARG && ptr2->type == ARG && ptr2->ws == 0)
 			{

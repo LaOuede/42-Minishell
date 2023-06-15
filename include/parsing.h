@@ -30,10 +30,10 @@ enum e_token_type
 {
 	ERROR = -1,
 	CMD = 0,
-	ARG = 1,
-	REDIN = 2,
-	REDOUT = 3,
-	PIPE = 4,
+	REDIN = 1,
+	REDOUT = 2,
+	PIPE = 3,
+	ARG = 4,
 	EXPAND = 5,
 };
 

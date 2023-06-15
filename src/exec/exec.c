@@ -115,18 +115,19 @@ char	*ft_cmd_path(t_exec *exec, char *cmds)
 void	ft_run_cmd(t_exec *exec, t_jct *jct, int r)
 {
 	char	*path;
+	char	**opt;
 	char	***cmds;
 
 	cmds = jct->tab;
 	// fprintf(stderr, "cmd[%d][0] = %s\n", r, cmds[r][0]);
 	// fprintf(stderr, "cmd[%d][1] = %s\n", r, cmds[r][1]);
 	// fprintf(stderr, "cmd[%d][2] = %s\n", r, cmds[r][2]);
-	// fprintf(stderr, "cmd[%d][3] = %s\n", r, cmds[r][3]);
-	path = ft_cmd_path(exec, cmds[r][0]);
+	opt = ft_split(cmds[r][0], ' ');
+	path = ft_cmd_path(exec, opt[0]);
 	fprintf(stderr, "path = %s\n", path);
 	if (!path)
 		free(path);
-	else if (execve(path, cmds[r], exec->envp) < 0)
+	else if (execve(path, opt, exec->envp) < 0)
 		perror("Error ! Something went wrong while executing: ");
 	//TODO ft_err exit if there is an error, so the below will never be executed
 }
@@ -145,7 +146,7 @@ void	ft_dup_process(t_exec *exec, int i)
 	// }
 	// else
 	// 	dup2(exec->pipes[i - 1][0], STDIN_FILENO);
-	if (exec->jct->tab[i][2])
+	if (exec->jct->tab[i][1])
 	{
 		if (exec->jct->fds_in[i])
 		{
@@ -157,7 +158,7 @@ void	ft_dup_process(t_exec *exec, int i)
 	}
 	else
 		dup2(0, STDIN_FILENO);
-	if (exec->jct->tab[i][3])
+	if (exec->jct->tab[i][2])
 	{
 		if (exec->jct->fds_out[i])
 		{

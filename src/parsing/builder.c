@@ -70,7 +70,7 @@ void	ft_swap_node(t_pars *pars)
 	while (ptr1->next != NULL)
 	{
 		ptr2 = ptr1->next;
-		while (ptr2 && ptr2->type != 4)
+		while (ptr2 && ptr2->type != PIPE)
 		{
 			if (ptr1->type > ptr2->type && ptr1->type != PIPE \
 				&& ptr2->type != PIPE)

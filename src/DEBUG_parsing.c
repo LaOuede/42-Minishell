@@ -16,7 +16,7 @@ void	DEBUG_tab(t_jct *jct)
 	while (++row < jct->cmd_nb)
 	{
 		column = -1;
-		while (++column < 4)
+		while (++column < 3)
 			printf(KMAG KBLD"[%d][%d] = %s\n"RESET, row, column, tab[row][column]);
 	}
 }
