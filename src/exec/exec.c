@@ -136,40 +136,13 @@ void	ft_dup_process(t_exec *exec, int i)
 {
 	fprintf(stderr, "exec->cmd = %d\n", exec->cmd_nb);
 	fprintf(stderr, "jct->fl_redirout : %d\n", exec->jct->fl_redirout);
-	exec->index = i;
-	// if (exec->index == 0) //si t'es la 1ere commande
-	// {
-	// 	if (exec->input)
-	// 		dup2(exec->input, STDIN_FILENO);
-	// 	else
-	// 		dup2(0, STDIN_FILENO);
-	// }
-	// else
-	// 	dup2(exec->pipes[i - 1][0], STDIN_FILENO);
-	if (exec->jct->tab[i][1])
+	if (exec->cmd_nb == 1 && !exec->pipes) //cas avc une seule cmd SANS pipe
 	{
-		if (exec->jct->fds_in[i])
-		{
-			fprintf(stderr, "Dup2 exec->input\n");
-			fprintf(stderr, "exec->jct->fds_in[%d] = %d\n", i, exec->jct->fds_in[i]);
-			dup2(exec->jct->fds_in[i], STDIN_FILENO);
-		}
-		// dup2(exec->pipes[i][1], STDOUT_FILENO);
+		if (exec->jct->tab[i][1]) //cas avc une seule cmd SANS pipe MAIS avec une redirection in
+			dup2(exec->jct->fds_in[i], STDIN_FILENO); //cas redrection in avec une seule cmd
+		if (exec->jct->tab[i][2]) //cas avc une seule cmd SANS pipe MAIS avec une redirection in
+			dup2(exec->jct->fds_out[i], STDOUT_FILENO); //cas redrection out avec une seule cmd
 	}
-	else
-		dup2(0, STDIN_FILENO);
-	if (exec->jct->tab[i][2])
-	{
-		if (exec->jct->fds_out[i])
-		{
-			fprintf(stderr, "Dup2 exec->output\n");
-			fprintf(stderr, "exec->jct->fds_out[%d] = %d\n", i, exec->jct->fds_out[i]);
-			dup2(exec->jct->fds_out[i], STDOUT_FILENO);
-		}
-		// dup2(exec->pipes[i][1], STDOUT_FILENO);
-	}
-	else
-		dup2(1, STDOUT_FILENO);
 	//TODO close all input and/or output here (including here_doc)
 	if (exec->jct->fds_in[i])
 		close(exec->jct->fds_in[i]);
@@ -177,6 +150,43 @@ void	ft_dup_process(t_exec *exec, int i)
 		close(exec->jct->fds_out[i]);
 	ft_close_pipes(exec);
 }
+
+// void	ft_dup_process(t_exec *exec, int i)
+// {
+// 	fprintf(stderr, "exec->cmd = %d\n", exec->cmd_nb);
+// 	fprintf(stderr, "jct->fl_redirout : %d\n", exec->jct->fl_redirout);
+// 	exec->index = i;
+// 	if (exec->jct->tab[i][1])
+// 	{
+// 		if (exec->jct->fds_in[i])
+// 		{
+// 			fprintf(stderr, "Dup2 exec->input\n");
+// 			fprintf(stderr, "exec->jct->fds_in[%d] = %d\n", i, exec->jct->fds_in[i]);
+// 			dup2(exec->jct->fds_in[i], STDIN_FILENO);
+// 		}
+// 		// dup2(exec->pipes[i][1], STDOUT_FILENO);
+// 	}
+// 	else
+// 		dup2(0, STDIN_FILENO);
+// 	if (exec->jct->tab[i][2])
+// 	{
+// 		if (exec->jct->fds_out[i])
+// 		{
+// 			fprintf(stderr, "Dup2 exec->output\n");
+// 			fprintf(stderr, "exec->jct->fds_out[%d] = %d\n", i, exec->jct->fds_out[i]);
+// 			dup2(exec->jct->fds_out[i], STDOUT_FILENO);
+// 		}
+// 		// dup2(exec->pipes[i][1], STDOUT_FILENO);
+// 	}
+// 	else
+// 		dup2(1, STDOUT_FILENO);
+// 	//TODO close all input and/or output here (including here_doc)
+// 	if (exec->jct->fds_in[i])
+// 		close(exec->jct->fds_in[i]);
+// 	if (exec->jct->fds_out[i])
+// 		close(exec->jct->fds_out[i]);
+// 	ft_close_pipes(exec);
+// }
 
 void	ft_exec(t_exec *exec, t_jct *jct)
 {
