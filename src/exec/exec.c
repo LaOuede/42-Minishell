@@ -58,11 +58,11 @@ void	ft_make_pids(t_exec *exec, t_jct *jct)
 	// fd_out = dup(STDOUT_FILENO);
 	while (++i < exec->cmd_nb)
 	{
-/* 		if (ft_check_builtin(exec, i) == true)
+		if (ft_check_builtin(exec, i) == true)
 		{
 			ft_is_builtin(exec, i);
 			exit(EXIT_SUCCESS);
-		} */
+		}
 		exec->pids[i] = fork();
 		if (exec->pids[i] == -1)
 			perror("Error ! Pid creation failed:");

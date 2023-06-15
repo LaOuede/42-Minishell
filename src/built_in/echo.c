@@ -9,45 +9,43 @@ Flag -n :
 	Omit newline from the output.
 */
 
-void	ft_print(char *str, int j)
-{
-	while (str[++j])
-		write(1, &str[j], 1);
-	return ;
-}
-
-bool	ft_flag(char *str, int *j)
+bool	ft_flag(char *str)
 {
 	printf(KYEL "-------------------- FT_FLAG" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	int	i;
 
-	if (str[(*j)] == '-')
+	i = 0;
+	if (str[(i)] == '-')
 	{
-		while (str[(*j)++])
+		while (str[++i])
 		{
-			if (ft_iswhitespace(str[(*j)]) == 1)
-				return (true);
-			if (str[(*j)] != 'n')
+			printf("char = %c\n", str[i]);
+			if (str[i] != 'n')
 				return (false);
 		}
+		return (true);
 	}
 	return (false);
 }
 
-void	ft_msh_echo(t_exec *exec, int i)
+void	ft_msh_echo(char **cmd)
 {
 	printf(KYEL "-------------------- FT_MSH_ECHO" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	int	j;
+	int	i;
 
-	j = 0;
-	if (exec->jct->tab[i][1])
+	i = 1;
+	if (cmd[1])
 	{
-		if (ft_flag(exec->jct->tab[i][1], &j) == true)
-			ft_print(exec->jct->tab[i][1], j);
+			printf("flag = %d\n", ft_flag(cmd[1]));
+		if (ft_flag(cmd[1]) == true)
+			while (cmd[++i])
+				printf("%s ", cmd[i]);
 		else
 		{
-			j = -1;
-			ft_print(exec->jct->tab[i][1], j);
-			write(1, "\n", 1);
+			i = 0;
+			while (cmd[++i])
+				printf("%s ", cmd[i]);
+			printf("\n");
 		}
 	}
 	printf(KYEL "-------------------- FT_MSH_ECHO" KRED " END " RESET KYEL "--------------------\n" RESET);
