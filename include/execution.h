@@ -27,7 +27,8 @@ typedef struct s_exec
 	int		fl_hd_out;
 	int		fl_hd_in;
 	pid_t	*pids;
-	int		**pipes;
+	// int		**pipes;
+	int		*pipes;
 	//to delete - will be in t_jct
 	int		cmd_nb;
 	int		pipes_nb;
