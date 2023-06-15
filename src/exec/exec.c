@@ -1,48 +1,6 @@
 #include "../../include/minishell.h"
 
-void	ft_is_redirection(t_exec *exec, t_jct *jct)
-{
-	char	***cmds_tab;
-	int		i;
-
-	if (!jct->tab)
-		return ;
-	cmds_tab = jct->tab;
-	printf("---		ft_is_redirection starts	---\n");
-	i = 0;
-	
-	if (jct->fl_redirout != 0)
-    {
-        exec->output = dup(jct->file_out);
-        close(jct->file_out);
-    }
-    if (exec->input)
-    {
-        exec->input = dup(jct->file_in);
-        close(jct->file_in);
-    }
-	
-	// while (cmds_tab[i])
-	// {
-	// 	if (cmds_tab[i][2])
-	// 	{
-	// 		exec->input = dup(jct->file_in);
-	// 		close(jct->file_in);
-	// 		printf("exec->input : %d\n", exec->input);
-	// 	}
-	// 	if (cmds_tab[i][3])
-	// 	{
-	// 		if(jct->fl_redirout > 0)
-	// 		{
-	// 			exec->output = dup(jct->file_out);
-	// 			close(jct->file_out);
-	// 		}
-	// 		printf("exec->output : %d\n", exec->output);
-	// 	}
-	// 	i++;
-	// }
-	printf("---		ft_is_redirection ends	---\n");
-}
+#define TEST 0
 
 void	ft_make_pids(t_exec *exec, t_jct *jct)
 {
@@ -136,21 +94,39 @@ void	ft_dup_process(t_exec *exec, int i)
 {
 	fprintf(stderr, "exec->cmd = %d\n", exec->cmd_nb);
 	fprintf(stderr, "jct->fl_redirout : %d\n", exec->jct->fl_redirout);
-	if (exec->cmd_nb == 1) //cas avc une seule cmd SANS pipe
-	{
-		if (exec->jct->tab[i][1]) //cas avc une seule cmd SANS pipe MAIS avec une redirection in
-			dup2(exec->jct->fds_in[i], STDIN_FILENO); //cas redrection in avec une seule cmd
-		if (exec->jct->tab[i][2]) //cas avc une seule cmd SANS pipe MAIS avec une redirection out
-			dup2(exec->jct->fds_out[i], STDOUT_FILENO); //cas redrection out avec une seule cmd
-	}
-	if (exec->cmd_nb > 1) //cas avc plus qu'une seule cmd (donc il y a forcement pipes[i][0] et pipes[i][1] créés dans ft_create_pipes)
-	{
-		if (exec->jct->tab[i][2]) //cas avc plus qu'une cmd AVEC pipe ET avec une redirection out
-			dup2(exec->jct->fds_out[i], exec->pipes[1]);
-		else
+
+	if(TEST){
+		//cas ou on est forcement  la premiere command (donc pas de tab precedent)
+		if(!exec->jct->tab[i - 1]) 
 		{
-			dup2(exec->pipes[0], STDIN_FILENO);
-			dup2(exec->pipes[1], STDOUT_FILENO);
+			if(exec->jct->tab[i][1] && !exec->jct->tab[i + 1][1]) //cas ou il y a une redirection in et PAS de pipe (donc pas de tab[i + 1])
+				dup2(exec->jct->fds_in[i], STDIN_FILENO);
+			dup2(exec->jct->fds_in[i], exec->pipes[0]); //cas ou il y a une redirection in 
+		}
+
+		//cas ou on est la comand du milieu (tab precedent ET suivant existent)
+		// if (exec->jct->tab[i - 1] && exec->jct->tab[i + 1])
+		
+		//cas ou on est la derniere commande (tab precedent existe mais pas tab suivante)
+		// if (exec->jct->tab[i - 1] && !exec->jct->tab[i + 1])
+	}
+	else{
+		if (exec->cmd_nb == 1) //cas avc une seule cmd SANS pipe
+		{
+			if (exec->jct->tab[i][1]) //cas avc une seule cmd SANS pipe MAIS avec une redirection in
+				dup2(exec->jct->fds_in[i], STDIN_FILENO); //cas redrection in avec une seule cmd
+			if (exec->jct->tab[i][2]) //cas avc une seule cmd SANS pipe MAIS avec une redirection out
+				dup2(exec->jct->fds_out[i], STDOUT_FILENO); //cas redrection out avec une seule cmd
+		}
+		if (exec->cmd_nb > 1) //cas avc plus qu'une seule cmd (donc il y a forcement pipes[i][0] et pipes[i][1] créés dans ft_create_pipes)
+		{
+			if (exec->jct->tab[i][2]) //cas avc plus qu'une cmd AVEC pipe ET avec une redirection out
+				dup2(exec->jct->fds_out[i], exec->pipes[1]);
+			else
+			{
+				dup2(exec->pipes[0], STDIN_FILENO);
+				dup2(exec->pipes[1], STDOUT_FILENO);
+			}
 		}
 	}
 	//TODO close all input and/or output here (including here_doc)
@@ -203,7 +179,6 @@ void	ft_exec(t_exec *exec, t_jct *jct)
 	int	i;
 	int	status;
 
-	// ft_is_redirection(exec, jct);
 	if (ft_create_pipes(exec) == 2)
 		return ;
 	ft_make_pids(exec, jct);
