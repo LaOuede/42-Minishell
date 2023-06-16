@@ -6,7 +6,7 @@
 /*   By: csenand <csenand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:10:07 by gle-roux          #+#    #+#             */
-/*   Updated: 2023/05/16 15:17:31 by csenand          ###   ########.fr       */
+/*   Updated: 2023/06/16 15:01:34 by csenand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,7 @@ int		ft_strchr_new_line(char *save);
 char	*ft_strdup_gnl(char *save);
 char	*ft_strnjoin(char *temp, char *buf);
 void	*ft_free(char *str1, char *str2);
+
+int		ft_char_tab_len(char **tab);
 
 #endif
