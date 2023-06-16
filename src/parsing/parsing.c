@@ -5,9 +5,9 @@ t_tab	*ft_init_tab(t_pars *pars)
 	t_tab	*tab;
 
 	tab = ft_calloc(1, sizeof(t_tab));
+	tab->ptr = pars->line;
 	tab->row = -1;
 	tab->column = -1;
-	tab->ptr = pars->line;
 	return (tab);
 }
 
@@ -22,22 +22,23 @@ void	ft_reset_node(t_pars *pars)
 void	ft_reset_pars(t_pars *pars)
 {
 	ft_free_lst(&pars->line);
-	pars->input = NULL;
 	pars->line = NULL;
+	pars->input = NULL;
 	pars->strlen = 0;
 	pars->nb_pipe = 1;
 	pars->type = ARG;
-	pars->d_quotes = 0;
 	pars->s_quotes = 0;
+	pars->d_quotes = 0;
 	pars->c_brackets = 0;
 	pars->flag_whitespace = 0;
-	pars->file_in = -1;
-	pars->file_out = -1;
-	pars->EXIT_STATUS = false;
-	pars->fl_redirout = 0;
 	pars->err_lexer = false;
 	pars->err_rebuilder = false;
 	pars->err_parser = false;
+	pars->EXIT_STATUS = false;
+	//TODO do we still need those 3 variables ?
+	pars->file_in = -1;
+	pars->file_out = -1;
+	pars->fl_redirout = 0;
 }
 
 t_pars	*ft_init_pars(char **envp)
@@ -47,9 +48,9 @@ t_pars	*ft_init_pars(char **envp)
 	if (!pars)
 	{
 		pars = ft_calloc(1, sizeof(t_pars));
-		pars->input = NULL;
-		pars->line = NULL;
 		pars->jct = ft_init_jct();
+		pars->line = NULL;
+		pars->input = NULL;
 		pars->envp = envp;
 		pars->strlen = 0;
 		pars->nb_pipe = 1;
@@ -58,14 +59,15 @@ t_pars	*ft_init_pars(char **envp)
 		pars->s_quotes = 0;
 		pars->c_brackets = 0;
 		pars->flag_whitespace = 0;
-		//TODO check if it needs to be -1 or 0 (may trigger an error if -1)
-		pars->file_in = -1;
-		pars->file_out = -1;
-		pars->EXIT_STATUS = false;
-		pars->fl_redirout = 0;
 		pars->err_lexer = false;
 		pars->err_rebuilder = false;
 		pars->err_parser = false;
+		pars->EXIT_STATUS = false;
+		//TODO do we still need those 3 variables ?
+		//TODO check if it needs to be -1 or 0 (may trigger an error if -1)
+		pars->file_in = -1;
+		pars->file_out = -1;
+		pars->fl_redirout = 0;
 	}
 	return (pars);
 }
@@ -79,10 +81,7 @@ void	ft_parsing(t_pars *pars)
 	printf(KYEL "-------------------- FT_PARSING" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 	ft_lexer(pars);
 	if (!pars->line)
-	{
-		pars->jct->err_pars = true;
-		return ;
-	}
+		pars->err_lexer = true;
 	DEBUG_lexer(pars);
 	if (pars->line && pars->err_lexer == false && pars->EXIT_STATUS == false)
 	{
@@ -94,7 +93,7 @@ void	ft_parsing(t_pars *pars)
 	if (pars->err_lexer == true || pars->err_rebuilder == true \
 			|| pars->err_parser == true || pars->EXIT_STATUS == true)
 			pars->jct->err_pars = true;
-			ft_reset_pars(pars);
+	ft_reset_pars(pars);
 	printf(KYEL "-------------------- FT_PARSING" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }
 

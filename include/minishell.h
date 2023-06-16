@@ -22,8 +22,6 @@
 # define YEL 	"\x1B[33m"
 # define RESET	"\033[1;0m"
 
-extern int	g_exit_status;
-
 typedef struct s_ms
 {
 	struct s_minishell	*parsing;
@@ -33,16 +31,16 @@ typedef struct s_ms
 //	Struct prototype to make the junction between the parsing and the execution
 typedef struct s_jct
 {
-	char	***tab;
-	int		pipe_nb;
-	int		cmd_nb;
-	int		file_out;
-	int		file_in;
-	int		exit_status;
-	int		fl_redirout;
 	int		*fds_in;
 	int		*fds_out;
+	char	***tab;
+	int		cmd_nb;
 	bool	err_pars;
+	int		exit_status;
+	//TODO do we still need those 3 variables ?
+	int		file_in;
+	int		file_out;
+	int		fl_redirout;
 }			t_jct;
 
 /* 		Jct functions 							*/

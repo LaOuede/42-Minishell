@@ -76,9 +76,9 @@ char	*ft_stock_quotes(int *i, char *str, t_pars *pars)
 void	ft_d_quotes_token(int *i, t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_D_QUOTES_TOKEN" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
-	char	*str;
 	int		j;
 	size_t	len;
+	char	*str;
 
 	str = NULL;
 	pars->d_quotes = OPEN;

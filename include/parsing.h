@@ -52,16 +52,15 @@ enum e_step
 
 typedef struct s_tab
 {
+	struct s_token	*ptr;
 	int				row;
 	int				column;
-	struct s_token	*ptr;
 }	t_tab;
 
 // prototype de la liste chainee token
 typedef struct s_token
 {
 	int				type;
-	int				tab_type;
 	char			*str;
 	int				s_quotes;
 	int				d_quotes;
@@ -74,8 +73,8 @@ typedef struct s_token
 // Parsing main structure prototype... incomplete
 typedef struct s_pars
 {
-	struct s_token	*line;
 	struct s_jct	*jct;
+	struct s_token	*line;
 	char			*input;
 	char			**envp;
 	size_t			strlen;
@@ -86,13 +85,14 @@ typedef struct s_pars
 	int				c_brackets;
 	int				p_brackets;
 	int				flag_whitespace;
-	int				file_out;
-	int				file_in;
-	int				fl_redirout;
-	bool			EXIT_STATUS;
 	bool			err_lexer;
 	bool			err_rebuilder;
 	bool			err_parser;
+	bool			EXIT_STATUS;
+	//TODO do we still need those 3 variables ?
+	int				file_out;
+	int				file_in;
+	int				fl_redirout;
 }	t_pars;
 
 /* 		Debug functions 							*/

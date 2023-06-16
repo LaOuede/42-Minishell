@@ -3,8 +3,8 @@
 void	ft_check_error_redir(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_CHECK_REDIR" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	t_token	*ptr;
 	int		len;
+	t_token	*ptr;
 
 	if (!pars->line)
 		return ;

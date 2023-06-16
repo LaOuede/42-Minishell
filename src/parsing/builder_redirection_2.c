@@ -55,9 +55,9 @@ void	ft_merge_allredout(t_pars *pars)
 void	ft_create_file(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_CREATE_FILE" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	int		i;
 	char	*str;
 	t_token	*ptr;
-	int		i;
 
 	i = 0;
 	str = ">>";
@@ -90,9 +90,9 @@ void	ft_create_file(t_pars *pars)
 void	ft_open_file(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_OPEN_FILE" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	int		i;
 	char	*str;
 	t_token	*ptr;
-	int		i;
 
 	i = 0;
 	str = "<<";

@@ -3,11 +3,11 @@
 void	ft_merge(t_token *node, t_token *next)
 {
 	printf(KYEL "-------------------- FT_MERGE" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	char	*new_str;
 	char	*tmp;
+	char	*new_str;
 
-	new_str = NULL;
 	tmp = NULL;
+	new_str = NULL;
 	new_str = ft_strjoin(node->str, next->str);
 	tmp = node->str;
 	node->str = ft_strdup(new_str);

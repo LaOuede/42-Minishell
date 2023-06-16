@@ -4,8 +4,6 @@
 #define LOULOU 0
 #define LOULOU_JCT 1
 
-int	g_exit_status;
-
 t_jct	*ft_init_jct(void)
 {
 	static t_jct	*jct;
@@ -13,15 +11,16 @@ t_jct	*ft_init_jct(void)
 	if (!jct)
 	{
 		jct = ft_calloc(1, sizeof(t_jct));
-		jct->tab = NULL;
-		jct->cmd_nb = -1;
-		jct->file_in = 0;
-		jct->file_out = 0;
-		//jct->exit_status = -1;
-		jct->fl_redirout = 0;
 		jct->fds_in = NULL;
 		jct->fds_out = NULL;
+		jct->tab = NULL;
+		jct->cmd_nb = -1;
 		jct->err_pars = false;
+		jct->exit_status = 0;
+		//TODO do we still need those 3 variables ?
+		jct->file_in = 0;
+		jct->file_out = 0;
+		jct->fl_redirout = 0;
 	}
 	return (jct);
 }
@@ -37,11 +36,11 @@ int	main(int ac, char **av, char **envp)
 	t_pars	*pars;
 	t_exec	*exec;
 	t_jct	*jct;
-	int		test_mem;
+	//int		test_mem;
 
 	// printf("\n😈😈😈 Welcome to minishell ... or should I say " RED"🔥 MINIHELLLL 🔥 😈😈😈\n\n"WHT);
 	// (void)test_mem;
-	test_mem = 1;
+	//test_mem = 1;
 	if (ac != 1)
 	{
 		printf("Too many arguments\nUsage: ./minishell\n");
@@ -80,7 +79,7 @@ int	main(int ac, char **av, char **envp)
 			ft_free_exec(exec);
 		}
 		jct->err_pars = false;
-		test_mem -= 1;
+		//test_mem -= 1;
 	}
 	
 	//TODO need to implement a fct that clears the history (fct clear_history exist in history.h)

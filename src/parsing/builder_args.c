@@ -30,11 +30,11 @@ void	ft_merge_all_arg(t_pars *pars)
 void	ft_find_cmd(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_FIND_CMD" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	t_token	*ptr;
 	bool	flag;
+	t_token	*ptr;
 
-	ptr = pars->line;
 	flag = true;
+	ptr = pars->line;
 	while (ptr)
 	{
 		printf("ptr->type before = %d\n", ptr->type);
