@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-#define TEST 0
+#define TEST 1
 
 void	ft_make_pids(t_exec *exec, t_jct *jct)
 {
@@ -93,23 +93,36 @@ void	ft_run_cmd(t_exec *exec, t_jct *jct, int r)
 void	ft_dup_process(t_exec *exec, int i)
 {
 	fprintf(stderr, "exec->cmd = %d\n", exec->cmd_nb);
-	fprintf(stderr, "jct->fl_redirout : %d\n", exec->jct->fl_redirout);
+	fprintf(stderr, "exec->jct->fds_in[%d] : %d\n", i, exec->jct->fds_in[i]);
+	fprintf(stderr, "exec->jct->fds_out[%d] : %d\n", i, exec->jct->fds_out[i]);
+	// fprintf(stderr, "exec->jct->tab[%d - 1][0]: %s\n", i, exec->jct->tab[i - 1][0]);
+	fprintf(stderr, "exec->jct->tab[%d][0]: %s\n", i, exec->jct->tab[i][0]);
+	// fd[0] = Read end
+	// fd[1] = Write end
+	// fd[2] = Error end
 
 	if(TEST){
 		//cas ou on est forcement  la premiere command (donc pas de tab precedent)
-		if(!exec->jct->tab[i - 1]) 
-		{
-			if(exec->jct->tab[i][1] && !exec->jct->tab[i + 1][1]) //cas ou il y a une redirection in et PAS de pipe (donc pas de tab[i + 1])
-				dup2(exec->jct->fds_in[i], STDIN_FILENO);
-			dup2(exec->jct->fds_in[i], exec->pipes[0]); //cas ou il y a une redirection in 
-		}
 
+		if(!exec->jct->tab[i + 1])
+		{
+			if(exec->jct->tab[i][1]) //cas ou il y a une redirection in et PAS de pipe (donc pas de tab[i + 1])
+				dup2(exec->jct->fds_in[i], STDIN_FILENO);
+			if(exec->jct->tab[i][2])
+				dup2(exec->jct->fds_out[i], STDOUT_FILENO);
+		}
+		// if(exec->jct->tab[i + 1] = NULL)
+
+			// if (exec->jct->tab[i + 1][0]) //  cas ou il y a une commande de plus (donc un pipe)
+			// 	dup2(exec->jct->fds_in[i], exec->pipes[1]); 
 		//cas ou on est la comand du milieu (tab precedent ET suivant existent)
 		// if (exec->jct->tab[i - 1] && exec->jct->tab[i + 1])
 		
 		//cas ou on est la derniere commande (tab precedent existe mais pas tab suivante)
 		// if (exec->jct->tab[i - 1] && !exec->jct->tab[i + 1])
 	}
+	// fprintf(stderr, "redir_out detected\n");
+	/*
 	else{
 		if (exec->cmd_nb == 1) //cas avc une seule cmd SANS pipe
 		{
@@ -129,6 +142,7 @@ void	ft_dup_process(t_exec *exec, int i)
 			}
 		}
 	}
+	*/
 	//TODO close all input and/or output here (including here_doc)
 	if (exec->jct->fds_in[i])
 		close(exec->jct->fds_in[i]);
