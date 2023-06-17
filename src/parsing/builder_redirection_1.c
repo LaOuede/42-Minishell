@@ -76,6 +76,13 @@ void	ft_merge_angle_brackets_in(t_pars *pars)
 	printf(KYEL "-------------------- FT_MERGE_ANGLE_BRACKETS_IN" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
+/*
+1) Merge redirection token.
+2) Check for error (eg. >>>).
+3) Try to open all the REDIN files.
+4) Create all the REDOUT files.
+5) Merge all redirection tokens.
+*/
 void	ft_redirection(t_pars *pars)
 {
 	pars->jct->fds_in = ft_calloc(pars->nb_pipe, sizeof(int));

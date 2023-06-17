@@ -27,6 +27,9 @@ void	ft_merge_all_arg(t_pars *pars)
 	printf(KYEL "-------------------- FT_MERGE_ALL_ARG" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
+/*
+Identify the first ARG token as CMD
+*/
 void	ft_find_cmd(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_FIND_CMD" KGRN " START " RESET KYEL "--------------------\n" RESET);
@@ -52,6 +55,9 @@ void	ft_find_cmd(t_pars *pars)
 	printf(KYEL "-------------------- FT_FIND_CMD" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
+/*
+Merge all ARG type tokens with no whitespace flag
+*/
 void	ft_merge_arg(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_MERGE_ARG" KGRN " START " RESET KYEL "--------------------\n" RESET);

@@ -31,6 +31,12 @@ void	ft_get_expand_brackets(int *i, char *str, t_pars *pars)
 	printf(KYEL "-------------------- FT_GET_EXPAND_BRACKETS" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }
 
+/*
+Handle {} case
+1) Look for closing }.
+2) Raise an error flag if brackets aren't closed.
+3) Return true if brackets are closed
+*/
 bool	ft_check_expand_brackets(char *str, t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_CHECK_EXPAND_BRACKETS" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
@@ -77,6 +83,10 @@ char	*ft_find_envvar(char *str, t_pars *pars)
 	return (tmp);
 }
 
+/*
+1) If it's only $ char return it as a regular char and not an expansion
+2) Look for expansion
+*/
 void	ft_envvar_token(int *i, char *str, t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_ENVVAR_TOKEN" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
@@ -101,6 +111,11 @@ void	ft_envvar_token(int *i, char *str, t_pars *pars)
 	printf(KYEL "-------------------- FT_ENVVAR_TOKEN" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }
 
+/*
+Handle $ token
+1) Look for {} char (eg: ${USER})
+2) Look for ? char in order to deal with status exit [echo $?]
+*/
 void	ft_envvar(int *i, char *str, t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_ENVVAR" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);

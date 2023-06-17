@@ -2,9 +2,10 @@
 #include "../../include/minishell.h"
 
 /*
-ctrl-C = display a new prompt on a new line
-ctrl-D = exit shell.
-ctrl-\ = don't do anything.
+Handle signal outside forks:
+	ctrl-C = display a new prompt on a new line
+	ctrl-D = exit shell.
+Update exit_status
 */
 void	sig_handler(int sig)
 {

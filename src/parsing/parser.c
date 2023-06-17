@@ -147,6 +147,7 @@ void	ft_check_redir(t_pars *pars)
 }
 
 /*
+Parsing Part III
 1) Check for any invalid token (redirection or pipe).
 2) Initialize the char ***array and allocate memory
 3) Fill the tab

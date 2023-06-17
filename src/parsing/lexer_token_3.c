@@ -1,5 +1,11 @@
 #include "../../include/minishell.h"
 
+/*
+Handle ' token
+1) Look for closing s_quote.
+2) If regular char, then stock char to memory and at the end create a new node.
+3) Raise an error flag if quotes aren't closed.
+*/
 void	ft_s_quotes_token(int *i, t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_S_QUOTES_TOKEN" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
@@ -23,13 +29,18 @@ void	ft_s_quotes_token(int *i, t_pars *pars)
 		ft_error_parsing(ERR_QUOTE, LEXER, 2, pars);
 	printf("s_quotes = %d\n", pars->s_quotes);
 	if (tmp)
+	{	
 		ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
-	if (tmp)
 		ft_reset_node(pars);
-	ft_freenull(tmp);
+		ft_freenull(tmp);
+	}
 	printf(KYEL "-------------------- FT_S_QUOTES_TOKEN" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }
 
+/*
+1) Stock char to memory and at the end create a new node.
+2) Return if $ char.
+*/
 void	ft_char_quotes(int *i, char *str, t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_CHAR_QUOTES --------------------\n" RESET);
@@ -52,6 +63,10 @@ void	ft_char_quotes(int *i, char *str, t_pars *pars)
 	printf("-> char fin = %c\n", pars->input[(*i)]);
 }
 
+/*
+1) Look for closing d_quote.
+2) Raise an error flag if quotes aren't closed.
+*/
 char	*ft_stock_quotes(int *i, char *str, t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_STOCK_QUOTES" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
@@ -73,6 +88,11 @@ char	*ft_stock_quotes(int *i, char *str, t_pars *pars)
 	return (str);
 }
 
+/*
+Handle " token
+1) Look for closing d_quote.
+2) Look for expansion in string.
+*/
 void	ft_d_quotes_token(int *i, t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_D_QUOTES_TOKEN" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);

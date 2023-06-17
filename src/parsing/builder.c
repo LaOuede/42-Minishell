@@ -82,6 +82,14 @@ void	ft_swap_node(t_pars *pars)
 	printf(KYEL "-------------------- FT_SWAP" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
+/*
+Parsing Part II
+1) Handle redirection tokens.
+2) Handle args tokens.
+3) Merge tokens.
+4) Remove the ERROR type tokens.
+5) Swap token to put everything in order for the parser to put it in a char ***array.
+*/
 void	ft_builder(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_BUILDER" KGRN " START " RESET KYEL "--------------------\n" RESET);

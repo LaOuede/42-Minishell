@@ -7,7 +7,11 @@ bool	ft_isenvvarchar(char c)
 	return (false);
 }
 
-/* All char that aren't metachar (whitespace and isprint)*/
+/*
+Handle regular chars and whitespaces
+1) If whitespace, then move on and raise the whitespace flag for the builder.
+2) If regular char, then stock char to memory and at the end create a new node.
+*/
 void	ft_char(int *i, t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_CHAR --------------------\n" RESET);
@@ -54,7 +58,6 @@ void	ft_metachar(char c, int *i, t_pars *pars)
 		ft_s_quotes_token(i, pars);
 }
 
-/* Special char = whitespaces, pipe, < >, $ */
 bool	ft_ismetachar(char c)
 {
 	if (c == '|' || c == '<' || c == '>' || c == '$' || c == '\"' || c == '\'')
@@ -62,6 +65,13 @@ bool	ft_ismetachar(char c)
 	return (false);
 }
 
+/*
+Parsing Part I
+Parse the input char by char looking for :
+1) metachar (|, <, >, $, ', ")
+2) regular char and whitespaces
+3) stock tokens in a linked-list
+*/
 void	ft_lexer(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_LEXER" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
