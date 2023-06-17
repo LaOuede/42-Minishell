@@ -1,6 +1,30 @@
 #include "../../include/minishell.h"
 
-/* Store the nodes in a two-dimensionnal array */
+/*
+Fill the char ***array with nodes of the linked-list.
+***FROM***
+Input : cat supp.txt >outfile | cat -e | ls < infile | echo -n Minihell
+***TO***
+--------------------------------------------------------------
+-                           TAB                              -
+--------------------------------------------------------------
+[0][0] = cat supp.txt
+[0][1] = (null)
+[0][2] = > outfile
+--------------------------------------------------------------
+[1][0] = cat -e
+[1][1] = (null)
+[1][2] = (null)
+--------------------------------------------------------------
+[2][0] = ls
+[2][1] = < infile
+[2][2] = (null)
+--------------------------------------------------------------
+[3][0] = cat -n Minihell
+[3][1] = (null)
+[3][2] = (null)
+--------------------------------------------------------------
+*/
 void	ft_fill_tab(t_pars *pars, t_tab *tab)
 {
 	printf(KYEL "-------------------- FT_FILL_TAB" KGRN " START " RESET KYEL "--------------------\n" RESET);
@@ -46,7 +70,7 @@ void	ft_fill_tab(t_pars *pars, t_tab *tab)
 	printf(KYEL "-------------------- FT_FILL_TAB" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
-/* Initializes the two-dimensionnal array. */
+/* Allocate memory for the char ***array. */
 void	ft_init_cmdtab(t_pars *pars)
 {
 	int	i;
@@ -69,6 +93,11 @@ void	ft_init_cmdtab(t_pars *pars)
 	}
 }
 
+/*
+1) Check for PIPE token at the start of the linked-list
+2) Check for double-pipe
+3) Check for PIPE token at the end of the linked-list
+*/
 void	ft_check_pipe(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_CHECK_PIPE" KGRN " START " RESET KYEL "--------------------\n" RESET);
@@ -94,6 +123,9 @@ void	ft_check_pipe(t_pars *pars)
 	printf(KYEL "-------------------- FT_CHECK_PIPE" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
+/*
+Check for REDIN or REDOUT token at the end of the linked-list.
+*/
 void	ft_check_redir(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_CHECK_REDIR" KGRN " START " RESET KYEL "--------------------\n" RESET);
@@ -114,6 +146,11 @@ void	ft_check_redir(t_pars *pars)
 	printf(KYEL "-------------------- FT_CHECK_REDIR" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
+/*
+1) Check for any invalid token (redirection or pipe).
+2) Initialize the char ***array and allocate memory
+3) Fill the tab
+*/
 void	ft_parser(t_pars *pars)
 {
 	t_tab	*tab;

@@ -1,5 +1,8 @@
 #include "../../include/minishell.h"
 
+/*
+Initialization of the char ***tab.
+*/
 t_tab	*ft_init_tab(t_pars *pars)
 {
 	t_tab	*tab;
@@ -11,6 +14,7 @@ t_tab	*ft_init_tab(t_pars *pars)
 	return (tab);
 }
 
+/* Reset variables after a new node was created  */
 void	ft_reset_node(t_pars *pars)
 {
 	pars->type = ARG;
@@ -19,6 +23,7 @@ void	ft_reset_node(t_pars *pars)
 	pars->s_quotes = 0;
 }
 
+/* Reset variables after ending parsing and waiting for next input */
 void	ft_reset_pars(t_pars *pars)
 {
 	ft_free_lst(&pars->line);
@@ -41,6 +46,7 @@ void	ft_reset_pars(t_pars *pars)
 	pars->fl_redirout = 0;
 }
 
+/* Main parsing structure initialization */
 t_pars	*ft_init_pars(char **envp)
 {
 	static t_pars	*pars;
@@ -73,8 +79,12 @@ t_pars	*ft_init_pars(char **envp)
 }
 
 /*
-Main function for parsing. Calls Lexer and Parser
-and then returns a 2D arry to the executioner
+Main function for parsing.
+Calls Lexer, Builder and Parser one at a time if flag are "false".
+- Lexer = Breaks input in token and put them in a linked-list.
+- Builder = Open and Create files redirections. Assembles token together by type in the linked-list.
+- Parser = Check for any invalid token and transforms linked-list in a char ***tab.
+Produces a char *** array which is received by the executioner.
 */
 void	ft_parsing(t_pars *pars)
 {
@@ -96,21 +106,3 @@ void	ft_parsing(t_pars *pars)
 	ft_reset_pars(pars);
 	printf(KYEL "-------------------- FT_PARSING" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }
-
-/* TODO
-1) DONE - No need to handle curly_brackets and parenthesis_brackets you fool!! 
-So need to suppress functions
-2) DONE - Also need to deal better with $ expansion. watch out for $ and $$...
-   DONE - Need to deal with ${}
-3) DONE - Check if whitespace flag is working. If not, handle it! ==> I think it's ok
-4) DONE - Deal with double quotes and only after that deal with $ inside
-5) DONE - Cleaning up the code a little bit (Need to redo this one!)
-7) DONE - Re-construct the arguments (seems ok so far)
-8) DONE - Clean up the linked-list (Remove empty node added)
-9) DONE - Linked-list divided in cmd (CMD - ARG - REDIN - REDOUT)
-10) DONE - Transfer linked-list into 2D table
-11) DONE - Parse commands & Shoot error message when a parsing error is found
-12) Handle memory wise girl !!
-13) Check everything to make a list of what's missing in FIX ISSUES Notion
-14) Clean the code!
-*/

@@ -18,6 +18,7 @@ void	DEBUG_tab(t_jct *jct)
 		column = -1;
 		while (++column < 3)
 			printf(KMAG KBLD"[%d][%d] = %s\n"RESET, row, column, tab[row][column]);
+		printf(KMAG KBLD"--------------------------------------------------------------\n"RESET);
 	}
 }
 void	DEBUG_parser(t_pars *pars)

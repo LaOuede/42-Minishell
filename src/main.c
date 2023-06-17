@@ -4,6 +4,10 @@
 #define LOULOU 0
 #define LOULOU_JCT 1
 
+/*
+Initialization of the junction structure.
+This structure holds all important data needed both in parsing and execution.
+*/
 t_jct	*ft_init_jct(void)
 {
 	static t_jct	*jct;
@@ -26,9 +30,9 @@ t_jct	*ft_init_jct(void)
 }
 
 /*
-** Main
-** prints a welcome message on the terminal
-** Infinite loop pour attendre le user input
+Main
+prints a welcome message on the terminal
+Infinite loop to wait for user input
 */
 int	main(int ac, char **av, char **envp)
 {
