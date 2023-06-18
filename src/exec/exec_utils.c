@@ -174,10 +174,10 @@ t_exec	*ft_init_exec(char **envp, t_jct *jct)
 	ft_copy_env(exec, envp);
 	exec->path_var = ft_get_path(exec->envp, 0);
 	exec->input = 0;
-	exec->file_in = NULL;
+	exec->file_in = 0;
 	exec->fl_redirin = 0;
 	exec->output = 0;
-	exec->file_out = NULL;
+	exec->file_out = 0;
 	exec->fl_redirout = 0;
 	exec->index = 0;
 	exec->fl_hd_in = 0;

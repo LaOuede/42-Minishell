@@ -20,8 +20,6 @@ void	ft_child_hd(char *delim, t_pars *pars, int i)
 		ft_putstr_fd(tmp, pars->jct->fds_in[i]);
 		ft_freenull(tmp);
 	}
-	//TODO put here all free ft required
-	// exit(0);
 }
 
 void	exec_hd(t_pars *pars, char *delim, int i)
