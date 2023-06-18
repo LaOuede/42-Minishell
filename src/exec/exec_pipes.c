@@ -1,18 +1,25 @@
 #include "../../include/minishell.h"
 
-void	ft_close_pipes(t_exec *exec)
+void	ft_close_fds(t_exec *exec)
 {
 	int	i;
 
 	i = -1;
 	while (++i < exec->pipes_nb)
 	{
-		close(exec->pipes[i][0]);
-		close(exec->pipes[i][1]);
+		if (exec->jct->fds_in[i])
+			close(exec->jct->fds_in[i]);
+		if (exec->jct->fds_out[i])
+			close(exec->jct->fds_out[i]);
+		if(exec->pipes[i][0])
+			close(exec->pipes[i][0]);
+		if(exec->pipes[i][0])
+			close(exec->pipes[i][1]);
+		if (exec->input)
+			close(exec->input);
+		if (exec->output)
+			close(exec->output);
 	}
-
-	// close(exec->pipes[0]);
-	// close(exec->pipes[1]);
 }
 
 int	ft_mem_pipes(t_exec *exec)
