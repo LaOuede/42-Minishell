@@ -3,10 +3,14 @@
 void	ft_make_pids(t_exec *exec, t_jct *jct)
 {
 	int	i;
+	int	fd_in;
+	int	fd_out;
 
 	exec->pids = ft_calloc(exec->cmd_nb, sizeof(pid_t *));
 	if (!exec->path_var)
 		return ;
+	fd_in = dup(STDIN_FILENO);
+	fd_out = dup(STDOUT_FILENO);
 	i = -1;
 	while (++i < exec->cmd_nb)
 	{
@@ -29,6 +33,8 @@ void	ft_make_pids(t_exec *exec, t_jct *jct)
 		}
 		// printf("--- Exit ft_chils_proc	---\n");
 	}
+	dup2(fd_in, STDIN_FILENO);
+	dup2(fd_out, STDOUT_FILENO);
 	// printf("--- Exit while loop	---\n");
 	ft_close_fds(exec);
 }
@@ -103,6 +109,13 @@ void	ft_dup_proc(t_exec *exec, int i)
 			if (exec->output)
 				dup2(exec->output, STDOUT_FILENO);
 			close(exec->output);
+		}
+		if(i == exec->cmd_nb - 1)
+		{
+			if (exec->input)
+				dup2(exec->input, STDIN_FILENO);
+			close(exec->input);
+			dup2(exec->output, STDOUT_FILENO);
 		}
 	}
 	ft_close_fds(exec);
