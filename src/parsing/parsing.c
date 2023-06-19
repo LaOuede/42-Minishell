@@ -49,7 +49,6 @@ void	ft_reset_pars(t_pars *pars)
 /* Main parsing structure initialization */
 t_pars	*ft_init_pars(char **envp, t_jct *jct)
 {
-	printf(KYEL "-------------------- INIT_PARS" KGRN KBLD" OK " RESET KYEL "--------------------\n" RESET);
 	t_pars	*pars;
 
 	pars = NULL;
@@ -105,7 +104,6 @@ void	ft_parsing(t_pars *pars)
 	if (pars->err_lexer == true || pars->err_rebuilder == true \
 			|| pars->err_parser == true || pars->EXIT_STATUS == true)
 			pars->jct->err_pars = true;
-	//ft_free_pars(pars);
 	//ft_reset_pars(pars);
 	printf(KYEL "-------------------- FT_PARSING" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }

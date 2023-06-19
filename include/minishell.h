@@ -22,6 +22,10 @@
 # define YEL 	"\x1B[33m"
 # define RESET	"\033[1;0m"
 
+/* --------------------ERROR MESSAGE--------------------- *///
+# define ERR_EXEC		"Usage error : Too many arguments.\n--> Usage : ./Minishell\n"
+
+
 typedef struct s_ms
 {
 	struct s_minishell	*parsing;
