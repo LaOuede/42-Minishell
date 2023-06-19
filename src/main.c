@@ -18,6 +18,7 @@ t_jct	*ft_init_jct(void)
 		jct->fds_in = NULL;
 		jct->fds_out = NULL;
 		jct->tab = NULL;
+		jct->fd_hd = 0;
 		jct->cmd_nb = -1;
 		jct->err_pars = false;
 		jct->exit_status = 0;

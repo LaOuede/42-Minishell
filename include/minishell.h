@@ -35,6 +35,7 @@ typedef struct s_jct
 	int		*fds_out;
 	char	***tab;
 	int		cmd_nb;
+	int		fd_hd;
 	bool	err_pars;
 	int		exit_status;
 	//TODO do we still need those 3 variables ?
