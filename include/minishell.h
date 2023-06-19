@@ -52,6 +52,7 @@ void	ft_exit(t_exec *exec);
 /* 		Jct functions 							*/
 t_jct	*ft_init_jct(void);
 void	ft_free_jct(t_jct *jct);
+void	ft_free_all(t_jct *jct, t_pars *pars, t_exec *exec);
 
 /* 		Signal functions 							*/
 void	sig_handler(int sig);

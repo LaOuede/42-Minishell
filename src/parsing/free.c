@@ -64,7 +64,6 @@ void	ft_exit(t_exec *exec)
 	exit_status = exec->jct->exit_status;
 	printf("%d\n", exit_status);
 	clear_history();
-	ft_free_jct(exec->jct);
-	ft_free_exec(exec);
+	ft_free_all(exec->jct, 0, exec);
 	exit (exit_status);
 }
