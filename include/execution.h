@@ -22,6 +22,8 @@ typedef struct s_exec
 	char			**envp;
 	char			**path_var;
 	int				input;
+	int				fd_in;
+	int				fd_out;
 	int				output;
 	pid_t			*pids;
 	int				**pipes;
