@@ -45,9 +45,9 @@ void	ft_is_builtin(t_exec *exec, int i)
 		ft_msh_unseto(); */
 	else if (strcmp(cmd[0], "env") == 0)
 		ft_msh_env(exec);
-/* 	else if (strcmp(cmd, "exit") == 0)
-		ft_msh_exit(); */
-		ft_free_tab_char(cmd);
+	else if (strcmp(cmd[0], "exit") == 0)
+		ft_msh_exit(exec, cmd);
+	ft_free_tab_char(cmd);
 	printf(KYEL "-------------------- FT_IS_BUILTIN" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 

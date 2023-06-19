@@ -109,7 +109,10 @@ void	ft_open_file(t_pars *pars)
 			else
 				pars->jct->fds_in[i] = open(ptr->next->str, O_RDONLY);
 			if (pars->jct->fds_in[i] == -1)
-				ft_error_parsing(ERR_INFILE, REBUILDER, 1, pars);
+			{
+				ft_error_parsing(ERR_INFILE, REBUILDER, 2, pars);
+				pars->err_infile = true;
+			}
 			printf("pars->jct->fds_in[i] = %d\n", pars->jct->fds_in[i]);
 		}
 		else if (ptr->type == PIPE)

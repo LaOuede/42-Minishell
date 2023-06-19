@@ -43,6 +43,8 @@ typedef struct s_jct
 	int		fl_redirout;
 }			t_jct;
 
+void	ft_exit(t_exec *exec);
+
 /* 		Jct functions 							*/
 t_jct	*ft_init_jct(void);
 void	ft_free_jct(t_jct *jct);

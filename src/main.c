@@ -75,6 +75,7 @@ int	main(int ac, char **av, char **envp)
 		printf("jct->err_pars = %d\n", jct->err_pars);
 		if (jct->err_pars == false)
 		{
+			ft_free_pars(pars);
 			exec = ft_init_exec(envp, jct);
 			ft_print_debug(exec);
 			ft_exec(exec, jct);
@@ -88,7 +89,6 @@ int	main(int ac, char **av, char **envp)
 	
 	//TODO need to implement a fct that clears the history (fct clear_history exist in history.h)
 	//TODO implement or add all free/reset function
-	ft_free_pars(pars);
 	ft_free_jct(jct);
 	return (0);
 }

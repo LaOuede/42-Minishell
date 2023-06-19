@@ -20,6 +20,7 @@ void	ft_is_builtin(t_exec *exec, int i);
 
 void	ft_msh_echo(char **cmd);
 void	ft_msh_env(t_exec *exec);
+void	ft_msh_exit(t_exec *exec, char **cmd);
 void	ft_msh_pwd(t_exec *exec);
 
 #endif

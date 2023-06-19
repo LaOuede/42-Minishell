@@ -56,3 +56,15 @@ void	ft_free_token(t_token *token)
 		free(token);
 	}
 }
+
+void	ft_exit(t_exec *exec)
+{
+	int	exit_status;
+
+	exit_status = exec->jct->exit_status;
+	printf("%d\n", exit_status);
+	clear_history();
+	ft_free_jct(exec->jct);
+	ft_free_exec(exec);
+	exit (exit_status);
+}

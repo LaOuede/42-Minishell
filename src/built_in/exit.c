@@ -10,4 +10,21 @@ Prototype :
 	exit
 */
 
+void	ft_msh_exit(t_exec *exec, char **cmd)
+{
+	printf(KYEL "-------------------- FT_MSH_EXIT" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	int	i;
 
+	i = -1;
+	if (cmd[1] && !cmd[2])
+	{
+		if (0 <= ft_atoi(cmd[1]) && ft_atoi(cmd[1]) <= 255)
+		{
+			exec->jct->exit_status = ft_atoi(cmd[1]);
+			printf("%d\n", exec->jct->exit_status);
+		}
+		ft_free_tab_char(cmd);
+		ft_exit(exec);
+	}
+	printf(KYEL "-------------------- FT_MSH_EXIT" KRED " END " RESET KYEL "--------------------\n" RESET);
+}
