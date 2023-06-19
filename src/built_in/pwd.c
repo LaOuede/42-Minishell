@@ -29,7 +29,7 @@ void	ft_msh_pwd(t_exec *exec)
 	buf = getcwd(NULL, sizeof(buf));
 	if (buf)
 	{
-		printf("buf = %s\n", buf);
+		printf("%s\n", buf);
 		if (exec->jct->cmd_nb == 1)
 			exit(EXIT_SUCCESS);
 	}

@@ -85,6 +85,7 @@ typedef struct s_pars
 	int				c_brackets;
 	int				p_brackets;
 	int				flag_whitespace;
+	int				err_infile;
 	bool			err_lexer;
 	bool			err_rebuilder;
 	bool			err_parser;

@@ -39,7 +39,7 @@ void	ft_msh_echo(char **cmd)
 			printf("flag = %d\n", ft_flag(cmd[1]));
 		if (ft_flag(cmd[1]) == true)
 			while (cmd[++i])
-				printf("%s ", cmd[i]);
+				printf("%s", cmd[i]);
 		else
 		{
 			i = 0;
