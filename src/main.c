@@ -4,13 +4,23 @@
 #define LOULOU 0
 #define LOULOU_JCT 1
 
+void	ft_free_all(t_jct *jct, t_pars *pars, t_exec *exec)
+{
+	if (jct)
+		ft_free_jct(jct);
+	if (pars)
+		ft_free_pars(pars);
+	if (exec)
+		ft_free_exec(exec);
+}
+
 /*
 Initialization of the junction structure.
 This structure holds all important data needed both in parsing and execution.
 */
 t_jct	*ft_init_jct(void)
 {
-	static t_jct	*jct;
+	t_jct	*jct;
 
 	jct = ft_calloc(1, sizeof(t_jct));
 	jct->fds_in = NULL;
@@ -38,29 +48,19 @@ int	main(int ac, char **av, char **envp)
 	t_pars	*pars;
 	t_exec	*exec;
 	t_jct	*jct;
-	//int		test_mem;
 
 	// printf("\n😈😈😈 Welcome to minishell ... or should I say " RED"🔥 MINIHELLLL 🔥 😈😈😈\n\n"WHT);
-	// (void)test_mem;
-	//test_mem = 1;
 	if (ac != 1)
 	{
-		printf("Too many arguments\nUsage: ./minishell\n");
-		return(1);
+		ft_error(ERR_EXEC);
+		exit(EXIT_FAILURE);
 	}
-	jct = ft_init_jct();
-	pars = ft_init_pars(envp);
-	// while (GWEN)
-	// {
-	// 	pars->input = readline("Minishell > ");
-	// 	add_history(pars->input);
-	// 	ft_parsing(pars, jct);
-	// }
-	//while (test_mem != 0)
 	signal(SIGINT, &sig_handler);
 	signal(SIGQUIT, NULL);
 	while (LOULOU_JCT)
 	{
+		jct = ft_init_jct();
+		pars = ft_init_pars(envp, jct);
 		pars->input = readline("Minishell > ");
 		printf("pars->input = %s\n", pars->input);
 		if (!pars->input)
@@ -70,22 +70,16 @@ int	main(int ac, char **av, char **envp)
 		}
 		add_history(pars->input);
 		ft_parsing(pars);
-		printf("jct->err_pars = %d\n", jct->err_pars);
-		if (jct->err_pars == false)
+		if (pars->jct->err_pars == false)
 		{
 			exec = ft_init_exec(envp, jct);
-			ft_exec(exec, jct);
-			//TODO implement a reset function instead of free fct
-			ft_free_3tab(jct);
-			ft_free_exec(exec);
+			ft_exec(exec);
+			ft_free_all(jct, pars, exec);
 		}
-		jct->err_pars = false;
-		//test_mem -= 1;
 	}
-	
 	//TODO need to implement a fct that clears the history (fct clear_history exist in history.h)
 	//TODO implement or add all free/reset function
-	ft_free_pars(pars);
-	ft_free_jct(jct);
+	clear_history();
+	ft_free_all(jct, pars, 0);
 	return (0);
 }
