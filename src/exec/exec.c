@@ -1,28 +1,5 @@
 #include "../../include/minishell.h"
 
-void ft_pre_redir(t_exec *exec, int i)
-{
-	printf("---		ft_pre_redir starts\n");
-	printf("---		i = %d \n", i);
-	if (exec->cmd_nb > 1) // s'il y a plus qu'une cmd, donc des pipes
-	{
-		printf("\n--- 1er if statement \n");
-		if (i > 0 && exec->pipes[i - 1][0]) //if there is a prev pipe, input will be the entry of the piep
-			exec->input = exec->pipes[i - 1][0];
-		printf("\n--- 2nd if statement \n");
-		if (i < exec->pipes_nb) //if there is a pipe out, the output is the pipe
-		{
-			printf("\n--- Entered in 2nd if statement \n");
-			exec->output = exec->pipes[i][1];
-		}
-	}
-	if (exec->jct->fds_in[i])
-		exec->input = exec->jct->fds_in[i];
-	if (exec->jct->fds_out[i])
-		exec->output = exec->jct->fds_out[i];
-	printf("---		ft_pre_redir ends\n");
-}
-
 void	ft_make_pids(t_exec *exec, t_jct *jct)
 {
 	int	i;
@@ -106,23 +83,24 @@ void	ft_dup_proc(t_exec *exec, int i)
 {
 	if (exec->cmd_nb == 1) // if 1 cmd and no pipes (so one cmd only)
 	{
-		fprintf(stderr, "\n---	1 cmd ONLY\n");
-		if(exec->jct->tab[i][1]) //cas ou il y a une redirection in dans la cmd
+		//cas ou il y a une redirection in dans la cmd
+		if (exec->jct->tab[i][1])
 			dup2(exec->jct->fds_in[i], STDIN_FILENO);
-		if(exec->jct->tab[i][2]) //cas ou il y a une redirection out dans la cmd
+		//cas ou il y a une redirection out dans la cmd
+		if (exec->jct->tab[i][2])
 			dup2(exec->jct->fds_out[i], STDOUT_FILENO);
 	}
 	if (exec->cmd_nb > 1) // s'il y a plus qu'une cmd, donc des pipes
 	{
 		if (i > 0 && exec->pipes[i - 1][0])
 		{
-			if(exec->input)
+			if (exec->input)
 				dup2(exec->input, STDIN_FILENO);
 			close(exec->input);
 		}
 		if (i < exec->pipes_nb)
 		{
-			if(exec->output)
+			if (exec->output)
 				dup2(exec->output, STDOUT_FILENO);
 			close(exec->output);
 		}
@@ -133,13 +111,12 @@ void	ft_dup_proc(t_exec *exec, int i)
 void	ft_exec(t_exec *exec, t_jct *jct)
 {
 	int	i;
-	int	status;
 
 	if (ft_create_pipes(exec) == 2)
 		return ;
 	ft_make_pids(exec, jct);
 	i = -1;
 	while (++i < exec->cmd_nb)
-		waitpid(exec->pids[i], &status, 0);
+		waitpid(exec->pids[i], NULL, 0);
 	//TODO clarifier le 2nd arg de waitpid
 }

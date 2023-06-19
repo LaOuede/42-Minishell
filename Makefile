@@ -19,6 +19,7 @@ SRCS_LST	= 	built_in/built_in.c \
 				built_in/pwd.c \
 				DEBUG_parsing.c \
 				exec/exec_hd.c \
+				exec/exec_free.c \
 				exec/exec_utils.c \
 				exec/exec_pipes.c \
 				exec/exec.c \
