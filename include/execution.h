@@ -19,31 +19,15 @@ typedef struct s_jct	t_jct;
 typedef struct s_exec
 {
 	//to keep
-	char	**envp;
-	char	**path_var;
+	char			**envp;
+	char			**path_var;
+	int				input;
+	int				output;
+	pid_t			*pids;
+	int				**pipes;
 	struct s_jct	*jct;
-	int		input;
-	char 	*file_in;
-	int		output;
-	char 	*file_out;
-	int		index;
-	int		*mode;
-	int		fl_redirin;
-	int		fl_redirout;
-	int		fl_hd_out;
-	int		fl_hd_in;
-	pid_t	*pids;
-	int		**pipes;
-	// int		*pipes;
-	//to delete - will be in t_jct
-	int		cmd_nb;
-	int		pipes_nb;
-	//to delete - obselete
-	char 	*line;
-	char	**readline;
-	char	**av;
-	int		pipes_op;
-	int		fl_pipe_op; 
+	int				cmd_nb;
+	int				pipes_nb;
 }			t_exec;
 
 /*	--	Function Declarations for the execution of shell commands	--	*/
@@ -60,6 +44,6 @@ void	ft_run_cmd(t_exec *exec, t_jct *jct, int i);
 void	exec_hd(t_pars *pars, char *delim, int i);
 
 /*	--	Debug fct	--	*/
-void	ft_print_debug(t_exec *exec);
+// void	ft_print_debug(t_exec *exec);
 
 #endif

@@ -33,7 +33,7 @@ void	ft_make_pids(t_exec *exec, t_jct *jct)
 	i = -1;
 	while (++i < exec->cmd_nb)
 	{
-		printf("--- Enter while loop		---\n");
+		// printf("--- Enter while loop		---\n");
 /* 		if (ft_check_builtin(exec, i) == true)
 		{
 			ft_is_builtin(exec, i);
@@ -43,16 +43,16 @@ void	ft_make_pids(t_exec *exec, t_jct *jct)
 		exec->pids[i] = fork();
 		if (exec->pids[i] == -1)
 			perror("Error ! Pid creation failed:");
-		printf("--- Enter in ft_chils_proc	---\n");
+		// printf("--- Enter in ft_chils_proc	---\n");
 		if (exec->pids[i] == 0)
 		{
 			//this is the child process
 			ft_dup_proc(exec, i);
 			ft_run_cmd(exec, jct, i);
 		}
-		printf("--- Exit ft_chils_proc	---\n");
+		// printf("--- Exit ft_chils_proc	---\n");
 	}
-	printf("--- Exit while loop	---\n");
+	// printf("--- Exit while loop	---\n");
 	ft_close_fds(exec);
 }
 
@@ -104,13 +104,13 @@ void	ft_run_cmd(t_exec *exec, t_jct *jct, int r)
 
 void	ft_dup_proc(t_exec *exec, int i)
 {
-	if(exec->cmd_nb == 1) // if 1 cmd and no pipes (so one cmd only)
+	if (exec->cmd_nb == 1) // if 1 cmd and no pipes (so one cmd only)
 	{
 		fprintf(stderr, "\n---	1 cmd ONLY\n");
 		if(exec->jct->tab[i][1]) //cas ou il y a une redirection in dans la cmd
-			fprintf(stderr, "dup2 (redir_in) return = %d\n", dup2(exec->jct->fds_in[i], STDIN_FILENO));
+			dup2(exec->jct->fds_in[i], STDIN_FILENO);
 		if(exec->jct->tab[i][2]) //cas ou il y a une redirection out dans la cmd
-			fprintf(stderr, "dup2 (redir_out) return = %d\n", dup2(exec->jct->fds_out[i], STDOUT_FILENO));
+			dup2(exec->jct->fds_out[i], STDOUT_FILENO);
 	}
 	if (exec->cmd_nb > 1) // s'il y a plus qu'une cmd, donc des pipes
 	{
