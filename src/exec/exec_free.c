@@ -36,5 +36,5 @@ void	ft_free_exec(t_exec *exec)
 		ft_free_tab_int(exec->pipes, exec->pipes_nb);
 	if (exec->pids)
 		ft_freenull(exec->pids);
-	// ft_freenull(exec);
+	ft_freenull(exec);
 }
