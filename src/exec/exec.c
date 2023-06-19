@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-void	ft_make_pids(t_exec *exec, t_jct *jct)
+void	ft_make_pids(t_exec *exec)
 {
 	int	i;
 	int	fd_in;
@@ -29,7 +29,7 @@ void	ft_make_pids(t_exec *exec, t_jct *jct)
 		{
 			//this is the child process
 			ft_dup_proc(exec, i);
-			ft_run_cmd(exec, jct, i);
+			ft_run_cmd(exec, i);
 		}
 		// printf("--- Exit ft_chils_proc	---\n");
 	}
@@ -65,13 +65,13 @@ char	*ft_cmd_path(t_exec *exec, char *cmds)
 	return (path);
 }
 
-void	ft_run_cmd(t_exec *exec, t_jct *jct, int r)
+void	ft_run_cmd(t_exec *exec, int r)
 {
 	char	*path;
 	char	**opt;
 	char	***cmds;
 
-	cmds = jct->tab;
+	cmds = exec->jct->tab;
 	// fprintf(stderr, "cmd[%d][0] = %s\n", r, cmds[r][0]);
 	// fprintf(stderr, "cmd[%d][1] = %s\n", r, cmds[r][1]);
 	// fprintf(stderr, "cmd[%d][2] = %s\n", r, cmds[r][2]);
@@ -121,13 +121,13 @@ void	ft_dup_proc(t_exec *exec, int i)
 	ft_close_fds(exec);
 }
 
-void	ft_exec(t_exec *exec, t_jct *jct)
+void	ft_exec(t_exec *exec)
 {
 	int	i;
 
 	if (ft_create_pipes(exec) == 2)
 		return ;
-	ft_make_pids(exec, jct);
+	ft_make_pids(exec);
 	i = -1;
 	while (++i < exec->cmd_nb)
 		waitpid(exec->pids[i], NULL, 0);

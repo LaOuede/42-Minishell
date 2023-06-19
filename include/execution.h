@@ -39,11 +39,11 @@ int		ft_create_pipes(t_exec *exec);
 char	*ft_free_2char(char **tab);
 void	ft_free_3tab(t_jct *jct);
 void	ft_free_exec(t_exec *exec);
-void	ft_exec(t_exec *exec, t_jct *jct);
+void	ft_exec(t_exec *exec);
 void	ft_copy_env(t_exec *exec, char **envp);
 char	*ft_cmd_path(t_exec *exec, char *cmds);
 void	ft_free_3tab(t_jct *jct);
-void	ft_run_cmd(t_exec *exec, t_jct *jct, int i);
+void	ft_run_cmd(t_exec *exec, int i);
 void	exec_hd(t_pars *pars, char *delim, int i);
 
 /*	--	Debug fct	--	*/

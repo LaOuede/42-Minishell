@@ -65,12 +65,12 @@ t_exec	*ft_init_exec(char **envp, t_jct *jct)
 	exec->envp = NULL;
 	ft_copy_env(exec, envp);
 	exec->path_var = ft_get_path(exec->envp, 0);
-	exec->jct = ft_init_jct();
+	exec->jct = jct;
 	exec->input = 0;
 	exec->output = 0;
 	exec->pids = 0;
 	exec->pipes = 0;
-	exec->cmd_nb = jct->cmd_nb;
+	exec->cmd_nb = exec->jct->cmd_nb;
 	exec->pipes_nb = exec->cmd_nb - 1;
 	return (exec);
 }

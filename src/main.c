@@ -10,22 +10,21 @@ This structure holds all important data needed both in parsing and execution.
 */
 t_jct	*ft_init_jct(void)
 {
-	static t_jct	*jct;
+	printf(KYEL "-------------------- INIT_JCT" KGRN KBLD" OK " RESET KYEL "--------------------\n" RESET);
+	t_jct	*jct;
 
-	if (!jct)
-	{
-		jct = ft_calloc(1, sizeof(t_jct));
-		jct->fds_in = NULL;
-		jct->fds_out = NULL;
-		jct->tab = NULL;
-		jct->cmd_nb = -1;
-		jct->err_pars = false;
-		jct->exit_status = 0;
-		//TODO do we still need those 3 variables ?
-		jct->file_in = 0;
-		jct->file_out = 0;
-		jct->fl_redirout = 0;
-	}
+	jct = NULL;
+	jct = ft_calloc(1, sizeof(t_jct));
+	jct->fds_in = NULL;
+	jct->fds_out = NULL;
+	jct->tab = NULL;
+	jct->cmd_nb = -1;
+	jct->err_pars = false;
+	jct->exit_status = 0;
+	//TODO do we still need those 3 variables ?
+	jct->file_in = 0;
+	jct->file_out = 0;
+	jct->fl_redirout = 0;
 	return (jct);
 }
 
@@ -50,8 +49,8 @@ int	main(int ac, char **av, char **envp)
 		printf("Too many arguments\nUsage: ./minishell\n");
 		return(1);
 	}
-	jct = ft_init_jct();
-	pars = ft_init_pars(envp);
+
+	
 	// while (GWEN)
 	// {
 	// 	pars->input = readline("Minishell > ");
@@ -63,6 +62,8 @@ int	main(int ac, char **av, char **envp)
 	signal(SIGQUIT, NULL);
 	while (LOULOU_JCT)
 	{
+		jct = ft_init_jct();
+		pars = ft_init_pars(envp, jct);
 		pars->input = readline("Minishell > ");
 		printf("pars->input = %s\n", pars->input);
 		if (!pars->input)
@@ -72,22 +73,24 @@ int	main(int ac, char **av, char **envp)
 		}
 		add_history(pars->input);
 		ft_parsing(pars);
-		printf("jct->err_pars = %d\n", jct->err_pars);
-		if (jct->err_pars == false)
+		printf("pars->jct->err_pars = %d\n", pars->jct->err_pars);
+		if (pars->jct->err_pars == false)
 		{
 			exec = ft_init_exec(envp, jct);
-			ft_exec(exec, jct);
+			ft_exec(exec);
 			//TODO implement a reset function instead of free fct
-			ft_free_3tab(jct);
+			ft_free_jct(jct);
+			ft_free_pars(pars);
 			ft_free_exec(exec);
 		}
-		jct->err_pars = false;
+		//jct->err_pars = false;
 		//test_mem -= 1;
 	}
 	
 	//TODO need to implement a fct that clears the history (fct clear_history exist in history.h)
 	//TODO implement or add all free/reset function
-	ft_free_pars(pars);
 	ft_free_jct(jct);
+	ft_free_pars(pars);
+	//ft_free_exec(exec);
 	return (0);
 }
