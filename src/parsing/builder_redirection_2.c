@@ -105,7 +105,7 @@ void	ft_open_file(t_pars *pars)
 			if (pars->jct->fds_in[i])
 				close(pars->jct->fds_in[i]);
 			if (ft_strncmp(ptr->str, str, 2) == 0)
-				exec_hd(pars, ptr->next->str, i);
+				pars->jct->fds_in[i] = exec_hd(ptr->next->str);
 			else
 				pars->jct->fds_in[i] = open(ptr->next->str, O_RDONLY);
 			if (pars->jct->fds_in[i] == -1)

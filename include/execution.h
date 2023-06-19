@@ -44,7 +44,8 @@ void	ft_copy_env(t_exec *exec, char **envp);
 char	*ft_cmd_path(t_exec *exec, char *cmds);
 void	ft_free_3tab(t_jct *jct);
 void	ft_run_cmd(t_exec *exec, t_jct *jct, int i);
-void	exec_hd(t_pars *pars, char *delim, int i);
+// void	exec_hd(t_pars *pars, char *delim, int i);
+int		exec_hd(char *delim);
 
 /*	--	Debug fct	--	*/
 // void	ft_print_debug(t_exec *exec);

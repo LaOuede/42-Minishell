@@ -110,13 +110,6 @@ void	ft_dup_proc(t_exec *exec, int i)
 				dup2(exec->output, STDOUT_FILENO);
 			close(exec->output);
 		}
-		if(i == exec->cmd_nb - 1)
-		{
-			if (exec->input)
-				dup2(exec->input, STDIN_FILENO);
-			close(exec->input);
-			dup2(exec->output, STDOUT_FILENO);
-		}
 	}
 	ft_close_fds(exec);
 }

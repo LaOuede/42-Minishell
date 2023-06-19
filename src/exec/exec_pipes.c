@@ -29,7 +29,7 @@ void	ft_pre_redir(t_exec *exec, int i)
 	if (exec->cmd_nb > 1) // s'il y a plus qu'une cmd, donc des pipes
 	{
 		printf("\n--- 1er if statement \n");
-		//if there is a prev pipe, input will be the entry of the piep
+		//if there is a prev pipe, input will be the entry of the pipe
 		if (i > 0 && exec->pipes[i - 1][0])
 			exec->input = exec->pipes[i - 1][0];
 		printf("\n--- 2nd if statement \n");

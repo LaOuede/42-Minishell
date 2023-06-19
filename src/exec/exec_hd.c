@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-void	ft_child_hd(char *delim, t_pars *pars, int i)
+void	ft_child_hd(char *delim, int fd_hd)
 {
 	char	*tmp;
 
@@ -16,18 +16,20 @@ void	ft_child_hd(char *delim, t_pars *pars, int i)
 				break ;
 			}
 		}
-		ft_putstr_fd(tmp, pars->jct->fds_in[i]);
+		ft_putstr_fd(tmp, fd_hd);
 		ft_freenull(tmp);
 	}
 }
 
-void	exec_hd(t_pars *pars, char *delim, int i)
+int	exec_hd(char *delim)
 {
-	pars->jct->fds_in[i] = open("/tmp/here_doc", \
-		O_CREAT | O_TRUNC | O_RDWR, 0644);
-	if (pars->jct->fds_in[i] < 0)
-		perror("Error ! pars->jct->fds_in:");
-	ft_child_hd(delim, pars, i);
-	close(pars->jct->fds_in[i]);
-	pars->jct->fds_in[i] = open("/tmp/here_doc", O_RDONLY, 0644);
+	int	fd_hd;
+
+	fd_hd = open("/tmp/here_doc", O_CREAT | O_TRUNC | O_RDWR, 0644);
+	if (fd_hd < 0)
+		perror("Error ! fd_hd:");
+	ft_child_hd(delim, fd_hd);
+	close(fd_hd);
+	fd_hd = open("/tmp/here_doc", O_RDONLY, 0644);
+	return(fd_hd);
 }
