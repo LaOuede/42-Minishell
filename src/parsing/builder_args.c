@@ -48,8 +48,6 @@ bool	ft_test_cmd(t_pars *pars, t_token *node)
 		if (path)
 			free(path);
 	}
-	//ft_error_parsing(ERR_QUOTE, LEXER, 2, pars);
-	perror("Error ! Can't find path to program");
 	path = NULL;
 	return (false);
 }
@@ -71,10 +69,10 @@ void	ft_find_cmd(t_pars *pars)
 		if (ptr->type == ARG && flag == true)
 		{
 			ptr->type = CMD;
-			pars->err_access = ft_test_cmd(pars, ptr);
 			if (ft_test_cmd(pars, ptr) == false)
 				ptr->type = ACCESS_ERR;
-			printf("ptr->type = %d\n", ptr->type);
+			if (ptr->type == ACCESS_ERR && pars->nb_pipe == 1)
+				ft_error_parsing(ERR_ACCESS, PARSER, 127, pars);
 			flag = false;
 		}
 		else if (ptr->type == PIPE)

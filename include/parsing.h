@@ -23,6 +23,7 @@
 # define ERR_OUTFILE	"Input Error : File creation failed\n"
 # define ERR_QUOTE		"Input Error : Quotation unclosed\n" //exit_status == 2
 # define ERR_TOKEN		"Input Error : Invalid token combination\n" //exit_status == 2
+# define ERR_ACCESS		"Input Error : Command not found\n" //exit_status == 127
 
 typedef struct s_jct	t_jct;
 
@@ -91,7 +92,6 @@ typedef struct s_pars
 	bool			err_lexer;
 	bool			err_rebuilder;
 	bool			err_parser;
-	bool			err_access;
 	bool			EXIT_STATUS;
 	//TODO do we still need those 3 variables ?
 	int				file_out;

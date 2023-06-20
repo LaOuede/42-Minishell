@@ -70,7 +70,6 @@ t_pars	*ft_init_pars(char **envp, t_jct *jct)
 		pars->err_lexer = false;
 		pars->err_rebuilder = false;
 		pars->err_parser = false;
-		pars->err_access = false;
 		pars->EXIT_STATUS = false;
 		//TODO do we still need those 3 variables ?
 		//TODO check if it needs to be -1 or 0 (may trigger an error if -1)
