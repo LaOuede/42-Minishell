@@ -17,8 +17,8 @@ void	ft_msh_exit(t_exec *exec, char **cmd)
 	{
 		if (0 <= ft_atoi(cmd[1]) && ft_atoi(cmd[1]) <= 255)
 		{
-			exec->jct->exit_status = ft_atoi(cmd[1]);
-			printf("%d\n", exec->jct->exit_status);
+			g_exit_status = ft_atoi(cmd[1]);
+			printf("%d\n", g_exit_status);
 		}
 		ft_free_tab_char(cmd);
 		ft_exit(exec);

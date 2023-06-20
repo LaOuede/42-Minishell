@@ -4,6 +4,8 @@
 #define LOULOU 0
 #define LOULOU_JCT 1
 
+int		g_exit_status;
+
 void	ft_free_all(t_jct *jct, t_pars *pars, t_exec *exec)
 {
 	if (jct)
@@ -29,7 +31,6 @@ t_jct	*ft_init_jct(void)
 	jct->fd_hd = 0;
 	jct->cmd_nb = -1;
 	jct->err_pars = false;
-	jct->exit_status = 0;
 	//TODO do we still need those 3 variables ?
 	jct->file_in = 0;
 	jct->file_out = 0;
@@ -46,7 +47,7 @@ int	main(int ac, char **av, char **envp)
 {
 	(void)av;
 	t_pars	*pars;
-	//t_exec	*exec;
+	t_exec	*exec;
 	t_jct	*jct;
 
 	// printf("\n😈😈😈 Welcome to minishell ... or should I say " RED"🔥 MINIHELLLL 🔥 😈😈😈\n\n"WHT);
@@ -57,6 +58,7 @@ int	main(int ac, char **av, char **envp)
 	}
 	signal(SIGINT, &sig_handler);
 	signal(SIGQUIT, NULL);
+	g_exit_status = 0;
 	while (LOULOU_JCT)
 	{
 		jct = ft_init_jct();
@@ -70,16 +72,16 @@ int	main(int ac, char **av, char **envp)
 		}
 		add_history(pars->input);
 		ft_parsing(pars);
-/* 		if (pars->jct->err_pars == false)
+		if (pars->jct->err_pars == false)
 		{
 			exec = ft_init_exec(envp, jct);
 			ft_exec(exec);
 			ft_free_all(jct, pars, exec);
-		} */
+		}
 	}
 	//TODO need to implement a fct that clears the history (fct clear_history exist in history.h)
 	//TODO implement or add all free/reset function
 	clear_history();
 	ft_free_all(jct, pars, 0);
-	return (0);
+	return (g_exit_status);
 }

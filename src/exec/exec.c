@@ -13,8 +13,8 @@ void	ft_make_pids(t_exec *exec)
 	while (++i < exec->cmd_nb)
 	{
 		// printf("--- Enter while loop		---\n");
-/* 		if (ft_check_builtin(exec, i) == true)
-		{
+		if (ft_check_builtin(exec, i) == true)
+/* 		{
 			ft_is_builtin(exec, i);
 			exit(EXIT_SUCCESS);
 		} */

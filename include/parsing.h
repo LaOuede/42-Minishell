@@ -92,7 +92,6 @@ typedef struct s_pars
 	bool			err_lexer;
 	bool			err_rebuilder;
 	bool			err_parser;
-	bool			EXIT_STATUS;
 	//TODO do we still need those 3 variables ?
 	int				file_out;
 	int				file_in;

@@ -25,6 +25,7 @@
 /* --------------------ERROR MESSAGE--------------------- *///
 # define ERR_EXEC		"Usage error : Too many arguments.\n--> Usage : ./Minishell\n"
 
+extern int	g_exit_status;
 
 typedef struct s_ms
 {
@@ -41,7 +42,6 @@ typedef struct s_jct
 	int		cmd_nb;
 	int		fd_hd;
 	bool	err_pars;
-	int		exit_status;
 	//TODO do we still need those 3 variables ?
 	int		file_in;
 	int		file_out;

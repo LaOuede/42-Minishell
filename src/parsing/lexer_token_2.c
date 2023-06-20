@@ -119,6 +119,12 @@ Handle $ token
 void	ft_envvar(int *i, char *str, t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_ENVVAR" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
+	t_token	*ptr;
+
+	ptr = pars->line;
+	while (ptr->next)
+		ptr = ptr->next;
+	printf("ptr->str = %s\n", ptr->str);
 	if (str[(*i)] == '$' && str[(*i) + 1] == '{')
 	{
 		if (ft_check_expand_brackets(str, pars) == true)
@@ -129,7 +135,7 @@ void	ft_envvar(int *i, char *str, t_pars *pars)
 	else if (str[(*i)] == '$' && str[(*i) + 1] == '?')
 	{
 		(*i) += 2;
-		ft_exit_status(pars);
+		ft_add_token_bottom(&pars->line, ft_create_node(ft_itoa(g_exit_status), pars));
 	}
 	else
 		ft_envvar_token(i, str, pars);

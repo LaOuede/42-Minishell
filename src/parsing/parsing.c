@@ -39,7 +39,6 @@ void	ft_reset_pars(t_pars *pars)
 	pars->err_lexer = false;
 	pars->err_rebuilder = false;
 	pars->err_parser = false;
-	pars->EXIT_STATUS = false;
 	//TODO do we still need those 3 variables ?
 	pars->file_in = -1;
 	pars->file_out = -1;
@@ -70,7 +69,6 @@ t_pars	*ft_init_pars(char **envp, t_jct *jct)
 		pars->err_lexer = false;
 		pars->err_rebuilder = false;
 		pars->err_parser = false;
-		pars->EXIT_STATUS = false;
 		//TODO do we still need those 3 variables ?
 		//TODO check if it needs to be -1 or 0 (may trigger an error if -1)
 		pars->file_in = -1;
@@ -95,7 +93,7 @@ void	ft_parsing(t_pars *pars)
 	if (!pars->line)
 		pars->err_lexer = true;
 	DEBUG_lexer(pars);
-	if (pars->line && pars->err_lexer == false && pars->EXIT_STATUS == false)
+	if (pars->line && pars->err_lexer == false)
 	{
 		ft_builder(pars);
 		DEBUG_builder(pars);
@@ -103,7 +101,7 @@ void	ft_parsing(t_pars *pars)
 			ft_parser(pars);
 	}
 	if (pars->err_lexer == true || pars->err_rebuilder == true \
-			|| pars->err_parser == true || pars->EXIT_STATUS == true)
+			|| pars->err_parser == true)
 			pars->jct->err_pars = true;
 	//ft_reset_pars(pars);
 	printf(KYEL "-------------------- FT_PARSING" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
