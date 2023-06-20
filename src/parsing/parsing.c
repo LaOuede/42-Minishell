@@ -59,6 +59,7 @@ t_pars	*ft_init_pars(char **envp, t_jct *jct)
 		pars->line = NULL;
 		pars->input = NULL;
 		pars->envp = envp;
+		pars->path_var = ft_get_path(pars->envp, 0);
 		pars->strlen = 0;
 		pars->nb_pipe = 1;
 		pars->type = ARG;
@@ -69,6 +70,7 @@ t_pars	*ft_init_pars(char **envp, t_jct *jct)
 		pars->err_lexer = false;
 		pars->err_rebuilder = false;
 		pars->err_parser = false;
+		pars->err_access = false;
 		pars->EXIT_STATUS = false;
 		//TODO do we still need those 3 variables ?
 		//TODO check if it needs to be -1 or 0 (may trigger an error if -1)

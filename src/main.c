@@ -46,7 +46,7 @@ int	main(int ac, char **av, char **envp)
 {
 	(void)av;
 	t_pars	*pars;
-	t_exec	*exec;
+	//t_exec	*exec;
 	t_jct	*jct;
 
 	// printf("\n😈😈😈 Welcome to minishell ... or should I say " RED"🔥 MINIHELLLL 🔥 😈😈😈\n\n"WHT);
@@ -70,12 +70,12 @@ int	main(int ac, char **av, char **envp)
 		}
 		add_history(pars->input);
 		ft_parsing(pars);
-		if (pars->jct->err_pars == false)
+/* 		if (pars->jct->err_pars == false)
 		{
 			exec = ft_init_exec(envp, jct);
 			ft_exec(exec);
 			ft_free_all(jct, pars, exec);
-		}
+		} */
 	}
 	//TODO need to implement a fct that clears the history (fct clear_history exist in history.h)
 	//TODO implement or add all free/reset function

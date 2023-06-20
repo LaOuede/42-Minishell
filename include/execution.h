@@ -54,4 +54,6 @@ int		exec_hd(char *delim);
 /*	--	Debug fct	--	*/
 // void	ft_print_debug(t_exec *exec);
 
+char	**ft_get_path(char **envp, int i);
+
 #endif

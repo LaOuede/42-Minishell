@@ -28,6 +28,7 @@ typedef struct s_jct	t_jct;
 
 enum e_token_type
 {
+	ACCESS_ERR = -2,
 	ERROR = -1,
 	CMD = 0,
 	REDIN = 1,
@@ -77,6 +78,7 @@ typedef struct s_pars
 	struct s_token	*line;
 	char			*input;
 	char			**envp;
+	char			**path_var;
 	size_t			strlen;
 	int				nb_pipe;
 	int				type;
@@ -89,6 +91,7 @@ typedef struct s_pars
 	bool			err_lexer;
 	bool			err_rebuilder;
 	bool			err_parser;
+	bool			err_access;
 	bool			EXIT_STATUS;
 	//TODO do we still need those 3 variables ?
 	int				file_out;
@@ -172,5 +175,7 @@ void	ft_error(char *err_msg);
 void	ft_clean_up_jct(char *err_msg, t_jct *jct);
 void	ft_error_parsing(char *err_msg, int step, int exit, t_pars *pars);
 void	ft_exit_status(t_pars *pars);
+
+bool	ft_test_cmd(t_pars *pars, t_token *node);
 
 #endif

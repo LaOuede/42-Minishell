@@ -13,7 +13,7 @@ void	ft_merge_all_arg(t_pars *pars)
 		ptr2 = ptr1->next;
 		while (ptr2 && ptr2->type != PIPE)
 		{
-			if ((ptr1->type == ARG || ptr1->type == CMD) && ptr2->type == ARG)
+			if ((ptr1->type == ARG || ptr1->type == CMD || ptr1->type == ACCESS_ERR) && ptr2->type == ARG)
 			{
 				if (ptr2->ws == 1)
 					ptr1->str = ft_strjoin_char(ptr1->str, ' ');
@@ -25,6 +25,33 @@ void	ft_merge_all_arg(t_pars *pars)
 		ptr1 = ptr1->next;
 	}
 	printf(KYEL "-------------------- FT_MERGE_ALL_ARG" KRED " END " RESET KYEL "--------------------\n" RESET);
+}
+
+bool	ft_test_cmd(t_pars *pars, t_token *node)
+{
+	char	*path;
+	int		i;
+
+	if (access(node->str, F_OK | X_OK) == 0)
+		return (true);
+	path = ft_strjoin("./", node->str);
+	if (access(path, F_OK | X_OK) == 0)
+		return (true);
+	if (path)
+		free(path);
+	i = -1;
+	while (pars->path_var[++i])
+	{
+		path = ft_strjoin(pars->path_var[i], node->str);
+		if (access(path, F_OK | X_OK) == 0)
+			return (true);
+		if (path)
+			free(path);
+	}
+	//ft_error_parsing(ERR_QUOTE, LEXER, 2, pars);
+	perror("Error ! Can't find path to program");
+	path = NULL;
+	return (false);
 }
 
 /*
@@ -44,6 +71,10 @@ void	ft_find_cmd(t_pars *pars)
 		if (ptr->type == ARG && flag == true)
 		{
 			ptr->type = CMD;
+			pars->err_access = ft_test_cmd(pars, ptr);
+			if (ft_test_cmd(pars, ptr) == false)
+				ptr->type = ACCESS_ERR;
+			printf("ptr->type = %d\n", ptr->type);
 			flag = false;
 		}
 		else if (ptr->type == PIPE)
