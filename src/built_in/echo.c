@@ -9,15 +9,6 @@ Flag -n :
 	Omit newline from the output.
 */
 
-/* 	else if (str[(*i)] == '$' && str[(*i) + 1] == '?')
-	{
-		if (ft_strncmp(ptr->str, "echo", 4) == 0)
-		{
-			(*i) += 2;
-			ft_exit_status(pars);
-		}
-	} */
-
 bool	ft_flag(char *str)
 {
 	printf(KYEL "-------------------- FT_FLAG" KGRN " START " RESET KYEL "--------------------\n" RESET);
