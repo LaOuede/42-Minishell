@@ -76,8 +76,9 @@ int	main(int ac, char **av, char **envp)
 		{
 			exec = ft_init_exec(envp, jct);
 			ft_exec(exec);
-			ft_free_all(jct, pars, exec);
+			ft_free_exec(exec);
 		}
+		ft_free_all(jct, pars, 0);
 	}
 	//TODO need to implement a fct that clears the history (fct clear_history exist in history.h)
 	//TODO implement or add all free/reset function

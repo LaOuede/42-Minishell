@@ -22,6 +22,8 @@ void	ft_free_pars(t_pars *pars)
 			ft_freenull(pars->input);
 		if (pars->line)
 			ft_free_lst(&pars->line);
+		if (pars->path_var)
+			ft_free_tab_char(pars->path_var);
 		ft_freenull(pars);
 	}
 }
