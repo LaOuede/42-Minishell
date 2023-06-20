@@ -50,7 +50,6 @@ enum e_step
 	LEXER = 1,
 	REBUILDER = 2,
 	PARSER = 3,
-	EXEC = 4,
 };
 
 typedef struct s_tab
