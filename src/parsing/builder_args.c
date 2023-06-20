@@ -1,5 +1,28 @@
 #include "../../include/minishell.h"
 
+/*
+Check for REDIN or REDOUT token at the end of the linked-list.
+*/
+void	ft_check_access(t_pars *pars)
+{
+	printf(KYEL "-------------------- FT_CHECK_REDIR" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	t_token	*ptr;
+	int		counter;
+
+	counter = 0;
+	ptr = pars->line;
+	while (ptr)
+	{
+		if (ptr->type == ACCESS_ERR)
+			counter += 1;
+		ptr = ptr->next;
+	}
+	if (counter == pars->nb_pipe)
+		while (--counter >= 0)
+			ft_error_parsing(ERR_ACCESS, PARSER, 127, pars);
+	printf(KYEL "-------------------- FT_CHECK_REDIR" KRED " END " RESET KYEL "--------------------\n" RESET);
+}
+
 void	ft_merge_all_arg(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_MERGE_ALL_ARG" KGRN " START " RESET KYEL "--------------------\n" RESET);
@@ -27,35 +50,6 @@ void	ft_merge_all_arg(t_pars *pars)
 	printf(KYEL "-------------------- FT_MERGE_ALL_ARG" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
-bool	ft_test_cmd(t_pars *pars, t_token *node)
-{
-	int		i;
-	char	*path;
-
-	(void)pars;
-	if (access(node->str, F_OK | X_OK) == 0)
-		return (true);
-	path = ft_strjoin("./", node->str);
-	if (access(path, F_OK | X_OK) == 0)
-		return (true);
-	if (path)
-		ft_freenull(path);
-	i = -1;
-	while (pars->path_var[++i])
-	{
-		path = ft_strjoin(pars->path_var[i], node->str);
-		if (access(path, F_OK | X_OK) == 0)
-		{
-			ft_freenull(path);
-			return (true);
-		}
-		if (path)
-			ft_freenull(path);
-	}
-	path = NULL;
-	return (false);
-}
-
 /*
 Identify the first ARG token as CMD
 */
@@ -75,8 +69,6 @@ void	ft_find_cmd(t_pars *pars)
 			ptr->type = CMD;
 			if (ft_test_cmd(pars, ptr) == false)
 				ptr->type = ACCESS_ERR;
-			if (ptr->type == ACCESS_ERR && pars->nb_pipe == 1)
-				ft_error_parsing(ERR_ACCESS, PARSER, 127, pars);
 			flag = false;
 		}
 		else if (ptr->type == PIPE)
@@ -123,4 +115,5 @@ void	ft_args(t_pars *pars)
 	ft_merge_arg(pars);
 	ft_find_cmd(pars);
 	ft_merge_all_arg(pars);
+	ft_check_access(pars);
 }

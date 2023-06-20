@@ -50,6 +50,7 @@ enum e_step
 	LEXER = 1,
 	REBUILDER = 2,
 	PARSER = 3,
+	EXEC = 4,
 };
 
 typedef struct s_tab
@@ -155,6 +156,7 @@ void	ft_open_file(t_pars *pars);
 void	ft_redirection(t_pars *pars);
 void	ft_swap(t_token *ptr1, t_token *ptr2);
 void	ft_swap_node(t_pars *pars);
+bool	ft_test_cmd(t_pars *pars, t_token *node);
 
 /* 		Parser part functions 						*/
 void	ft_parser(t_pars *pars);
@@ -175,6 +177,5 @@ void	ft_clean_up_jct(char *err_msg, t_jct *jct);
 void	ft_error_parsing(char *err_msg, int step, int exit, t_pars *pars);
 void	ft_exit_status(t_pars *pars);
 
-bool	ft_test_cmd(t_pars *pars, t_token *node);
 
 #endif
