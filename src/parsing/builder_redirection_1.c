@@ -2,6 +2,7 @@
 
 bool	ft_test_cmd(t_pars *pars, t_token *node)
 {
+	printf(KYEL "-------------------- FT_TEST_CMD --------------------\n" RESET);
 	int		i;
 	char	*path;
 

@@ -5,7 +5,7 @@ Check for REDIN or REDOUT token at the end of the linked-list.
 */
 void	ft_check_access(t_pars *pars)
 {
-	printf(KYEL "-------------------- FT_CHECK_REDIR" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	printf(KYEL "-------------------- FT_CHECK_ACCESS" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr;
 	int		counter;
 
@@ -20,7 +20,7 @@ void	ft_check_access(t_pars *pars)
 	if (counter == pars->nb_pipe)
 		while (--counter >= 0)
 			ft_error_parsing(ERR_ACCESS, PARSER, 127, pars);
-	printf(KYEL "-------------------- FT_CHECK_REDIR" KRED " END " RESET KYEL "--------------------\n" RESET);
+	printf(KYEL "-------------------- FT_CHECK_ACCESS" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
 void	ft_merge_all_arg(t_pars *pars)
