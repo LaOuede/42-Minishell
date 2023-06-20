@@ -16,11 +16,11 @@ void	ft_close_fds(t_exec *exec)
 		if (exec->pipes[i][1])
 			close(exec->pipes[i][1]);
 	}
-	if (exec->fd_in != 0)
+	if (exec->fd_in)
 		close(exec->fd_in);
-	if (exec->fd_out != 0)
+	if (exec->fd_out)
 		close(exec->fd_out);
-	if (exec->jct->fd_hd != 0)
+	if (exec->jct->fd_hd)
 		close(exec->jct->fd_hd);
 	if (exec->input)
 		close(exec->input);
@@ -28,7 +28,7 @@ void	ft_close_fds(t_exec *exec)
 		close(exec->output);
 }
 
-void	ft_pre_redir(t_exec *exec, int i)
+int	ft_pre_redir(t_exec *exec, int i)
 {
 	printf("---		ft_pre_redir starts\n");
 	printf("---		i = %d \n", i);
@@ -37,16 +37,24 @@ void	ft_pre_redir(t_exec *exec, int i)
 	{
 		printf("\n--- 1er if statement \n");
 		//if there is a prev pipe, input will be the entry of the pipe
-		if (i > 0 && exec->pipes[i - 1][0])
+		if (i > 0)
 			exec->input = exec->pipes[i - 1][0];
 		printf("\n--- 2nd if statement \n");
 		//if there is a pipe out, the output is the pipe
 		if (i < exec->pipes_nb)
+		{
+			if (pipe(exec->pipes[i]) == -1)
+			{
+				perror("Error! Pipe creation");
+				return (1);
+			}	
 			exec->output = exec->pipes[i][1];
+		}
 	}
 	if (exec->jct->fd_hd)
 	{
 		dup2(exec->jct->fd_hd, STDIN_FILENO);
+		// close(exec->jct->fd_hd); //TODO to test
 		exec->jct->fd_hd = 0;
 	}
 	if (exec->jct->fds_in[i])
@@ -54,6 +62,7 @@ void	ft_pre_redir(t_exec *exec, int i)
 	if (exec->jct->fds_out[i])
 		exec->output = exec->jct->fds_out[i];
 	printf("---		ft_pre_redir ends\n");
+	return (0);
 }
 
 int	ft_mem_pipes(t_exec *exec)
@@ -83,20 +92,20 @@ int	ft_mem_pipes(t_exec *exec)
 
 int	ft_create_pipes(t_exec *exec)
 {
-	int	i;
+	// int	i;
 
 	if (exec->cmd_nb <= 1)
 		return (1);
 	if (ft_mem_pipes(exec) == 1)
 		return (2);
-	i = -1;
-	while (++i < exec->pipes_nb)
-	{
-		if (pipe(exec->pipes[i]) == -1)
-		{
-			perror("Error! Pipe creation");
-			return (2);
-		}
-	}
+	// i = -1;
+	// while (++i < exec->pipes_nb)
+	// {
+	// 	if (pipe(exec->pipes[i]) == -1)
+	// 	{
+	// 		perror("Error! Pipe creation");
+	// 		return (2);
+	// 	}
+	// }
 	return (0);
 }

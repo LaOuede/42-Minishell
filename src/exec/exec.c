@@ -18,7 +18,8 @@ void	ft_make_pids(t_exec *exec)
 			ft_is_builtin(exec, i);
 			exit(EXIT_SUCCESS);
 		} */
-		ft_pre_redir(exec, i);
+		if (ft_pre_redir(exec, i) == 1)
+			perror("Error! Pre Redir:");
 		exec->pids[i] = fork();
 		if (exec->pids[i] == -1)
 			perror("Error ! Pid creation failed:");
@@ -96,7 +97,7 @@ void	ft_dup_proc(t_exec *exec, int i)
 	}
 	if (exec->cmd_nb > 1) // s'il y a plus qu'une cmd, donc des pipes
 	{
-		if (i > 0 && exec->pipes[i - 1][0])
+		if (i > 0)
 		{
 			if (exec->input)
 				dup2(exec->input, STDIN_FILENO);
