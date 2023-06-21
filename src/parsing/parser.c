@@ -60,12 +60,9 @@ void	ft_fill_tab(t_pars *pars, t_tab *tab)
 			else if (tab->column != tab->ptr->type)
 			{
 				if (tab->ptr->type == ACCESS_ERR)
-				{
-					pars->jct->tab[tab->row][tab->column] = "ERROR";
 					while (tab->column < 3)
-						pars->jct->tab[tab->row][tab->column++] = NULL;
-				}
-				else if (tab->ptr->type != PIPE)
+						pars->jct->tab[tab->row][tab->column++] = ft_strdup(tab->ptr->str);
+				if (tab->ptr->type != PIPE)
 					pars->jct->tab[tab->row][tab->column] = NULL;
 				else
 					while (tab->column < 3)

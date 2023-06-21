@@ -73,6 +73,8 @@ void	ft_find_cmd(t_pars *pars)
 				printf(ERR_ACCESS);
 				g_exit_status = 127;
 				ptr->type = ACCESS_ERR;
+				ft_freenull(ptr->str);
+				ptr->str = ft_strdup("ERROR");
 			}
 			flag = false;
 		}

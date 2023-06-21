@@ -58,8 +58,8 @@ int	main(int ac, char **av, char **envp)
 		ft_error(ERR_EXEC);
 		exit(EXIT_FAILURE);
 	}
-	signal(SIGINT, &sig_handler);
 	signal(SIGQUIT, NULL);
+	signal(SIGINT, &sig_handler);
 	g_exit_status = 0;
 	while (LOULOU_JCT)
 	{
