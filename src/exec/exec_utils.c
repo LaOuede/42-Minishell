@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-void	ft_copy_env(t_exec *exec, char **envp)
+void	ft_copy_env(t_jct *jct, char **envp)
 {
 	int	i;
 	int	j;
@@ -8,12 +8,12 @@ void	ft_copy_env(t_exec *exec, char **envp)
 	i = 0;
 	while (envp[i])
 		i++;
-	exec->envp = ft_calloc(sizeof(char **), i + 1);
+	jct->envp = ft_calloc(sizeof(char **), i + 1);
 	i = -1;
 	j = 0;
 	while (envp[++i])
-		exec->envp[j++] = ft_strdup(envp[i]);
-	exec->envp[j] = NULL;
+		jct->envp[j++] = ft_strdup(envp[i]);
+	jct->envp[j] = NULL;
 }
 
 int	ft_path_var_qty(char **path_var)
@@ -55,22 +55,21 @@ char	**ft_get_path(char **envp, int i)
 	return (new_path_var);
 }
 
-t_exec	*ft_init_exec(char **envp, t_jct *jct)
+t_exec	*ft_init_exec(t_jct *jct)
 {
 	static t_exec	*exec;
 
 	exec = malloc(sizeof(t_exec));
 	if (!exec)
 		perror(NULL);
-	exec->envp = NULL;
-	ft_copy_env(exec, envp);
+	exec->envp = jct->envp;
 	exec->path_var = ft_get_path(exec->envp, 0);
 	exec->jct = jct;
 	exec->input = 0;
 	exec->output = 0;
 	exec->pids = 0;
 	exec->pipes = 0;
-	exec->cmd_nb = exec->jct->cmd_nb;
+	exec->cmd_nb = jct->cmd_nb;
 	exec->pipes_nb = exec->cmd_nb - 1;
 	return (exec);
 }

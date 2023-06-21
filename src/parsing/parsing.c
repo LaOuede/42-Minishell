@@ -46,7 +46,7 @@ void	ft_reset_pars(t_pars *pars)
 }
 
 /* Main parsing structure initialization */
-t_pars	*ft_init_pars(char **envp, t_jct *jct)
+t_pars	*ft_init_pars(t_jct *jct)
 {
 	t_pars	*pars;
 
@@ -57,7 +57,7 @@ t_pars	*ft_init_pars(char **envp, t_jct *jct)
 		pars->jct = jct;
 		pars->line = NULL;
 		pars->input = NULL;
-		pars->envp = envp;
+		pars->envp = jct->envp;
 		pars->path_var = ft_get_path(pars->envp, 0);
 		pars->strlen = 0;
 		pars->nb_pipe = 1;

@@ -39,6 +39,7 @@ typedef struct s_jct
 	int		*fds_in;
 	int		*fds_out;
 	char	***tab;
+	char	**envp;
 	int		cmd_nb;
 	int		fd_hd;
 	bool	err_pars;
@@ -51,7 +52,7 @@ typedef struct s_jct
 void	ft_exit(t_exec *exec);
 
 /* 		Jct functions 							*/
-t_jct	*ft_init_jct(void);
+t_jct	*ft_init_jct(char **envp);
 void	ft_free_jct(t_jct *jct);
 void	ft_free_all(t_jct *jct, t_pars *pars, t_exec *exec);
 

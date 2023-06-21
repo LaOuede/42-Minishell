@@ -106,7 +106,7 @@ void	DEBUG_tab(t_jct *jct);
 
 /* 		Parsing functions 							*/
 void	ft_parsing(t_pars *pars);
-t_pars	*ft_init_pars(char **envp, t_jct *jct);
+t_pars	*ft_init_pars(t_jct *jct);
 void	ft_reset_node(t_pars *pars);
 void	ft_reset_pars(t_pars *pars);
 

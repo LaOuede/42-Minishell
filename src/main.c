@@ -20,11 +20,13 @@ void	ft_free_all(t_jct *jct, t_pars *pars, t_exec *exec)
 Initialization of the junction structure.
 This structure holds all important data needed both in parsing and execution.
 */
-t_jct	*ft_init_jct(void)
+t_jct	*ft_init_jct(char **envp)
 {
 	t_jct	*jct;
 
 	jct = ft_calloc(1, sizeof(t_jct));
+	jct->envp = NULL;
+	ft_copy_env(jct, envp);
 	jct->fds_in = NULL;
 	jct->fds_out = NULL;
 	jct->tab = NULL;
@@ -61,8 +63,8 @@ int	main(int ac, char **av, char **envp)
 	g_exit_status = 0;
 	while (LOULOU_JCT)
 	{
-		jct = ft_init_jct();
-		pars = ft_init_pars(envp, jct);
+		jct = ft_init_jct(envp);
+		pars = ft_init_pars(jct);
 		pars->input = readline("Minishell > ");
 		printf("pars->input = %s\n", pars->input);
 		if (!pars->input)
@@ -74,7 +76,7 @@ int	main(int ac, char **av, char **envp)
 		ft_parsing(pars);
 		if (pars->jct->err_pars == false)
 		{
-			exec = ft_init_exec(envp, jct);
+			exec = ft_init_exec(jct);
 			ft_exec(exec);
 			ft_free_exec(exec);
 		}

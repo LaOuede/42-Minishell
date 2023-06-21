@@ -33,7 +33,7 @@ typedef struct s_exec
 }			t_exec;
 
 /*	--	Function Declarations for the execution of shell commands	--	*/
-t_exec	*ft_init_exec(char **envp, t_jct *jct);
+t_exec	*ft_init_exec(t_jct *jct);
 void	ft_dup_proc(t_exec *exec, int i);
 // void 	ft_pre_redir(t_exec *exec, int i);
 int		ft_pre_redir(t_exec *exec, int i);
@@ -45,7 +45,7 @@ char	*ft_free_2char(char **tab);
 void	ft_free_3tab(t_jct *jct);
 void	ft_free_exec(t_exec *exec);
 void	ft_exec(t_exec *exec);
-void	ft_copy_env(t_exec *exec, char **envp);
+void	ft_copy_env(t_jct *jct, char **envp);
 char	*ft_cmd_path(t_exec *exec, char *cmds);
 void	ft_free_3tab(t_jct *jct);
 void	ft_run_cmd(t_exec *exec, int i);
