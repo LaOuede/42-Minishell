@@ -28,16 +28,15 @@ void	sig_child_handler(int sig)
 	if (sig == SIGQUIT)
 	{
 		ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
+		rl_replace_line("", 0);
 		rl_on_new_line();
 	}
 	else if (sig == SIGINT)
 	{
-		rl_already_prompted = 1;
 		g_exit_status = 1;
 		rl_replace_line("", 0);
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		rl_on_new_line();
-		rl_redisplay();
 	}
 }
 

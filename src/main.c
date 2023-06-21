@@ -67,7 +67,6 @@ int	main(int ac, char **av, char **envp)
 
 		pars->input = readline("Minishell > ");
 		printf("pars->input = %s\n", pars->input);
-		rl_already_prompted = 0;
 		if (!pars->input)
 		{
 			printf("exit");
