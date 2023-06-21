@@ -50,6 +50,13 @@ void	ft_fill_tab(t_pars *pars, t_tab *tab)
 			printf("ptr->type = %d\n", tab->ptr->type);
 			if (tab->ptr->type == PIPE && tab->column == 0)
 				tab->ptr = tab->ptr->next;
+			if (tab->ptr->type == ACCESS_ERR && tab->column == 0)
+			{
+				while (tab->column < 3)
+						pars->jct->tab[tab->row][tab->column++] = ft_strdup(tab->ptr->str);
+				if (tab->ptr->next)
+					tab->ptr = tab->ptr->next;
+			}
 			if (tab->column == tab->ptr->type)
 			{
 				pars->jct->tab[tab->row][tab->column] = ft_strdup(tab->ptr->str);
@@ -59,9 +66,6 @@ void	ft_fill_tab(t_pars *pars, t_tab *tab)
 			}
 			else if (tab->column != tab->ptr->type)
 			{
-				if (tab->ptr->type == ACCESS_ERR)
-					while (tab->column < 3)
-						pars->jct->tab[tab->row][tab->column++] = ft_strdup(tab->ptr->str);
 				if (tab->ptr->type != PIPE)
 					pars->jct->tab[tab->row][tab->column] = NULL;
 				else
