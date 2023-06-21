@@ -3,10 +3,20 @@
 
 /*
 Handle signal outside forks:
-	ctrl-C = display a new prompt on a new line
-	ctrl-D = exit shell.
+	SIGINT / ctrl-C = display a new prompt on a new line
+	SIGQUIT / ctrl-D = exit shell.
 Update exit_status
 */
+/* void	sig_handler(int sig)
+{
+	(void)sig;
+	g_exit_status = 1;
+	ft_putchar_fd('\n', STDOUT_FILENO);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+} */
+
 void	sig_handler(int sig)
 {
 	(void)sig;
@@ -19,8 +29,8 @@ void	sig_handler(int sig)
 
 /*
 Handle signal in exec:
-	ctrl-C = display a new prompt on a new line
-	ctrl-D = display a new prompt on a new line.
+	SIGINT / ctrl-C = display a new prompt on a new line
+	SIGQUIT / ctrl-\ = exit child.
 Update exit_status
 */
 void	sig_child_handler(int sig)
@@ -34,8 +44,8 @@ void	sig_child_handler(int sig)
 	else if (sig == SIGINT)
 	{
 		g_exit_status = 1;
-		rl_replace_line("", 0);
 		ft_putchar_fd('\n', STDOUT_FILENO);
+		rl_replace_line("", 0);
 		rl_on_new_line();
 	}
 }
