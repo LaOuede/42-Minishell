@@ -59,6 +59,7 @@ void	ft_free_jct(t_jct *jct);
 void	ft_free_all(t_jct *jct, t_pars *pars, t_exec *exec);
 
 /* 		Signal functions 							*/
-void	sig_handler(int sig);
+void	init_sig_handlers(void);
+void	init_sig_exec_handlers(void);
 
 #endif

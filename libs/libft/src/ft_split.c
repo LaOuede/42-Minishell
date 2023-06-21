@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csenand <csenand@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gle-roux <gle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 08:48:10 by gle-roux          #+#    #+#             */
-/*   Updated: 2023/05/16 13:45:09 by csenand          ###   ########.fr       */
+/*   Updated: 2023/06/21 17:07:19 by gle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,8 @@ static char	*free_tab(char **tab)
 	int	i;
 
 	i = 0;
-	while (tab[i]){
+	while (tab[i])
 		free(tab[i++]);
-	}
 	free(tab);
 	return (0);
 }
