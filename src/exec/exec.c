@@ -13,13 +13,16 @@ void	ft_make_pids(t_exec *exec)
 	while (++i < exec->cmd_nb)
 	{
 		// printf("--- Enter while loop		---\n");
-		if (ft_check_builtin(exec, i) == true)
 /* 		{
+		if (ft_check_builtin(exec, i) == true)
 			ft_is_builtin(exec, i);
 			exit(EXIT_SUCCESS);
 		} */
 		if (ft_pre_redir(exec, i) == 1)
-			perror("Error! Pre Redir:");
+		{
+			perror("Error! Pre Redir");
+			exit(127); //TODO mettre le vrai exit status
+		}
 		exec->pids[i] = fork();
 		if (exec->pids[i] == -1)
 			perror("Error ! Pid creation failed:");
@@ -117,7 +120,7 @@ void	ft_exec(t_exec *exec)
 {
 	int	i;
 
-	if (ft_create_pipes(exec) == 2)
+	if (ft_mem_pipes(exec) == 2)
 		return ;
 	ft_make_pids(exec);
 	i = -1;
