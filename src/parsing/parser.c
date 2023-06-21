@@ -64,10 +64,6 @@ void	ft_fill_tab(t_pars *pars, t_tab *tab)
 					pars->jct->tab[tab->row][tab->column] = "ERROR";
 					while (tab->column < 3)
 						pars->jct->tab[tab->row][tab->column++] = NULL;
-/* 					if (tab->ptr->next)
-						tab->ptr = tab->ptr->next;
-					else
-						break ; */
 				}
 				else if (tab->ptr->type != PIPE)
 					pars->jct->tab[tab->row][tab->column] = NULL;
