@@ -20,8 +20,7 @@ void	ft_check_access(t_pars *pars)
 	}
 	printf("counter = %d\n", counter);
 	if (counter == pars->nb_pipe)
-		while (--counter >= 0)
-			ft_error_parsing(ERR_ACCESS, PARSER, 127, pars);
+		ft_error_parsing(0, PARSER, 127, pars);
 	printf(KYEL "-------------------- FT_CHECK_ACCESS" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
