@@ -70,7 +70,9 @@ int	main(int ac, char **av, char **envp)
 		if (!pars->input)
 		{
 			printf("exit");
-			break ;
+			clear_history();
+			ft_free_all(jct, pars, 0);
+			exit(g_exit_status);
 		}
 		add_history(pars->input);
 		ft_parsing(pars);
@@ -84,7 +86,7 @@ int	main(int ac, char **av, char **envp)
 	}
 	//TODO need to implement a fct that clears the history (fct clear_history exist in history.h)
 	//TODO implement or add all free/reset function
-	clear_history();
-	ft_free_all(jct, pars, 0);
-	return (g_exit_status);
+/* 	clear_history();
+	ft_free_all(jct, pars, 0); */
+	return (0);
 }
