@@ -25,6 +25,8 @@
 /* --------------------ERROR MESSAGE--------------------- *///
 # define ERR_EXEC		"Usage error : Too many arguments.\n--> Usage : ./Minishell\n"
 
+# define ADD 0
+
 extern int	g_exit_status;
 
 typedef struct s_ms

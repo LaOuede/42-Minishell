@@ -71,20 +71,24 @@ void	ft_run_cmd(t_exec *exec, int r)
 {
 	char	*path;
 	char	**opt;
-	char	***cmds;
-
-	cmds = exec->jct->tab;
-	// fprintf(stderr, "cmd[%d][0] = %s\n", r, cmds[r][0]);
-	// fprintf(stderr, "cmd[%d][1] = %s\n", r, cmds[r][1]);
-	// fprintf(stderr, "cmd[%d][2] = %s\n", r, cmds[r][2]);
-	opt = ft_split(cmds[r][0], ' ');
+	
+	// fprintf(stderr, "cmd[%d][0] = %s\n", r, exec->jct->tab[r][0]);
+	// fprintf(stderr, "cmd[%d][1] = %s\n", r, exec->jct->tab[r][1]);
+	// fprintf(stderr, "cmd[%d][2] = %s\n", r, exec->jct->tab[r][2]);
+	opt = ft_split(exec->jct->tab[r][0], ' ');
 	path = ft_cmd_path(exec, opt[0]);
-	fprintf(stderr, "path = %s\n", path);
 	if (!path)
+	{
+		free(opt);
+		exit(127);
+	}
+	if (execve(path, opt, exec->envp) < 0)
+	{
+		perror("Error ! Something went wrong while executing");
 		free(path);
-	else if (execve(path, opt, exec->envp) < 0)
-		perror("Error ! Something went wrong while executing: ");
-	//TODO ft_err exit if there is an error, so the below will never be executed
+		ft_free_tab_char(opt);
+		exit(127);
+	}
 }
 
 void	ft_dup_proc(t_exec *exec, int i)
