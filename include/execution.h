@@ -25,7 +25,7 @@ typedef struct s_exec
 	int				fd_in;
 	int				fd_out;
 	int				output;
-	pid_t			*pids;
+	pid_t			pids;
 	int				**pipes;
 	struct s_jct	*jct;
 	int				cmd_nb;
