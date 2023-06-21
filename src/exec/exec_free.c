@@ -33,9 +33,17 @@ void	ft_free_exec(t_exec *exec)
 {
 	if (exec->path_var)
 		ft_free_tab_char(exec->path_var);
+	if (ADD)
+		printf("exec->path_var address (in ft_free_exit): %p\n", exec->path_var);
 	if (exec->pipes)
 		ft_free_tab_int(exec->pipes, exec->pipes_nb);
+	if (ADD)
+		printf("exec->pipes address (in ft_free_exit): %p\n", exec->pipes);
 	if (exec->pids)
 		ft_freenull(exec->pids);
+	if (ADD)
+		printf("exec->pipes address (in ft_free_exit): %p\n", exec->pipes);
+	if (ADD)
+		printf("exec (in ft_free_exit): %p\n", exec);
 	ft_freenull(exec);
 }
