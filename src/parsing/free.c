@@ -4,6 +4,8 @@ void	ft_free_jct(t_jct *jct)
 {
 	if (jct)
 	{
+		if (jct->envp)
+			ft_free_tab_char(jct->envp);
 		if (jct->tab)
 			ft_free_3tab(jct);
 		if (jct->fds_in)

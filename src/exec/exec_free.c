@@ -28,8 +28,6 @@ void	ft_free_3tab(t_jct *jct)
 
 void	ft_free_exec(t_exec *exec)
 {
-	if (exec->envp)
-		ft_free_tab_char(exec->envp);
 	if (exec->path_var)
 		ft_free_tab_char(exec->path_var);
 	if (exec->pipes)

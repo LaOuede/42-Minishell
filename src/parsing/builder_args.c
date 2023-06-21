@@ -13,10 +13,12 @@ void	ft_check_access(t_pars *pars)
 	ptr = pars->line;
 	while (ptr)
 	{
+		printf("ptr->srt = %s\n", ptr->str);
 		if (ptr->type == ACCESS_ERR)
 			counter += 1;
 		ptr = ptr->next;
 	}
+	printf("counter = %d\n", counter);
 	if (counter == pars->nb_pipe)
 		while (--counter >= 0)
 			ft_error_parsing(ERR_ACCESS, PARSER, 127, pars);
@@ -68,7 +70,11 @@ void	ft_find_cmd(t_pars *pars)
 		{
 			ptr->type = CMD;
 			if (ft_test_cmd(pars, ptr) == false)
+			{
+				printf(ERR_ACCESS);
+				g_exit_status = 127;
 				ptr->type = ACCESS_ERR;
+			}
 			flag = false;
 		}
 		else if (ptr->type == PIPE)
