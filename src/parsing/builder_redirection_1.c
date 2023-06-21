@@ -6,12 +6,14 @@ bool	ft_test_cmd(t_pars *pars, t_token *node)
 	int		i;
 	char	*path;
 
-	(void)pars;
 	if (access(node->str, F_OK | X_OK) == 0)
 		return (true);
 	path = ft_strjoin("./", node->str);
 	if (access(path, F_OK | X_OK) == 0)
+	{
+		ft_freenull(path);
 		return (true);
+	}
 	if (path)
 		ft_freenull(path);
 	i = -1;
