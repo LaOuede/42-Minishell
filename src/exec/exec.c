@@ -4,6 +4,7 @@ void	ft_make_pids(t_exec *exec)
 {
 	int	i;
 
+	exec->pids = ft_calloc(exec->cmd_nb, sizeof(pid_t *));
 	if (!exec->path_var)
 		return ;
 	exec->fd_in = dup(STDIN_FILENO);
@@ -22,11 +23,11 @@ void	ft_make_pids(t_exec *exec)
 			perror("Error! Pre Redir");
 			exit(127); //TODO mettre le vrai exit status
 		}
-		exec->pids = fork();
-		if (exec->pids == -1)
+		exec->pids[i] = fork();
+		if (exec->pids[i] == -1)
 			perror("Error ! Pid creation failed:");
 		// printf("--- Enter in ft_chils_proc	---\n");
-		if (exec->pids == 0)
+		if (exec->pids[i] == 0)
 		{
 			//this is the child process
 			ft_dup_proc(exec, i);
@@ -115,21 +116,25 @@ void	ft_dup_proc(t_exec *exec, int i)
 				dup2(exec->output, STDOUT_FILENO);
 			close(exec->output);
 		}
+		if (exec->jct->tab[i][1])
+			dup2(exec->jct->fds_in[i], STDIN_FILENO);
+		if (exec->jct->tab[i][2])
+			dup2(exec->jct->fds_out[i], STDOUT_FILENO);
 	}
 	ft_close_fds(exec);
 }
 
 void	ft_exec(t_exec *exec)
 {
+	int i;
 
 /* 	signal(SIGINT, NULL);
 	signal(SIGQUIT, NULL); */
 	if (ft_mem_pipes(exec) == 2)
 		return ;
 	ft_make_pids(exec);
-	//int i = -1;
-	// while (++i < exec->cmd_nb)
-		// waitpid(exec->pids[i], NULL, 0);
-	waitpid(exec->pids, NULL, 0);
+	i = -1;
+	while (++i < exec->cmd_nb)
+		waitpid(exec->pids[i], NULL, 0);
 	//TODO clarifier le 2nd arg de waitpid
 }

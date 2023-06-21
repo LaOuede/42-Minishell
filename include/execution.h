@@ -25,7 +25,7 @@ typedef struct s_exec
 	int				fd_in;
 	int				fd_out;
 	int				output;
-	pid_t			pids;
+	pid_t			*pids;
 	int				**pipes;
 	struct s_jct	*jct;
 	int				cmd_nb;
@@ -40,7 +40,7 @@ int		ft_pre_redir(t_exec *exec, int i);
 void	ft_close_fds(t_exec *exec);
 // void	ft_close_fds(t_exec *exec, int i);
 // int		ft_create_pipes(t_exec *exec);
-int	ft_mem_pipes(t_exec *exec);
+int		ft_mem_pipes(t_exec *exec);
 char	*ft_free_2char(char **tab);
 void	ft_free_3tab(t_jct *jct);
 void	ft_free_exec(t_exec *exec);
