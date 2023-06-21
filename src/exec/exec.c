@@ -126,6 +126,8 @@ void	ft_dup_proc(t_exec *exec, int i)
 
 void	ft_exec(t_exec *exec)
 {
+	int	i;
+
 	if (ft_mem_pipes(exec) == 2)
 		return ;
 	ft_make_pids(exec);
