@@ -61,12 +61,13 @@ int	main(int ac, char **av, char **envp)
 	g_exit_status = 0;
 	while (LOULOU_JCT)
 	{
-		init_sig_handlers();
 		jct = ft_init_jct(envp);
 		pars = ft_init_pars(jct);
+		ft_init_sig(MAIN);
+
 		pars->input = readline("Minishell > ");
-		rl_already_prompted = 0;
 		printf("pars->input = %s\n", pars->input);
+		rl_already_prompted = 0;
 		if (!pars->input)
 		{
 			printf("exit");
@@ -78,7 +79,7 @@ int	main(int ac, char **av, char **envp)
 		ft_parsing(pars);
 		if (pars->jct->err_pars == false)
 		{
-			init_sig_exec_handlers();
+			ft_init_sig(EXEC);
 			exec = ft_init_exec(jct);
 			ft_exec(exec);
 			ft_free_exec(exec);

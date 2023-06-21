@@ -23,35 +23,34 @@ Handle signal in exec:
 	ctrl-D = display a new prompt on a new line.
 Update exit_status
 */
-static void	sig_child_handler(int sig)
+void	sig_child_handler(int sig)
 {
 	if (sig == SIGQUIT)
 	{
-/* 		rl_replace_line("", 0);
 		ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
-		rl_on_new_line(); */
-				write(1, "Quit: 3\n", 8);
 		rl_on_new_line();
 	}
 	else if (sig == SIGINT)
 	{
+		rl_already_prompted = 1;
 		g_exit_status = 1;
 		rl_replace_line("", 0);
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		rl_on_new_line();
 		rl_redisplay();
-		rl_already_prompted = 1;
 	}
 }
 
-void	init_sig_handlers(void)
+void	ft_init_sig(int phase)
 {
-	signal(SIGINT, &sig_handler);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	init_sig_exec_handlers(void)
-{
-	signal(SIGINT, &sig_child_handler);
-	signal(SIGQUIT, &sig_child_handler);
+	if (phase == MAIN)
+	{
+		signal(SIGINT, &sig_handler);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else if (phase == EXEC)
+	{
+		signal(SIGINT, &sig_child_handler);
+		signal(SIGQUIT, &sig_child_handler);
+	}
 }

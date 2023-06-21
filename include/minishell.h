@@ -26,6 +26,8 @@
 # define ERR_EXEC		"Usage error : Too many arguments.\n--> Usage : ./Minishell\n"
 
 # define ADD 0
+# define MAIN 42
+# define EXEC 666
 
 extern int	g_exit_status;
 
@@ -59,7 +61,6 @@ void	ft_free_jct(t_jct *jct);
 void	ft_free_all(t_jct *jct, t_pars *pars, t_exec *exec);
 
 /* 		Signal functions 							*/
-void	init_sig_handlers(void);
-void	init_sig_exec_handlers(void);
+void	ft_init_sig(int phase);
 
 #endif
