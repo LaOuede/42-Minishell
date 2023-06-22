@@ -53,6 +53,7 @@ void	sig_hd_handler(int sig)
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
+	//exit(1);
 }
 
 void	ft_init_sig(int phase)
