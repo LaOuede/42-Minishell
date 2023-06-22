@@ -1,45 +1,24 @@
 #include "../../include/minishell.h"
 
-void	ft_merge_allredin(t_pars *pars)
-{
-	printf(KYEL "-------------------- FT_MERGE_ALLREDIN" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	t_token	*ptr1;
-	t_token	*ptr2;
-
-	ptr1 = pars->line;
-	ptr2 = pars->line;
-	while (ptr1->next != NULL)
-	{
-		ptr2 = ptr1->next;
-		while (ptr2 && ptr2->type != PIPE)
-		{
-			if (ptr1->type == REDIN && ptr2->type == REDIN)
-			{
-				ptr1->str = ft_strjoin_char(ptr1->str, ' ');
-				ft_merge(ptr1, ptr2);
-				ptr2->type = ERROR;
-			}
-			ptr2 = ptr2->next;
-		}
-		ptr1 = ptr1->next;
-	}
-	printf(KYEL "-------------------- FT_MERGE_ALLREDIN" KRED " END " RESET KYEL "--------------------\n" RESET);
-}
-
-void	ft_merge_allredout(t_pars *pars)
+void	ft_merge_all_red(t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_MERGE_ALLREDOUT" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr1;
 	t_token	*ptr2;
 
 	ptr1 = pars->line;
-	ptr2 = pars->line;
 	while (ptr1->next != NULL)
 	{
 		ptr2 = ptr1->next;
 		while (ptr2 && ptr2->type != PIPE)
 		{
 			if (ptr1->type == REDOUT && ptr2->type == REDOUT)
+			{
+				ptr1->str = ft_strjoin_char(ptr1->str, ' ');
+				ft_merge(ptr1, ptr2);
+				ptr2->type = ERROR;
+			}
+			if (ptr1->type == REDIN && ptr2->type == REDIN)
 			{
 				ptr1->str = ft_strjoin_char(ptr1->str, ' ');
 				ft_merge(ptr1, ptr2);

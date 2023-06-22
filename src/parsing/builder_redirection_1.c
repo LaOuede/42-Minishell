@@ -124,7 +124,6 @@ void	ft_redirection(t_pars *pars)
 			if (pars->err_infile == false)
 				ft_create_file(pars);
 	ft_merge_red(pars);
-	ft_merge_allredin(pars);
-	ft_merge_allredout(pars);
+	ft_merge_all_red(pars);
 	}
 }
