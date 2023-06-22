@@ -7,16 +7,6 @@ Handle signal outside forks:
 	SIGQUIT / ctrl-D = exit shell.
 Update exit_status
 */
-/* void	sig_handler(int sig)
-{
-	(void)sig;
-	g_exit_status = 1;
-	ft_putchar_fd('\n', STDOUT_FILENO);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-} */
-
 void	sig_handler(int sig)
 {
 	(void)sig;

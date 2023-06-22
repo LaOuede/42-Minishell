@@ -66,7 +66,6 @@ void	ft_swap_node(t_pars *pars)
 	t_token	*ptr2;
 
 	ptr1 = pars->line;
-	ptr2 = ptr1;
 	while (ptr1->next != NULL)
 	{
 		ptr2 = ptr1->next;
