@@ -31,5 +31,5 @@ int	exec_hd(char *delim)
 	ft_child_hd(delim, fd_hd);
 	close(fd_hd);
 	fd_hd = open("/tmp/here_doc", O_RDONLY, 0644);
-	return(fd_hd);
+	return (fd_hd);
 }

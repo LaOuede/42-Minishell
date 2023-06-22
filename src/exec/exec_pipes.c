@@ -30,7 +30,7 @@ void	ft_close_fds(t_exec *exec)
 
 int	ft_pre_redir(t_exec *exec, int i)
 {
-	// printf("---	ft_pre_redir starts\n\n");
+	printf("---	ft_pre_redir starts\n\n");
 	// printf("---	i = %d \n", i);
 	// printf("---	exec->jct->fd_hd = %d \n", exec->jct->fd_hd);
 	// printf("---	BEFORE if, exec->jct->fds_in[%d]: %d\n", i,  exec->jct->fds_in[i]);
@@ -43,7 +43,7 @@ int	ft_pre_redir(t_exec *exec, int i)
 		{
 			if (pipe(exec->pipes[i]) == -1)
 			{
-				perror("Error! Pipe creation");
+				perror("Error! Pipe creation in pre_redir");
 				return (1);
 			}	
 			exec->output = exec->pipes[i][1];

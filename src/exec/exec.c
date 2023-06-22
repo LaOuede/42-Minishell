@@ -19,25 +19,17 @@ void	ft_make_pids(t_exec *exec)
 			exit(EXIT_SUCCESS);
 		} */
 		if (ft_pre_redir(exec, i) == 1)
-		{
-			perror("Error! Pre Redir");
 			exit(127); //TODO mettre le vrai exit status
-		}
 		exec->pids[i] = fork();
 		if (exec->pids[i] == -1)
 			perror("Error ! Pid creation failed:");
-		// printf("--- Enter in ft_chils_proc	---\n");
 		if (exec->pids[i] == 0)
 		{
-			//this is the child process
 			ft_dup_proc(exec, i);
 			ft_run_cmd(exec, i);
 		}
-		// printf("--- Exit ft_chils_proc	---\n");
 	}
-	dup2(exec->fd_in, STDIN_FILENO);
-	dup2(exec->fd_out, STDOUT_FILENO);
-	ft_close_fds(exec);
+	ft_reset_and_close(exec);
 	// printf("--- Exit while loop	---\n");
 }
 
@@ -71,15 +63,12 @@ void	ft_run_cmd(t_exec *exec, int r)
 {
 	char	*path;
 	char	**opt;
-	
-	// fprintf(stderr, "cmd[%d][0] = %s\n", r, exec->jct->tab[r][0]);
-	// fprintf(stderr, "cmd[%d][1] = %s\n", r, exec->jct->tab[r][1]);
-	// fprintf(stderr, "cmd[%d][2] = %s\n", r, exec->jct->tab[r][2]);
+
 	opt = ft_split(exec->jct->tab[r][0], ' ');
 	path = ft_cmd_path(exec, opt[0]);
 	if (!path)
 	{
-		free(opt);
+		ft_free_tab_char(opt);
 		exit(127);
 	}
 	if (execve(path, opt, exec->envp) < 0)
@@ -95,27 +84,19 @@ void	ft_dup_proc(t_exec *exec, int i)
 {
 	if (exec->cmd_nb == 1) // if 1 cmd and no pipes (so one cmd only)
 	{
-		//cas ou il y a une redirection in dans la cmd
 		if (exec->jct->tab[i][1])
 			dup2(exec->jct->fds_in[i], STDIN_FILENO);
-		//cas ou il y a une redirection out dans la cmd
 		if (exec->jct->tab[i][2])
 			dup2(exec->jct->fds_out[i], STDOUT_FILENO);
 	}
-	if (exec->cmd_nb > 1) // s'il y a plus qu'une cmd, donc des pipes
+	else // s'il y a plus qu'une cmd, donc des pipes
 	{
 		if (i > 0)
-		{
 			if (exec->input)
 				dup2(exec->input, STDIN_FILENO);
-			close(exec->input);
-		}
 		if (i < exec->pipes_nb)
-		{
 			if (exec->output)
 				dup2(exec->output, STDOUT_FILENO);
-			close(exec->output);
-		}
 		if (exec->jct->tab[i][1])
 			dup2(exec->jct->fds_in[i], STDIN_FILENO);
 		if (exec->jct->tab[i][2])
