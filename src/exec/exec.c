@@ -4,20 +4,20 @@ void	ft_make_pids(t_exec *exec)
 {
 	int	i;
 
-	exec->pids = ft_calloc(exec->cmd_nb, sizeof(pid_t *));
 	if (!exec->path_var)
 		return ;
+	exec->pids = ft_calloc(exec->cmd_nb, sizeof(pid_t *));
 	exec->fd_in = dup(STDIN_FILENO);
 	exec->fd_out = dup(STDOUT_FILENO);
 	i = -1;
 	while (++i < exec->cmd_nb)
 	{
 		// printf("--- Enter while loop		---\n");
-/* 		{
-		if (ft_check_builtin(exec, i) == true)
-			ft_is_builtin(exec, i);
-			exit(EXIT_SUCCESS);
-		} */
+		// if (ft_is_builtin(exec, i))
+		// {
+		// 	ft_is_builtin(exec, i);
+		// 	exit(EXIT_SUCCESS);
+		// }
 		if (ft_pre_redir(exec, i) == 1)
 			exit(127); //TODO mettre le vrai exit status
 		exec->pids[i] = fork();
@@ -108,12 +108,19 @@ void	ft_dup_proc(t_exec *exec, int i)
 void	ft_exec(t_exec *exec)
 {
 	int	i;
+	int status;
 
 	if (ft_mem_pipes(exec) == 2)
 		return ;
 	ft_make_pids(exec);
 	i = -1;
 	while (++i < exec->cmd_nb)
-		waitpid(exec->pids[i], NULL, 0);
+	{
+		waitpid(exec->pids[i], &status, 0);
+		if (WIFEXITED(status))
+			g_exit_status = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			g_exit_status = WTERMSIG(status);	
+	}
 	//TODO clarifier le 2nd arg de waitpid
 }
