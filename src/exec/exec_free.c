@@ -40,8 +40,8 @@ void	ft_free_exec(t_exec *exec)
 		ft_free_tab_int(exec->pipes, exec->pipes_nb);
 	if (ADD)
 		printf("exec->pipes address (in ft_free_exit): %p\n", exec->pipes);
-	if (exec->pids > 0)
-		exec->pids = 0;
+	if (exec->pids)
+		ft_freenull(exec->pids);
 	if (ADD)
 		printf("exec->pipes address (in ft_free_exit): %p\n", exec->pipes);
 	if (ADD)
