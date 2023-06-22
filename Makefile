@@ -34,7 +34,6 @@ SRCS_LST	= 	built_in/built_in.c \
 				parsing/free.c \
 				parsing/lexer_token_1.c \
 				parsing/lexer_token_2.c \
-				parsing/lexer_token_3.c \
 				parsing/lexer_utils.c \
 				parsing/parser.c \
 				parsing/parsing.c \

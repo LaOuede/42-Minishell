@@ -1,44 +1,142 @@
 #include "../../include/minishell.h"
 
-void	ft_pipe_token(int *i, t_pars *pars)
+/*
+Handle ' token
+1) Look for closing s_quote.
+2) If regular char, then stock char to memory and at the end create a new node.
+3) Raise an error flag if quotes aren't closed.
+*/
+void	ft_s_quotes_token(int *i, t_pars *pars)
 {
-	printf(KYEL "-------------------- FT_PIPE_TOKEN --------------------\n" RESET);
+	printf(KYEL "-------------------- FT_S_QUOTES_TOKEN" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 	char	*tmp;
 
 	tmp = NULL;
-	tmp = ft_stock_char(tmp, pars->input[(*i)]);
-	pars->type = PIPE;
-	pars->nb_pipe += 1;
-	(*i)++;
-	ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
-	ft_freenull(tmp);
-	ft_reset_node(pars);
+	pars->type = ARG;
+	pars->s_quotes = OPEN;
+	while (pars->input[++(*i)])
+	{
+		if (pars->input[(*i)] == '\'')
+			break ;
+		tmp = ft_stock_char(tmp, pars->input[*i]);
+	}
+	if (pars->input[(*i)] == '\'')
+	{
+		pars->s_quotes = CLOSE;
+		(*i)++;
+	}
+	else
+		ft_error_parsing(ERR_QUOTE, LEXER, 2, pars);
+	printf("s_quotes = %d\n", pars->s_quotes);
+	if (tmp)
+	{	
+		ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
+		ft_reset_node(pars);
+		ft_freenull(tmp);
+	}
+	printf(KYEL "-------------------- FT_S_QUOTES_TOKEN" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }
 
-void	ft_redin_token(int *i, t_pars *pars)
+/*
+1) Stock char to memory and at the end create a new node.
+2) Return if $ char.
+*/
+void	ft_char_quotes(int *i, char *str, t_pars *pars)
 {
-	printf(KYEL "-------------------- FT_REDIN_TOKEN --------------------\n" RESET);
+	printf(KYEL "-------------------- FT_CHAR_QUOTES --------------------\n" RESET);
 	char	*tmp;
 
 	tmp = NULL;
-	tmp = ft_stock_char(tmp, pars->input[(*i)]);
-	(*i)++;
-	pars->type = REDIN;
-	ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
-	ft_freenull(tmp);
-	ft_reset_node(pars);
+	while (str[(*i)] && str[(*i)] != '$')
+	{
+		printf("-> char = %c\n", str[(*i)]);
+		tmp = ft_stock_char(tmp, str[(*i)]);
+		(*i)++;
+	}
+	if (tmp)
+	{
+		ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
+		ft_freenull(tmp);
+		ft_reset_node(pars);
+	}
+	printf("-> i = %d\n", (*i));
+	printf("-> char fin = %c\n", pars->input[(*i)]);
 }
 
-void	ft_redout_token(int *i, t_pars *pars)
+/*
+1) Look for closing d_quote.
+2) Raise an error flag if quotes aren't closed.
+*/
+char	*ft_stock_quotes(int *i, char *str, t_pars *pars)
+{
+	printf(KYEL "-------------------- FT_STOCK_QUOTES" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
+	while (pars->input[++(*i)])
+	{
+		if (pars->input[(*i)] == '\"')
+			break ;
+		str = ft_stock_char(str, pars->input[*i]);
+		printf("-> char = %c\n", pars->input[(*i)]);
+	}
+	if (pars->input[(*i)] == '\"')
+	{
+		pars->d_quotes = CLOSE;
+		(*i)++;
+	}
+	else
+		ft_error_parsing(ERR_QUOTE, LEXER, 2, pars);
+	printf(KYEL "-------------------- FT_STOCK_QUOTES" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
+	return (str);
+}
+
+/*
+Handle " token
+1) Look for closing d_quote.
+2) Look for expansion in string.
+*/
+void	ft_d_quotes_token(int *i, t_pars *pars)
+{
+	printf(KYEL "-------------------- FT_D_QUOTES_TOKEN" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
+	int		j;
+	size_t	len;
+	char	*str;
+
+	str = NULL;
+	pars->d_quotes = OPEN;
+	printf("d_quotes = %d\n", pars->d_quotes);
+	str = ft_stock_quotes(i, str, pars);
+	len = ft_strlen(str);
+	j = 0;
+	while (j < (int)len)
+	{
+		printf("-> i = %d\n", j);
+		printf("-> char = %c\n", str[j]);
+		if (str[j] == '$')
+			ft_envvar(&j, str, pars);
+		else
+			ft_char_quotes(&j, str, pars);
+	}
+	ft_freenull(str);
+	printf(KYEL "-------------------- FT_D_QUOTES_TOKEN" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
+}
+
+void	ft_token(int *i, t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_REDOUT_TOKEN --------------------\n" RESET);
 	char	*tmp;
 
 	tmp = NULL;
 	tmp = ft_stock_char(tmp, pars->input[(*i)]);
-	(*i)++;
-	pars->type = REDOUT;
+	if (pars->input[(*i)] == '>')
+		pars->type = REDOUT;
+	else if (pars->input[(*i)] == '<')
+		pars->type = REDIN;
+	else
+	{
+		pars->type = PIPE;
+		pars->nb_pipe += 1;
+	}
 	ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
+	(*i)++;
 	ft_freenull(tmp);
 	ft_reset_node(pars);
 }

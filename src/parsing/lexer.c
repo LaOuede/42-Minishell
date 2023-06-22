@@ -44,12 +44,8 @@ void	ft_char(int *i, t_pars *pars)
 void	ft_metachar(char c, int *i, t_pars *pars)
 {
 	printf(KYEL "-------------------- FT_METACHAR --------------------\n" RESET);
-	if (c == '|')
-		ft_pipe_token(i, pars);
-	else if (c == '<')
-		ft_redin_token(i, pars);
-	else if (c == '>')
-		ft_redout_token(i, pars);
+	if (c == '|' || c == '<' || c == '>')
+		ft_token(i, pars);
 	else if (c == '$')
 		ft_envvar(i, pars->input, pars);
 	else if (c == '\"')

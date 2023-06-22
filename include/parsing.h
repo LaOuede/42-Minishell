@@ -123,9 +123,7 @@ bool	ft_isenvvarchar(char c);
 bool	ft_ismetachar(char c);
 void	ft_lexer(t_pars *pars);
 void	ft_metachar(char c, int *i, t_pars *pars);
-void	ft_pipe_token(int *i, t_pars *pars);
-void	ft_redin_token(int *i, t_pars *pars);
-void	ft_redout_token(int *i, t_pars *pars);
+void	ft_token(int *i, t_pars *pars);
 void	ft_s_quotes_token(int *i, t_pars *pars);
 char	*ft_stock_quotes(int *i, char *str, t_pars *pars);
 

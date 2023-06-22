@@ -18,7 +18,7 @@ void	ft_merge_all_red(t_pars *pars)
 				ft_merge(ptr1, ptr2);
 				ptr2->type = ERROR;
 			}
-			if (ptr1->type == REDIN && ptr2->type == REDIN)
+			else if (ptr1->type == REDIN && ptr2->type == REDIN)
 			{
 				ptr1->str = ft_strjoin_char(ptr1->str, ' ');
 				ft_merge(ptr1, ptr2);
@@ -91,6 +91,7 @@ void	ft_open_file(t_pars *pars)
 			{
 				ft_error_parsing(ERR_INFILE, REBUILDER, 2, pars);
 				pars->err_infile = true;
+				break ;
 			}
 			printf("pars->jct->fds_in[i] = %d\n", pars->jct->fds_in[i]);
 		}
