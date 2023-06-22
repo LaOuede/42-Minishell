@@ -25,10 +25,8 @@ bool	ft_test_cmd(t_pars *pars, t_token *node)
 			ft_freenull(path);
 			return (true);
 		}
-		if (path)
-			ft_freenull(path);
+		ft_freenull(path);
 	}
-	path = NULL;
 	return (false);
 }
 
@@ -121,9 +119,9 @@ void	ft_redirection(t_pars *pars)
 	if (pars->err_rebuilder == false)
 	{
 		ft_open_file(pars);
-			if (pars->err_infile == false)
-				ft_create_file(pars);
-	ft_merge_red(pars);
-	ft_merge_all_red(pars);
+		if (pars->err_infile == false)
+			ft_create_file(pars);
+		ft_merge_red(pars);
+		ft_merge_all_red(pars);
 	}
 }

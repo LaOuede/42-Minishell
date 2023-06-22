@@ -55,8 +55,8 @@ enum e_step
 typedef struct s_tab
 {
 	struct s_token	*ptr;
-	int				row;
-	int				column;
+	int				r;
+	int				c;
 }	t_tab;
 
 // prototype de la liste chainee token
@@ -92,10 +92,6 @@ typedef struct s_pars
 	bool			err_lexer;
 	bool			err_rebuilder;
 	bool			err_parser;
-	//TODO do we still need those 3 variables ?
-	int				file_out;
-	int				file_in;
-	int				fl_redirout;
 }	t_pars;
 
 /* 		Debug functions 							*/
@@ -108,7 +104,6 @@ void	DEBUG_tab(t_jct *jct);
 void	ft_parsing(t_pars *pars);
 t_pars	*ft_init_pars(t_jct *jct);
 void	ft_reset_node(t_pars *pars);
-void	ft_reset_pars(t_pars *pars);
 
 /* 		Lexer part functions 						*/
 void	ft_char(int *i, t_pars *pars);
@@ -171,7 +166,6 @@ void	ft_free_token(t_token *token);
 void	ft_error(char *err_msg);
 void	ft_clean_up_jct(char *err_msg, t_jct *jct);
 void	ft_error_parsing(char *err_msg, int step, int exit, t_pars *pars);
-void	ft_exit_status(t_pars *pars);
 
 
 #endif

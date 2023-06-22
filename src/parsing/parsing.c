@@ -9,8 +9,8 @@ t_tab	*ft_init_tab(t_pars *pars)
 
 	tab = ft_calloc(1, sizeof(t_tab));
 	tab->ptr = pars->line;
-	tab->row = -1;
-	tab->column = -1;
+	tab->r = -1;
+	tab->c = -1;
 	return (tab);
 }
 
@@ -44,11 +44,6 @@ t_pars	*ft_init_pars(t_jct *jct)
 	pars->err_lexer = false;
 	pars->err_rebuilder = false;
 	pars->err_parser = false;
-	//TODO do we still need those 3 variables ?
-	//TODO check if it needs to be -1 or 0 (may trigger an error if -1)
-	pars->file_in = -1;
-	pars->file_out = -1;
-	pars->fl_redirout = 0;
 	return (pars);
 }
 
@@ -56,8 +51,10 @@ t_pars	*ft_init_pars(t_jct *jct)
 Main function for parsing.
 Calls Lexer, Builder and Parser one at a time if flag are "false".
 - Lexer = Breaks input in token and put them in a linked-list.
-- Builder = Open and Create files redirections. Assembles token together by type in the linked-list.
-- Parser = Check for any invalid token and transforms linked-list in a char ***tab.
+- Builder = Open and Create files redirections.
+			Assembles token together by type in the linked-list.
+- Parser = Check for any invalid token and transforms
+	linked-list in a char ***tab.
 Produces a char *** array which is received by the executioner.
 */
 void	ft_parsing(t_pars *pars)

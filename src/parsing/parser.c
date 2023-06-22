@@ -28,48 +28,37 @@ Input : cat supp.txt >outfile | cat -e | ls < infile | echo -n Minihell
 void	ft_fill_tab(t_pars *pars, t_tab *tab)
 {
 	printf(KYEL "-------------------- FT_FILL_TAB" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	// g_jct ->fl_redirout = pars->fl_redirout;
-	// printf("pars->fl_redirout : %d\n", pars->fl_redirout);
-	// printf("g_jct->fl_redirout : %d\n", g_jct->fl_redirout);
-	// g_jct->file_out = dup(pars->file_out);
-	// close(pars->file_out);
-	// g_jct->file_in = dup(pars->file_in);
-	// close(pars->file_in);
-	// printf("g_jct->file_out : %d\n", g_jct->file_out);
-	// printf("pars->file_out : %d\n", pars->file_out);
-	// printf("g_jct->file_in : %d\n", g_jct->file_in);
-	// printf("pars->file_in : %d\n", pars->file_in);
 	printf("pars->jct->cmd_nb = %d\n", pars->jct->cmd_nb);
 	printf("pars->nb_pipe = %d\n", pars->nb_pipe);
-	while (++tab->row < pars->jct->cmd_nb && tab->ptr)
+	while (++tab->r < pars->jct->cmd_nb && tab->ptr)
 	{
-		tab->column = -1;
-		while (++tab->column < 3)
+		tab->c = -1;
+		while (++tab->c < 3)
 		{
-			printf("column = %d\n", tab->column);
+			printf("c = %d\n", tab->c);
 			printf("ptr->type = %d\n", tab->ptr->type);
-			if (tab->ptr->type == PIPE && tab->column == 0)
+			if (tab->ptr->type == PIPE && tab->c == 0)
 				tab->ptr = tab->ptr->next;
-			if (tab->column == tab->ptr->type)
+			if (tab->c == tab->ptr->type)
 			{
-				pars->jct->tab[tab->row][tab->column] = ft_strdup(tab->ptr->str);
-				printf("str = %s\n", pars->jct->tab[tab->row][tab->column]);
+				pars->jct->tab[tab->r][tab->c] = ft_strdup(tab->ptr->str);
+				printf("str = %s\n", pars->jct->tab[tab->r][tab->c]);
 				if (tab->ptr->next)
 					tab->ptr = tab->ptr->next;
 			}
-			else if (tab->column != tab->ptr->type)
+			else if (tab->c != tab->ptr->type)
 			{
-				if (tab->ptr->type == ACCESS_ERR && tab->column == 0)
+				if (tab->ptr->type == ACCESS_ERR && tab->c == 0)
 				{
-					pars->jct->tab[tab->row][tab->column] = ft_strdup(tab->ptr->str);
-						if (tab->ptr->next)
-							tab->ptr = tab->ptr->next;
+					pars->jct->tab[tab->r][tab->c] = ft_strdup(tab->ptr->str);
+					if (tab->ptr->next)
+						tab->ptr = tab->ptr->next;
 				}
 				else if (tab->ptr->type != PIPE)
-					pars->jct->tab[tab->row][tab->column] = NULL;
+					pars->jct->tab[tab->r][tab->c] = NULL;
 				else
-					while (tab->column < 3)
-						pars->jct->tab[tab->row][tab->column++] = NULL;
+					while (tab->c < 3)
+						pars->jct->tab[tab->r][tab->c++] = NULL;
 			}
 		}
 	}

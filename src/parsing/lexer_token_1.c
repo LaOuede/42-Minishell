@@ -121,7 +121,7 @@ void	ft_d_quotes_token(int *i, t_pars *pars)
 
 void	ft_token(int *i, t_pars *pars)
 {
-	printf(KYEL "-------------------- FT_REDOUT_TOKEN --------------------\n" RESET);
+	printf(KYEL "-------------------- FT_TOKEN --------------------\n" RESET);
 	char	*tmp;
 
 	tmp = NULL;

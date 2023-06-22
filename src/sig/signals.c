@@ -1,4 +1,3 @@
-
 #include "../../include/minishell.h"
 
 /*
@@ -49,7 +48,6 @@ Update exit_status
 void	sig_hd_handler(int sig)
 {
 	(void)sig;
-
 	g_exit_status = 1;
 	ft_putchar_fd('\n', STDOUT_FILENO);
 	rl_replace_line("", 0);
