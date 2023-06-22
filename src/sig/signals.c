@@ -40,6 +40,23 @@ void	sig_child_handler(int sig)
 	}
 }
 
+/*
+Handle signal in Heredoc:
+	SIGINT / ctrl-C = display a new prompt on a new line
+	SIGQUIT / ctrl-\ = display a new prompt on a new line
+Update exit_status
+*/
+void	sig_hd_handler(int sig)
+{
+	(void)sig;
+
+	g_exit_status = 1;
+	ft_putchar_fd('\n', STDOUT_FILENO);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+}
+
 void	ft_init_sig(int phase)
 {
 	if (phase == MAIN)
@@ -51,5 +68,10 @@ void	ft_init_sig(int phase)
 	{
 		signal(SIGINT, &sig_child_handler);
 		signal(SIGQUIT, &sig_child_handler);
+	}
+	else if (phase == HD)
+	{
+		signal(SIGINT, &sig_hd_handler);
+		signal(SIGQUIT, SIG_IGN);
 	}
 }

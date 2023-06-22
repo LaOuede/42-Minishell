@@ -28,31 +28,27 @@ t_pars	*ft_init_pars(t_jct *jct)
 {
 	t_pars	*pars;
 
-	pars = NULL;
-	if (!pars)
-	{
-		pars = ft_calloc(1, sizeof(t_pars));
-		pars->jct = jct;
-		pars->line = NULL;
-		pars->input = NULL;
-		pars->envp = jct->envp;
-		pars->path_var = ft_get_path(pars->envp, 0);
-		pars->strlen = 0;
-		pars->nb_pipe = 1;
-		pars->type = ARG;
-		pars->d_quotes = 0;
-		pars->s_quotes = 0;
-		pars->c_brackets = 0;
-		pars->flag_whitespace = 0;
-		pars->err_lexer = false;
-		pars->err_rebuilder = false;
-		pars->err_parser = false;
-		//TODO do we still need those 3 variables ?
-		//TODO check if it needs to be -1 or 0 (may trigger an error if -1)
-		pars->file_in = -1;
-		pars->file_out = -1;
-		pars->fl_redirout = 0;
-	}
+	pars = ft_calloc(1, sizeof(t_pars));
+	pars->jct = jct;
+	pars->line = NULL;
+	pars->input = NULL;
+	pars->envp = jct->envp;
+	pars->path_var = ft_get_path(pars->envp, 0);
+	pars->strlen = 0;
+	pars->nb_pipe = 1;
+	pars->type = ARG;
+	pars->d_quotes = 0;
+	pars->s_quotes = 0;
+	pars->c_brackets = 0;
+	pars->flag_whitespace = 0;
+	pars->err_lexer = false;
+	pars->err_rebuilder = false;
+	pars->err_parser = false;
+	//TODO do we still need those 3 variables ?
+	//TODO check if it needs to be -1 or 0 (may trigger an error if -1)
+	pars->file_in = -1;
+	pars->file_out = -1;
+	pars->fl_redirout = 0;
 	return (pars);
 }
 

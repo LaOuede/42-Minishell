@@ -6,6 +6,7 @@ void	ft_child_hd(char *delim, int fd_hd)
 
 	while (1)
 	{
+		ft_init_sig(HD);
 		ft_putstr_fd("> ", 1);
 		tmp = get_next_line(0);
 		if ((ft_strncmp(tmp, delim, ft_strlen(delim))) == 0)
@@ -31,5 +32,5 @@ int	exec_hd(char *delim)
 	ft_child_hd(delim, fd_hd);
 	close(fd_hd);
 	fd_hd = open("/tmp/here_doc", O_RDONLY, 0644);
-	return(fd_hd);
+	return (fd_hd);
 }

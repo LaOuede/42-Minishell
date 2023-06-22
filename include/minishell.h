@@ -28,6 +28,7 @@
 # define ADD 0
 # define MAIN 42
 # define EXEC 666
+# define HD 7
 
 extern int	g_exit_status;
 
