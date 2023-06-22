@@ -13,6 +13,11 @@
 
 typedef struct s_jct	t_jct;
 
+typedef struct s_builtin
+{
+	void					(*operation_funcs[8])();
+}							t_builtin;
+
 /*
 **	Structure that holds all infomration needed for the execution
 */
@@ -28,6 +33,7 @@ typedef struct s_exec
 	pid_t			*pids;
 	int				**pipes;
 	struct s_jct	*jct;
+	t_builtin		*builtin;
 	int				cmd_nb;
 	int				pipes_nb;
 }			t_exec;
@@ -57,5 +63,6 @@ void	ft_reset_and_close(t_exec *exec);
 // void	ft_print_debug(t_exec *exec);
 
 char	**ft_get_path(char **envp, int i);
+t_builtin	*ft_get_builtin(void);
 
 #endif

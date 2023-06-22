@@ -78,5 +78,6 @@ t_exec	*ft_init_exec(t_jct *jct)
 	exec->pipes = 0;
 	exec->cmd_nb = jct->cmd_nb;
 	exec->pipes_nb = exec->cmd_nb - 1;
+	// exec->builtin = ft_get_builtin();
 	return (exec);
 }

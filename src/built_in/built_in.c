@@ -27,6 +27,26 @@ int		(*builtin_fct[])(char **) = \
 	&ft_msh_exit
 }; */
 
+// t_builtin	*ft_get_builtin(void)
+// {
+// 	static t_builtin	*builtin;
+
+// 	if(!builtin)
+// 	{
+// 		builtin = malloc(sizeof(t_builtin));
+// 		if (!builtin)
+// 			perror(NULL);
+// 		builtin->operation_funcs[0] = NULL;
+// 		builtin->operation_funcs[1] = NULL;
+// 		builtin->operation_funcs[2] = NULL;
+// 		builtin->operation_funcs[3] = NULL;
+// 		builtin->operation_funcs[4] = NULL;
+// 		builtin->operation_funcs[5] = NULL;
+// 		builtin->operation_funcs[6] = NULL;
+// 		builtin->operation_funcs[7] = NULL;
+// 	}
+// }
+
 void	ft_is_builtin(t_exec *exec, int i)
 {
 	printf(KYEL "-------------------- FT_IS_BUILTIN" KGRN " START " RESET KYEL "--------------------\n" RESET);
@@ -48,9 +68,12 @@ void	ft_is_builtin(t_exec *exec, int i)
 	else if (strcmp(cmd[0], "exit") == 0)
 		ft_msh_exit(exec, cmd);
 	ft_free_tab_char(cmd);
+	// return (0);
 	printf(KYEL "-------------------- FT_IS_BUILTIN" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
+
+//TODO only an idea below
 bool	ft_check_builtin(t_exec *exec, int i)
 {
 	char	**cmd;

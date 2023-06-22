@@ -23,12 +23,23 @@ void	ft_child_hd(char *delim, int fd_hd)
 
 int	exec_hd(char *delim)
 {
-	int	fd_hd;
+	int		fd_hd;
+	pid_t	pid_hd;
+	int 	status;
 
 	fd_hd = open("/tmp/here_doc", O_CREAT | O_TRUNC | O_RDWR, 0644);
 	if (fd_hd < 0)
 		perror("Error ! fd_hd:");
-	ft_child_hd(delim, fd_hd);
+	pid_hd = fork();
+	if(pid_hd == -1)
+		perror("Error! pid_hd");
+	if(pid_hd == 0)
+		ft_child_hd(delim, fd_hd);
+	waitpid(pid_hd, &status, 0);
+	if (WIFEXITED(status))
+		g_exit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		g_exit_status = WTERMSIG(status);	
 	close(fd_hd);
 	fd_hd = open("/tmp/here_doc", O_RDONLY, 0644);
 	return (fd_hd);
