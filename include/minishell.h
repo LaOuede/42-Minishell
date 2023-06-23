@@ -23,20 +23,22 @@
 # define RESET	"\033[1;0m"
 
 /* --------------------ERROR MESSAGE--------------------- *///
-# define ERR_EXEC		"Usage error : Too many arguments.\n--> Usage : ./Minishell\n"
+# define ERR_EXEC	"Usage error : too many arguments.\n--> Usage : ./Minishell\n"
+# define ERR_EXI1	"Usage error : exit: too many arguments\n"
+# define ERR_EXI2	"Usage error : exit: numeric argument required\n"
 
 # define ADD 0
 # define MAIN 42
 # define EXEC 666
 # define HD 7
-
-extern int	g_exit_status;
+# define CHILD 1
 
 typedef struct s_ms
 {
 	struct s_pars	*pars;
 	struct s_exec	*exec;
-	struct	s_jct	*jct;
+	struct s_jct	*jct;
+	int				flexit;
 }	t_ms;
 
 //	Struct prototype to make the junction between the parsing and the execution
@@ -56,7 +58,7 @@ typedef struct s_jct
 }			t_jct;
 
 t_ms	*ft_init_ms(char **envp);
-void	ft_exit(t_ms *ms);
+void	ft_exit_free(t_ms *ms, int flexit);
 
 /* 		Jct functions 							*/
 t_jct	*ft_init_jct(char **envp);

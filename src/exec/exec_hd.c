@@ -33,7 +33,6 @@ char	*ft_gnl(void)
 	return (res);
 }
 
-
 void	ft_child_hd(char *delim, int fd_hd, t_ms *ms)
 {
 	char	*tmp;
@@ -44,14 +43,12 @@ void	ft_child_hd(char *delim, int fd_hd, t_ms *ms)
 		ft_putstr_fd("> ", 1);
 		tmp = ft_gnl();
 		if ((ft_strncmp(tmp, delim, ft_strlen(tmp))) == 0)
-		{
-			ft_freenull(tmp);
 			break ;
-		}
 		ft_putstr_fd(tmp, fd_hd);
 		ft_putchar_fd('\n', fd_hd);
 		ft_freenull(tmp);
 	}
+	ft_freenull(tmp);
 	ft_free_all(ms);
 	exit(0);
 }
@@ -72,9 +69,9 @@ int	ft_exec_hd(char *delim, t_ms *ms)
 		ft_child_hd(delim, fd_hd, ms);
 	waitpid(pid_hd, &status, 0);
 /* 	if (WIFEXITED(status))
-		g_exit_status = WEXITSTATUS(status);
+		ms->flexit = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-		g_exit_status = WTERMSIG(status); */
+		ms->flexit = WTERMSIG(status); */
 	close(fd_hd);
 	fd_hd = open("/tmp/here_doc", O_RDONLY, 0644);
 	return (fd_hd);

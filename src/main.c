@@ -1,10 +1,6 @@
 #include "../include/minishell.h"
 
-#define GWEN 0
-#define LOULOU 0
-#define LOULOU_JCT 1
-
-int		g_exit_status;
+#define LOULOU_IS_MAGIC 1
 
 void	ft_free_child(t_ms *ms)
 {
@@ -76,6 +72,7 @@ t_ms	*ft_init_ms(char **envp)
 		ms->jct = ft_init_jct(envp);
 		ms->exec = ft_init_exec(ms);
 		ms->pars = ft_init_pars(ms);
+		ms->flexit = 0;
 	}
 	return (ms);
 }
@@ -87,17 +84,16 @@ Infinite loop to wait for user input
 */
 int	main(int ac, char **av, char **envp)
 {
-	(void)av;
 	t_ms	*ms;
 
 	// printf("\n😈😈😈 Welcome to minishell ... or should I say " RED"🔥 MINIHELLLL 🔥 😈😈😈\n\n"WHT);
+	(void)av;
 	if (ac != 1)
 	{
 		ft_error(ERR_EXEC);
-		exit(EXIT_FAILURE);
+		exit(127);
 	}
-	g_exit_status = 0;
-	while (LOULOU_JCT)
+	while (LOULOU_IS_MAGIC)
 	{
 		ms = ft_init_ms(envp);
 		ft_init_sig(MAIN);
@@ -106,21 +102,14 @@ int	main(int ac, char **av, char **envp)
 		if (!ms->pars->input)
 		{
 			printf("exit");
-			clear_history();
-			ft_free_all(ms);
-			exit(g_exit_status);
+			ft_exit_free(ms, 0);
 		}
 		add_history(ms->pars->input);
 		ft_parsing(ms);
 		if (ms->jct->err_pars == false)
 			ft_exec(ms);
 		ft_reset_jct(ms->jct);
-		//ft_free_all(ms);
 	}
-	//TODO need to implement a fct that clears the history (fct clear_history exist in history.h)
-	//TODO implement or add all free/reset function
-/* 	clear_history();
-	ft_free_all(jct, pars, 0); */
-	ft_free_all(ms);
+	ft_exit_free(ms, 0);
 	return (0);
 }

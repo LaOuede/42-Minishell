@@ -56,9 +56,9 @@ char	**ft_get_path(char **envp, int i)
 	while (path_var[++i])
 	{
 		new_path_var[i] = ft_strjoin(path_var[i], "/");
-		free(path_var[i]);
+		ft_freenull(path_var[i]);
 	}
-	free(path_var);
+	ft_freenull(path_var);
 	return (new_path_var);
 }
 

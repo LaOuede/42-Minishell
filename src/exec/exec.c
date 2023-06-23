@@ -23,8 +23,8 @@ void	ft_make_pids(t_ms *ms)
 		ms->exec->pids[i] = fork();
 		if (ms->exec->pids[i] == -1)
 			perror("Error ! Pid creation failed:");
-		ft_close_old_pipes(exec, i);
-		if (exec->pids[i] == 0)
+		ft_close_old_pipes(ms->exec, i);
+		if (ms->exec->pids[i] == 0)
 		{
 			ft_dup_proc(ms, i);
 			ft_run_cmd(ms, i);
@@ -125,9 +125,9 @@ void	ft_exec(t_ms *ms)
 	{
 		waitpid(ms->exec->pids[i], &status, 0);
 		if (WIFEXITED(status))
-			g_exit_status = WEXITSTATUS(status);
+			ms->flexit = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
-			g_exit_status = WTERMSIG(status);
+			ms->flexit = WTERMSIG(status);
 	}
 	ft_reset_exec(ms);
 	//TODO clarifier le 2nd arg de waitpid

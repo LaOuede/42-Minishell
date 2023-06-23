@@ -93,48 +93,48 @@ void	ft_init_cmdtab(t_ms *ms)
 2) Check for double-pipe
 3) Check for PIPE token at the end of the linked-list
 */
-void	ft_check_pipe(t_pars *pars)
+void	ft_check_pipe(t_ms *ms)
 {
 	printf(KYEL "-------------------- FT_CHECK_PIPE" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr;
 
-	ptr = pars->line;
+	ptr = ms->pars->line;
 	if (ptr->type == PIPE)
-		ft_error_parsing(ERR_TOKEN, PARSER, 2, pars);
+		ft_error_parsing(ERR_TOKEN, PARSER, 2, ms);
 	while (ptr->next)
 	{
 		printf("str = %s\n", ptr->str);
 		printf("str next = %s\n", ptr->next->str);
 		if (ptr->type == PIPE && ptr->next->type == PIPE)
 		{
-			ft_error_parsing(ERR_TOKEN, PARSER, 2, pars);
+			ft_error_parsing(ERR_TOKEN, PARSER, 2, ms);
 			break ;
 		}
 		else
 			ptr = ptr->next;
 	}
 	if (ptr->next == NULL && ptr->type == PIPE)
-		ft_error_parsing(ERR_TOKEN, PARSER, 2, pars);
+		ft_error_parsing(ERR_TOKEN, PARSER, 2, ms);
 	printf(KYEL "-------------------- FT_CHECK_PIPE" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
 /*
 Check for REDIN or REDOUT token at the end of the linked-list.
 */
-void	ft_check_redir(t_pars *pars)
+void	ft_check_redir(t_ms *ms)
 {
 	printf(KYEL "-------------------- FT_CHECK_REDIR" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr;
 	int		len;
 
-	ptr = pars->line;
+	ptr = ms->pars->line;
 	while (ptr)
 	{
 		if (ptr->type == REDIN || ptr->type == REDOUT)
 		{
 			len = ft_strlen(ptr->str);
 			if (ptr->str[len - 1] == '<' || ptr->str[len - 1] == '>')
-				ft_error_parsing(ERR_TOKEN, PARSER, 2, pars);
+				ft_error_parsing(ERR_TOKEN, PARSER, 2, ms);
 		}
 		ptr = ptr->next;
 	}
@@ -152,8 +152,8 @@ void	ft_parser(t_ms *ms)
 	t_tab	*tab;
 
 	tab = NULL;
-	ft_check_redir(ms->pars);
-	ft_check_pipe(ms->pars);
+	ft_check_redir(ms);
+	ft_check_pipe(ms);
 	DEBUG_parser(ms->pars);
 	if (ms->pars->err_parser == false)
 	{

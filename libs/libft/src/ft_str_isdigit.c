@@ -6,9 +6,11 @@
 /*   By: gle-roux <gle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:41:05 by gle-roux          #+#    #+#             */
-/*   Updated: 2023/03/06 14:53:10 by gle-roux         ###   ########.fr       */
+/*   Updated: 2023/06/23 13:47:21 by gle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../includes/libft.h"
 
 /*
 Library :
@@ -24,17 +26,13 @@ Return value :
 	The str_isdigit() function returns zero if a character tests false and 
 	returns 1 if all characters in the string are digits.
 */
-int	ft_str_isdigit(char *str)
+bool	ft_str_isdigit(char *str)
 {
 	int	i;
 
-	i = 0;
-	while (str[i])
-	{
-		if (48 <= str[i] && str[i] <= 57)
-			i++;
-		else
-			return (0);
-	}
-	return (1);
+	i = -1;
+	while (str[++i])
+		if (ft_isdigit(str[i]) == 0)
+			return (false);
+	return (true);
 }

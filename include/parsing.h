@@ -108,6 +108,7 @@ void	ft_reset_node(t_pars *pars);
 /* 		Lexer part functions 						*/
 void	ft_char(int *i, t_ms *ms);
 void	ft_char_quotes(int *i, char *str, t_ms *ms);
+void	ft_check_access(t_ms *ms);
 bool	ft_check_expand_brackets(char *str, t_ms *ms);
 void	ft_d_quotes_token(int *i, t_ms *ms);
 void	ft_envvar(int *i, char *str, t_ms *ms);
@@ -132,10 +133,10 @@ char	*ft_strjoin_char(char *s1, char s2);
 /* 		Builder part functions 						*/
 void	ft_args(t_ms *ms);
 void	ft_builder(t_ms *ms);
-void	ft_check_error_redir(t_pars *pars);
+void	ft_check_error_redir(t_ms *ms);
 void	ft_clean_list(t_token **list);
 void	ft_create_file(t_ms *ms);
-void	ft_find_cmd(t_pars *pars);
+void	ft_find_cmd(t_ms *ms);
 void	ft_merge(t_token *node, t_token *next);
 void	ft_merge_all_red(t_pars *pars);
 void	ft_merge_all_arg(t_pars *pars);
@@ -151,8 +152,8 @@ bool	ft_test_cmd(t_pars *pars, t_token *node);
 
 /* 		Parser part functions 						*/
 void	ft_parser(t_ms *ms);
-void	ft_check_redir(t_pars *pars);
-void	ft_check_pipe(t_pars *pars);
+void	ft_check_redir(t_ms *ms);
+void	ft_check_pipe(t_ms *ms);
 void	ft_init_cmdtab(t_ms *ms);
 t_tab	*ft_init_tab(t_pars *pars);
 void	ft_fill_tab(t_ms *ms, t_tab *tab);
@@ -165,7 +166,7 @@ void	ft_free_token(t_token *token);
 /* 		Error functions 								*/
 void	ft_error(char *err_msg);
 void	ft_clean_up_jct(char *err_msg, t_jct *jct);
-void	ft_error_parsing(char *err_msg, int step, int exit, t_pars *pars);
+void	ft_error_parsing(char *err_msg, int step, int exit, t_ms *ms);
 
 
 #endif

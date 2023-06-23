@@ -3,14 +3,14 @@
 /*
 Check for REDIN or REDOUT token at the end of the linked-list.
 */
-void	ft_check_access(t_pars *pars)
+void	ft_check_access(t_ms *ms)
 {
 	printf(KYEL "-------------------- FT_CHECK_ACCESS" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr;
 	int		counter;
 
 	counter = 0;
-	ptr = pars->line;
+	ptr = ms->pars->line;
 	while (ptr)
 	{
 		printf("ptr->srt = %s\n", ptr->str);
@@ -19,8 +19,8 @@ void	ft_check_access(t_pars *pars)
 		ptr = ptr->next;
 	}
 	printf("counter = %d\n", counter);
-	if (counter == pars->nb_pipe)
-		ft_error_parsing(0, PARSER, 127, pars);
+	if (counter == ms->pars->nb_pipe)
+		ft_error_parsing(0, PARSER, 127, ms);
 	printf(KYEL "-------------------- FT_CHECK_ACCESS" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
@@ -54,24 +54,24 @@ void	ft_merge_all_arg(t_pars *pars)
 /*
 Identify the first ARG token as CMD
 */
-void	ft_find_cmd(t_pars *pars)
+void	ft_find_cmd(t_ms *ms)
 {
 	printf(KYEL "-------------------- FT_FIND_CMD" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	bool	flag;
 	t_token	*ptr;
 
 	flag = true;
-	ptr = pars->line;
+	ptr = ms->pars->line;
 	while (ptr)
 	{
 		printf("ptr->type before = %d\n", ptr->type);
 		if (ptr->type == ARG && flag == true)
 		{
 			ptr->type = CMD;
-			if (ft_test_cmd(pars, ptr) == false)
+			if (ft_test_cmd(ms->pars, ptr) == false)
 			{
 				printf(ERR_ACCESS);
-				g_exit_status = 127;
+				ms->flexit = 127;
 				ptr->type = ACCESS_ERR;
 				ft_freenull(ptr->str);
 				ptr->str = ft_strdup("ERROR");
@@ -120,7 +120,7 @@ void	ft_merge_arg(t_pars *pars)
 void	ft_args(t_ms *ms)
 {
 	ft_merge_arg(ms->pars);
-	ft_find_cmd(ms->pars);
+	ft_find_cmd(ms);
 	ft_merge_all_arg(ms->pars);
-	ft_check_access(ms->pars);
+	ft_check_access(ms);
 }

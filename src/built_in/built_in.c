@@ -54,7 +54,7 @@ void	ft_is_builtin(t_ms *ms, int i)
 
 	cmd = ft_split(ms->jct->tab[i][0], ' ');
 	if (strcmp(cmd[0], "echo") == 0)
-		ft_msh_echo(cmd);
+		ft_msh_echo(ms, cmd);
 /* 	else if (strcmp(cmd, "cd") == 0)
 		ft_msh_cd(); */
 	else if (strcmp(cmd[0], "pwd") == 0)

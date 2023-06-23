@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csenand <csenand@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gle-roux <gle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:10:07 by gle-roux          #+#    #+#             */
-/*   Updated: 2023/06/16 15:01:34 by csenand          ###   ########.fr       */
+/*   Updated: 2023/06/23 13:47:46 by gle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <stdbool.h>
 
 typedef struct s_list
 {
@@ -96,7 +97,7 @@ void	*ft_calloc_gnl(size_t count, size_t size);
 char	*ft_free_tab_char(char **tab);
 char	*ft_free_tab_int(int **tab, size_t len);
 void	ft_freenull(void *x);
-int		ft_str_isdigit(char *str);
+bool	ft_str_isdigit(char *str);
 char	*get_next_line(int fd);
 int		ft_strchr_new_line(char *save);
 char	*ft_strdup_gnl(char *save);

@@ -5,21 +5,9 @@ void	ft_close_old_pipes(t_exec *exec, int i)
 	printf("enter in ft_close_old_pipes\n");
 	if (i > 2 && exec->pipes[i - 1] && exec->pipes[i - 2])
 	{
-		if(exec->pipes[i - 2][0])
+		if (exec->pipes[i - 2][0])
 			close(exec->pipes[i - 2][0]);
-		if(exec->pipes[i - 2][1])
-			close(exec->pipes[i - 2][1]);
-	}
-}
-
-void	ft_close_old_pipes(t_exec *exec, int i)
-{
-	printf("enter in ft_close_old_pipes\n");
-	if (i > 2 && exec->pipes[i - 1] && exec->pipes[i - 2])
-	{
-		if(exec->pipes[i - 2][0])
-			close(exec->pipes[i - 2][0]);
-		if(exec->pipes[i - 2][1])
+		if (exec->pipes[i - 2][1])
 			close(exec->pipes[i - 2][1]);
 	}
 }

@@ -30,19 +30,19 @@ bool	ft_test_cmd(t_pars *pars, t_token *node)
 	return (false);
 }
 
-void	ft_check_error_redir(t_pars *pars)
+void	ft_check_error_redir(t_ms *ms)
 {
 	printf(KYEL "-------------------- FT_CHECK_REDIR" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr;
 
-	if (!pars->line)
+	if (!ms->pars->line)
 		return ;
-	ptr = pars->line;
+	ptr = ms->pars->line;
 	while (ptr)
 	{
 		if (ptr->type == REDIN || ptr->type == REDOUT)
 			if (ptr->str[2])
-				ft_error_parsing(ERR_TOKEN, REBUILDER, 2, pars);
+				ft_error_parsing(ERR_TOKEN, REBUILDER, 2, ms);
 		ptr = ptr->next;
 	}
 	printf(KYEL "-------------------- FT_CHECK_REDIR" KRED " END " RESET KYEL "--------------------\n" RESET);
@@ -115,7 +115,7 @@ void	ft_redirection(t_ms *ms)
 	ms->jct->fds_out = ft_calloc(ms->pars->nb_pipe, sizeof(int));
 	ft_merge_angle_brackets_in(ms->pars);
 	ft_merge_angle_brackets_out(ms->pars);
-	ft_check_error_redir(ms->pars);
+	ft_check_error_redir(ms);
 	if (ms->pars->err_rebuilder == false)
 	{
 		ft_open_file(ms);
