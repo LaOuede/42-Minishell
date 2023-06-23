@@ -60,6 +60,7 @@ void	ft_run_cmd(t_ms *ms, int i);
 int		ft_exec_hd(char *delim, t_ms *ms);
 void	ft_reset_and_close(t_ms *ms);
 void	ft_close_old_pipes(t_exec *exec, int i);
+void	ft_close_fds_child(t_ms *ms, int i);
 
 /*	--	Debug fct	--	*/
 // void	ft_print_debug(t_exec *exec);

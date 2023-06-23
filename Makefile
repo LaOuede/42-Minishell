@@ -40,6 +40,10 @@ SRCS_LST	= 	built_in/built_in.c \
 				sig/signals.c
 
 # -- Readline Library -- #
+
+C_TOOLS_DIR		= ./C_tools/
+C_TOOLS			= $(C_TOOLS_DIR)C_tool.a
+
 LIBRLINE 		= readline-8.2
 LIBRLINE_DIR	= ./libs/readline/
 RLINE			= $(LIBRLINE_DIR)libreadline.a
@@ -77,7 +81,7 @@ all : dir readline $(NAME)
 # -- Compile library -- #
 $(NAME) : $(OBJS)
 	@make -C $(LIBFT_DIR)
-	@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(RLINE) -lncurses -o $(NAME)
+	@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(RLINE) $(C_TOOLS) -lncurses -o $(NAME)	
 	@echo "✅ $(GREEN)$(NAME)'s exectuable successfully created.		✅$(RESET)"
 
 # -- Create all files .o (object) from files .c (source code) -- #
