@@ -33,11 +33,29 @@ char	*ft_gnl(void)
 	return (res);
 }
 
+/* void	ft_child_hd(char *delim, t_ms *ms)
+{
+	ft_init_sig(HD);
+	ms->hd = ft_init_hd();
+	while (42)
+	{
+		ms->hd->input = readline("> ");
+		printf("hd_input = %s\n", ms->hd->input);
+		if (ft_strchr(ms->hd->input, '$'))
+			ft_parsing_hd(ms->hd);
+		if (ft_strncmp(ms->hd->input, delim, ms->hd->strlen) == 0)
+			break ;
+		ft_reset_pars(ms->hd);
+	}
+	ft_free_all(ms);
+	exit(0);
+} */
+
 void	ft_child_hd(char *delim, int fd_hd, t_ms *ms)
 {
 	char	*tmp;
 
-	while (42)
+	while (1)
 	{
 		ft_init_sig(HD);
 		ft_putstr_fd("> ", 1);

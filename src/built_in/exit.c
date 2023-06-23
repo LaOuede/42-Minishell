@@ -36,6 +36,5 @@ void	ft_msh_exit(t_ms *ms, char **cmd)
 		ft_error(ERR_EXI1);
 		ft_exit_free(ms, 255);
 	}
-
 	printf(KYEL "-------------------- FT_MSH_EXIT" KRED " END " RESET KYEL "--------------------\n" RESET);
 }

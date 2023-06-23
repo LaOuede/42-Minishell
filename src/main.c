@@ -72,6 +72,7 @@ t_ms	*ft_init_ms(char **envp)
 		ms->jct = ft_init_jct(envp);
 		ms->exec = ft_init_exec(ms);
 		ms->pars = ft_init_pars(ms);
+		//ms->hd = NULL;
 		ms->flexit = 0;
 	}
 	return (ms);
