@@ -28,7 +28,7 @@ bool	ft_flag(char *str)
 	return (false);
 }
 
-void	ft_msh_echo(char **cmd)
+void	ft_msh_echo(t_ms *ms, char **cmd)
 {
 	printf(KYEL "-------------------- FT_MSH_ECHO" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	int	i;
@@ -46,7 +46,7 @@ void	ft_msh_echo(char **cmd)
 			while (cmd[++i])
 				printf("%s ", cmd[i]);
 			printf("\n");
-			g_exit_status = 0;
+			ms->flexit = 0;
 		}
 	}
 	printf(KYEL "-------------------- FT_MSH_ECHO" KRED " END " RESET KYEL "--------------------\n" RESET);

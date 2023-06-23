@@ -8,8 +8,11 @@ Update exit_status
 */
 void	sig_handler(int sig)
 {
+	t_ms	*ms;
+
 	(void)sig;
-	g_exit_status = 1;
+	ms = ft_init_ms(0);
+	ms->flexit = 1;
 	ft_putchar_fd('\n', STDOUT_FILENO);
 	rl_replace_line("", 0);
 	rl_on_new_line();
@@ -24,6 +27,9 @@ Update exit_status
 */
 void	sig_child_handler(int sig)
 {
+	t_ms	*ms;
+
+	ms = ft_init_ms(0);
 	if (sig == SIGQUIT)
 	{
 		ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
@@ -32,7 +38,7 @@ void	sig_child_handler(int sig)
 	}
 	else if (sig == SIGINT)
 	{
-		g_exit_status = 1;
+		ms->flexit = 1;
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		rl_replace_line("", 0);
 		rl_on_new_line();
@@ -51,11 +57,10 @@ void	sig_hd_handler(int sig)
 
 	(void)sig;
 	ms = ft_init_ms(0);
-/* 	g_exit_status = 1;
+	ms->flexit = 1;
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	ft_putchar_fd('\n', STDOUT_FILENO);
-	rl_redisplay(); */
 	exit(1);
 }
 

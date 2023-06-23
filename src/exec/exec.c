@@ -125,9 +125,9 @@ void	ft_exec(t_ms *ms)
 	{
 		waitpid(ms->exec->pids[i], &status, 0);
 		if (WIFEXITED(status))
-			g_exit_status = WEXITSTATUS(status);
+			ms->flexit = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
-			g_exit_status = WTERMSIG(status);
+			ms->flexit = WTERMSIG(status);
 	}
 	ft_reset_exec(ms);
 	//TODO clarifier le 2nd arg de waitpid

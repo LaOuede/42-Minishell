@@ -56,7 +56,7 @@ void	ft_create_file(t_ms *ms)
 				ms->jct->fds_out[i] = open(ptr->next->str, \
 					O_RDWR | O_CREAT | O_TRUNC, 0644);
 			if (ms->jct->fds_out[i] == -1)
-				ft_error_parsing(ERR_OUTFILE, REBUILDER, 1, ms->pars);
+				ft_error_parsing(ERR_OUTFILE, REBUILDER, 1, ms);
 			printf("ms->pars->jct->fds_out[%d] : %d\n", i, ms->jct->fds_out[i]);
 		}
 		else if (ptr->type == PIPE)
@@ -89,7 +89,7 @@ void	ft_open_file(t_ms *ms)
 				ms->jct->fds_in[i] = open(ptr->next->str, O_RDONLY);
 			if (ms->jct->fds_in[i] == -1)
 			{
-				ft_error_parsing(ERR_INFILE, REBUILDER, 2, ms->pars);
+				ft_error_parsing(ERR_INFILE, REBUILDER, 2, ms);
 				ms->pars->err_infile = true;
 				break ;
 			}

@@ -61,13 +61,9 @@ void	ft_free_token(t_token *token)
 	}
 }
 
-void	ft_exit(t_ms *ms)
+void	ft_exit_free(t_ms *ms, int flexit)
 {
-	int	exit_status;
-
-	exit_status = g_exit_status;
-	printf("%d\n", exit_status);
 	clear_history();
 	ft_free_all(ms);
-	exit (exit_status);
+	exit(flexit);
 }
