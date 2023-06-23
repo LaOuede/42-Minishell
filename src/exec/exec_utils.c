@@ -2,8 +2,8 @@
 
 void	ft_reset_and_close(t_ms *ms)
 {
-	dup2(ms->exec->fd_in, STDIN_FILENO);
-	dup2(ms->exec->fd_out, STDOUT_FILENO);
+	// dup2(ms->exec->fd_in, STDIN_FILENO);
+	// dup2(ms->exec->fd_out, STDOUT_FILENO);
 	ft_close_fds(ms);
 }
 

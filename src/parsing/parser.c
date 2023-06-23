@@ -28,6 +28,9 @@ Input : cat supp.txt >outfile | cat -e | ls < infile | echo -n Minihell
 void	ft_fill_tab(t_ms *ms, t_tab *tab)
 {
 	printf(KYEL "-------------------- FT_FILL_TAB" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	// Ct_debug(0, "-------------------- FT_FILL_TAB START --------------------", "log.txt");
+	// Ct_debug(ms->jct->cmd_nb, "=> ms->jct->cmd_nb", "log.txt");
+	// Ct_debug(ms->pars->nb_pipe, "=> ms->pars->nb_pipe", "log.txt");
 	printf("ms->jct->cmd_nb = %d\n", ms->jct->cmd_nb);
 	printf("ms->pars->nb_pipe = %d\n", ms->pars->nb_pipe);
 	while (++tab->r < ms->jct->cmd_nb && tab->ptr)
@@ -35,13 +38,16 @@ void	ft_fill_tab(t_ms *ms, t_tab *tab)
 		tab->c = -1;
 		while (++tab->c < 3)
 		{
+			// Ct_debug(tab->c,"=> c", "log.txt");
 			printf("c = %d\n", tab->c);
-			printf("ptr->type = %d\n", tab->ptr->type);
+			// Ct_debug(tab->ptr->type, "=> ptr->type", "log.txt");
+			printf("tab-> ptr->type = %d\n", tab->ptr->type);
 			if (tab->ptr->type == PIPE && tab->c == 0)
 				tab->ptr = tab->ptr->next;
 			if (tab->c == tab->ptr->type)
 			{
 				ms->jct->tab[tab->r][tab->c] = ft_strdup(tab->ptr->str);
+				// Ct_debug(ms->jct->tab[tab->r][tab->c], "=> ms->jct->tab[tab->r][tab->c]", "log.txt");
 				printf("str = %s\n", ms->jct->tab[tab->r][tab->c]);
 				if (tab->ptr->next)
 					tab->ptr = tab->ptr->next;
@@ -63,6 +69,7 @@ void	ft_fill_tab(t_ms *ms, t_tab *tab)
 		}
 	}
 	printf(KYEL "-------------------- FT_FILL_TAB" KRED " END " RESET KYEL "--------------------\n" RESET);
+	// Ct_debug(0, "-------------------- FT_FILL_TAB END --------------------", "log.txt");
 }
 
 /* Allocate memory for the char ***array. */

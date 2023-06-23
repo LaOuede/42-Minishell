@@ -7,8 +7,8 @@ void	ft_make_pids(t_ms *ms)
 	if (!ms->exec->path_var)
 		return ;
 	ms->exec->pids = ft_calloc(ms->jct->cmd_nb, sizeof(pid_t *));
-	ms->exec->fd_in = dup(STDIN_FILENO);
-	ms->exec->fd_out = dup(STDOUT_FILENO);
+	// ms->exec->fd_in = dup(STDIN_FILENO);
+	// ms->exec->fd_out = dup(STDOUT_FILENO);
 	i = -1;
 	while (++i < ms->jct->cmd_nb)
 	{
@@ -30,7 +30,7 @@ void	ft_make_pids(t_ms *ms)
 			ft_run_cmd(ms, i);
 		}
 	}
-	ft_reset_and_close(ms);
+	ft_close_fds(ms);
 	// printf("--- Exit while loop	---\n");
 }
 
