@@ -58,6 +58,7 @@ void	ft_run_cmd(t_exec *exec, int i);
 // void	exec_hd(t_pars *pars, char *delim, int i);
 int		ft_exec_hd(char *delim, t_pars *pars);
 void	ft_reset_and_close(t_exec *exec);
+void	ft_close_old_pipes(t_exec *exec, int i);
 
 /*	--	Debug fct	--	*/
 // void	ft_print_debug(t_exec *exec);
