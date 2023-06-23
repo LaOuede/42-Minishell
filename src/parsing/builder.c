@@ -89,12 +89,12 @@ Parsing Part II
 4) Remove the ERROR type tokens.
 5) Swap token to put everything in order for the parser to put it in a char ***array.
 */
-void	ft_builder(t_pars *pars)
+void	ft_builder(t_ms *ms)
 {
 	printf(KYEL "-------------------- FT_BUILDER" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	ft_redirection(pars);
-	ft_args(pars);
-	ft_clean_list(&pars->line);
-	ft_swap_node(pars);
+	ft_redirection(ms);
+	ft_args(ms);
+	ft_clean_list(&ms->pars->line);
+	ft_swap_node(ms->pars);
 	printf(KYEL "-------------------- FT_BUILDER" KRED " END " RESET KYEL "--------------------\n" RESET);
 }

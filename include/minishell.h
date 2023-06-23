@@ -34,8 +34,9 @@ extern int	g_exit_status;
 
 typedef struct s_ms
 {
-	struct s_minishell	*parsing;
-	struct s_exec		*exec;
+	struct s_pars	*pars;
+	struct s_exec	*exec;
+	struct	s_jct	*jct;
 }	t_ms;
 
 //	Struct prototype to make the junction between the parsing and the execution
@@ -54,12 +55,15 @@ typedef struct s_jct
 	int		fl_redirout;
 }			t_jct;
 
-void	ft_exit(t_exec *exec);
+t_ms	*ft_init_ms(char **envp);
+void	ft_exit(t_ms *ms);
 
 /* 		Jct functions 							*/
 t_jct	*ft_init_jct(char **envp);
 void	ft_free_jct(t_jct *jct);
-void	ft_free_all(t_jct *jct, t_pars *pars, t_exec *exec);
+void	ft_free_child(t_ms *ms);
+void	ft_free_all(t_ms *ms);
+void	ft_reset_jct(t_jct *jct);
 
 /* 		Signal functions 							*/
 void	ft_init_sig(int phase);
