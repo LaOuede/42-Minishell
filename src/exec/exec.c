@@ -23,8 +23,8 @@ void	ft_make_pids(t_ms *ms)
 		ms->exec->pids[i] = fork();
 		if (ms->exec->pids[i] == -1)
 			perror("Error ! Pid creation failed:");
-		ft_close_old_pipes(exec, i);
-		if (exec->pids[i] == 0)
+		ft_close_old_pipes(ms->exec, i);
+		if (ms->exec->pids[i] == 0)
 		{
 			ft_dup_proc(ms, i);
 			ft_run_cmd(ms, i);
