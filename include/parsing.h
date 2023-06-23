@@ -168,5 +168,4 @@ void	ft_error(char *err_msg);
 void	ft_clean_up_jct(char *err_msg, t_jct *jct);
 void	ft_error_parsing(char *err_msg, int step, int exit, t_ms *ms);
 
-
 #endif
