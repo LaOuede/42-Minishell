@@ -34,11 +34,11 @@ char	*ft_gnl(void)
 }
 
 
-void	ft_child_hd(char *delim, int fd_hd, t_pars *pars)
+void	ft_child_hd(char *delim, int fd_hd, t_ms *ms)
 {
 	char	*tmp;
 
-	while (1)
+	while (42)
 	{
 		ft_init_sig(HD);
 		ft_putstr_fd("> ", 1);
@@ -52,11 +52,11 @@ void	ft_child_hd(char *delim, int fd_hd, t_pars *pars)
 		ft_putchar_fd('\n', fd_hd);
 		ft_freenull(tmp);
 	}
-	ft_free_all(pars->jct, pars, 0);
+	ft_free_all(ms);
 	exit(0);
 }
 
-int	ft_exec_hd(char *delim, t_pars *pars)
+int	ft_exec_hd(char *delim, t_ms *ms)
 {
 	int		fd_hd;
 	pid_t	pid_hd;
@@ -69,12 +69,12 @@ int	ft_exec_hd(char *delim, t_pars *pars)
 	if(pid_hd == -1)
 		perror("Error! pid_hd");
 	if(pid_hd == 0)
-		ft_child_hd(delim, fd_hd, pars);
+		ft_child_hd(delim, fd_hd, ms);
 	waitpid(pid_hd, &status, 0);
-	if (WIFEXITED(status))
+/* 	if (WIFEXITED(status))
 		g_exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-		g_exit_status = WTERMSIG(status);
+		g_exit_status = WTERMSIG(status); */
 	close(fd_hd);
 	fd_hd = open("/tmp/here_doc", O_RDONLY, 0644);
 	return (fd_hd);

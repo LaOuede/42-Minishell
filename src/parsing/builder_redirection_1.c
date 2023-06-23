@@ -109,19 +109,19 @@ void	ft_merge_angle_brackets_in(t_pars *pars)
 4) Create all the REDOUT files.
 5) Merge all redirection tokens.
 */
-void	ft_redirection(t_pars *pars)
+void	ft_redirection(t_ms *ms)
 {
-	pars->jct->fds_in = ft_calloc(pars->nb_pipe, sizeof(int));
-	pars->jct->fds_out = ft_calloc(pars->nb_pipe, sizeof(int));
-	ft_merge_angle_brackets_in(pars);
-	ft_merge_angle_brackets_out(pars);
-	ft_check_error_redir(pars);
-	if (pars->err_rebuilder == false)
+	ms->jct->fds_in = ft_calloc(ms->pars->nb_pipe, sizeof(int));
+	ms->jct->fds_out = ft_calloc(ms->pars->nb_pipe, sizeof(int));
+	ft_merge_angle_brackets_in(ms->pars);
+	ft_merge_angle_brackets_out(ms->pars);
+	ft_check_error_redir(ms->pars);
+	if (ms->pars->err_rebuilder == false)
 	{
-		ft_open_file(pars);
-		if (pars->err_infile == false)
-			ft_create_file(pars);
-		ft_merge_red(pars);
-		ft_merge_all_red(pars);
+		ft_open_file(ms);
+		if (ms->pars->err_infile == false)
+			ft_create_file(ms);
+		ft_merge_red(ms->pars);
+		ft_merge_all_red(ms->pars);
 	}
 }

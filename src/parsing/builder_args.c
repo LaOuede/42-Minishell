@@ -117,10 +117,10 @@ void	ft_merge_arg(t_pars *pars)
 	printf(KYEL "-------------------- FT_MERGE_ARG" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
-void	ft_args(t_pars *pars)
+void	ft_args(t_ms *ms)
 {
-	ft_merge_arg(pars);
-	ft_find_cmd(pars);
-	ft_merge_all_arg(pars);
-	ft_check_access(pars);
+	ft_merge_arg(ms->pars);
+	ft_find_cmd(ms->pars);
+	ft_merge_all_arg(ms->pars);
+	ft_check_access(ms->pars);
 }

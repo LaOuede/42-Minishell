@@ -1,0 +1,12 @@
+Makefile
+include
+libs
+minishell
+minishell.dSYM
+notes.txt
+obj
+src
+supp.txt
+tes2
+test
+ test

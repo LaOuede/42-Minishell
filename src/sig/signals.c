@@ -47,13 +47,16 @@ Update exit_status
 */
 void	sig_hd_handler(int sig)
 {
+	t_ms	*ms;
+
 	(void)sig;
-	g_exit_status = 1;
-	ft_putchar_fd('\n', STDOUT_FILENO);
-	rl_replace_line("", 0);
+	ms = ft_init_ms(0);
+/* 	g_exit_status = 1;
 	rl_on_new_line();
-	rl_redisplay();
-	//exit(1);
+	rl_replace_line("", 0);
+	ft_putchar_fd('\n', STDOUT_FILENO);
+	rl_redisplay(); */
+	exit(1);
 }
 
 void	ft_init_sig(int phase)

@@ -61,13 +61,13 @@ void	ft_free_token(t_token *token)
 	}
 }
 
-void	ft_exit(t_exec *exec)
+void	ft_exit(t_ms *ms)
 {
 	int	exit_status;
 
 	exit_status = g_exit_status;
 	printf("%d\n", exit_status);
 	clear_history();
-	ft_free_all(exec->jct, 0, exec);
+	ft_free_all(ms);
 	exit (exit_status);
 }

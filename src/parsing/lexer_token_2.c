@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-void	ft_get_expand_brackets(int *i, char *str, t_pars *pars)
+void	ft_get_expand_brackets(int *i, char *str, t_ms *ms)
 {
 	printf(KYEL "-------------------- FT_GET_EXPAND_BRACKETS" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 	char	*tmp;
@@ -18,16 +18,16 @@ void	ft_get_expand_brackets(int *i, char *str, t_pars *pars)
 	else
 	{
 		tmp = ft_stock_char(tmp, '=');
-		tmp = ft_find_envvar(tmp, pars);
+		tmp = ft_find_envvar(tmp, ms);
 		if (tmp)
-			ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
+			ft_add_token_bottom(&ms->pars->line, ft_create_node(tmp, ms->pars));
 	}
 	ft_freenull(tmp);
 	if (str[(*i)] != '}')
-		ft_error_parsing(ERR_TOKEN, LEXER, 2, pars);
+		ft_error_parsing(ERR_TOKEN, LEXER, 2, ms->pars);
 	else
 		(*i)++;
-	ft_reset_node(pars);
+	ft_reset_node(ms->pars);
 	printf(KYEL "-------------------- FT_GET_EXPAND_BRACKETS" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }
 
@@ -37,28 +37,28 @@ Handle {} case
 2) Raise an error flag if brackets aren't closed.
 3) Return true if brackets are closed
 */
-bool	ft_check_expand_brackets(char *str, t_pars *pars)
+bool	ft_check_expand_brackets(char *str, t_ms *ms)
 {
 	printf(KYEL "-------------------- FT_CHECK_EXPAND_BRACKETS" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
-	pars->c_brackets = OPEN;
+	ms->pars->c_brackets = OPEN;
 	while (*str++)
 	{
 		if (*str == '}')
 		{
-			pars->c_brackets = CLOSE;
+			ms->pars->c_brackets = CLOSE;
 			break ;
 		}
 	}
-	if (pars->c_brackets != 2)
-		ft_error_parsing(ERR_QUOTE, LEXER, 2, pars);
-	printf("pars->c_brackets = %d\n", pars->c_brackets);
+	if (ms->pars->c_brackets != 2)
+		ft_error_parsing(ERR_QUOTE, LEXER, 2, ms->pars);
+	printf("pars->c_brackets = %d\n", ms->pars->c_brackets);
 	printf(KYEL "-------------------- FT_CHECK_EXPAND_BRACKETS" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
-	if (pars->c_brackets == CLOSE)
+	if (ms->pars->c_brackets == CLOSE)
 		return (true);
 	return (false);
 }
 
-char	*ft_find_envvar(char *str, t_pars *pars)
+char	*ft_find_envvar(char *str, t_ms *ms)
 {
 	printf(KYEL "-------------------- FT_FIND_ENVVAR" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 	int		i;
@@ -67,17 +67,17 @@ char	*ft_find_envvar(char *str, t_pars *pars)
 
 	i = 0;
 	len = ft_strlen(str);
-	while (pars->envp[i] && ft_strncmp(pars->envp[i], str, len) != 0)
+	while (ms->pars->envp[i] && ft_strncmp(ms->pars->envp[i], str, len) != 0)
 		i++;
-	if (!pars->envp[i])
+	if (!ms->pars->envp[i])
 	{
 		write(1, "\n", 1);
 		return (NULL);
 	}
 	tmp = NULL;
 	len -= 1;
-	while (pars->envp[i][len++])
-		tmp = ft_stock_char(tmp, pars->envp[i][len]);
+	while (ms->pars->envp[i][len++])
+		tmp = ft_stock_char(tmp, ms->pars->envp[i][len]);
 	ft_freenull(str);
 	printf(KYEL "-------------------- FT_FIND_ENVVAR" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 	return (tmp);
@@ -87,7 +87,7 @@ char	*ft_find_envvar(char *str, t_pars *pars)
 1) If it's only $ char return it as a regular char and not an expansion
 2) Look for expansion
 */
-void	ft_envvar_token(int *i, char *str, t_pars *pars)
+void	ft_envvar_token(int *i, char *str, t_ms *ms)
 {
 	printf(KYEL "-------------------- FT_ENVVAR_TOKEN" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 	char	*tmp;
@@ -98,14 +98,14 @@ void	ft_envvar_token(int *i, char *str, t_pars *pars)
 	if (!tmp)
 	{
 		tmp = ft_stock_char(tmp, '$');
-		ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
+		ft_add_token_bottom(&ms->pars->line, ft_create_node(tmp, ms->pars));
 	}
 	else
 	{
 		tmp = ft_stock_char(tmp, '=');
-		tmp = ft_find_envvar(tmp, pars);
+		tmp = ft_find_envvar(tmp, ms);
 		if (tmp)
-			ft_add_token_bottom(&pars->line, ft_create_node(tmp, pars));
+			ft_add_token_bottom(&ms->pars->line, ft_create_node(tmp, ms->pars));
 	}
 	ft_freenull(tmp);
 	printf(KYEL "-------------------- FT_ENVVAR_TOKEN" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
@@ -116,29 +116,29 @@ Handle $ token
 1) Look for {} char (eg: ${USER})
 2) Look for ? char in order to deal with status exit [echo $?]
 */
-void	ft_envvar(int *i, char *str, t_pars *pars)
+void	ft_envvar(int *i, char *str, t_ms *ms)
 {
 	printf(KYEL "-------------------- FT_ENVVAR" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr;
 
-	ptr = pars->line;
+	ptr = ms->pars->line;
 	while (ptr->next)
 		ptr = ptr->next;
 	printf("ptr->str = %s\n", ptr->str);
 	if (str[(*i)] == '$' && str[(*i) + 1] == '{')
 	{
-		if (ft_check_expand_brackets(str, pars) == true)
-			ft_get_expand_brackets(i, str, pars);
+		if (ft_check_expand_brackets(str, ms) == true)
+			ft_get_expand_brackets(i, str, ms);
 		else
 			(*i)++;
 	}
 	else if (str[(*i)] == '$' && str[(*i) + 1] == '?')
 	{
 		(*i) += 2;
-		ft_add_token_bottom(&pars->line, ft_create_node(ft_itoa(g_exit_status), pars));
+		ft_add_token_bottom(&ms->pars->line, ft_create_node(ft_itoa(g_exit_status), ms->pars));
 	}
 	else
-		ft_envvar_token(i, str, pars);
-	ft_reset_node(pars);
+		ft_envvar_token(i, str, ms);
+	ft_reset_node(ms->pars);
 	printf(KYEL "-------------------- FT_ENVVAR" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }

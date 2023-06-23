@@ -31,7 +31,7 @@ void	ft_merge_all_red(t_pars *pars)
 	printf(KYEL "-------------------- FT_MERGE_ALLREDOUT" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
-void	ft_create_file(t_pars *pars)
+void	ft_create_file(t_ms *ms)
 {
 	printf(KYEL "-------------------- FT_CREATE_FILE" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	int		i;
@@ -40,24 +40,24 @@ void	ft_create_file(t_pars *pars)
 
 	i = 0;
 	str = ">>";
-	ptr = pars->line;
+	ptr = ms->pars->line;
 	while (ptr->next)
 	{
 		if (ptr->type == REDOUT && ptr->next->type == ARG)
 		{
 			printf("file name = %s\n", ptr->next->str);
 			printf("ptr->str = %s\n", ptr->str);
-			if (pars->jct->fds_out[i])
-				close(pars->jct->fds_out[i]);
+			if (ms->jct->fds_out[i])
+				close(ms->jct->fds_out[i]);
 			if (ft_strncmp(ptr->str, str, 2) == 0)
-				pars->jct->fds_out[i] = open(ptr->next->str, \
+				ms->jct->fds_out[i] = open(ptr->next->str, \
 					O_RDWR | O_CREAT | O_APPEND, 0644);
 			else
-				pars->jct->fds_out[i] = open(ptr->next->str, \
+				ms->jct->fds_out[i] = open(ptr->next->str, \
 					O_RDWR | O_CREAT | O_TRUNC, 0644);
-			if (pars->jct->fds_out[i] == -1)
-				ft_error_parsing(ERR_OUTFILE, REBUILDER, 1, pars);
-			printf("pars->jct->fds_out[%d] : %d\n", i, pars->jct->fds_out[i]);
+			if (ms->jct->fds_out[i] == -1)
+				ft_error_parsing(ERR_OUTFILE, REBUILDER, 1, ms->pars);
+			printf("ms->pars->jct->fds_out[%d] : %d\n", i, ms->jct->fds_out[i]);
 		}
 		else if (ptr->type == PIPE)
 			i++;
@@ -66,7 +66,7 @@ void	ft_create_file(t_pars *pars)
 	printf(KYEL "-------------------- FT_CREATE_FILE" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
-void	ft_open_file(t_pars *pars)
+void	ft_open_file(t_ms *ms)
 {
 	printf(KYEL "-------------------- FT_OPEN_FILE" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	int		i;
@@ -75,25 +75,25 @@ void	ft_open_file(t_pars *pars)
 
 	i = 0;
 	str = "<<";
-	ptr = pars->line;
+	ptr = ms->pars->line;
 	while (ptr->next)
 	{
 		if (ptr->type == REDIN && ptr->next->type == ARG)
 		{
 			printf("file name or delimiter = %s\n", ptr->next->str);
-			if (pars->jct->fds_in[i])
-				close(pars->jct->fds_in[i]);
+			if (ms->jct->fds_in[i])
+				close(ms->jct->fds_in[i]);
 			if (ft_strncmp(ptr->str, str, 2) == 0)
-				pars->jct->fd_hd = ft_exec_hd(ptr->next->str, pars);
+				ms->jct->fd_hd = ft_exec_hd(ptr->next->str, ms);
 			else
-				pars->jct->fds_in[i] = open(ptr->next->str, O_RDONLY);
-			if (pars->jct->fds_in[i] == -1)
+				ms->jct->fds_in[i] = open(ptr->next->str, O_RDONLY);
+			if (ms->jct->fds_in[i] == -1)
 			{
-				ft_error_parsing(ERR_INFILE, REBUILDER, 2, pars);
-				pars->err_infile = true;
+				ft_error_parsing(ERR_INFILE, REBUILDER, 2, ms->pars);
+				ms->pars->err_infile = true;
 				break ;
 			}
-			printf("pars->jct->fds_in[i] = %d\n", pars->jct->fds_in[i]);
+			printf("ms->pars->jct->fds_in[i] = %d\n", ms->jct->fds_in[i]);
 		}
 		else if (ptr->type == PIPE)
 			i++;

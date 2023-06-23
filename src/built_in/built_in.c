@@ -47,26 +47,26 @@ int		(*builtin_fct[])(char **) = \
 // 	}
 // }
 
-void	ft_is_builtin(t_exec *exec, int i)
+void	ft_is_builtin(t_ms *ms, int i)
 {
 	printf(KYEL "-------------------- FT_IS_BUILTIN" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	char	**cmd;
 
-	cmd = ft_split(exec->jct->tab[i][0], ' ');
+	cmd = ft_split(ms->jct->tab[i][0], ' ');
 	if (strcmp(cmd[0], "echo") == 0)
 		ft_msh_echo(cmd);
 /* 	else if (strcmp(cmd, "cd") == 0)
 		ft_msh_cd(); */
 	else if (strcmp(cmd[0], "pwd") == 0)
-		ft_msh_pwd(exec);
+		ft_msh_pwd(ms->exec);
 /* 	else if (strcmp(cmd, "export") == 0)
 		ft_msh_export();
 	else if (strcmp(cmd, "unset") == 0)
 		ft_msh_unseto(); */
 	else if (strcmp(cmd[0], "env") == 0)
-		ft_msh_env(exec);
+		ft_msh_env(ms->exec);
 	else if (strcmp(cmd[0], "exit") == 0)
-		ft_msh_exit(exec, cmd);
+		ft_msh_exit(ms, cmd);
 	ft_free_tab_char(cmd);
 	// return (0);
 	printf(KYEL "-------------------- FT_IS_BUILTIN" KRED " END " RESET KYEL "--------------------\n" RESET);

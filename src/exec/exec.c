@@ -1,36 +1,36 @@
 #include "../../include/minishell.h"
 
-void	ft_make_pids(t_exec *exec)
+void	ft_make_pids(t_ms *ms)
 {
 	int	i;
 
-	if (!exec->path_var)
+	if (!ms->exec->path_var)
 		return ;
-	exec->pids = ft_calloc(exec->cmd_nb, sizeof(pid_t *));
-	exec->fd_in = dup(STDIN_FILENO);
-	exec->fd_out = dup(STDOUT_FILENO);
+	ms->exec->pids = ft_calloc(ms->jct->cmd_nb, sizeof(pid_t *));
+	ms->exec->fd_in = dup(STDIN_FILENO);
+	ms->exec->fd_out = dup(STDOUT_FILENO);
 	i = -1;
-	while (++i < exec->cmd_nb)
+	while (++i < ms->jct->cmd_nb)
 	{
 		// printf("--- Enter while loop		---\n");
-		// if (ft_is_builtin(exec, i))
+		// if (ft_is_builtin(ms->exec, i))
 		// {
-		// 	ft_is_builtin(exec, i);
+		// 	ft_is_builtin(ms->exec, i);
 		// 	exit(EXIT_SUCCESS);
 		// }
-		if (ft_pre_redir(exec, i) == 1)
+		if (ft_pre_redir(ms, i) == 1)
 			exit(127); //TODO mettre le vrai exit status
-		exec->pids[i] = fork();
-		if (exec->pids[i] == -1)
+		ms->exec->pids[i] = fork();
+		if (ms->exec->pids[i] == -1)
 			perror("Error ! Pid creation failed:");
 		ft_close_old_pipes(exec, i);
 		if (exec->pids[i] == 0)
 		{
-			ft_dup_proc(exec, i);
-			ft_run_cmd(exec, i);
+			ft_dup_proc(ms, i);
+			ft_run_cmd(ms, i);
 		}
 	}
-	ft_reset_and_close(exec);
+	ft_reset_and_close(ms);
 	// printf("--- Exit while loop	---\n");
 }
 
@@ -45,7 +45,7 @@ char	*ft_cmd_path(t_exec *exec, char *cmds)
 	if (access(path, F_OK | X_OK) == 0)
 		return (path);
 	if (path)
-		free(path);
+		ft_freenull(path);
 	i = -1;
 	while (exec->path_var[++i])
 	{
@@ -53,75 +53,82 @@ char	*ft_cmd_path(t_exec *exec, char *cmds)
 		if (access(path, F_OK | X_OK) == 0)
 			return (path);
 		if (path)
-			free(path);
+			ft_freenull(path);
 	}
 	perror("Error ! Can't find path to program");
 	path = NULL;
 	return (path);
 }
 
-void	ft_run_cmd(t_exec *exec, int r)
+void	ft_run_cmd(t_ms *ms, int r)
 {
 	char	*path;
 	char	**opt;
+	char	**envp;
 
-	opt = ft_split(exec->jct->tab[r][0], ' ');
-	path = ft_cmd_path(exec, opt[0]);
+	opt = ft_split(ms->jct->tab[r][0], ' ');
+	path = ft_cmd_path(ms->exec, opt[0]);
+	envp = ms->jct->envp;
 	if (!path)
 	{
 		ft_free_tab_char(opt);
+		ft_free_all(ms);
 		exit(127);
 	}
-	if (execve(path, opt, exec->envp) < 0)
+	ft_free_child(ms);
+	if (execve(path, opt, envp) < 0)
 	{
 		perror("Error ! Something went wrong while executing");
 		free(path);
 		ft_free_tab_char(opt);
+		ft_free_all(ms);
 		exit(127);
 	}
 }
 
-void	ft_dup_proc(t_exec *exec, int i)
+void	ft_dup_proc(t_ms *ms, int i)
 {
-	if (exec->cmd_nb == 1) // if 1 cmd and no pipes (so one cmd only)
+	if (ms->jct->cmd_nb == 1) // if 1 cmd and no pipes (so one cmd only)
 	{
-		if (exec->jct->tab[i][1])
-			dup2(exec->jct->fds_in[i], STDIN_FILENO);
-		if (exec->jct->tab[i][2])
-			dup2(exec->jct->fds_out[i], STDOUT_FILENO);
+		if (ms->jct->tab[i][1])
+			dup2(ms->jct->fds_in[i], STDIN_FILENO);
+		if (ms->jct->tab[i][2])
+			dup2(ms->jct->fds_out[i], STDOUT_FILENO);
 	}
 	else // s'il y a plus qu'une cmd, donc des pipes
 	{
 		if (i > 0)
-			if (exec->input)
-				dup2(exec->input, STDIN_FILENO);
-		if (i < exec->pipes_nb)
-			if (exec->output)
-				dup2(exec->output, STDOUT_FILENO);
-		if (exec->jct->tab[i][1])
-			dup2(exec->jct->fds_in[i], STDIN_FILENO);
-		if (exec->jct->tab[i][2])
-			dup2(exec->jct->fds_out[i], STDOUT_FILENO);
+			if (ms->exec->input)
+				dup2(ms->exec->input, STDIN_FILENO);
+		if (i < ms->exec->pipes_nb)
+			if (ms->exec->output)
+				dup2(ms->exec->output, STDOUT_FILENO);
+		if (ms->jct->tab[i][1])
+			dup2(ms->jct->fds_in[i], STDIN_FILENO);
+		if (ms->jct->tab[i][2])
+			dup2(ms->jct->fds_out[i], STDOUT_FILENO);
 	}
-	ft_close_fds(exec);
+	ft_close_fds(ms);
 }
 
-void	ft_exec(t_exec *exec)
+void	ft_exec(t_ms *ms)
 {
 	int	i;
-	int status;
+	int	status;
 
-	if (ft_mem_pipes(exec) == 2)
+	ft_init_sig(EXEC);
+	if (ft_mem_pipes(ms) == 2)
 		return ;
-	ft_make_pids(exec);
+	ft_make_pids(ms);
 	i = -1;
-	while (++i < exec->cmd_nb)
+	while (++i < ms->jct->cmd_nb)
 	{
-		waitpid(exec->pids[i], &status, 0);
+		waitpid(ms->exec->pids[i], &status, 0);
 		if (WIFEXITED(status))
 			g_exit_status = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
-			g_exit_status = WTERMSIG(status);	
+			g_exit_status = WTERMSIG(status);
 	}
+	ft_reset_exec(ms);
 	//TODO clarifier le 2nd arg de waitpid
 }

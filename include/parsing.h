@@ -26,6 +26,7 @@
 # define ERR_ACCESS		"Input Error : Command not found\n" //exit_status == 127
 
 typedef struct s_jct	t_jct;
+typedef struct s_ms		t_ms;
 
 enum e_token_type
 {
@@ -75,7 +76,6 @@ typedef struct s_token
 // Parsing main structure prototype... incomplete
 typedef struct s_pars
 {
-	struct s_jct	*jct;
 	struct s_token	*line;
 	char			*input;
 	char			**envp;
@@ -101,26 +101,26 @@ void	DEBUG_parser(t_pars *pars);
 void	DEBUG_tab(t_jct *jct);
 
 /* 		Parsing functions 							*/
-void	ft_parsing(t_pars *pars);
-t_pars	*ft_init_pars(t_jct *jct);
+void	ft_parsing(t_ms *ms);
+t_pars	*ft_init_pars(t_ms *ms);
 void	ft_reset_node(t_pars *pars);
 
 /* 		Lexer part functions 						*/
-void	ft_char(int *i, t_pars *pars);
-void	ft_char_quotes(int *i, char *str, t_pars *pars);
-bool	ft_check_expand_brackets(char *str, t_pars *pars);
-void	ft_d_quotes_token(int *i, t_pars *pars);
-void	ft_envvar(int *i, char *str, t_pars *pars);
-void	ft_envvar_token(int *i, char *str, t_pars *pars);
-char	*ft_find_envvar(char *str, t_pars *pars);
-void	ft_get_expand_brackets(int *i, char *str, t_pars *pars);
+void	ft_char(int *i, t_ms *ms);
+void	ft_char_quotes(int *i, char *str, t_ms *ms);
+bool	ft_check_expand_brackets(char *str, t_ms *ms);
+void	ft_d_quotes_token(int *i, t_ms *ms);
+void	ft_envvar(int *i, char *str, t_ms *ms);
+void	ft_envvar_token(int *i, char *str, t_ms *ms);
+char	*ft_find_envvar(char *str, t_ms *ms);
+void	ft_get_expand_brackets(int *i, char *str, t_ms *ms);
 bool	ft_isenvvarchar(char c);
 bool	ft_ismetachar(char c);
-void	ft_lexer(t_pars *pars);
-void	ft_metachar(char c, int *i, t_pars *pars);
-void	ft_token(int *i, t_pars *pars);
-void	ft_s_quotes_token(int *i, t_pars *pars);
-char	*ft_stock_quotes(int *i, char *str, t_pars *pars);
+void	ft_lexer(t_ms *ms);
+void	ft_metachar(char c, int *i, t_ms *ms);
+void	ft_token(int *i, t_ms *ms);
+void	ft_s_quotes_token(int *i, t_ms *ms);
+char	*ft_stock_quotes(int *i, char *str, t_ms *ms);
 
 /* 		Lexer utils part functions 						*/
 void	ft_add_token_bottom(t_token **lst, t_token *element);
@@ -130,11 +130,11 @@ char	*ft_stock_char(char *str, char c);
 char	*ft_strjoin_char(char *s1, char s2);
 
 /* 		Builder part functions 						*/
-void	ft_args(t_pars *pars);
-void	ft_builder(t_pars *pars);
+void	ft_args(t_ms *ms);
+void	ft_builder(t_ms *ms);
 void	ft_check_error_redir(t_pars *pars);
 void	ft_clean_list(t_token **list);
-void	ft_create_file(t_pars *pars);
+void	ft_create_file(t_ms *ms);
 void	ft_find_cmd(t_pars *pars);
 void	ft_merge(t_token *node, t_token *next);
 void	ft_merge_all_red(t_pars *pars);
@@ -143,19 +143,19 @@ void	ft_merge_angle_brackets_in(t_pars *pars);
 void	ft_merge_angle_brackets_out(t_pars *pars);
 void	ft_merge_arg(t_pars *pars);
 void	ft_merge_red(t_pars *pars);
-void	ft_open_file(t_pars *pars);
-void	ft_redirection(t_pars *pars);
+void	ft_open_file(t_ms *ms);
+void	ft_redirection(t_ms *ms);
 void	ft_swap(t_token *ptr1, t_token *ptr2);
 void	ft_swap_node(t_pars *pars);
 bool	ft_test_cmd(t_pars *pars, t_token *node);
 
 /* 		Parser part functions 						*/
-void	ft_parser(t_pars *pars);
+void	ft_parser(t_ms *ms);
 void	ft_check_redir(t_pars *pars);
 void	ft_check_pipe(t_pars *pars);
-void	ft_init_cmdtab(t_pars *pars);
+void	ft_init_cmdtab(t_ms *ms);
 t_tab	*ft_init_tab(t_pars *pars);
-void	ft_fill_tab(t_pars *pars, t_tab *tab);
+void	ft_fill_tab(t_ms *ms, t_tab *tab);
 
 /* 		Free functions 								*/
 void	ft_free_lst(t_token **lst);

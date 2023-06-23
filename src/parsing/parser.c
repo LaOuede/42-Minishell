@@ -25,12 +25,12 @@ Input : cat supp.txt >outfile | cat -e | ls < infile | echo -n Minihell
 [3][2] = (null)
 --------------------------------------------------------------
 */
-void	ft_fill_tab(t_pars *pars, t_tab *tab)
+void	ft_fill_tab(t_ms *ms, t_tab *tab)
 {
 	printf(KYEL "-------------------- FT_FILL_TAB" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	printf("pars->jct->cmd_nb = %d\n", pars->jct->cmd_nb);
-	printf("pars->nb_pipe = %d\n", pars->nb_pipe);
-	while (++tab->r < pars->jct->cmd_nb && tab->ptr)
+	printf("ms->jct->cmd_nb = %d\n", ms->jct->cmd_nb);
+	printf("ms->pars->nb_pipe = %d\n", ms->pars->nb_pipe);
+	while (++tab->r < ms->jct->cmd_nb && tab->ptr)
 	{
 		tab->c = -1;
 		while (++tab->c < 3)
@@ -41,8 +41,8 @@ void	ft_fill_tab(t_pars *pars, t_tab *tab)
 				tab->ptr = tab->ptr->next;
 			if (tab->c == tab->ptr->type)
 			{
-				pars->jct->tab[tab->r][tab->c] = ft_strdup(tab->ptr->str);
-				printf("str = %s\n", pars->jct->tab[tab->r][tab->c]);
+				ms->jct->tab[tab->r][tab->c] = ft_strdup(tab->ptr->str);
+				printf("str = %s\n", ms->jct->tab[tab->r][tab->c]);
 				if (tab->ptr->next)
 					tab->ptr = tab->ptr->next;
 			}
@@ -50,15 +50,15 @@ void	ft_fill_tab(t_pars *pars, t_tab *tab)
 			{
 				if (tab->ptr->type == ACCESS_ERR && tab->c == 0)
 				{
-					pars->jct->tab[tab->r][tab->c] = ft_strdup(tab->ptr->str);
+					ms->jct->tab[tab->r][tab->c] = ft_strdup(tab->ptr->str);
 					if (tab->ptr->next)
 						tab->ptr = tab->ptr->next;
 				}
 				else if (tab->ptr->type != PIPE)
-					pars->jct->tab[tab->r][tab->c] = NULL;
+					ms->jct->tab[tab->r][tab->c] = NULL;
 				else
 					while (tab->c < 3)
-						pars->jct->tab[tab->r][tab->c++] = NULL;
+						ms->jct->tab[tab->r][tab->c++] = NULL;
 			}
 		}
 	}
@@ -66,23 +66,23 @@ void	ft_fill_tab(t_pars *pars, t_tab *tab)
 }
 
 /* Allocate memory for the char ***array. */
-void	ft_init_cmdtab(t_pars *pars)
+void	ft_init_cmdtab(t_ms *ms)
 {
 	int	i;
 
-	pars->jct->tab = ft_calloc(pars->jct->cmd_nb + 1, sizeof(char **));
-	if (!pars->jct->tab)
+	ms->jct->tab = ft_calloc(ms->jct->cmd_nb + 1, sizeof(char **));
+	if (!ms->jct->tab)
 	{
-		ft_free_3tab(pars->jct);
+		ft_free_3tab(ms->jct);
 		return ;
 	}
 	i = -1;
-	while (++i < pars->jct->cmd_nb)
+	while (++i < ms->jct->cmd_nb)
 	{
-		pars->jct->tab[i] = ft_calloc(3, sizeof(char *));
-		if (!pars->jct->tab[i])
+		ms->jct->tab[i] = ft_calloc(3, sizeof(char *));
+		if (!ms->jct->tab[i])
 		{
-			ft_free_3tab(pars->jct);
+			ft_free_3tab(ms->jct);
 			return ;
 		}
 	}
@@ -147,21 +147,22 @@ Parsing Part III
 2) Initialize the char ***array and allocate memory
 3) Fill the tab
 */
-void	ft_parser(t_pars *pars)
+void	ft_parser(t_ms *ms)
 {
 	t_tab	*tab;
 
 	tab = NULL;
-	ft_check_redir(pars);
-	ft_check_pipe(pars);
-	DEBUG_parser(pars);
-	if (pars->err_parser == false)
+	ft_check_redir(ms->pars);
+	ft_check_pipe(ms->pars);
+	DEBUG_parser(ms->pars);
+	if (ms->pars->err_parser == false)
 	{
-		pars->jct->cmd_nb = pars->nb_pipe;
-		ft_init_cmdtab(pars);
-		tab = ft_init_tab(pars);
-		ft_fill_tab(pars, tab);
+		ms->jct->cmd_nb = ms->pars->nb_pipe;
+		printf("ms->jct->cmd_nb = %d\n", ms->jct->cmd_nb);
+		ft_init_cmdtab(ms);
+		tab = ft_init_tab(ms->pars);
+		ft_fill_tab(ms, tab);
 		free(tab);
-		DEBUG_tab(pars->jct);
+		DEBUG_tab(ms->jct);
 	}
 }
