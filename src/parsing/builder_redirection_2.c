@@ -2,7 +2,8 @@
 
 void	ft_merge_all_red(t_pars *pars)
 {
-	printf(KYEL "-------------------- FT_MERGE_ALLREDOUT" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_MERGE_ALLREDOUT" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr1;
 	t_token	*ptr2;
 
@@ -28,12 +29,14 @@ void	ft_merge_all_red(t_pars *pars)
 		}
 		ptr1 = ptr1->next;
 	}
-	printf(KYEL "-------------------- FT_MERGE_ALLREDOUT" KRED " END " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_MERGE_ALLREDOUT" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
 void	ft_create_file(t_ms *ms)
 {
-	printf(KYEL "-------------------- FT_CREATE_FILE" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_CREATE_FILE" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	int		i;
 	char	*str;
 	t_token	*ptr;
@@ -45,8 +48,10 @@ void	ft_create_file(t_ms *ms)
 	{
 		if (ptr->type == REDOUT && ptr->next->type == ARG)
 		{
+			if (DEBUG){
 			printf("file name = %s\n", ptr->next->str);
 			printf("ptr->str = %s\n", ptr->str);
+			}
 			if (ms->jct->fds_out[i])
 				close(ms->jct->fds_out[i]);
 			if (ft_strncmp(ptr->str, str, 2) == 0)
@@ -57,18 +62,21 @@ void	ft_create_file(t_ms *ms)
 					O_RDWR | O_CREAT | O_TRUNC, 0644);
 			if (ms->jct->fds_out[i] == -1)
 				ft_error_parsing(ERR_OUTFILE, REBUILDER, 1, ms);
-			printf("ms->pars->jct->fds_out[%d] : %d\n", i, ms->jct->fds_out[i]);
+			if (DEBUG)
+				printf("ms->pars->jct->fds_out[%d] : %d\n", i, ms->jct->fds_out[i]);
 		}
 		else if (ptr->type == PIPE)
 			i++;
 		ptr = ptr->next;
 	}
-	printf(KYEL "-------------------- FT_CREATE_FILE" KRED " END " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_CREATE_FILE" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
 void	ft_open_file(t_ms *ms)
 {
-	printf(KYEL "-------------------- FT_OPEN_FILE" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_OPEN_FILE" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	int		i;
 	char	*str;
 	t_token	*ptr;
@@ -80,7 +88,8 @@ void	ft_open_file(t_ms *ms)
 	{
 		if (ptr->type == REDIN && ptr->next->type == ARG)
 		{
-			printf("file name or delimiter = %s\n", ptr->next->str);
+			if (DEBUG)
+				printf("file name or delimiter = %s\n", ptr->next->str);
 			if (ms->jct->fds_in[i])
 				close(ms->jct->fds_in[i]);
 			if (ft_strncmp(ptr->str, str, 2) == 0)
@@ -93,18 +102,21 @@ void	ft_open_file(t_ms *ms)
 				ms->pars->err_infile = true;
 				break ;
 			}
-			printf("ms->pars->jct->fds_in[i] = %d\n", ms->jct->fds_in[i]);
+			if (DEBUG)
+				printf("ms->pars->jct->fds_in[i] = %d\n", ms->jct->fds_in[i]);
 		}
 		else if (ptr->type == PIPE)
 			i++;
 		ptr = ptr->next;
 	}
-	printf(KYEL "-------------------- FT_OPEN_FILE" KRED " END " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_OPEN_FILE" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
 void	ft_merge_red(t_pars *pars)
 {
-	printf(KYEL "-------------------- FT_MERGE_RED" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_MERGE_RED" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr;
 	t_token	*sup;
 
@@ -125,6 +137,8 @@ void	ft_merge_red(t_pars *pars)
 		}
 		if (ptr->next)
 			ptr = ptr->next;
+	
 	}
-	printf(KYEL "-------------------- FT_MERGE_RED" KRED " END " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_MERGE_RED" KRED " END " RESET KYEL "--------------------\n" RESET);
 }

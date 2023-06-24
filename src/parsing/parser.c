@@ -27,28 +27,27 @@ Input : cat supp.txt >outfile | cat -e | ls < infile | echo -n Minihell
 */
 void	ft_fill_tab(t_ms *ms, t_tab *tab)
 {
+	if(DEBUG){
 	printf(KYEL "-------------------- FT_FILL_TAB" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	// Ct_debug(0, "-------------------- FT_FILL_TAB START --------------------", "log.txt");
-	// Ct_debug(ms->jct->cmd_nb, "=> ms->jct->cmd_nb", "log.txt");
-	// Ct_debug(ms->pars->nb_pipe, "=> ms->pars->nb_pipe", "log.txt");
 	printf("ms->jct->cmd_nb = %d\n", ms->jct->cmd_nb);
 	printf("ms->pars->nb_pipe = %d\n", ms->pars->nb_pipe);
+	}
 	while (++tab->r < ms->jct->cmd_nb && tab->ptr)
 	{
 		tab->c = -1;
 		while (++tab->c < 3)
 		{
-			// Ct_debug(tab->c,"=> c", "log.txt");
+			if (DEBUG){
 			printf("c = %d\n", tab->c);
-			// Ct_debug(tab->ptr->type, "=> ptr->type", "log.txt");
 			printf("tab-> ptr->type = %d\n", tab->ptr->type);
+			}
 			if (tab->ptr->type == PIPE && tab->c == 0)
 				tab->ptr = tab->ptr->next;
 			if (tab->c == tab->ptr->type)
 			{
 				ms->jct->tab[tab->r][tab->c] = ft_strdup(tab->ptr->str);
-				// Ct_debug(ms->jct->tab[tab->r][tab->c], "=> ms->jct->tab[tab->r][tab->c]", "log.txt");
-				printf("str = %s\n", ms->jct->tab[tab->r][tab->c]);
+				if (DEBUG)
+					printf("str = %s\n", ms->jct->tab[tab->r][tab->c]);
 				if (tab->ptr->next)
 					tab->ptr = tab->ptr->next;
 			}
@@ -68,7 +67,8 @@ void	ft_fill_tab(t_ms *ms, t_tab *tab)
 			}
 		}
 	}
-	printf(KYEL "-------------------- FT_FILL_TAB" KRED " END " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_FILL_TAB" KRED " END " RESET KYEL "--------------------\n" RESET);
 	// Ct_debug(0, "-------------------- FT_FILL_TAB END --------------------", "log.txt");
 }
 
@@ -102,7 +102,8 @@ void	ft_init_cmdtab(t_ms *ms)
 */
 void	ft_check_pipe(t_ms *ms)
 {
-	printf(KYEL "-------------------- FT_CHECK_PIPE" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_CHECK_PIPE" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr;
 
 	ptr = ms->pars->line;
@@ -110,8 +111,10 @@ void	ft_check_pipe(t_ms *ms)
 		ft_error_parsing(ERR_TOKEN, PARSER, 2, ms);
 	while (ptr->next)
 	{
+		if (DEBUG){
 		printf("str = %s\n", ptr->str);
 		printf("str next = %s\n", ptr->next->str);
+		}
 		if (ptr->type == PIPE && ptr->next->type == PIPE)
 		{
 			ft_error_parsing(ERR_TOKEN, PARSER, 2, ms);
@@ -122,7 +125,8 @@ void	ft_check_pipe(t_ms *ms)
 	}
 	if (ptr->next == NULL && ptr->type == PIPE)
 		ft_error_parsing(ERR_TOKEN, PARSER, 2, ms);
-	printf(KYEL "-------------------- FT_CHECK_PIPE" KRED " END " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_CHECK_PIPE" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
 /*
@@ -130,7 +134,8 @@ Check for REDIN or REDOUT token at the end of the linked-list.
 */
 void	ft_check_redir(t_ms *ms)
 {
-	printf(KYEL "-------------------- FT_CHECK_REDIR" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_CHECK_REDIR" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr;
 	int		len;
 
@@ -145,7 +150,8 @@ void	ft_check_redir(t_ms *ms)
 		}
 		ptr = ptr->next;
 	}
-	printf(KYEL "-------------------- FT_CHECK_REDIR" KRED " END " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_CHECK_REDIR" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
 /*
@@ -165,7 +171,8 @@ void	ft_parser(t_ms *ms)
 	if (ms->pars->err_parser == false)
 	{
 		ms->jct->cmd_nb = ms->pars->nb_pipe;
-		printf("ms->jct->cmd_nb = %d\n", ms->jct->cmd_nb);
+		if (DEBUG)
+			printf("ms->jct->cmd_nb = %d\n", ms->jct->cmd_nb);
 		ft_init_cmdtab(ms);
 		tab = ft_init_tab(ms->pars);
 		ft_fill_tab(ms, tab);

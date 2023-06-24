@@ -2,12 +2,14 @@
 
 void	ft_get_expand_brackets(int *i, char *str, t_ms *ms)
 {
-	printf(KYEL "-------------------- FT_GET_EXPAND_BRACKETS" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_GET_EXPAND_BRACKETS" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 	char	*tmp;
 
 	tmp = NULL;
 	(*i)++;
-	printf("char get expand = %c\n", str[(*i)]);
+	if (DEBUG)
+		printf("char get expand = %c\n", str[(*i)]);
 	while (ft_isenvvarchar(str[++(*i)]))
 		tmp = ft_stock_char(tmp, str[(*i)]);
 	if (!tmp)
@@ -28,7 +30,8 @@ void	ft_get_expand_brackets(int *i, char *str, t_ms *ms)
 	else
 		(*i)++;
 	ft_reset_node(ms->pars);
-	printf(KYEL "-------------------- FT_GET_EXPAND_BRACKETS" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_GET_EXPAND_BRACKETS" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }
 
 /*
@@ -39,7 +42,8 @@ Handle {} case
 */
 bool	ft_check_expand_brackets(char *str, t_ms *ms)
 {
-	printf(KYEL "-------------------- FT_CHECK_EXPAND_BRACKETS" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_CHECK_EXPAND_BRACKETS" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 	ms->pars->c_brackets = OPEN;
 	while (*str++)
 	{
@@ -51,8 +55,10 @@ bool	ft_check_expand_brackets(char *str, t_ms *ms)
 	}
 	if (ms->pars->c_brackets != 2)
 		ft_error_parsing(ERR_QUOTE, LEXER, 2, ms);
+	if (DEBUG){
 	printf("pars->c_brackets = %d\n", ms->pars->c_brackets);
 	printf(KYEL "-------------------- FT_CHECK_EXPAND_BRACKETS" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
+	}
 	if (ms->pars->c_brackets == CLOSE)
 		return (true);
 	return (false);
@@ -60,7 +66,8 @@ bool	ft_check_expand_brackets(char *str, t_ms *ms)
 
 char	*ft_find_envvar(char *str, t_ms *ms)
 {
-	printf(KYEL "-------------------- FT_FIND_ENVVAR" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_FIND_ENVVAR" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 	int		i;
 	size_t	len;
 	char	*tmp;
@@ -79,7 +86,8 @@ char	*ft_find_envvar(char *str, t_ms *ms)
 	while (ms->pars->envp[i][len++])
 		tmp = ft_stock_char(tmp, ms->pars->envp[i][len]);
 	ft_freenull(str);
-	printf(KYEL "-------------------- FT_FIND_ENVVAR" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_FIND_ENVVAR" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 	return (tmp);
 }
 
@@ -89,7 +97,8 @@ char	*ft_find_envvar(char *str, t_ms *ms)
 */
 void	ft_envvar_token(int *i, char *str, t_ms *ms)
 {
-	printf(KYEL "-------------------- FT_ENVVAR_TOKEN" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_ENVVAR_TOKEN" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 	char	*tmp;
 
 	tmp = NULL;
@@ -108,7 +117,8 @@ void	ft_envvar_token(int *i, char *str, t_ms *ms)
 			ft_add_token_bottom(&ms->pars->line, ft_create_node(tmp, ms->pars));
 	}
 	ft_freenull(tmp);
-	printf(KYEL "-------------------- FT_ENVVAR_TOKEN" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_ENVVAR_TOKEN" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }
 
 /*
@@ -118,13 +128,15 @@ Handle $ token
 */
 void	ft_envvar(int *i, char *str, t_ms *ms)
 {
-	printf(KYEL "-------------------- FT_ENVVAR" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_ENVVAR" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr;
 
 	ptr = ms->pars->line;
 	while (ptr->next)
 		ptr = ptr->next;
-	printf("ptr->str = %s\n", ptr->str);
+	if (DEBUG)
+		printf("ptr->str = %s\n", ptr->str);
 	if (str[(*i)] == '$' && str[(*i) + 1] == '{')
 	{
 		if (ft_check_expand_brackets(str, ms) == true)
@@ -140,5 +152,6 @@ void	ft_envvar(int *i, char *str, t_ms *ms)
 	else
 		ft_envvar_token(i, str, ms);
 	ft_reset_node(ms->pars);
-	printf(KYEL "-------------------- FT_ENVVAR" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_ENVVAR" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }

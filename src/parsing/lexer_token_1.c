@@ -8,7 +8,8 @@ Handle ' token
 */
 void	ft_s_quotes_token(int *i, t_ms *ms)
 {
-	printf(KYEL "-------------------- FT_S_QUOTES_TOKEN" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_S_QUOTES_TOKEN" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 	char	*tmp;
 
 	tmp = NULL;
@@ -27,14 +28,16 @@ void	ft_s_quotes_token(int *i, t_ms *ms)
 	}
 	else
 		ft_error_parsing(ERR_QUOTE, LEXER, 2, ms);
-	printf("s_quotes = %d\n", ms->pars->s_quotes);
+	if (DEBUG)
+		printf("s_quotes = %d\n", ms->pars->s_quotes);
 	if (tmp)
 	{	
 		ft_add_token_bottom(&ms->pars->line, ft_create_node(tmp, ms->pars));
 		ft_reset_node(ms->pars);
 		ft_freenull(tmp);
 	}
-	printf(KYEL "-------------------- FT_S_QUOTES_TOKEN" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_S_QUOTES_TOKEN" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }
 
 /*
@@ -43,13 +46,15 @@ void	ft_s_quotes_token(int *i, t_ms *ms)
 */
 void	ft_char_quotes(int *i, char *str, t_ms *ms)
 {
-	printf(KYEL "-------------------- FT_CHAR_QUOTES --------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_CHAR_QUOTES --------------------\n" RESET);
 	char	*tmp;
 
 	tmp = NULL;
 	while (str[(*i)] && str[(*i)] != '$')
 	{
-		printf("-> char = %c\n", str[(*i)]);
+		if (DEBUG)
+			printf("-> char = %c\n", str[(*i)]);
 		tmp = ft_stock_char(tmp, str[(*i)]);
 		(*i)++;
 	}
@@ -59,8 +64,10 @@ void	ft_char_quotes(int *i, char *str, t_ms *ms)
 		ft_freenull(tmp);
 		ft_reset_node(ms->pars);
 	}
+	if (DEBUG){
 	printf("-> i = %d\n", (*i));
 	printf("-> char fin = %c\n", ms->pars->input[(*i)]);
+	}
 }
 
 /*
@@ -69,13 +76,15 @@ void	ft_char_quotes(int *i, char *str, t_ms *ms)
 */
 char	*ft_stock_quotes(int *i, char *str, t_ms *ms)
 {
-	printf(KYEL "-------------------- FT_STOCK_QUOTES" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_STOCK_QUOTES" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 	while (ms->pars->input[++(*i)])
 	{
 		if (ms->pars->input[(*i)] == '\"')
 			break ;
 		str = ft_stock_char(str, ms->pars->input[*i]);
-		printf("-> char = %c\n", ms->pars->input[(*i)]);
+		if (DEBUG)
+			printf("-> char = %c\n", ms->pars->input[(*i)]);
 	}
 	if (ms->pars->input[(*i)] == '\"')
 	{
@@ -84,7 +93,8 @@ char	*ft_stock_quotes(int *i, char *str, t_ms *ms)
 	}
 	else
 		ft_error_parsing(ERR_QUOTE, LEXER, 2, ms);
-	printf(KYEL "-------------------- FT_STOCK_QUOTES" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_STOCK_QUOTES" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 	return (str);
 }
 
@@ -95,33 +105,39 @@ Handle " token
 */
 void	ft_d_quotes_token(int *i, t_ms *ms)
 {
-	printf(KYEL "-------------------- FT_D_QUOTES_TOKEN" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_D_QUOTES_TOKEN" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 	int		j;
 	size_t	len;
 	char	*str;
 
 	str = NULL;
 	ms->pars->d_quotes = OPEN;
-	printf("d_quotes = %d\n", ms->pars->d_quotes);
+	if (DEBUG)
+		printf("d_quotes = %d\n", ms->pars->d_quotes);
 	str = ft_stock_quotes(i, str, ms);
 	len = ft_strlen(str);
 	j = 0;
 	while (j < (int)len)
 	{
+		if (DEBUG){
 		printf("-> i = %d\n", j);
 		printf("-> char = %c\n", str[j]);
+		}
 		if (str[j] == '$')
 			ft_envvar(&j, str, ms);
 		else
 			ft_char_quotes(&j, str, ms);
 	}
 	ft_freenull(str);
-	printf(KYEL "-------------------- FT_D_QUOTES_TOKEN" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_D_QUOTES_TOKEN" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }
 
 void	ft_token(int *i, t_ms *ms)
 {
-	printf(KYEL "-------------------- FT_TOKEN --------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_TOKEN --------------------\n" RESET);
 	char	*tmp;
 
 	tmp = NULL;

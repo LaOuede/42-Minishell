@@ -19,7 +19,8 @@ void	ft_error_parsing(char *err_msg, int step, int exit, t_ms *ms)
 		ms->pars->err_parser = true;
 		ms->flexit = exit;
 	}
-	printf("exit_status = %d\n", ms->flexit);
+	if (DEBUG)
+		printf("exit_status = %d\n", ms->flexit);
 }
 
 void	ft_error(char *err_msg)

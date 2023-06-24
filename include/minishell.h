@@ -28,7 +28,7 @@
 # define ERR_EXI1	"Usage error : exit: too many arguments\n"
 # define ERR_EXI2	"Usage error : exit: numeric argument required\n"
 
-# define ADD 0
+# define DEBUG 0
 # define MAIN 42
 # define EXEC 666
 # define HD 7

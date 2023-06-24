@@ -2,7 +2,8 @@
 
 void	ft_merge(t_token *node, t_token *next)
 {
-	printf(KYEL "-------------------- FT_MERGE" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_MERGE" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	char	*tmp;
 	char	*new_str;
 
@@ -13,22 +14,27 @@ void	ft_merge(t_token *node, t_token *next)
 	node->str = ft_strdup(new_str);
 	ft_freenull(tmp);
 	ft_freenull(new_str);
+	if (DEBUG){
 	printf("ptr->str = %s\n", node->str);
 	printf("ptr->next->str = %s\n", next->str);
 	printf(KYEL "-------------------- FT_MERGE" KRED " END " RESET KYEL "--------------------\n" RESET);
+	}
 }
 
 void	ft_clean_list(t_token **list)
 {
-	printf(KYEL "-------------------- FT_CLEAN_LIST" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_CLEAN_LIST" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*sup;
 	t_token	*ptr;
 
 	ptr = *list;
 	while (ptr->next)
 	{
+		if (DEBUG){
 		printf("ptr->next->type = %d\n", ptr->next->type);
 		printf("ptr->next->str = %p\n", ptr->next->str);
+		}
 		if (ptr->next->type == ERROR)
 		{
 			sup = ptr->next;
@@ -36,14 +42,17 @@ void	ft_clean_list(t_token **list)
 				ptr->next = ptr->next->next;
 			else if (!ptr->next->next)
 				ptr->next = NULL;
+			if (DEBUG){
 			printf("sup->str = %s\n", sup->str);
 			printf("sup->str = %p\n", sup->str);
+			}
 			ft_free_token(sup);
 		}
 		else
 			ptr = ptr->next;
 	}
-	printf(KYEL "-------------------- FT_CLEAN_LIST" KRED " END " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_CLEAN_LIST" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
 void	ft_swap(t_token *ptr1, t_token *ptr2)
@@ -61,7 +70,8 @@ void	ft_swap(t_token *ptr1, t_token *ptr2)
 
 void	ft_swap_node(t_pars *pars)
 {
-	printf(KYEL "-------------------- FT_SWAP" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_SWAP" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr1;
 	t_token	*ptr2;
 
@@ -78,7 +88,8 @@ void	ft_swap_node(t_pars *pars)
 		}
 		ptr1 = ptr1->next;
 	}
-	printf(KYEL "-------------------- FT_SWAP" KRED " END " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_SWAP" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
 /*
@@ -91,10 +102,12 @@ Parsing Part II
 */
 void	ft_builder(t_ms *ms)
 {
-	printf(KYEL "-------------------- FT_BUILDER" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_BUILDER" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	ft_redirection(ms);
 	ft_args(ms);
 	ft_clean_list(&ms->pars->line);
 	ft_swap_node(ms->pars);
-	printf(KYEL "-------------------- FT_BUILDER" KRED " END " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_BUILDER" KRED " END " RESET KYEL "--------------------\n" RESET);
 }

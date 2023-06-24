@@ -2,7 +2,8 @@
 
 void	ft_close_old_pipes(t_exec *exec, int i)
 {
-	printf("enter in ft_close_old_pipes\n");
+	if (DEBUG)
+		printf("enter in ft_close_old_pipes\n");
 	if (i > 2 && exec->pipes[i - 1] && exec->pipes[i - 2])
 	{
 		if (exec->pipes[i - 2][0])
@@ -51,12 +52,14 @@ void	ft_close_all(t_ms *ms)
 
 int	ft_pre_redir(t_ms *ms, int i)
 {
+	if (DEBUG){
 	printf("---	ft_pre_redir starts\n\n");
 	// printf("---	i = %d \n", i);
 	// printf("---	exec->jct->fd_hd = %d \n", exec->jct->fd_hd);
 	// printf("---	BEFORE if, exec->jct->fds_in[%d]: %d\n", i,  exec->jct->fds_in[i]);
 	// printf("---	BEFORE if, exec->input: %d\n", exec->input);
 	printf("ms->jct->cmd_nb = %d\n", ms->jct->cmd_nb);
+	}
 	if (ms->jct->cmd_nb > 1) // s'il y a plus qu'une cmd, donc des pipes
 	{
 		if (i > 0)
@@ -71,14 +74,16 @@ int	ft_pre_redir(t_ms *ms, int i)
 			ms->exec->output = ms->exec->pipes[i][1];
 		}
 	}
-	printf("ms->jct->fd_hd = %d\n", ms->jct->fd_hd);
+	if (DEBUG)
+		printf("ms->jct->fd_hd = %d\n", ms->jct->fd_hd);
 	if (ms->jct->fd_hd)
 	{
 		dup2(ms->jct->fd_hd, STDIN_FILENO);
 		close(ms->jct->fd_hd); //TODO to test
 		ms->jct->fd_hd = 0;
 	}
-	printf("\n---	ft_pre_redir ends\n\n");
+	if (DEBUG)
+		printf("\n---	ft_pre_redir ends\n\n");
 	return (0);
 }
 
@@ -90,8 +95,10 @@ int	ft_mem_pipes(t_ms *ms)
 		return (1);
 	// printf("\n--- Pipes calloc starts ---\n");
 	ms->exec->pipes_nb = ms->jct->cmd_nb - 1;
+	if (DEBUG){
 	printf("ms->jct->cmd_nb = %d\n", ms->jct->cmd_nb);
 	printf("ms->exec->pipes_nb = %d\n", ms->exec->pipes_nb);
+	}
 	ms->exec->pipes = ft_calloc(ms->exec->pipes_nb, sizeof(int *));
 	if (!ms->exec->pipes)
 	{
