@@ -44,6 +44,7 @@ t_exec	*ft_init_exec(t_ms *ms);
 void	ft_dup_proc(t_ms *ms, int i);
 // void 	ft_pre_redir(t_exec *exec, int i);
 int		ft_pre_redir(t_ms *ms, int i);
+void	ft_close_all(t_ms *ms);
 void	ft_close_fds(t_ms *ms);
 // void	ft_close_fds(t_exec *exec, int i);
 // int		ft_create_pipes(t_exec *exec);
@@ -58,9 +59,10 @@ void	ft_free_3tab(t_jct *jct);
 void	ft_run_cmd(t_ms *ms, int i);
 // void	exec_hd(t_pars *pars, char *delim, int i);
 int		ft_exec_hd(char *delim, t_ms *ms);
-void	ft_reset_and_close(t_ms *ms);
 void	ft_close_old_pipes(t_exec *exec, int i);
-void	ft_close_fds_child(t_ms *ms, int i);
+void	ft_dup_and_run(t_ms *ms, int i);
+char	*ft_cmd_path(t_exec *exec, char *cmds);
+void	ft_run_cmd(t_ms *ms, int r);
 
 /*	--	Debug fct	--	*/
 // void	ft_print_debug(t_exec *exec);

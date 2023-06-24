@@ -14,24 +14,6 @@ void	ft_close_old_pipes(t_exec *exec, int i)
 
 void	ft_close_fds(t_ms *ms)
 {
-	int	i;
-
-	i = -1;
-	while (++i < ms->exec->pipes_nb)
-	{
-		if (ms->exec->pipes[i][0])
-			close(ms->exec->pipes[i][0]);
-		if (ms->exec->pipes[i][1])
-			close(ms->exec->pipes[i][1]);
-	}
-	while(i >= 0)
-	{
-		if (ms->jct->fds_in[i])
-			close(ms->jct->fds_in[i]);
-		if (ms->jct->fds_out[i])
-			close(ms->jct->fds_out[i]);
-		i--;
-	}
 	if (ms->exec->fd_in)
 		close(ms->exec->fd_in);
 	if (ms->exec->fd_out)
@@ -42,6 +24,29 @@ void	ft_close_fds(t_ms *ms)
 		close(ms->exec->input);
 	if (ms->exec->output)
 		close(ms->exec->output);
+}
+
+void	ft_close_all(t_ms *ms)
+{
+	int	i;
+
+	i = -1;
+	while (++i < ms->exec->pipes_nb)
+	{
+		if (ms->exec->pipes[i][0])
+			close(ms->exec->pipes[i][0]);
+		if (ms->exec->pipes[i][1])
+			close(ms->exec->pipes[i][1]);
+	}
+	while (i >= 0)
+	{
+		if (ms->jct->fds_in[i])
+			close(ms->jct->fds_in[i]);
+		if (ms->jct->fds_out[i])
+			close(ms->jct->fds_out[i]);
+		i--;
+	}
+	ft_close_fds(ms);
 }
 
 int	ft_pre_redir(t_ms *ms, int i)

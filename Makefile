@@ -20,6 +20,7 @@ SRCS_LST	= 	built_in/built_in.c \
 				built_in/pwd.c \
 				DEBUG_parsing.c \
 				exec/exec_hd.c \
+				exec/exec_cmd.c \
 				exec/exec_free.c \
 				exec/exec_utils.c \
 				exec/exec_pipes.c \
@@ -40,7 +41,7 @@ SRCS_LST	= 	built_in/built_in.c \
 				sig/signals.c
 
 # -- Readline Library -- #
-
+#TODO remove the below
 C_TOOLS_DIR		= ./C_tools/
 C_TOOLS			= $(C_TOOLS_DIR)C_tool.a
 
@@ -81,8 +82,9 @@ all : dir readline $(NAME)
 # -- Compile library -- #
 $(NAME) : $(OBJS)
 	@make -C $(LIBFT_DIR)
-	@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(RLINE) $(C_TOOLS) -lncurses -o $(NAME)	
+	@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(RLINE) -lncurses -o $(NAME)	
 	@echo "✅ $(GREEN)$(NAME)'s exectuable successfully created.		✅$(RESET)"
+#@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(RLINE) $(C_TOOLS) -lncurses -o $(NAME)	//TODO to remove
 
 # -- Create all files .o (object) from files .c (source code) -- #
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(HEADER)

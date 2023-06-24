@@ -1,12 +1,5 @@
 #include "../../include/minishell.h"
 
-void	ft_reset_and_close(t_ms *ms)
-{
-	// dup2(ms->exec->fd_in, STDIN_FILENO);
-	// dup2(ms->exec->fd_out, STDOUT_FILENO);
-	ft_close_fds(ms);
-}
-
 void	ft_copy_env(t_jct *jct, char **envp)
 {
 	int	i;

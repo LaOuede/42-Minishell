@@ -81,11 +81,11 @@ int	ft_exec_hd(char *delim, t_ms *ms)
 	if (fd_hd < 0)
 		perror("Error ! fd_hd:");
 	pid_hd = fork();
-	if(pid_hd == -1)
-		perror("Error! pid_hd");
-	if(pid_hd == 0)
+	if (pid_hd == -1)
+		perror("Error! pid_hd:");
+	if (pid_hd == 0)
 		ft_child_hd(delim, fd_hd, ms);
-	waitpid(pid_hd, &status, 0);
+	waitpid (pid_hd, &status, 0);
 /* 	if (WIFEXITED(status))
 		ms->flexit = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
