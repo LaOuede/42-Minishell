@@ -53,11 +53,12 @@ void	ft_make_pids(t_ms *ms)
 		if(DEBUG)
 			printf("--- Enter while loop		---\n");
 		builtin_fts = ft_is_builtin(ms, i);
-		if (ms->jct->cmd_nb == 1 && builtin_fts)
-		{
-			ms->exec->builtin->fts[builtin_fts](ms, ms->exec->builtin_cmd);
-			return ;
-		}
+		//TODO if we do the below, redir doesn't because it's not in a child
+		// if (ms->jct->cmd_nb == 1 && builtin_fts)
+		// {
+		// 	ms->exec->builtin->fts[builtin_fts](ms, ms->exec->builtin_cmd);
+		// 	return ;
+		// }
 		if (ft_pre_redir(ms, i) == 1)
 			exit(127); //TODO mettre le vrai exit status
 		ms->exec->pids[i] = fork();
@@ -70,7 +71,6 @@ void	ft_make_pids(t_ms *ms)
 	if(DEBUG)
 		printf("--- Exit while loop	---\n");
 }
-
 
 void	ft_exec(t_ms *ms)
 {
