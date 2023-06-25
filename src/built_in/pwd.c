@@ -21,24 +21,26 @@ Return value :
 	If successful, getcwd() returns a pointer to the buffer.
 	If unsuccessful, getcwd() returns a NULL pointer and sets errno to a value.
 */
-void	ft_msh_pwd(t_exec *exec)
+void	ft_msh_pwd(t_ms *ms, char **cmd)
 {
+	(void)cmd;
 	printf(KYEL "-------------------- FT_MSH_PWD" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	char *buf;
 
-	buf = getcwd(NULL, sizeof(buf));
+	buf = getcwd(NULL, 0);
 	if (buf)
 	{
 		printf("%s\n", buf);
-		if (exec->jct->cmd_nb == 1)
+		if (ms->jct->cmd_nb > 1)
 			exit(EXIT_SUCCESS);
 	}
-	else
-	{
-		printf("ERROR\n");
-		// TODO error message to setup and exit_status to define
-		if (exec->jct->cmd_nb == 1)
-			exit(EXIT_FAILURE);
-	}
+	//TODO to clarify
+	// else
+	// {
+	// 	printf("ERROR\n");
+	// 	// TODO error message to setup and exit_status to define
+	// 	if (ms->jct->cmd_nb == 1)
+	// 		exit(EXIT_FAILURE);
+	// }
 	printf(KYEL "-------------------- FT_MSH_PWD" KRED " END " RESET KYEL "--------------------\n" RESET);
 }

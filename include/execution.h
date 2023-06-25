@@ -16,7 +16,7 @@ typedef struct s_ms		t_ms;
 
 typedef struct s_builtin
 {
-	void					(*operation_funcs[8])();
+	void					(*fts[8])(t_ms *, char **);
 }							t_builtin;
 
 /*
@@ -35,6 +35,7 @@ typedef struct s_exec
 	int				**pipes;
 	struct s_jct	*jct;
 	t_builtin		*builtin;
+	char			**builtin_cmd;
 	int				cmd_nb;
 	int				pipes_nb;
 }			t_exec;
@@ -60,7 +61,7 @@ void	ft_run_cmd(t_ms *ms, int i);
 // void	exec_hd(t_pars *pars, char *delim, int i);
 int		ft_exec_hd(char *delim, t_ms *ms);
 void	ft_close_old_pipes(t_exec *exec, int i);
-void	ft_dup_and_run(t_ms *ms, int i);
+void	ft_dup_and_run(t_ms *ms, int i, int builtin_fts);
 char	*ft_cmd_path(t_exec *exec, char *cmds);
 void	ft_run_cmd(t_ms *ms, int r);
 
