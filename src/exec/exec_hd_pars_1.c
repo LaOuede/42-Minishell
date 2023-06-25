@@ -26,7 +26,7 @@ void	ft_get_expand_brackets_hd(int *i, char *str, t_ms *ms)
 	}
 	ft_freenull(tmp);
 	if (str[(*i)] != '}')
-		ft_error_parsing(ERR_TOKEN, LEXER, 2, ms);
+		ms->hd->err_parser = true;
 	else
 		(*i)++;
 	ft_reset_node(ms->hd);
@@ -48,7 +48,7 @@ bool	ft_check_expand_brackets_hd(char *str, t_ms *ms)
 		}
 	}
 	if (ms->hd->c_brackets != 2)
-		ft_error_parsing(ERR_QUOTE, LEXER, 2, ms);
+		ms->hd->err_parser = true;
 	if (DEBUG){
 	printf("hd->c_brackets = %d\n", ms->hd->c_brackets);
 	printf(KYEL "-------------------- FT_CHECK_EXPAND_BRACKETS_HD" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);

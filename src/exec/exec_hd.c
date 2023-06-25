@@ -33,7 +33,7 @@ t_pars	*ft_init_hd(t_ms *ms)
 	hd->hd = 0;
 	hd->strlen = 0;
 	hd->c_brackets = 0;
-	hd->flag_whitespace = 0;
+	hd->err_parser = 0;
 	return (hd);
 }
 
@@ -56,9 +56,13 @@ void	ft_child_hd(char *delim, int fd_hd, t_ms *ms)
 		DEBUG_hd(ms->hd);
 	ft_merge_hd(ms->hd);
 	ft_clean_list(&ms->hd->line);
+	if (ms->hd->err_parser == true)
+	{
+		ft_error(ERR_HD);
+		ft_exit_free(ms, 1);
+	}
 	print_hd(ms->hd, fd_hd);
-	ft_free_all(ms);
-	exit(0);
+	ft_exit_free(ms, 0);
 }
 
 int	ft_exec_hd(char *delim, t_ms *ms)
