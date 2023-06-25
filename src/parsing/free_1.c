@@ -1,21 +1,5 @@
 #include "../../include/minishell.h"
 
-void	ft_free_jct(t_jct *jct)
-{
-	if (jct)
-	{
-		if (jct->envp)
-			ft_free_tab_char(jct->envp);
-		if (jct->tab)
-			ft_free_3tab(jct);
-		if (jct->fds_in)
-			free(jct->fds_in);
-		if (jct->fds_out)
-			free(jct->fds_out);
-		ft_freenull(jct);
-	}
-}
-
 void	ft_free_pars(t_pars *pars)
 {
 	if (pars)

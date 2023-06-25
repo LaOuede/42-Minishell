@@ -27,6 +27,7 @@ SRCS_LST	= 	built_in/built_in.c \
 				exec/exec_utils.c \
 				exec/exec_pipes.c \
 				exec/exec.c \
+				jct/jct.c \
 				main.c \
 				parsing/lexer.c \
 				parsing/builder.c \
@@ -34,7 +35,8 @@ SRCS_LST	= 	built_in/built_in.c \
 				parsing/builder_redirection_1.c \
 				parsing/builder_redirection_2.c \
 				parsing/error.c \
-				parsing/free.c \
+				parsing/free_1.c \
+				parsing/free_2.c \
 				parsing/lexer_token_1.c \
 				parsing/lexer_token_2.c \
 				parsing/lexer_utils.c \
@@ -98,7 +100,7 @@ run: all
 
 # -- Create directory for *.o files -- #
 dir :
-	@mkdir -p $(OBJS_DIR) $(OBJS_DIR)parsing $(OBJS_DIR)exec $(OBJS_DIR)sig $(OBJS_DIR)built_in
+	@mkdir -p $(OBJS_DIR) $(OBJS_DIR)parsing $(OBJS_DIR)exec $(OBJS_DIR)sig $(OBJS_DIR)built_in $(OBJS_DIR)jct
 	@mkdir -p $(LIBRLINE_DIR)
 
 leak: CFLAGS += -g
@@ -126,7 +128,7 @@ readline :
 clean :
 	@make -C $(LIBFT_DIR) clean
 	@printf "💥 $(RED)Removing $(NAME)'s objects...$(RESET)\t\t\t💥\n"
-	@$(RM) $(OBJS_DIR) $(OBJS_DIR)parsing $(OBJS_DIR)exec $(OBJS_DIR)sig $(OBJS_DIR)built_in
+	@$(RM) $(OBJS_DIR) $(OBJS_DIR)parsing $(OBJS_DIR)exec $(OBJS_DIR)sig $(OBJS_DIR)built_in $(OBJS_DIR)jct
 	@printf "🗑️  $(CYAN)$(NAME)'s object successfully deleted.$(RESET)\t\t🗑️\n"
 
 # -- Removes objects (with clean) and executable -- #
