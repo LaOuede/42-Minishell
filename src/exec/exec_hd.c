@@ -1,5 +1,27 @@
 #include "../../include/minishell.h"
 
+void	ft_hd_parser(t_ms *ms)
+{
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_HD_PARSER" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
+	int	i;
+
+	i = 0;
+	while (i < (int)ms->hd->strlen)
+	{
+		if (DEBUG){
+		printf("-> i = %d\n", (i));
+		printf("-> char = %c\n", ms->hd->input[(i)]);
+		}
+		if ((ms->hd->input[i]) == '$')
+			ft_envvar_hd(&i, ms->hd->input, ms);
+		else
+			ft_str_hd(&i, ms);
+	}
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_HD_PARSER" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
+}
+
 t_pars	*ft_init_hd(t_ms *ms)
 {
 	t_pars	*hd;

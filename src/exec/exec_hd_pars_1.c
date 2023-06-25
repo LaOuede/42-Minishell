@@ -108,25 +108,3 @@ void	ft_str_hd(int *i, t_ms *ms)
 	printf("-> char fin = %c\n", ms->hd->input[(*i)]);
 	}
 }
-
-void	ft_hd_parser(t_ms *ms)
-{
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_HD_PARSER" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
-	int	i;
-
-	i = 0;
-	while (i < (int)ms->hd->strlen)
-	{
-		if (DEBUG){
-		printf("-> i = %d\n", (i));
-		printf("-> char = %c\n", ms->hd->input[(i)]);
-		}
-		if ((ms->hd->input[i]) == '$')
-			ft_envvar_hd(&i, ms->hd->input, ms);
-		else
-			ft_str_hd(&i, ms);
-	}
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_HD_PARSER" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
-}
