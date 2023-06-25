@@ -1,72 +1,40 @@
 #include "../../include/minishell.h"
 
-char	*ft_trim(char *s1, char *set)
+t_pars	*ft_init_hd(t_ms *ms)
 {
-	int		end;
-	int		start;
-	char	*s_trim;
+	t_pars	*hd;
 
-	if (!s1)
-		return (0);
-	start = 0;
-	while (s1[start] && ft_strchr(set, s1[start]))
-		start++;
-	end = ft_strlen(s1);
-	while (end && ft_strchr(set, s1[end]))
-		end--;
-	s_trim = ft_substr(s1, start, end - start + 1);
-	return (s_trim);
+	hd = ft_calloc(1, sizeof(t_pars));
+	hd->line = NULL;
+	hd->input = NULL;
+	hd->envp = ms->jct->envp;
+	hd->hd = 0;
+	hd->strlen = 0;
+	hd->c_brackets = 0;
+	hd->flag_whitespace = 0;
+	return (hd);
 }
-
-char	*ft_gnl(void)
-{
-	char	buf[5000];
-	int		rbytes;
-	char	*res;
-	char	*trim;
-
-	rbytes = read(STDOUT_FILENO, buf, 5000);
-	buf[rbytes] = '\0';
-	trim = ft_strdup(buf);
-	res = ft_trim(trim, "\n");
-	ft_freenull(trim);
-	return (res);
-}
-
-/* void	ft_child_hd(char *delim, t_ms *ms)
-{
-	ft_init_sig(HD);
-	ms->hd = ft_init_hd();
-	while (42)
-	{
-		ms->hd->input = readline("> ");
-		printf("hd_input = %s\n", ms->hd->input);
-		if (ft_strchr(ms->hd->input, '$'))
-			ft_parsing_hd(ms->hd);
-		if (ft_strncmp(ms->hd->input, delim, ms->hd->strlen) == 0)
-			break ;
-		ft_reset_pars(ms->hd);
-	}
-	ft_free_all(ms);
-	exit(0);
-} */
 
 void	ft_child_hd(char *delim, int fd_hd, t_ms *ms)
 {
-	char	*tmp;
-
-	while (1)
+	(void)delim;
+	ft_init_sig(HD);
+	ms->hd = ft_init_hd(ms);
+	while (42)
 	{
-		ft_init_sig(HD);
-		ft_putstr_fd("> ", 1);
-		tmp = ft_gnl();
-		if ((ft_strncmp(tmp, delim, ft_strlen(tmp))) == 0)
+		ms->hd->input = readline("> ");
+		ms->hd->strlen = ft_strlen(ms->hd->input);
+		ms->hd->hd++;
+		if (ft_strncmp(ms->hd->input, delim, ms->hd->strlen) == 0)
 			break ;
-		ft_putstr_fd(tmp, fd_hd);
-		ft_putchar_fd('\n', fd_hd);
-		ft_freenull(tmp);
+		ft_hd_parser(ms);
+		ft_freenull(ms->hd->input);
 	}
-	ft_freenull(tmp);
+	if (DEBUG)
+		DEBUG_hd(ms->hd);
+	ft_merge_hd(ms->hd);
+	ft_clean_list(&ms->hd->line);
+	print_hd(ms->hd, fd_hd);
 	ft_free_all(ms);
 	exit(0);
 }

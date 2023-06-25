@@ -74,7 +74,8 @@ void	ft_init_sig(int phase)
 	}
 	else if (phase == HD)
 	{
-		signal(SIGINT, &sig_hd_handler);
+		//signal(SIGINT, &sig_hd_handler);
 		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, SIG_IGN);
 	}
 }

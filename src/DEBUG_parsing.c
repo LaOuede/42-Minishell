@@ -1,5 +1,24 @@
 #include "../include/minishell.h"
 
+void	DEBUG_hd(t_pars *hd)
+{
+	t_token	*tmp;
+
+	tmp = hd->line;
+	printf(KBLU KBLD"--------------------------------------------------------------\n");
+	printf("-			DEBUG_hd			     -\n");
+	printf("--------------------------------------------------------------\n"RESET);
+	while (tmp)
+	{
+		printf(KBLU "**************************************************************\n");
+		printf("*" KBLU KBLD " -> Str =          " RESET KBLD "%s" RESET KBLU "\n", tmp->str);
+		printf("*" KBLU KBLD " -> Type =         " RESET KBLD "%d" RESET KBLU "\n", tmp->hd);
+		printf(KBLU "**************************************************************\n" RESET);
+		tmp = tmp->next;
+	}
+	ft_free_lst(&tmp);
+}
+
 void	DEBUG_tab(t_jct *jct)
 {
 	int		row;
@@ -21,6 +40,7 @@ void	DEBUG_tab(t_jct *jct)
 		printf(KMAG KBLD"--------------------------------------------------------------\n"RESET);
 	}
 }
+
 void	DEBUG_parser(t_pars *pars)
 {
 	t_token	*tmp;

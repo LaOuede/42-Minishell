@@ -70,6 +70,7 @@ typedef struct s_token
 	int				c_brackets;
 	int				nb_cmd;
 	int				ws;
+	int				hd;
 	struct s_token	*next;
 }	t_token;
 
@@ -88,10 +89,12 @@ typedef struct s_pars
 	int				c_brackets;
 	int				p_brackets;
 	int				flag_whitespace;
+	int				hd;
 	int				err_infile;
 	bool			err_lexer;
 	bool			err_rebuilder;
 	bool			err_parser;
+
 }	t_pars;
 
 /* 		Debug functions 							*/

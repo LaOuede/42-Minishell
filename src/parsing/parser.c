@@ -167,7 +167,8 @@ void	ft_parser(t_ms *ms)
 	tab = NULL;
 	ft_check_redir(ms);
 	ft_check_pipe(ms);
-	DEBUG_parser(ms->pars);
+	if (DEBUG)
+		DEBUG_parser(ms->pars);
 	if (ms->pars->err_parser == false)
 	{
 		ms->jct->cmd_nb = ms->pars->nb_pipe;
@@ -177,6 +178,7 @@ void	ft_parser(t_ms *ms)
 		tab = ft_init_tab(ms->pars);
 		ft_fill_tab(ms, tab);
 		free(tab);
-		DEBUG_tab(ms->jct);
+		if (DEBUG)
+			DEBUG_tab(ms->jct);
 	}
 }

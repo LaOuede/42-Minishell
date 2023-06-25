@@ -39,7 +39,7 @@ typedef struct s_ms
 	struct s_pars	*pars;
 	struct s_exec	*exec;
 	struct s_jct	*jct;
-	//struct s_pars	*hd;
+	struct s_pars	*hd;
 	int				flexit;
 }	t_ms;
 
@@ -69,7 +69,19 @@ void	ft_free_child(t_ms *ms);
 void	ft_free_all(t_ms *ms);
 void	ft_reset_jct(t_jct *jct);
 
-/* 		Signal functions 							*/
+/* 		Signal functions 						*/
 void	ft_init_sig(int phase);
+
+/* 		hd parsing functions 					*/
+void	ft_hd_parser(t_ms *ms);
+void	ft_str_hd(int *i, t_ms *ms);
+void	ft_envvar_hd(int *i, char *str, t_ms *ms);
+bool	ft_check_expand_brackets_hd(char *str, t_ms *ms);
+void	ft_get_expand_brackets_hd(int *i, char *str, t_ms *ms);
+void	ft_envvar_token_hd(int *i, char *str, t_ms *ms);
+void	DEBUG_hd(t_pars *hd);
+void	ft_reset_pars(t_pars *pars);
+void	print_hd(t_pars *hd, int fd_hd);
+void	ft_merge_hd(t_pars *hd);
 
 #endif
