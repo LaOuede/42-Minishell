@@ -27,69 +27,95 @@ int		(*builtin_fct[])(char **) = \
 	&ft_msh_exit
 }; */
 
-// t_builtin	*ft_get_builtin(void)
-// {
-// 	static t_builtin	*builtin;
-
-// 	if(!builtin)
-// 	{
-// 		builtin = malloc(sizeof(t_builtin));
-// 		if (!builtin)
-// 			perror(NULL);
-// 		builtin->operation_funcs[0] = NULL;
-// 		builtin->operation_funcs[1] = NULL;
-// 		builtin->operation_funcs[2] = NULL;
-// 		builtin->operation_funcs[3] = NULL;
-// 		builtin->operation_funcs[4] = NULL;
-// 		builtin->operation_funcs[5] = NULL;
-// 		builtin->operation_funcs[6] = NULL;
-// 		builtin->operation_funcs[7] = NULL;
-// 	}
-// }
-
-void	ft_is_builtin(t_ms *ms, int i)
+void	ft_built_in(t_ms *ms, int i)
 {
-	printf(KYEL "-------------------- FT_IS_BUILTIN" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	char	**cmd;
+	int builtin_fts;
+
+	builtin_fts = ft_is_builtin(ms, i);
+	cmd = ft_split(ms->jct->tab[i][0], ' ');
+	if (ms->jct->cmd_nb == 1 && builtin_fts)
+	{
+		ms->exec->builtin->fts[builtin_fts](ms, NULL);
+	}
+	// ft_free_tab_char(cmd);
+}
+
+t_builtin	*ft_get_builtin(void)
+{
+	static t_builtin	*builtin;
+
+	if(!builtin)
+	{
+		builtin = malloc(sizeof(t_builtin));
+		if (!builtin)
+			perror(NULL);
+		builtin->fts[0] = NULL;
+		builtin->fts[1] = NULL; //ft_msh_echo
+		builtin->fts[2] = NULL; //ft_msh_cd
+		builtin->fts[3] = ft_msh_pwd; //pwd
+		builtin->fts[4] = NULL; //ft_msh_export
+		builtin->fts[5] = NULL; //ft_msh_unset
+		builtin->fts[6] = NULL; //ft_msh_env
+		builtin->fts[7] = NULL; //ft_msh_exit
+	}
+	return (builtin);
+}
+
+int	ft_is_builtin(t_ms *ms, int i)
+{
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_IS_BUILTIN" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	char	**cmd;
 
-	cmd = ft_split(ms->jct->tab[i][0], ' ');
-	if (strcmp(cmd[0], "echo") == 0)
-		ft_msh_echo(ms, cmd);
-/* 	else if (strcmp(cmd, "cd") == 0)
+	ms->exec->builtin = ft_get_builtin();
+	ms->exec->builtin_cmd = ft_split(ms->jct->tab[i][0], ' ');
+	cmd = ms->exec->builtin_cmd;
+	if (ft_strcmp(cmd[0], "echo") == 0)
+		return (1);
+		//ft_msh_echo(ms, cmd);
+/* 	else if (ft_strcmp(cmd, "cd") == 0)
+		return (2);
 		ft_msh_cd(); */
-	else if (strcmp(cmd[0], "pwd") == 0)
-		ft_msh_pwd(ms->exec);
-/* 	else if (strcmp(cmd, "export") == 0)
+	else if (ft_strcmp(cmd[0], "pwd") == 0)
+		return (3);
+		// ft_msh_pwd(ms->exec);
+/* 	else if (ft_strcmp(cmd[0], "export") == 0)
+		return(4);
 		ft_msh_export();
-	else if (strcmp(cmd, "unset") == 0)
+	else if (ft_strcmp(cmd[0], "unset") == 0)
+		return (5);
 		ft_msh_unseto(); */
-	else if (strcmp(cmd[0], "env") == 0)
-		ft_msh_env(ms->exec);
-	else if (strcmp(cmd[0], "exit") == 0)
-		ft_msh_exit(ms, cmd);
+	else if (ft_strcmp(cmd[0], "env") == 0)
+		return(6);
+		// ft_msh_env(ms->exec);
+	else if (ft_strcmp(cmd[0], "exit") == 0)
+		return (7);
+		// ft_msh_exit(ms, cmd[0]);
 	ft_free_tab_char(cmd);
-	// return (0);
-	printf(KYEL "-------------------- FT_IS_BUILTIN" KRED " END " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_IS_BUILTIN" KRED " END " RESET KYEL "--------------------\n" RESET);
+	return (0);
 }
 
 
 //TODO only an idea below
-bool	ft_check_builtin(t_exec *exec, int i)
-{
-	char	**cmd;
+// bool	ft_check_builtin(t_exec *exec, int i)
+// {
+// 	char	**cmd;
 
-	cmd = ft_split(exec->jct->tab[i][0], ' ');
-	if (strcmp(cmd[0], "echo") == 0 || strcmp(cmd[0], "cd") == 0 || \
-		strcmp(cmd[0], "pwd") == 0 || strcmp(cmd[0], "export") == 0 || \
-		strcmp(cmd[0], "unset") == 0 || strcmp(cmd[0], "env") == 0 || \
-		strcmp(cmd[0], "exit") == 0)
-	{
-		ft_free_tab_char(cmd);
-		return (true);
-	}
-	else
-	{
-		ft_free_tab_char(cmd);
-		return (false);
-	}
-}
+// 	cmd = ft_split(exec->jct->tab[i][0], ' ');
+// 	if (strcmp(cmd[0], "echo") == 0 || strcmp(cmd[0], "cd") == 0 || \
+// 		strcmp(cmd[0], "pwd") == 0 || strcmp(cmd[0], "export") == 0 || \
+// 		strcmp(cmd[0], "unset") == 0 || strcmp(cmd[0], "env") == 0 || \
+// 		strcmp(cmd[0], "exit") == 0)
+// 	{
+// 		ft_free_tab_char(cmd);
+// 		return (true);
+// 	}
+// 	else
+// 	{
+// 		ft_free_tab_char(cmd);
+// 		return (false);
+// 	}
+// }

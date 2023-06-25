@@ -9,45 +9,45 @@ Flag -n :
 	Omit newline from the output.
 */
 
-bool	ft_flag(char *str)
-{
-	printf(KYEL "-------------------- FT_FLAG" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	int	i;
+// bool	ft_flag(char *str)
+// {
+// 	printf(KYEL "-------------------- FT_FLAG" KGRN " START " RESET KYEL "--------------------\n" RESET);
+// 	int	i;
 
-	i = 0;
-	if (str[(i)] == '-')
-	{
-		while (str[++i])
-		{
-			printf("char = %c\n", str[i]);
-			if (str[i] != 'n')
-				return (false);
-		}
-		return (true);
-	}
-	return (false);
-}
+// 	i = 0;
+// 	if (str[(i)] == '-')
+// 	{
+// 		while (str[++i])
+// 		{
+// 			printf("char = %c\n", str[i]);
+// 			if (str[i] != 'n')
+// 				return (false);
+// 		}
+// 		return (true);
+// 	}
+// 	return (false);
+// }
 
-void	ft_msh_echo(t_ms *ms, char **cmd)
-{
-	printf(KYEL "-------------------- FT_MSH_ECHO" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	int	i;
+// void	ft_msh_echo(t_ms *ms, char **cmd)
+// {
+// 	printf(KYEL "-------------------- FT_MSH_ECHO" KGRN " START " RESET KYEL "--------------------\n" RESET);
+// 	int	i;
 
-	i = 1;
-	if (cmd[1])
-	{
-			printf("flag = %d\n", ft_flag(cmd[1]));
-		if (ft_flag(cmd[1]) == true)
-			while (cmd[++i])
-				printf("%s", cmd[i]);
-		else
-		{
-			i = 0;
-			while (cmd[++i])
-				printf("%s ", cmd[i]);
-			printf("\n");
-			ms->flexit = 0;
-		}
-	}
-	printf(KYEL "-------------------- FT_MSH_ECHO" KRED " END " RESET KYEL "--------------------\n" RESET);
-}
+// 	i = 1;
+// 	if (cmd[1])
+// 	{
+// 			printf("flag = %d\n", ft_flag(cmd[1]));
+// 		if (ft_flag(cmd[1]) == true)
+// 			while (cmd[++i])
+// 				printf("%s", cmd[i]);
+// 		else
+// 		{
+// 			i = 0;
+// 			while (cmd[++i])
+// 				printf("%s ", cmd[i]);
+// 			printf("\n");
+// 			ms->flexit = 0;
+// 		}
+// 	}
+// 	printf(KYEL "-------------------- FT_MSH_ECHO" KRED " END " RESET KYEL "--------------------\n" RESET);
+// }

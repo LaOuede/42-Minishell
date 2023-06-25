@@ -4,9 +4,9 @@ NAME		=	minishell
 
 # -- Compilation Flag -- #
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror
+# CFLAGS		=	-Wall -Wextra -Werror
 # CFLAGS	=	-Wall -Wextra -Werror -g -Wunreachable-code -fsanitize=address
-# CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
 
 # -- Remove -- #
 RM			=	rm -rf
@@ -143,7 +143,7 @@ exe : $(NAME)
 	valgrind --leak-check=full --show-leak-kinds=all ./pipex
 				
 # -- Removes objects and executable then remakes all -- #
-re : fclean all
+re : clean all
 
 #Open the subject
 pdf : 
