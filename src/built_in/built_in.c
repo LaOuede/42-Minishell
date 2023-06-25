@@ -37,7 +37,7 @@ t_builtin	*ft_get_builtin(void)
 		if (!builtin)
 			perror(NULL);
 		builtin->fts[0] = NULL;
-		builtin->fts[1] = NULL; //ft_msh_echo
+		builtin->fts[1] = ft_msh_echo;
 		builtin->fts[2] = NULL; //ft_msh_cd
 		builtin->fts[3] = ft_msh_pwd; //pwd
 		builtin->fts[4] = NULL; //ft_msh_export
@@ -58,15 +58,15 @@ int	ft_is_builtin(t_ms *ms, int i)
 	ms->exec->builtin = ft_get_builtin();
 	ms->exec->builtin_cmd = ft_split(ms->jct->tab[i][0], ' ');
 	cmd = ms->exec->builtin_cmd;
-/* 
 	if (ft_strcmp(cmd[0], "echo") == 0)
 		return (1);
 		//ft_msh_echo(ms, cmd);
+/* 
 	else if (ft_strcmp(cmd, "cd") == 0)
 		return (2);
 		ft_msh_cd(); */
-	// else if (ft_strcmp(cmd[0], "pwd") == 0)
-	if (ft_strcmp(cmd[0], "pwd") == 0)
+	else if (ft_strcmp(cmd[0], "pwd") == 0)
+	// if (ft_strcmp(cmd[0], "pwd") == 0)
 		return (3);
 		// ft_msh_pwd(ms->exec);
 /* 	else if (ft_strcmp(cmd[0], "export") == 0)
