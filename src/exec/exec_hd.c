@@ -39,14 +39,17 @@ t_pars	*ft_init_hd(t_ms *ms)
 
 void	ft_child_hd(char *delim, int fd_hd, t_ms *ms)
 {
-	ft_init_sig(HD);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_CHILD_HD" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	ms->hd = ft_init_hd(ms);
 	while (42)
 	{
+		ft_init_sig(HD);
 		ms->hd->input = readline("> ");
 		ms->hd->strlen = ft_strlen(ms->hd->input);
 		ms->hd->hd++;
-		if (ft_strncmp(ms->hd->input, delim, ms->hd->strlen) == 0)
+		if (ft_strncmp(ms->hd->input, delim, ms->hd->strlen) == 0 \
+			&& *ms->hd->input != '\0')
 			break ;
 		ft_hd_parser(ms);
 		ft_freenull(ms->hd->input);
@@ -66,6 +69,8 @@ void	ft_child_hd(char *delim, int fd_hd, t_ms *ms)
 
 int	ft_exec_hd(char *delim, t_ms *ms)
 {
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_CHILD_HD" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	int		fd_hd;
 	pid_t	pid_hd;
 	int		status;
@@ -85,5 +90,7 @@ int	ft_exec_hd(char *delim, t_ms *ms)
 		ms->flexit = WTERMSIG(status); */
 	close(fd_hd);
 	fd_hd = open("/tmp/here_doc", O_RDONLY, 0644);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_EXEC_HD" KRED " END " RESET KYEL "--------------------\n" RESET);
 	return (fd_hd);
 }
