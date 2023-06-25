@@ -60,10 +60,10 @@ bool	ft_check_expand_brackets_hd(char *str, t_ms *ms)
 
 void	ft_envvar_hd(int *i, char *str, t_ms *ms)
 {
-	if (DEBUG)
+	if (DEBUG){
 		printf(KYEL "-------------------- FT_ENVVAR_HD" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
-	if (DEBUG)
 		printf("str[*i] = %c\n", str[*i]);
+	}
 	if (str[(*i)] == '$' && str[(*i) + 1] == '{')
 	{
 		if (ft_check_expand_brackets_hd(str, ms) == true)
@@ -104,7 +104,7 @@ void	ft_str_hd(int *i, t_ms *ms)
 		ft_reset_node(ms->hd);
 	}
 	if (DEBUG){
-	printf("-> i = %d\n", (*i));
-	printf("-> char fin = %c\n", ms->hd->input[(*i)]);
-	}
+		printf("-> i = %d\n", (*i));
+		printf("-> char fin = %c\n", ms->hd->input[(*i)]);
+		}
 }

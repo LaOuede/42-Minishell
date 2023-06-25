@@ -39,7 +39,6 @@ t_pars	*ft_init_hd(t_ms *ms)
 
 void	ft_child_hd(char *delim, int fd_hd, t_ms *ms)
 {
-	(void)delim;
 	ft_init_sig(HD);
 	ms->hd = ft_init_hd(ms);
 	while (42)
@@ -54,13 +53,13 @@ void	ft_child_hd(char *delim, int fd_hd, t_ms *ms)
 	}
 	if (DEBUG)
 		DEBUG_hd(ms->hd);
-	ft_merge_hd(ms->hd);
-	ft_clean_list(&ms->hd->line);
 	if (ms->hd->err_parser == true)
 	{
 		ft_error(ERR_HD);
 		ft_exit_free(ms, 1);
 	}
+	ft_merge_hd(ms->hd);
+	ft_clean_list(&ms->hd->line);
 	print_hd(ms->hd, fd_hd);
 	ft_exit_free(ms, 0);
 }

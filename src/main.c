@@ -23,7 +23,6 @@ void	ft_minishell(t_ms *ms)
 {
 	while (LOULOU_IS_MAGIC)
 	{
-		ms = ft_init_ms(0);
 		ft_init_sig(MAIN);
 		ms->pars->input = readline("Minishell > ");
 		if (!ms->pars->input)
