@@ -23,24 +23,17 @@ Return value :
 */
 void	ft_msh_pwd(t_ms *ms, char **cmd)
 {
-	(void)cmd;
+	(void)ms;
 	printf(KYEL "-------------------- FT_MSH_PWD" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	char *buf;
 
+	if (cmd[1])
+	{
+		ft_putstr_fd("Too many args\nUsage: pwd [no args]\n", 2);
+		exit(127);
+	}
 	buf = getcwd(NULL, 0);
 	if (buf)
-	{
 		printf("%s\n", buf);
-		if (ms->jct->cmd_nb > 1)
-			exit(EXIT_SUCCESS);
-	}
-	//TODO to clarify
-	// else
-	// {
-	// 	printf("ERROR\n");
-	// 	// TODO error message to setup and exit_status to define
-	// 	if (ms->jct->cmd_nb == 1)
-	// 		exit(EXIT_FAILURE);
-	// }
 	printf(KYEL "-------------------- FT_MSH_PWD" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
