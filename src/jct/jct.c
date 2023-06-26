@@ -48,4 +48,3 @@ t_jct	*ft_init_jct(char **envp)
 	jct->err_pars = false;
 	return (jct);
 }
-

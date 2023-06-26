@@ -14,10 +14,11 @@ void	ft_merge(t_token *node, t_token *next)
 	node->str = ft_strdup(new_str);
 	ft_freenull(tmp);
 	ft_freenull(new_str);
-	if (DEBUG){
-	printf("ptr->str = %s\n", node->str);
-	printf("ptr->next->str = %s\n", next->str);
-	printf(KYEL "-------------------- FT_MERGE" KRED " END " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+	{
+		printf("ptr->str = %s\n", node->str);
+		printf("ptr->next->str = %s\n", next->str);
+		printf(KYEL "-------------------- FT_MERGE" KRED " END " RESET KYEL "--------------------\n" RESET);
 	}
 }
 
@@ -33,9 +34,10 @@ void	ft_clean_list(t_token **list)
 	ptr = *list;
 	while (ptr)
 	{
-		if (DEBUG){
-		printf("ptr->next->type = %d\n", ptr->next->type);
-		printf("ptr->next->str = %p\n", ptr->next->str);
+		if (DEBUG)
+		{
+			printf("ptr->nxt->type = %d\n", ptr->next->type);
+			printf("ptr->next->str = %p\n", ptr->next->str);
 		}
 		if (ptr->next && ptr->next->type == ERROR)
 		{
@@ -44,9 +46,10 @@ void	ft_clean_list(t_token **list)
 				ptr->next = ptr->next->next;
 			else if (!ptr->next->next)
 				ptr->next = NULL;
-			if (DEBUG){
-			printf("sup->str = %s\n", sup->str);
-			printf("sup->str = %p\n", sup->str);
+			if (DEBUG)
+			{
+				printf("sup->str = %s\n", sup->str);
+				printf("sup->str = %p\n", sup->str);
 			}
 			ft_free_token(sup);
 		}
