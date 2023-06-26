@@ -34,11 +34,6 @@ void	ft_clean_list(t_token **list)
 	ptr = *list;
 	while (ptr)
 	{
-		if (DEBUG)
-		{
-			printf("ptr->nxt->type = %d\n", ptr->next->type);
-			printf("ptr->next->str = %p\n", ptr->next->str);
-		}
 		if (ptr->next && ptr->next->type == ERROR)
 		{
 			sup = ptr->next;
@@ -46,11 +41,6 @@ void	ft_clean_list(t_token **list)
 				ptr->next = ptr->next->next;
 			else if (!ptr->next->next)
 				ptr->next = NULL;
-			if (DEBUG)
-			{
-				printf("sup->str = %s\n", sup->str);
-				printf("sup->str = %p\n", sup->str);
-			}
 			ft_free_token(sup);
 		}
 		else

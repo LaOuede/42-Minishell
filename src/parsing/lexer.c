@@ -93,6 +93,8 @@ void	ft_lexer(t_ms *ms)
 		else
 			ft_char(&i, ms);
 	}
+	if (ms->pars->flag_var == 0)
+		write(1, "\n", 1);
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_LEXER" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }

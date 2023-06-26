@@ -57,6 +57,13 @@ void	ft_merge_all_arg(t_pars *pars)
 		printf(KYEL "-------------------- FT_MERGE_ALL_ARG" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
+bool	ft_bi(t_token *node)
+{
+	if ((ft_strcmp(node->str, "exit") == 0) || (ft_strcmp(node->str, "unset") == 0) || (ft_strcmp(node->str, "export") == 0))
+		return (true);
+	return (false);
+}
+
 /*
 Identify the first ARG token as CMD
 */
@@ -76,7 +83,7 @@ void	ft_find_cmd(t_ms *ms)
 		if (ptr->type == ARG && flag == true)
 		{
 			ptr->type = CMD;
-			if (ft_test_cmd(ms->pars, ptr) == false)
+			if ((ft_bi(ptr) == false) && (ft_test_cmd(ms->pars, ptr) == false))
 			{
 				printf(ERR_ACCESS);
 				ms->flexit = 127;

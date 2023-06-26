@@ -77,11 +77,10 @@ char	*ft_find_envvar(char *str, t_ms *ms)
 	len = ft_strlen(str);
 	while (ms->pars->envp[i] && ft_strncmp(ms->pars->envp[i], str, len) != 0)
 		i++;
+	if (ms->pars->envp[i])
+		ms->pars->flag_var = 1;
 	if (!ms->pars->envp[i])
-	{
-		write(1, "\n", 1);
 		return (NULL);
-	}
 	tmp = NULL;
 	len -= 1;
 	while (ms->pars->envp[i][len++])

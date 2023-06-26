@@ -89,6 +89,7 @@ typedef struct s_pars
 	int				c_brackets;
 	int				p_brackets;
 	int				flag_whitespace;
+	int				flag_var;
 	int				hd;
 	int				err_infile;
 	bool			err_lexer;

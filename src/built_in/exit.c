@@ -16,7 +16,7 @@ void	ft_msh_exit(t_ms *ms, char **cmd)
 	int	exit;
 
 	exit = 0;
-	if (cmd[1] && !cmd[2])
+	if (cmd[0] && !cmd[1])
 	{
 		if (0 <= ft_atoi(cmd[1]) && ft_atoi(cmd[1]) <= 255)
 		{
