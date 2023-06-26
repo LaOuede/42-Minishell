@@ -78,7 +78,7 @@ char	*ft_find_envvar(char *str, t_ms *ms)
 	while (ms->pars->envp[i] && ft_strncmp(ms->pars->envp[i], str, len) != 0)
 		i++;
 	if (ms->pars->envp[i])
-		ms->pars->flag_var = 1;
+		ms->jct->flag_var = 1;
 	if (!ms->pars->envp[i])
 		return (NULL);
 	tmp = NULL;

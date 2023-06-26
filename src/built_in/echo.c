@@ -58,6 +58,8 @@ void	ft_msh_echo(t_ms *ms, char **cmd)
 			ms->flexit = 0;
 		}
 	}
+	if (ms->jct->flag_var == 0)
+		write(1, "\n", 1);
 	if(DEBUG)
 		printf(KYEL "-------------------- FT_MSH_ECHO" KRED " END " RESET KYEL "--------------------\n" RESET);
 }

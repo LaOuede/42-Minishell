@@ -27,6 +27,7 @@ void	ft_reset_jct(t_jct *jct)
 	jct->fd_hd = 0;
 	jct->cmd_nb = -1;
 	jct->err_pars = false;
+	jct->flag_var = false;
 }
 
 /*
@@ -46,5 +47,6 @@ t_jct	*ft_init_jct(char **envp)
 	jct->fd_hd = 0;
 	jct->cmd_nb = -1;
 	jct->err_pars = false;
+	
 	return (jct);
 }
