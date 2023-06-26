@@ -27,18 +27,15 @@ void	ft_dup_proc(t_ms *ms, int i)
 	}
 	else // s'il y a plus qu'une cmd, donc des pipes
 	{
-		// if (i == 0)
-		// 	if (ms->jct->fd_hd){
-		// 		// ms->jct->fd_hd = open("/tmp/here_doc", O_RDONLY, 0666);
-		// 		fprintf(stderr, "fd_hd: %d\n", ms->jct->fd_hd);
-		// 		fprintf(stderr, "dup2: %d\n", dup2(ms->jct->fd_hd, STDIN_FILENO));
-		// 	}
-		if (i > 0)
-		{
+		if (i == 0)
 			if (ms->jct->fd_hd)
 				dup2(ms->jct->fd_hd, STDIN_FILENO);
-			else if (ms->exec->input)
+		if (i > 0)
+		{
+			if (ms->exec->input)
 				dup2(ms->exec->input, STDIN_FILENO);
+			else if (ms->jct->fd_hd)
+				dup2(ms->jct->fd_hd, STDIN_FILENO);
 		}
 		if (i < ms->exec->pipes_nb)
 			if (ms->exec->output)
@@ -66,13 +63,14 @@ void	ft_make_pids(t_ms *ms)
 			printf("--- Enter while loop		---\n");
 		if (ms->jct->tab[i][0])
 		{
-			builtin_fts = ft_is_builtin(ms, i);
-			//TODO if we do the below, redir doesn't because it's not in a child
-			// if (ms->jct->cmd_nb == 1 && builtin_fts)
-			// {
-			// 	ms->exec->builtin->fts[builtin_fts](ms, ms->exec->builtin_cmd);
-			// 	return ;
-			// }
+			ms->exec->builtin_cmd = ft_split(ms->jct->tab[i][0], ' ');
+			builtin_fts = ft_is_builtin(ms->exec->builtin_cmd);
+			if (ms->jct->cmd_nb == 1 && builtin_fts != 0 
+				&& (builtin_fts > 5 || (builtin_fts == 4 && ms->exec->builtin_cmd[i][1])))
+			{
+				ms->exec->builtin->fts[builtin_fts](ms, ms->exec->builtin_cmd);
+				return ;
+			}
 			if (ft_pre_redir(ms, i) == 1)
 				exit(127); //TODO mettre le vrai exit status
 			ms->exec->pids[i] = fork();
@@ -106,5 +104,4 @@ void	ft_exec(t_ms *ms)
 			ms->flexit = WTERMSIG(status);
 	}
 	ft_reset_exec(ms);
-	//TODO clarifier le 2nd arg de waitpid
 }

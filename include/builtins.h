@@ -16,9 +16,8 @@ int	ft_msh_exit(char **args); */
 
 /* 		Built_in functions 							*/
 // bool	ft_check_builtin(t_exec *exec, int i);
-void	ft_built_in(t_ms *ms, int i);
-int		ft_is_builtin(t_ms *ms, int i);
-
+// void	ft_built_in(t_ms *ms, int i);
+int		ft_is_builtin(char **cmd);
 void	ft_msh_echo(t_ms *ms, char **cmd);
 void	ft_msh_env(t_ms *ms, char **cmd);
 void	ft_msh_exit(t_ms *ms, char **cmd);
