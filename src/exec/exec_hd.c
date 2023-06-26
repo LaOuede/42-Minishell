@@ -72,7 +72,6 @@ int	ft_exec_hd(char *delim, t_ms *ms)
 		printf(KYEL "-------------------- FT_CHILD_HD" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	int		fd_hd;
 	pid_t	pid_hd;
-	int		status;
 
 	fd_hd = open("/tmp/here_doc", O_CREAT | O_TRUNC | O_RDWR, 0644);
 	if (fd_hd < 0)
@@ -82,11 +81,7 @@ int	ft_exec_hd(char *delim, t_ms *ms)
 		perror("Error! pid_hd:");
 	if (pid_hd == 0)
 		ft_child_hd(delim, fd_hd, ms);
-	waitpid (pid_hd, &status, 0);
-/* 	if (WIFEXITED(status))
-		ms->flexit = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		ms->flexit = WTERMSIG(status); */
+	waitpid (pid_hd, NULL, 0);
 	close(fd_hd);
 	fd_hd = open("/tmp/here_doc", O_RDONLY, 0644);
 	if (DEBUG)

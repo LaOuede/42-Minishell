@@ -16,14 +16,14 @@ void	ft_msh_env(t_ms *ms, char **cmd)
 	printf(KYEL "-------------------- FT_MSH_ENV" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	int	i;
 
-	//TODO mettre protection si pas de env
+	if (cmd[1])
+	{
+		ft_putstr_fd("Too many args\nUsage: env [no opt/args]\n", 2);
+		exit(127);
+	}
 	i = -1;
 	if (ms->exec->envp)
-	{
 		while (ms->exec->envp[++i])
 			printf("%s\n", ms->exec->envp[i]);
-		if (ms->jct->cmd_nb > 1)
-			exit(EXIT_SUCCESS);
-	}
 	printf(KYEL "-------------------- FT_MSH_ENV" KRED " END " RESET KYEL "--------------------\n" RESET);
 }

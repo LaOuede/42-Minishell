@@ -29,7 +29,7 @@ void	ft_minishell(t_ms *ms)
 	while (LOULOU_IS_MAGIC)
 	{
 		ft_init_sig(MAIN);
-		ms->pars->input = readline("Miniꞩhell > ");
+		ms->pars->input = readline("Miniꞩhell$ ");
 		if (!ms->pars->input)
 		{
 			printf("exit");
