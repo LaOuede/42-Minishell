@@ -64,6 +64,16 @@ bool	ft_bi(t_token *node)
 	return (false);
 }
 
+void	ft_lower_cmd(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+		str[i] = ft_tolower(str[i]);
+
+}
+
 /*
 Identify the first ARG token as CMD
 */
@@ -83,6 +93,8 @@ void	ft_find_cmd(t_ms *ms)
 		if (ptr->type == ARG && flag == true)
 		{
 			ptr->type = CMD;
+			ft_lower_cmd(ptr->str);
+			printf("ptr->str %s\n", ptr->str);
 			if ((ft_bi(ptr) == false) && (ft_test_cmd(ms->pars, ptr) == false))
 			{
 				printf(ERR_ACCESS);
