@@ -82,7 +82,7 @@ int	ft_exec_hd(char *delim, t_ms *ms)
 		perror("Error! pid_hd:");
 	if (pid_hd == 0)
 		ft_child_hd(delim, fd_hd, ms);
-	waitpid (ms->jct->pid_hd, &status, 0);
+	waitpid (pid_hd, &status, 0);
 	if (WIFEXITED(status))
 		ms->flexit = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
