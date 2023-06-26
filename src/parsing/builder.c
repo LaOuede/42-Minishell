@@ -28,14 +28,16 @@ void	ft_clean_list(t_token **list)
 	t_token	*sup;
 	t_token	*ptr;
 
+	if (!*list)
+		return ;
 	ptr = *list;
-	while (ptr->next)
+	while (ptr)
 	{
 		if (DEBUG){
 		printf("ptr->next->type = %d\n", ptr->next->type);
 		printf("ptr->next->str = %p\n", ptr->next->str);
 		}
-		if (ptr->next->type == ERROR)
+		if (ptr->next && ptr->next->type == ERROR)
 		{
 			sup = ptr->next;
 			if (ptr->next->next)

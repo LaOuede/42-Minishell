@@ -41,18 +41,17 @@ void	ft_child_hd(char *delim, int fd_hd, t_ms *ms)
 {
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_CHILD_HD" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	ft_init_sig(HD);
 	ms->hd = ft_init_hd(ms);
 	while (42)
 	{
-		ft_init_sig(HD);
 		ms->hd->input = readline("> ");
 		ms->hd->strlen = ft_strlen(ms->hd->input);
 		ms->hd->hd++;
-		if (ft_strncmp(ms->hd->input, delim, ms->hd->strlen) == 0 \
-			&& *ms->hd->input != '\0')
+		if ((ft_strncmp(ms->hd->input, delim, ms->hd->strlen) == 0 \
+			&& ms->hd->input && *ms->hd->input != '\0') || !ms->hd->input)
 			break ;
 		ft_hd_parser(ms);
-		ft_freenull(ms->hd->input);
 	}
 	if (DEBUG)
 		DEBUG_hd(ms->hd);

@@ -35,6 +35,7 @@ void	ft_check_error_redir(t_ms *ms)
 {
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_CHECK_REDIR" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	int		len;
 	t_token	*ptr;
 
 	if (!ms->pars->line)
@@ -43,8 +44,11 @@ void	ft_check_error_redir(t_ms *ms)
 	while (ptr)
 	{
 		if (ptr->type == REDIN || ptr->type == REDOUT)
-			if (ptr->str[2])
+		{
+			len = ft_strlen(ptr->str);
+			if (len > 2)
 				ft_error_parsing(ERR_TOKEN, REBUILDER, 2, ms);
+		}
 		ptr = ptr->next;
 	}
 	if (DEBUG)

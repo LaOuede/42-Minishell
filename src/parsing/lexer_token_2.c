@@ -133,7 +133,7 @@ void	ft_envvar(int *i, char *str, t_ms *ms)
 	t_token	*ptr;
 
 	ptr = ms->pars->line;
-	while (ptr->next)
+	while (ptr)
 		ptr = ptr->next;
 	if (DEBUG)
 		printf("ptr->str = %s\n", ptr->str);

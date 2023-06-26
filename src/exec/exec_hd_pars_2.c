@@ -20,6 +20,8 @@ void	ft_merge_hd(t_pars *hd)
 	t_token	*ptr1;
 	t_token	*ptr2;
 
+	if (!hd->line)
+		return ;
 	ptr1 = hd->line;
 	while (ptr1->next)
 	{
