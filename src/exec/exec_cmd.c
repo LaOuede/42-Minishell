@@ -21,7 +21,6 @@ char	*ft_cmd_path(t_exec *exec, char *cmds)
 		if (path)
 			ft_freenull(path);
 	}
-	perror("Error! Can't find path to program");
 	path = NULL;
 	return (path);
 }

@@ -92,7 +92,7 @@ typedef struct s_pars
 	int				hd;
 	int				err_infile;
 	bool			err_lexer;
-	bool			err_rebuilder;
+	bool			err_builder;
 	bool			err_parser;
 
 }	t_pars;

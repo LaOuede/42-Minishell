@@ -56,6 +56,7 @@ typedef struct s_jct
 	int		fd_hd;
 	bool	err_pars;
 	int		flag_var;
+	int		flag_err_var;
 	//TODO do we still need those 3 variables ?
 	int		file_in;
 	int		file_out;

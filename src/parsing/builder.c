@@ -100,9 +100,12 @@ void	ft_builder(t_ms *ms)
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_BUILDER" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	ft_redirection(ms);
-	ft_args(ms);
-	ft_clean_list(&ms->pars->line);
-	ft_swap_node(ms->pars);
+	if (ms->pars->err_builder == false)
+	{
+		ft_args(ms);
+		ft_clean_list(&ms->pars->line);
+		ft_swap_node(ms->pars);
+	}
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_BUILDER" KRED " END " RESET KYEL "--------------------\n" RESET);
 }

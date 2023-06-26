@@ -11,7 +11,7 @@ void	ft_error_parsing(char *err_msg, int step, int exit, t_ms *ms)
 	}
 	else if (step == 2)
 	{
-		ms->pars->err_rebuilder = true;
+		ms->pars->err_builder = true;
 		ms->flexit = exit;
 	}
 	else

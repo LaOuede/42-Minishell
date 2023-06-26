@@ -36,7 +36,7 @@ void	ft_reset_pars(t_pars *pars)
 	pars->c_brackets = 0;
 	pars->flag_whitespace = 0;
 	pars->err_lexer = false;
-	pars->err_rebuilder = false;
+	pars->err_builder = false;
 	pars->err_parser = false;
 }
 
@@ -58,7 +58,7 @@ t_pars	*ft_init_pars(t_ms *ms)
 	pars->c_brackets = 0;
 	pars->flag_whitespace = 0;
 	pars->err_lexer = false;
-	pars->err_rebuilder = false;
+	pars->err_builder = false;
 	pars->err_parser = false;
 	pars->hd = 0;
 	return (pars);
@@ -88,10 +88,10 @@ void	ft_parsing(t_ms *ms)
 		ft_builder(ms);
 		if (DEBUG)
 			DEBUG_builder(ms->pars);
-		if (ms->pars->err_rebuilder == false)
+		if (ms->pars->err_builder == false)
 			ft_parser(ms);
 	}
-	if (ms->pars->err_lexer == true || ms->pars->err_rebuilder == true \
+	if (ms->pars->err_lexer == true || ms->pars->err_builder == true \
 		|| ms->pars->err_parser == true)
 		ms->jct->err_pars = true;
 	ft_reset_pars(ms->pars);
