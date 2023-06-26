@@ -71,7 +71,6 @@ void	ft_lower_cmd(char *str)
 	i = -1;
 	while (str[++i])
 		str[i] = ft_tolower(str[i]);
-
 }
 
 /*
@@ -94,7 +93,6 @@ void	ft_find_cmd(t_ms *ms)
 		{
 			ptr->type = CMD;
 			ft_lower_cmd(ptr->str);
-			printf("ptr->str %s\n", ptr->str);
 			if ((ft_bi(ptr) == false) && (ft_test_cmd(ms->pars, ptr) == false))
 			{
 				printf(ERR_ACCESS);
