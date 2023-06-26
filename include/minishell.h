@@ -55,6 +55,7 @@ typedef struct s_jct
 	int		cmd_nb;
 	int		fd_hd;
 	bool	err_pars;
+	pid_t	pid_hd;
 	//TODO do we still need those 3 variables ?
 	int		file_in;
 	int		file_out;
