@@ -13,18 +13,16 @@ Prototype :
 void	ft_msh_exit(t_ms *ms, char **cmd)
 {
 	printf(KYEL "-------------------- FT_MSH_EXIT" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	int	exit;
 
-	exit = 0;
 	if (cmd[0] && !cmd[1])
 	{
 		if (0 <= ft_atoi(cmd[1]) && ft_atoi(cmd[1]) <= 255)
 		{
-			exit = ft_atoi(cmd[1]) % 256;
+			ms->flexit = ft_atoi(cmd[1]) % 256;
 			printf("%d\n", ms->flexit);
 		}
 		ft_free_tab_char(cmd);
-		ft_exit_free(ms, exit);
+		ft_exit_free(ms, ms->flexit);
 	}
 	else if (ft_str_isdigit(cmd[1]) == false)
 	{
