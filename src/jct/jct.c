@@ -45,6 +45,7 @@ t_jct	*ft_init_jct(char **envp)
 	jct->fds_in = NULL;
 	jct->fds_out = NULL;
 	jct->tab = NULL;
+	jct->pid_hd = 0;
 	jct->fd_hd = 0;
 	jct->cmd_nb = -1;
 	jct->err_pars = false;

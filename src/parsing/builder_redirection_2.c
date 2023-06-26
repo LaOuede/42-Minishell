@@ -97,7 +97,8 @@ void	ft_open_file(t_ms *ms)
 			if (ms->jct->fds_in[i])
 				close(ms->jct->fds_in[i]);
 			if (ft_strncmp(ptr->str, str, 2) == 0)
-				ms->jct->fd_hd = ft_exec_hd(ptr->next->str, ms);
+				// ms->jct->fd_hd = ft_exec_hd(ptr->next->str, ms);
+				ft_exec_hd(ptr->next->str, ms);
 			else
 				ms->jct->fds_in[i] = open(ptr->next->str, O_RDONLY);
 			if (ms->jct->fds_in[i] == -1)
