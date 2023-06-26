@@ -92,9 +92,9 @@ void	ft_parsing(t_ms *ms)
 			ft_parser(ms);
 	}
 	if (ms->pars->err_lexer == true || ms->pars->err_rebuilder == true \
-			|| ms->pars->err_parser == true)
-			ms->jct->err_pars = true;
-		ft_reset_pars(ms->pars);
+		|| ms->pars->err_parser == true)
+		ms->jct->err_pars = true;
+	ft_reset_pars(ms->pars);
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_PARSING" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }

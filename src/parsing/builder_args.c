@@ -88,7 +88,8 @@ void	ft_find_cmd(t_ms *ms)
 		}
 		else if (ptr->type == PIPE)
 			flag = true;
-		if (DEBUG){
+		if (DEBUG)
+		{
 			printf("ptr->type after = %d\n", ptr->type);
 			printf("flag = %d\n", flag);
 		}

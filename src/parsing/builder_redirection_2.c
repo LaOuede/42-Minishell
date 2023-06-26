@@ -33,6 +33,27 @@ void	ft_merge_all_red(t_pars *pars)
 		printf(KYEL "-------------------- FT_MERGE_ALLREDOUT" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
+void	ft_creation(t_ms *ms,t_token ptr, char *str, int *i)
+{
+	if (DEBUG)
+	{
+		printf("file name = %s\n", ptr.next->str);
+		printf("ptr.str = %s\n", ptr.str);
+	}
+	if (ms->jct->fds_out[*i])
+		close(ms->jct->fds_out[*i]);
+	if (ft_strncmp(ptr.str, str, 2) == 0)
+		ms->jct->fds_out[*i] = open(ptr.next->str, \
+			O_RDWR | O_CREAT | O_APPEND, 0644);
+	else
+		ms->jct->fds_out[*i] = open(ptr.next->str, \
+			O_RDWR | O_CREAT | O_TRUNC, 0644);
+	if (ms->jct->fds_out[*i] == -1)
+		ft_error_parsing(ERR_OUTFILE, REBUILDER, 1, ms);
+	if (DEBUG)
+		printf("ms->pars->jct->fds_out[%d] : %d\n", *i, ms->jct->fds_out[*i]);
+}
+
 void	ft_create_file(t_ms *ms)
 {
 	if (DEBUG)
@@ -47,24 +68,7 @@ void	ft_create_file(t_ms *ms)
 	while (ptr->next)
 	{
 		if (ptr->type == REDOUT && ptr->next->type == ARG)
-		{
-			if (DEBUG){
-			printf("file name = %s\n", ptr->next->str);
-			printf("ptr->str = %s\n", ptr->str);
-			}
-			if (ms->jct->fds_out[i])
-				close(ms->jct->fds_out[i]);
-			if (ft_strncmp(ptr->str, str, 2) == 0)
-				ms->jct->fds_out[i] = open(ptr->next->str, \
-					O_RDWR | O_CREAT | O_APPEND, 0644);
-			else
-				ms->jct->fds_out[i] = open(ptr->next->str, \
-					O_RDWR | O_CREAT | O_TRUNC, 0644);
-			if (ms->jct->fds_out[i] == -1)
-				ft_error_parsing(ERR_OUTFILE, REBUILDER, 1, ms);
-			if (DEBUG)
-				printf("ms->pars->jct->fds_out[%d] : %d\n", i, ms->jct->fds_out[i]);
-		}
+			ft_creation(ms, *ptr, str, &i);
 		else if (ptr->type == PIPE)
 			i++;
 		ptr = ptr->next;
@@ -137,7 +141,6 @@ void	ft_merge_red(t_pars *pars)
 		}
 		if (ptr->next)
 			ptr = ptr->next;
-	
 	}
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_MERGE_RED" KRED " END " RESET KYEL "--------------------\n" RESET);

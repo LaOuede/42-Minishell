@@ -31,7 +31,7 @@ void	ft_s_quotes_token(int *i, t_ms *ms)
 	if (DEBUG)
 		printf("s_quotes = %d\n", ms->pars->s_quotes);
 	if (tmp)
-	{	
+	{
 		ft_add_token_bottom(&ms->pars->line, ft_create_node(tmp, ms->pars));
 		ft_reset_node(ms->pars);
 		ft_freenull(tmp);
@@ -64,9 +64,10 @@ void	ft_char_quotes(int *i, char *str, t_ms *ms)
 		ft_freenull(tmp);
 		ft_reset_node(ms->pars);
 	}
-	if (DEBUG){
-	printf("-> i = %d\n", (*i));
-	printf("-> char fin = %c\n", ms->pars->input[(*i)]);
+	if (DEBUG)
+	{
+		printf("-> i = %d\n", (*i));
+		printf("-> char fin = %c\n", ms->pars->input[(*i)]);
 	}
 }
 
@@ -120,9 +121,10 @@ void	ft_d_quotes_token(int *i, t_ms *ms)
 	j = 0;
 	while (j < (int)len)
 	{
-		if (DEBUG){
-		printf("-> i = %d\n", j);
-		printf("-> char = %c\n", str[j]);
+		if (DEBUG)
+		{
+			printf("-> i = %d\n", j);
+			printf("-> char = %c\n", str[j]);
 		}
 		if (str[j] == '$')
 			ft_envvar(&j, str, ms);

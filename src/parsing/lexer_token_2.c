@@ -55,9 +55,10 @@ bool	ft_check_expand_brackets(char *str, t_ms *ms)
 	}
 	if (ms->pars->c_brackets != 2)
 		ft_error_parsing(ERR_QUOTE, LEXER, 2, ms);
-	if (DEBUG){
-	printf("pars->c_brackets = %d\n", ms->pars->c_brackets);
-	printf(KYEL "-------------------- FT_CHECK_EXPAND_BRACKETS" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+	{
+		printf("pars->c_brackets = %d\n", ms->pars->c_brackets);
+		printf(KYEL "-------------------- FT_CHECK_EXPAND_BRACKETS" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 	}
 	if (ms->pars->c_brackets == CLOSE)
 		return (true);

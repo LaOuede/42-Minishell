@@ -40,7 +40,8 @@ SRCS_LST	= 	built_in/built_in.c \
 				parsing/lexer_token_1.c \
 				parsing/lexer_token_2.c \
 				parsing/lexer_utils.c \
-				parsing/parser.c \
+				parsing/parser_1.c \
+				parsing/parser_2.c \
 				parsing/parsing.c \
 				sig/signals.c
 
