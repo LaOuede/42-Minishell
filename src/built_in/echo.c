@@ -48,7 +48,12 @@ void	ft_msh_echo(t_ms *ms, char **cmd)
 		{
 			i = 0;
 			while (cmd[++i])
-				printf("%s ", cmd[i]);
+			{
+				if (cmd[i + 1])
+					printf("%s ", cmd[i]);
+				else
+					printf("%s", cmd[i]);
+			}
 			printf("\n");
 			ms->flexit = 0;
 		}
