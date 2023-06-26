@@ -36,6 +36,8 @@ void	ft_dup_proc(t_ms *ms, int i)
 		if (ms->jct->tab[i][2])
 			dup2(ms->jct->fds_out[i], STDOUT_FILENO);
 	}
+	if (ms->jct->fd_hd)
+		dup2(ms->jct->fd_hd, STDIN_FILENO);
 	ft_close_all(ms);
 }
 

@@ -54,10 +54,10 @@ int	ft_pre_redir(t_ms *ms, int i)
 {
 	if (DEBUG){
 	printf("---	ft_pre_redir starts\n\n");
-	// printf("---	i = %d \n", i);
-	// printf("---	exec->jct->fd_hd = %d \n", exec->jct->fd_hd);
-	// printf("---	BEFORE if, exec->jct->fds_in[%d]: %d\n", i,  exec->jct->fds_in[i]);
-	// printf("---	BEFORE if, exec->input: %d\n", exec->input);
+	printf("---	i = %d \n", i);
+	printf("---	ms->jct->fd_hd = %d \n", ms->jct->fd_hd);
+	printf("---	BEFORE if, ms->jct->fds_in[%d]: %d\n", i,  ms->jct->fds_in[i]);
+	printf("---	BEFORE if, ms->exec->input: %d\n", ms->exec->input);
 	printf("ms->jct->cmd_nb = %d\n", ms->jct->cmd_nb);
 	}
 	if (ms->jct->cmd_nb > 1) // s'il y a plus qu'une cmd, donc des pipes
@@ -76,12 +76,6 @@ int	ft_pre_redir(t_ms *ms, int i)
 	}
 	if (DEBUG)
 		printf("ms->jct->fd_hd = %d\n", ms->jct->fd_hd);
-	if (ms->jct->fd_hd)
-	{
-		dup2(ms->jct->fd_hd, STDIN_FILENO);
-		close(ms->jct->fd_hd); //TODO to test
-		ms->jct->fd_hd = 0;
-	}
 	if (DEBUG)
 		printf("\n---	ft_pre_redir ends\n\n");
 	return (0);
