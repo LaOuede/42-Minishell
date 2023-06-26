@@ -28,6 +28,7 @@
 # define ERR_EXI1	"Usage error : exit: too many arguments\n"
 # define ERR_EXI2	"Usage error : exit: numeric argument required\n"
 # define ERR_HD		"Usage error : bad substitution\n"
+# define ERR_ENV	"Error : env path not found\n"
 
 # define DEBUG 0
 # define MAIN 42

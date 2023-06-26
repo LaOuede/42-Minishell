@@ -9,6 +9,11 @@ t_ms	*ft_init_ms(char **envp)
 	(void)envp;
 	if (!ms)
 	{
+		if (!getenv("PATH"))
+		{
+			printf(ERR_ENV);
+			exit(1);
+		}
 		ms = ft_calloc(1, sizeof(t_ms));
 		ms->jct = ft_init_jct(envp);
 		ms->exec = ft_init_exec(ms);
