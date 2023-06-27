@@ -87,7 +87,8 @@ int	ft_mem_pipes(t_ms *ms)
 
 	if (ms->jct->cmd_nb <= 1)
 		return (1);
-	// printf("\n--- Pipes calloc starts ---\n");
+	if (DEBUG)
+		printf("\n--- Pipes calloc starts ---\n");
 	ms->exec->pipes_nb = ms->jct->cmd_nb - 1;
 	if (DEBUG){
 	printf("ms->jct->cmd_nb = %d\n", ms->jct->cmd_nb);
@@ -109,6 +110,7 @@ int	ft_mem_pipes(t_ms *ms)
 			return (2);
 		}
 	}
-	// printf("\n--- Pipe calloc ends		---\n");
+	if (DEBUG)
+		printf("\n--- Pipe calloc ends		---\n");
 	return (0);
 }

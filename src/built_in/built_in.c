@@ -15,7 +15,7 @@ t_builtin	*ft_get_builtin(void)
 {
 	static t_builtin	*builtin;
 
-	if(!builtin)
+	if (!builtin)
 	{
 		builtin = malloc(sizeof(t_builtin));
 		if (!builtin)
@@ -56,4 +56,21 @@ int	ft_is_builtin(char **cmd)
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_IS_BUILTIN" KRED " END " RESET KYEL "--------------------\n" RESET);
 	return (0);
+}
+
+int	ft_built_in(t_ms *ms, int i)
+{
+	int	builtin_fts;
+
+	ms->exec->builtin_cmd = ft_split(ms->jct->tab[i][0], ' ');
+	ms->exec->builtin_fts = ft_is_builtin(ms->exec->builtin_cmd);
+	builtin_fts = ms->exec->builtin_fts;
+	if (ms->jct->cmd_nb == 1 && builtin_fts != 0
+		&& (builtin_fts > 5 || (builtin_fts == 4
+				&& ms->exec->builtin_cmd[i][1])))
+	{
+		ms->exec->builtin->fts[builtin_fts](ms, ms->exec->builtin_cmd);
+		return (0);
+	}
+	return (1);
 }

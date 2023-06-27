@@ -20,7 +20,7 @@ bool	ft_flag(char *str)
 	{
 		while (str[++i])
 		{
-			if(DEBUG)
+			if (DEBUG)
 				printf("char = %c\n", str[i]);
 			if (str[i] != 'n')
 				return (false);
@@ -39,7 +39,7 @@ void	ft_msh_echo(t_ms *ms, char **cmd)
 	i = 1;
 	if (cmd[1])
 	{
-		if(DEBUG)
+		if (DEBUG)
 			printf("flag = %d\n", ft_flag(cmd[1]));
 		if (ft_flag(cmd[1]) == true)
 			while (cmd[++i])
@@ -62,6 +62,6 @@ void	ft_msh_echo(t_ms *ms, char **cmd)
 		write(1, "\n", 1);
 	if (!cmd[1])
 		write(1, "\n", 1);
-	if(DEBUG)
+	if (DEBUG)
 		printf(KYEL "-------------------- FT_MSH_ECHO" KRED " END " RESET KYEL "--------------------\n" RESET);
 }

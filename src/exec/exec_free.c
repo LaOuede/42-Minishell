@@ -7,7 +7,7 @@ char	*ft_free_2char(char **tab)
 	i = -1;
 	while (++i < 3)
 	{
-			if (DEBUG)
+		if (DEBUG)
 			printf("tab[%d] = %p\n", i, tab[i]);
 		free(tab[i]);
 	}

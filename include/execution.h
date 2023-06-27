@@ -36,6 +36,7 @@ typedef struct s_exec
 	struct s_jct	*jct;
 	t_builtin		*builtin;
 	char			**builtin_cmd;
+	int				builtin_fts;
 	int				cmd_nb;
 	int				pipes_nb;
 }			t_exec;

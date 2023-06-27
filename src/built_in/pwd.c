@@ -25,7 +25,7 @@ void	ft_msh_pwd(t_ms *ms, char **cmd)
 {
 	(void)ms;
 	printf(KYEL "-------------------- FT_MSH_PWD" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	char *buf;
+	char	*buf;
 
 	if (cmd[1])
 	{

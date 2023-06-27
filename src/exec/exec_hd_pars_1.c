@@ -106,5 +106,5 @@ void	ft_str_hd(int *i, t_ms *ms)
 	if (DEBUG){
 		printf("-> i = %d\n", (*i));
 		printf("-> char fin = %c\n", ms->hd->input[(*i)]);
-		}
+	}
 }

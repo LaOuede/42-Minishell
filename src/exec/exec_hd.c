@@ -72,7 +72,7 @@ int	ft_exec_hd(char *delim, t_ms *ms)
 		printf(KYEL "-------------------- FT_CHILD_HD" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	int		fd_hd;
 	pid_t	pid_hd;
-	int 	status;
+	int		status;
 
 	fd_hd = open("/tmp/here_doc", O_CREAT | O_TRUNC | O_RDWR, 0666);
 	if (fd_hd < 0)
