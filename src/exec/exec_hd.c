@@ -5,8 +5,10 @@ void	ft_hd_parser(t_ms *ms)
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_HD_PARSER" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
 	int	i;
+	char	*tmp;
 
 	i = 0;
+	if (ms->hd->input)
 	while (i < (int)ms->hd->strlen)
 	{
 		if (DEBUG){
@@ -17,6 +19,12 @@ void	ft_hd_parser(t_ms *ms)
 			ft_envvar_hd(&i, ms->hd->input, ms);
 		else
 			ft_str_hd(&i, ms);
+	}
+	if (ms->hd->strlen == 0)
+	{
+		tmp = ft_strdup("\n");
+		ft_add_token_bottom(&ms->hd->line, ft_create_node(tmp, ms->hd));
+		ft_freenull(tmp);
 	}
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_HD_PARSER" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
@@ -48,7 +56,7 @@ void	ft_child_hd(char *delim, int fd_hd, t_ms *ms)
 		ms->hd->input = readline("> ");
 		ms->hd->strlen = ft_strlen(ms->hd->input);
 		ms->hd->hd++;
-		if ((ft_strncmp(ms->hd->input, delim, ms->hd->strlen) == 0 \
+		if ((ft_strcmp(ms->hd->input, delim) == 0 \
 			&& ms->hd->input && *ms->hd->input != '\0') || !ms->hd->input)
 			break ;
 		ft_hd_parser(ms);

@@ -33,7 +33,7 @@ void	ft_merge_all_red(t_pars *pars)
 		printf(KYEL "-------------------- FT_MERGE_ALLREDOUT" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
-void	ft_creation(t_ms *ms,t_token ptr, char *str, int *i)
+void	ft_creation(t_ms *ms, t_token ptr, char *str, int *i)
 {
 	if (DEBUG)
 	{
@@ -77,10 +77,10 @@ void	ft_create_file(t_ms *ms)
 		printf(KYEL "-------------------- FT_CREATE_FILE" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
-void	ft_open_file(t_ms *ms)
+void	ft_open_hd(t_ms *ms)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_OPEN_FILE" KGRN " START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_OPEN_HD" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	int		i;
 	char	*str;
 	t_token	*ptr;
@@ -98,13 +98,46 @@ void	ft_open_file(t_ms *ms)
 				close(ms->jct->fds_in[i]);
 			if (ft_strncmp(ptr->str, str, 2) == 0)
 				ft_exec_hd(ptr->next->str, ms);
-			else
-				ms->jct->fds_in[i] = open(ptr->next->str, O_RDONLY);
-			if (ms->jct->fds_in[i] == -1)
+			if (DEBUG)
+				printf("ms->pars->jct->fds_in[i] = %d\n", ms->jct->fds_in[i]);
+		}
+		else if (ptr->type == PIPE)
+			i++;
+		ptr = ptr->next;
+	}
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_OPEN_HD" KRED " END " RESET KYEL "--------------------\n" RESET);
+}
+
+void	ft_open_file(t_ms *ms)
+{
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_OPEN_FILE" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	int		i;
+	char	*str;
+	t_token	*ptr;
+
+	i = 0;
+	str = "<";
+	ptr = ms->pars->line;
+	while (ptr->next)
+	{
+		if (ptr->type == REDIN && ptr->next->type == ARG)
+		{
+			if (DEBUG)
+				printf("file name or delimiter = %s\n", ptr->next->str);
+			if (ms->jct->fds_in[i])
+				close(ms->jct->fds_in[i]);
+			if (ft_strncmp(ptr->str, str, 2) == 0)
 			{
-				ft_error_parsing(ERR_INFILE, REBUILDER, 2, ms);
-				ms->pars->err_infile = true;
-				break ;
+				ms->jct->fds_in[i] = open(ptr->next->str, O_RDONLY);
+				if (ms->jct->fds_in[i] == -1)
+				{
+					//ft_error_parsing(ERR_INFILE, REBUILDER, 2, ms);
+					printf(ERR_INFILE);
+					ms->pars->err_infile = true;
+					break ;
+				}
 			}
 			if (DEBUG)
 				printf("ms->pars->jct->fds_in[i] = %d\n", ms->jct->fds_in[i]);

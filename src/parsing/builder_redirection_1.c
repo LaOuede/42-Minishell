@@ -136,6 +136,7 @@ void	ft_redirection(t_ms *ms)
 	ft_check_error_redir(ms);
 	if (ms->pars->err_builder == false)
 	{
+		ft_open_hd(ms);
 		ft_open_file(ms);
 		if (ms->pars->err_infile == false)
 			ft_create_file(ms);

@@ -153,6 +153,8 @@ void	ft_swap(t_token *ptr1, t_token *ptr2);
 void	ft_swap_node(t_pars *pars);
 bool	ft_test_cmd(t_pars *pars, t_token *node);
 
+void	ft_open_hd(t_ms *ms);
+
 /* 		Parser part functions 						*/
 void	ft_parser(t_ms *ms);
 void	ft_check_redir(t_ms *ms);
