@@ -26,7 +26,7 @@ t_builtin	*ft_get_builtin(void)
 		builtin->fts[3] = ft_msh_env;
 		builtin->fts[4] = ft_msh_exit;
 		builtin->fts[5] = NULL; //ft_msh_export
-		builtin->fts[6] = NULL; //ft_msh_cd
+		builtin->fts[6] = ft_msh_cd;
 		builtin->fts[7] = NULL; //ft_msh_unset
 	}
 	return (builtin);
@@ -44,11 +44,11 @@ int	ft_is_builtin(char **cmd)
 		return (3);
 	else if (ft_strcmp(cmd[0], "exit") == 0)
 		return (4);
+	else if (ft_strcmp(cmd[0], "cd") == 0)
+		return (6);
 /* 
 	else if (ft_strcmp(cmd[0], "export") == 0)
 		return (5);
-	else if (ft_strcmp(cmd[0], "cd") == 0)
-		return (6);
 	else if (ft_strcmp(cmd[0], "unset") == 0)
 		return (7);
 */

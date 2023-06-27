@@ -22,5 +22,6 @@ void	ft_msh_echo(t_ms *ms, char **cmd);
 void	ft_msh_env(t_ms *ms, char **cmd);
 void	ft_msh_exit(t_ms *ms, char **cmd);
 void	ft_msh_pwd(t_ms *ms, char **cmd);
+void	ft_msh_cd(t_ms *ms, char **cmd);
 
 #endif
