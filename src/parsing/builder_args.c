@@ -191,6 +191,7 @@ void	ft_check_echo(t_ms *ms)
 		ms->jct->echo = false;
 		ptr1 = ptr2;
 	}
+	if (DEBUG)
 		printf(KYEL "-------------------- FT_CHECK_ECHO" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 

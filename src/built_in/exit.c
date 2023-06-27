@@ -13,7 +13,7 @@ Prototype :
 void	ft_msh_exit(t_ms *ms, char **cmd)
 {
 	printf(KYEL "-------------------- FT_MSH_EXIT" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	if (cmd[0] && !cmd[1])
+	if (cmd[0] && cmd[1])
 	{
 		if (0 <= ft_atoi(cmd[1]) && ft_atoi(cmd[1]) <= 255)
 		{

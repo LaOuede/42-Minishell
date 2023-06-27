@@ -14,15 +14,36 @@ Prototype :
 
 void	ft_msh_cd(t_ms *ms, char **cmd)
 {
+	// if (DEBUG)
+		printf(KYEL "-------------------- FT_MSH_CD" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	(void)ms;
-	if (cmd[2])
+	int	ac;
+	int j = 0;
+	char *user = getenv("HOME");
+	while(cmd[j])
+	{
+		printf("cmd[%d]: %s\n", j, cmd[j]);
+		j++;
+	}
+	ac = j;
+	printf("ac: %d\n", ac);
+	if (ac < 2)
+	{
+		if(chdir(user) != 0)
+			perror("Error! chdir");
+	}
+	else if (ac < 3 && chdir(cmd[1]) != 0)
+	{
+		perror("Error! chdir");
+		ms->flexit = 1;
+		return ;
+		// exit(127); //TODO quel code erreur ?
+	}
+	else if(ac >= 3)
 	{
 		ft_putstr_fd("Too many args\nUsage: env [no opt/args]\n", 2);
 		return ;
 	}
-	else if (chdir(cmd[1]) != 0)
-	{
-		perror("Error! chdir");
-		exit(127); //TODO quel code erreur ?
-	}
+	// if (DEBUG)
+		printf(KYEL "-------------------- FT_MSH_ECHO" KRED " END " RESET KYEL "--------------------\n" RESET);
 }

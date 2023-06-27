@@ -30,7 +30,7 @@
 # define ERR_HD		"Usage error : bad substitution\n"
 # define ERR_ENV	"Error : env path not found\n"
 
-# define DEBUG 1
+# define DEBUG 0
 # define MAIN 42
 # define EXEC 666
 # define HD 7
