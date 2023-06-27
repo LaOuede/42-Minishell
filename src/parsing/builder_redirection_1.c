@@ -34,7 +34,7 @@ bool	ft_test_cmd(t_pars *pars, t_token *node)
 void	ft_check_error_redir(t_ms *ms)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_CHECK_REDIR" KGRN " START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_CHECK_ERROR_REDIR" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	int		len;
 	t_token	*ptr;
 
@@ -49,11 +49,13 @@ void	ft_check_error_redir(t_ms *ms)
 			if (len > 2 || (ptr->next && ptr->next->type == REDIN) \
 				|| (ptr->next && ptr->next->type == REDOUT))
 				ft_error_parsing(ERR_TOKEN, REBUILDER, 2, ms);
+			if (!ptr->next)
+				ft_error_parsing(ERR_TOKEN, REBUILDER, 2, ms);
 		}
 		ptr = ptr->next;
 	}
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_CHECK_REDIR" KRED " END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_CHECK_ERROR_REDIR" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
 void	ft_merge_angle_brackets_out(t_pars *pars)
