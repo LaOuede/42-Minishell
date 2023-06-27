@@ -138,8 +138,8 @@ void	ft_envvar(int *i, char *str, t_ms *ms)
 	ptr = ms->pars->line;
 	while (ptr)
 		ptr = ptr->next;
-	if (DEBUG)
-		printf("ptr->str = %s\n", ptr->str);
+/* 	if (DEBUG)
+		printf("ptr->str = %s\n", ptr->str); */
 	if (str[(*i)] == '$' && str[(*i) + 1] == '{')
 	{
 		if (ft_check_expand_brackets(str, ms) == true)
