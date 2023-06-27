@@ -30,7 +30,7 @@
 # define ERR_HD		"Usage error : bad substitution\n"
 # define ERR_ENV	"Error : env path not found\n"
 
-# define DEBUG 0
+# define DEBUG 1
 # define MAIN 42
 # define EXEC 666
 # define HD 7
@@ -55,6 +55,7 @@ typedef struct s_jct
 	int		cmd_nb;
 	int		fd_hd;
 	bool	err_pars;
+	bool	echo;
 	int		flag_var;
 	int		flag_err_var;
 	//TODO do we still need those 3 variables ?

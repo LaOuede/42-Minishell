@@ -36,6 +36,47 @@ void	ft_msh_echo(t_ms *ms, char **cmd)
 		printf(KYEL "-------------------- FT_MSH_ECHO" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	int	i;
 
+	i = 0;
+	if (cmd[1])
+	{
+		if (ms->jct->echo == true)
+		{
+			while (cmd[++i])
+			{
+				if (cmd[i + 1])
+					printf("%s ", cmd[i]);
+				else
+					printf("%s", cmd[i]);
+			}
+		}
+		else
+		{
+			i = 0;
+			while (cmd[++i])
+			{
+				if (cmd[i + 1])
+					printf("%s ", cmd[i]);
+				else
+					printf("%s", cmd[i]);
+			}
+			printf("\n");
+			ms->flexit = 0;
+		}
+	}
+	if (!cmd[1])
+		write(1, "\n", 1);
+	else if (i < 2 && ms->jct->flag_err_var == true)
+		write(1, "\n", 1);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_MSH_ECHO" KRED " END " RESET KYEL "--------------------\n" RESET);
+}
+
+/* void	ft_msh_echo(t_ms *ms, char **cmd)
+{
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_MSH_ECHO" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	int	i;
+
 	i = 1;
 	if (cmd[1])
 	{
@@ -71,4 +112,4 @@ void	ft_msh_echo(t_ms *ms, char **cmd)
 		write(1, "\n", 1);
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_MSH_ECHO" KRED " END " RESET KYEL "--------------------\n" RESET);
-}
+} */
