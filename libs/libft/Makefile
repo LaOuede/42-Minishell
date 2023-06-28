@@ -6,7 +6,7 @@
 #    By: csenand <csenand@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/26 12:57:00 by gle-roux          #+#    #+#              #
-#    Updated: 2023/06/16 15:01:07 by csenand          ###   ########.fr        #
+#    Updated: 2023/06/28 15:12:34 by csenand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,8 @@ SRCS_LIST	=	ft_atoi.c \
 				ft_isdigit.c \
 				ft_isprint.c \
 				ft_iswhitespace.c \
+				ft_sort_params.c \
+				ft_swap_bin.c \
 				ft_itoa.c \
 				ft_lstadd_back.c \
 				ft_lstadd_front.c \

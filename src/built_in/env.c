@@ -22,8 +22,8 @@ void	ft_msh_env(t_ms *ms, char **cmd)
 		exit(127);
 	}
 	i = -1;
-	if (ms->exec->envp)
-		while (ms->exec->envp[++i])
-			printf("%s\n", ms->exec->envp[i]);
+	if (ms->envp)
+		while (ms->envp[++i])
+			printf("%s\n", ms->envp[i]);
 	printf(KYEL "-------------------- FT_MSH_ENV" KRED " END " RESET KYEL "--------------------\n" RESET);
 }

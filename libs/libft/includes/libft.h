@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gle-roux <gle-roux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csenand <csenand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:10:07 by gle-roux          #+#    #+#             */
-/*   Updated: 2023/06/23 13:47:46 by gle-roux         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:12:57 by csenand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,8 @@ char	*ft_strnjoin(char *temp, char *buf);
 void	*ft_free(char *str1, char *str2);
 
 int		ft_char_tab_len(char **tab);
+char	**ft_sort_parrams(char **envp);
+
+void	ft_swap_bin(char *a, char *b);
 
 #endif

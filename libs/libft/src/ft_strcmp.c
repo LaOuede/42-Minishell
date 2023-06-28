@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gle-roux <gle-roux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csenand <csenand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 08:48:10 by gle-roux          #+#    #+#             */
-/*   Updated: 2023/06/27 14:18:47 by gle-roux         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:33:39 by csenand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,12 @@ Return Value :
 */
 int	ft_strcmp(const char *s1, const char *s2)
 {
-	size_t	i;
-
 	if (!s1 || !s2)
 		return (0);
-	i = 0;
-	while ((s1[i] != '\0' && s2[i] != '\0'))
+	while (*s1 && (*s1 == *s2))
 	{
-		if (s1[i] != s2[i])
-			return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
-		i++;
+		s1++;
+		s2++;
 	}
-	return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
