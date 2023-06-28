@@ -18,16 +18,12 @@ void	ft_msh_cd(t_ms *ms, char **cmd)
 		printf(KYEL "-------------------- FT_MSH_CD" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	(void)ms;
 	int	ac;
-	int j = 0;
-	char *user = getenv("HOME");
-	while(cmd[j])
-	{
-		printf("cmd[%d]: %s\n", j, cmd[j]);
-		j++;
-	}
-	ac = j;
+	char *user;
+	
+	user = getenv("HOME");
+	ac = ft_get_ac(cmd);
 	printf("ac: %d\n", ac);
-	if (ac < 2)
+	if (ac < 2 || ft_strcmp(cmd[1], "~") == 0)
 	{
 		if(chdir(user) != 0)
 			perror("Error! chdir");

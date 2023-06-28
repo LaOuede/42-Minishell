@@ -14,6 +14,7 @@ RM			=	rm -rf
 # -- SRC Files -- #
 SRCS_DIR	=	./src/
 SRCS_LST	= 	built_in/built_in.c \
+			 	built_in/built_in_tools.c \
 				built_in/echo.c \
 				built_in/cd.c \
 				built_in/unset.c \

@@ -24,5 +24,6 @@ void	ft_msh_exit(t_ms *ms, char **cmd);
 void	ft_msh_pwd(t_ms *ms, char **cmd);
 void	ft_msh_cd(t_ms *ms, char **cmd);
 void	ft_msh_unset(t_ms *ms, char **cmd);
+int		ft_get_ac(char **cmd);
 
 #endif

@@ -35,8 +35,8 @@ char	**ft_get_path(char **envp, int i)
 		i++;
 	if (!envp[i])
 	{
-		new_path_var = ft_calloc(1, sizeof(char *));
-		new_path_var[0] = ft_calloc(1, sizeof(char));
+		path_var = NULL;
+		new_path_var = NULL;
 		return (new_path_var);
 	}
 	path_var = ft_split(&envp[i][5], ':');
@@ -74,7 +74,7 @@ t_exec	*ft_init_exec(t_ms *ms)
 	if (!exec)
 		perror(NULL);
 	exec->envp = ms->jct->envp;
-	exec->path_var = ft_get_path(exec->envp, 0);
+	// exec->path_var = ft_get_path(exec->envp, 0);
 	exec->builtin = ft_get_builtin();
 	exec->builtin_fts = 0;
 	exec->input = 0;
