@@ -24,6 +24,7 @@ SRCS_LST	= 	built_in/built_in.c \
 				built_in/pwd.c \
 				DEBUG_parsing.c \
 				exec/exec_hd.c \
+				exec/exec_dup.c \
 				exec/exec_hd_pars_1.c \
 				exec/exec_hd_pars_2.c \
 				exec/exec_cmd.c \

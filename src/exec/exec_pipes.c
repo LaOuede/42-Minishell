@@ -70,7 +70,7 @@ int	ft_pre_redir(t_ms *ms, int i)
 			{
 				perror("Error! Pipe creation in pre_redir");
 				return (1);
-			}	
+			}
 			ms->exec->output = ms->exec->pipes[i][1];
 		}
 	}
