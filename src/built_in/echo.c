@@ -8,26 +8,79 @@ Prototype :
 Flag -n :
 	Omit newline from the output.
 */
+void	ft_handle_flag(t_ms *ms, int *i, int arg, char **cmd)
+{
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_FLAG" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	if (ms->jct->echo == true)
+	{
+		while (*i - 1 <= arg)
+		{
+			if (*i < arg)
+				printf("%s ", cmd[*i]);
+			else if (*i == arg)
+				printf("%s", cmd[*i]);
+			(*i)++;
+		}
+	}
+	else
+	{
+		*i = 0;
+		while (++(*i) <= arg)
+		{
+			if (*i < arg)
+				printf("%s ", cmd[*i]);
+			else if (*i == arg)
+				printf("%s", cmd[*i]);
+		}
+		printf("\n");
+		ms->flexit = 0;
+	}
+}
 
-bool	ft_flag(char *str)
+bool	ft_flag(t_ms *ms, char *str)
 {
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_FLAG" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	int	i;
 
 	i = 0;
-	if (str[(i)] == '-')
+	if (!str)
+		return (false);
+	while (str[i])
 	{
-		while (str[++i])
+		if (str[i] == '-' && str[i + 1] == 'n')
 		{
-			if (DEBUG)
-				printf("char = %c\n", str[i]);
-			if (str[i] != 'n')
-				return (false);
+			i++;
+			while (str[i] == 'n')
+				i++;
+			if (str[i] == '\0')
+			{
+				ms->jct->echo = true;
+				return (true);
+			}
 		}
-		return (true);
+		ms->jct->echo = false;
+		break ;
 	}
 	return (false);
+}
+
+int	ft_check_flag(t_ms *ms, int *i, int arg, char **cmd)
+{
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_CHECK_FLAG" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	while (*i <= arg)
+	{
+		if (ft_flag(ms, cmd[*i]) == true)
+			(*i)++;
+		else
+		{
+			*i -= 1;
+			break ;
+		}
+	}
+	return (*i);
 }
 
 void	ft_msh_echo(t_ms *ms, char **cmd)
@@ -35,33 +88,16 @@ void	ft_msh_echo(t_ms *ms, char **cmd)
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_MSH_ECHO" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	int	i;
+	int	j;
+	int	nb;
 
-	i = 0;
-	if (cmd[1])
+	i = 1;
+	j = 0;
+	nb = ft_get_ac(cmd) - 1;
+	if (cmd)
 	{
-		if (ms->jct->echo == true)
-		{
-			while (cmd[++i])
-			{
-				if (cmd[i + 1])
-					printf("%s ", cmd[i]);
-				else
-					printf("%s", cmd[i]);
-			}
-		}
-		else
-		{
-			i = 0;
-			while (cmd[++i])
-			{
-				if (cmd[i + 1])
-					printf("%s ", cmd[i]);
-				else
-					printf("%s", cmd[i]);
-			}
-			printf("\n");
-			ms->flexit = 0;
-		}
+		i = ft_check_flag(ms, &i, nb, cmd);
+		ft_handle_flag(ms, &i, nb, cmd);
 	}
 	if (!cmd[1])
 		write(1, "\n", 1);
@@ -70,46 +106,3 @@ void	ft_msh_echo(t_ms *ms, char **cmd)
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_MSH_ECHO" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
-
-/* void	ft_msh_echo(t_ms *ms, char **cmd)
-{
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_MSH_ECHO" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	int	i;
-
-	i = 1;
-	if (cmd[1])
-	{
-		if (DEBUG)
-			printf("flag = %d\n", ft_flag(cmd[1]));
-		if (ft_flag(cmd[1]) == true)
-		{
-			while (cmd[++i])
-			{
-				if (cmd[i + 1])
-					printf("%s ", cmd[i]);
-				else
-					printf("%s", cmd[i]);
-			}
-		}
-		else
-		{
-			i = 0;
-			while (cmd[++i])
-			{
-				if (cmd[i + 1])
-					printf("%s ", cmd[i]);
-				else
-					printf("%s", cmd[i]);
-			}
-			printf("\n");
-			ms->flexit = 0;
-		}
-	}
-	if (!cmd[1])
-		write(1, "\n", 1);
-	else if (i < 2 && ms->jct->flag_err_var == true)
-		write(1, "\n", 1);
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_MSH_ECHO" KRED " END " RESET KYEL "--------------------\n" RESET);
-} */

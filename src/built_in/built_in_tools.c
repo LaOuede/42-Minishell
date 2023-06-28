@@ -5,9 +5,10 @@ int	ft_get_ac(char **cmd)
 	int	j;
 
 	j = 0;
-	while(cmd[j])
+	while (cmd[j])
 	{
-		printf("cmd[%d]: %s\n", j, cmd[j]);
+		if (DEBUG)
+			printf("cmd[%d]: %s\n", j, cmd[j]);
 		j++;
 	}
 	return (j);
