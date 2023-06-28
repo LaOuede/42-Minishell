@@ -13,6 +13,7 @@ t_token	*ft_create_node(char *str, t_pars *pars)
 	new_node->nb_cmd = pars->nb_pipe;
 	new_node->ws = pars->flag_whitespace;
 	new_node->hd = pars->hd;
+	new_node->echo = false;
 	new_node->next = NULL;
 	return (new_node);
 }

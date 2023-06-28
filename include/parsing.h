@@ -71,6 +71,7 @@ typedef struct s_token
 	int				nb_cmd;
 	int				ws;
 	int				hd;
+	bool			echo;
 	struct s_token	*next;
 }	t_token;
 
@@ -94,7 +95,6 @@ typedef struct s_pars
 	bool			err_lexer;
 	bool			err_builder;
 	bool			err_parser;
-
 }	t_pars;
 
 /* 		Debug functions 							*/
