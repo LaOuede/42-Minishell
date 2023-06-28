@@ -14,7 +14,7 @@ void	ft_handle_flag(t_ms *ms, int *i, int arg, char **cmd)
 		printf(KYEL "-------------------- FT_FLAG" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	if (ms->jct->echo == true)
 	{
-		while (*i - 1 <= arg)
+		while (*i <= arg)
 		{
 			if (*i < arg)
 				printf("%s ", cmd[*i]);
@@ -59,9 +59,9 @@ bool	ft_flag(t_ms *ms, char *str)
 				ms->jct->echo = true;
 				return (true);
 			}
+			else
+				return (false);
 		}
-		ms->jct->echo = false;
-		break ;
 	}
 	return (false);
 }
@@ -70,15 +70,12 @@ int	ft_check_flag(t_ms *ms, int *i, int arg, char **cmd)
 {
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_CHECK_FLAG" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	while (*i <= arg)
+	while (*i < arg)
 	{
 		if (ft_flag(ms, cmd[*i]) == true)
 			(*i)++;
 		else
-		{
-			*i -= 1;
 			break ;
-		}
 	}
 	return (*i);
 }
