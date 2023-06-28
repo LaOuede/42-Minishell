@@ -35,5 +35,6 @@ void	ft_msh_pwd(t_ms *ms, char **cmd)
 	buf = getcwd(NULL, 0);
 	if (buf)
 		printf("%s\n", buf);
+	ft_freenull(buf);
 	printf(KYEL "-------------------- FT_MSH_PWD" KRED " END " RESET KYEL "--------------------\n" RESET);
 }

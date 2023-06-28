@@ -73,7 +73,7 @@ t_exec	*ft_init_exec(t_ms *ms)
 	exec = malloc(sizeof(t_exec));
 	if (!exec)
 		perror(NULL);
-	exec->envp = ms->jct->envp;
+	exec->envp = ms->envp;
 	// exec->path_var = ft_get_path(exec->envp, 0);
 	exec->builtin = ft_get_builtin();
 	exec->builtin_fts = 0;

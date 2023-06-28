@@ -24,6 +24,8 @@ void	ft_free_all(t_ms *ms)
 			ft_free_exec(ms->exec);
 		if (ms->hd)
 			ft_free_pars(ms->hd);
+		if (ms->envp)
+			ft_free_tab_char(ms->envp);
 		ft_freenull(ms);
 	}
 }
