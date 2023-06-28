@@ -55,7 +55,7 @@ char	*ft_free_2char(char **tab);
 void	ft_free_3tab(t_jct *jct);
 void	ft_free_exec(t_exec *exec);
 void	ft_exec(t_ms *ms);
-void	ft_copy_env(t_jct *jct, char **envp);
+void	ft_copy_env(t_ms *ms, char **envp);
 char	*ft_cmd_path(t_exec *exec, char *cmds);
 void	ft_free_3tab(t_jct *jct);
 void	ft_run_cmd(t_ms *ms, int i);
@@ -63,7 +63,7 @@ void	ft_run_cmd(t_ms *ms, int i);
 int		ft_exec_hd(char *delim, t_ms *ms);
 void	ft_close_old_pipes(t_exec *exec, int i);
 void	ft_dup_and_run(t_ms *ms, int i, int builtin_fts);
-char	*ft_cmd_path(t_exec *exec, char *cmds);
+
 void	ft_run_cmd(t_ms *ms, int r);
 
 /*	--	Debug fct	--	*/

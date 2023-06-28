@@ -48,7 +48,7 @@ t_pars	*ft_init_pars(t_ms *ms)
 	pars = ft_calloc(1, sizeof(t_pars));
 	pars->line = NULL;
 	pars->input = NULL;
-	pars->envp = ms->jct->envp;
+	pars->envp = ms->envp;
 	pars->path_var = ft_get_path(pars->envp, 0);
 	pars->strlen = 0;
 	pars->nb_pipe = 1;

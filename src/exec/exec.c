@@ -49,6 +49,12 @@ void	ft_dup_and_run(t_ms *ms, int i, int builtin_fts)
 			ms->exec->builtin->fts[builtin_fts](ms, ms->exec->builtin_cmd);
 			exit(0);
 		}
+		ms->exec->path_var = ft_get_path(ms->envp, 0);
+		if (!ms->exec->path_var)
+		{
+			printf("Input Error : Command not found\n");
+			return ;
+		}
 		ft_run_cmd(ms, i);
 	}
 }
@@ -86,8 +92,7 @@ void	ft_exec(t_ms *ms)
 	int	status;
 
 	ft_init_sig(EXEC);
-	ms->exec->path_var = ft_get_path(ms->exec->envp, 0);
-	if (ft_mem_pipes(ms) == 2 || !ms->exec->path_var)
+	if (ft_mem_pipes(ms) == 2)
 		return ;
 	ms->exec->pids = ft_calloc(ms->jct->cmd_nb, sizeof(pid_t *));
 	ft_make_pids(ms);

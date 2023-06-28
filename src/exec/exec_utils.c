@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-void	ft_copy_env(t_jct *jct, char **envp)
+void	ft_copy_env(t_ms *ms, char **envp)
 {
 	int	i;
 	int	j;
@@ -8,12 +8,12 @@ void	ft_copy_env(t_jct *jct, char **envp)
 	i = 0;
 	while (envp[i])
 		i++;
-	jct->envp = ft_calloc(sizeof(char **), i + 1);
+	ms->envp = ft_calloc(sizeof(char **), i + 1);
 	i = -1;
 	j = 0;
 	while (envp[++i])
-		jct->envp[j++] = ft_strdup(envp[i]);
-	jct->envp[j] = NULL;
+		ms->envp[j++] = ft_strdup(envp[i]);
+	ms->envp[j] = NULL;
 }
 
 int	ft_path_var_qty(char **path_var)

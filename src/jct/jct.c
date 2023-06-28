@@ -38,11 +38,12 @@ This structure holds all important data needed both in parsing and execution.
 */
 t_jct	*ft_init_jct(char **envp)
 {
+	(void)envp;
 	t_jct	*jct;
 
 	jct = ft_calloc(1, sizeof(t_jct));
-	jct->envp = NULL;
-	ft_copy_env(jct, envp);
+	// jct->envp = NULL;
+	// ft_copy_env(jct, envp);
 	jct->fds_in = NULL;
 	jct->fds_out = NULL;
 	jct->tab = NULL;

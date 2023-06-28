@@ -42,6 +42,7 @@ typedef struct s_ms
 	struct s_exec	*exec;
 	struct s_jct	*jct;
 	struct s_pars	*hd;
+	char 			**envp;
 	int				flexit;
 }	t_ms;
 

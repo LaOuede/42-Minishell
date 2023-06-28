@@ -73,8 +73,8 @@ void	ft_msh_unset(t_ms *ms, char **cmd)
 			}
 		}
 		printf("[ft_msh_unset 2] cmd[%d] : %s\n", i, cmd[i]);
-		ms->exec->envp = ft_unset(ms->exec->envp, ft_strjoin(cmd[i], "="));
-		ms->jct->envp = ms->exec->envp;
+		ms->envp = ft_unset(ms->envp, ft_strjoin(cmd[i], "="));
+		// ms->jct->envp = ms->exec->envp;
 		//TODO put ft_copy in ms and replace all copies
 		// ms->jct->envp = ft_unset(ms->exec->envp, ft_strjoin(cmd[i], "="));
 	}
