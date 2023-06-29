@@ -15,10 +15,10 @@ void	ft_close_old_pipes(t_exec *exec, int i)
 
 void	ft_close_fds(t_ms *ms)
 {
-	if (ms->exec->fd_in)
-		close(ms->exec->fd_in);
-	if (ms->exec->fd_out)
-		close(ms->exec->fd_out);
+	if (ms->jct->fds_in)
+		close(*ms->jct->fds_in);
+	if (ms->jct->fds_out)
+		close(*ms->jct->fds_out);
 	if (ms->jct->fd_hd)
 		close(ms->jct->fd_hd);
 	if (ms->exec->input)
