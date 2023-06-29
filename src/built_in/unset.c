@@ -35,7 +35,7 @@ char	**ft_unset(char **envp, char *cmd)
 
 bool	ft_isvalid(char *cmd)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (cmd[++i])
@@ -64,7 +64,7 @@ void	ft_msh_unset(t_ms *ms, char **cmd)
 		printf("[ft_msh_unset 1] cmd[%d] : %s\n", i, cmd[i]);
 		if (!ft_isvalid(cmd[i]))
 		{
-			if (ms->exec->cmd_nb == 1)
+			if (ms->jct->cmd_nb == 1)
 				ft_exit_free(ms, 1);
 			else
 			{

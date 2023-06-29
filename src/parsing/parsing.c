@@ -18,7 +18,7 @@ t_tab	*ft_init_tab(t_pars *pars)
 void	ft_reset_node(t_pars *pars)
 {
 	pars->type = ARG;
-	pars->flag_whitespace = 0;
+	pars->fl_ws = 0;
 	pars->d_quotes = 0;
 	pars->s_quotes = 0;
 }
@@ -34,7 +34,9 @@ void	ft_reset_pars(t_pars *pars)
 	pars->d_quotes = 0;
 	pars->s_quotes = 0;
 	pars->c_brackets = 0;
-	pars->flag_whitespace = 0;
+	pars->fl_ws = 0;
+	pars->hd = 0;
+	pars->err_infile = false;
 	pars->err_lexer = false;
 	pars->err_builder = false;
 	pars->err_parser = false;
@@ -56,11 +58,12 @@ t_pars	*ft_init_pars(t_ms *ms)
 	pars->d_quotes = 0;
 	pars->s_quotes = 0;
 	pars->c_brackets = 0;
-	pars->flag_whitespace = 0;
+	pars->hd = 0;
+	pars->fl_ws = 0;
+	pars->err_infile = false;
 	pars->err_lexer = false;
 	pars->err_builder = false;
 	pars->err_parser = false;
-	pars->hd = 0;
 	return (pars);
 }
 

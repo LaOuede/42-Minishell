@@ -11,7 +11,7 @@ t_token	*ft_create_node(char *str, t_pars *pars)
 	new_node->d_quotes = pars->d_quotes;
 	new_node->c_brackets = pars->c_brackets;
 	new_node->nb_cmd = pars->nb_pipe;
-	new_node->ws = pars->flag_whitespace;
+	new_node->ws = pars->fl_ws;
 	new_node->hd = pars->hd;
 	new_node->echo = false;
 	new_node->next = NULL;

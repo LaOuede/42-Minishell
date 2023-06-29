@@ -4,8 +4,6 @@ void	ft_free_jct(t_jct *jct)
 {
 	if (jct)
 	{
-		if (jct->envp)
-			ft_free_tab_char(jct->envp);
 		if (jct->tab)
 			ft_free_3tab(jct);
 		if (jct->fds_in)
@@ -37,12 +35,10 @@ This structure holds all important data needed both in parsing and execution.
 */
 t_jct	*ft_init_jct(char **envp)
 {
-	(void)envp;
 	t_jct	*jct;
 
+	(void)envp;
 	jct = ft_calloc(1, sizeof(t_jct));
-	// jct->envp = NULL;
-	// ft_copy_env(jct, envp);
 	jct->fds_in = NULL;
 	jct->fds_out = NULL;
 	jct->tab = NULL;

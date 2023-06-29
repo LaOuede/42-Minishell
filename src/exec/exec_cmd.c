@@ -33,7 +33,7 @@ void	ft_run_cmd(t_ms *ms, int r)
 
 	opt = ft_split(ms->jct->tab[r][0], 29);
 	path = ft_cmd_path(ms->exec, opt[0]);
-	envp = ms->jct->envp;
+	envp = ms->envp;
 	if (!path)
 	{
 		ft_free_tab_char(opt);

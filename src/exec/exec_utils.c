@@ -64,23 +64,26 @@ void	ft_reset_exec(t_ms *ms)
 	ft_free_tab_int(ms->exec->pipes, ms->exec->pipes_nb);
 	ms->exec->pipes = 0;
 	ms->exec->pipes_nb = 0;
+	ms->exec->builtin_fts = 0;
+	if (ms->exec->builtin_cmd)
+		ft_free_tab_char(ms->exec->builtin_cmd);
+	ms->exec->builtin_cmd = NULL;
 }
 
 t_exec	*ft_init_exec(t_ms *ms)
 {
 	t_exec	*exec;
 
-	exec = malloc(sizeof(t_exec));
-	if (!exec)
-		perror(NULL);
+	exec = ft_calloc(1, sizeof(t_exec));
 	exec->envp = ms->envp;
-	// exec->path_var = ft_get_path(exec->envp, 0);
-	exec->builtin = ft_get_builtin();
-	exec->builtin_fts = 0;
+	exec->path_var = NULL;
 	exec->input = 0;
 	exec->output = 0;
 	exec->pids = 0;
 	exec->pipes = 0;
 	exec->pipes_nb = 0;
+	exec->builtin = ft_get_builtin();
+	exec->builtin_cmd = NULL;
+	exec->builtin_fts = 0;
 	return (exec);
 }

@@ -61,7 +61,7 @@ void	ft_msh_export(t_ms *ms, char **cmd)
 	{
 		if (!ft_valid_ex(cmd[i]))
 		{
-			if (ms->exec->cmd_nb == 1)
+			if (ms->jct->cmd_nb == 1)
 				ft_exit_free(ms, 1);
 			else
 			{
@@ -73,6 +73,5 @@ void	ft_msh_export(t_ms *ms, char **cmd)
 		ms->envp = ft_export_var(ms->envp, cmd[i]);
 		printf("ft_export_var ends\n");
 		//TODO do the rest
-
 	}
 }

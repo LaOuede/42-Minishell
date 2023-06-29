@@ -18,10 +18,9 @@ t_ms	*ft_init_ms(char **envp)
 		ms->envp = NULL;
 		ft_copy_env(ms, envp);
 		ms->envp = ft_sort_parrams(ms->envp);
-		// ms->path_var = ft_get_path();
 		ms->jct = ft_init_jct(envp);
-		ms->exec = ft_init_exec(ms);
 		ms->pars = ft_init_pars(ms);
+		ms->exec = ft_init_exec(ms);
 		ms->hd = NULL;
 		ms->flexit = 0;
 	}

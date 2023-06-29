@@ -23,7 +23,7 @@ void	ft_char(int *i, t_ms *ms)
 	{
 		if (DEBUG)
 			printf("-> white space\n");
-		ms->pars->flag_whitespace = 1;
+		ms->pars->fl_ws = 1;
 		(*i)++;
 	}
 	while (ms->pars->input[(*i)] && ft_ismetachar(ms->pars->input[(*i)]) == 0 \

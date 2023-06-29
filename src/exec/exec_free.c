@@ -44,6 +44,10 @@ void	ft_free_exec(t_exec *exec)
 		ft_freenull(exec->pids);
 	if (DEBUG)
 		printf("exec->pipes address (in ft_free_exit): %p\n", exec->pipes);
+	if (exec->builtin)
+		ft_freenull(exec->builtin);
+	if (exec->builtin_cmd)
+		ft_free_tab_char(exec->builtin_cmd);
 	if (DEBUG)
 		printf("exec (in ft_free_exit): %p\n", exec);
 	ft_freenull(exec);

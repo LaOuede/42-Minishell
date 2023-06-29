@@ -38,11 +38,11 @@
 
 typedef struct s_ms
 {
+	char			**envp;
+	struct s_jct	*jct;
 	struct s_pars	*pars;
 	struct s_exec	*exec;
-	struct s_jct	*jct;
 	struct s_pars	*hd;
-	char 			**envp;
 	int				flexit;
 }	t_ms;
 
@@ -59,10 +59,6 @@ typedef struct s_jct
 	bool	echo;
 	int		flag_var;
 	int		flag_err_var;
-	//TODO do we still need those 3 variables ?
-	int		file_in;
-	int		file_out;
-	int		fl_redirout;
 }			t_jct;
 
 t_ms	*ft_init_ms(char **envp);

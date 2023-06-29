@@ -37,7 +37,7 @@ t_pars	*ft_init_hd(t_ms *ms)
 	hd = ft_calloc(1, sizeof(t_pars));
 	hd->line = NULL;
 	hd->input = NULL;
-	hd->envp = ms->jct->envp;
+	hd->envp = ms->envp;
 	hd->hd = 0;
 	hd->strlen = 0;
 	hd->c_brackets = 0;
@@ -71,6 +71,7 @@ void	ft_child_hd(char *delim, int fd_hd, t_ms *ms)
 	ft_merge_hd(ms->hd);
 	ft_clean_list(&ms->hd->line);
 	print_hd(ms->hd, fd_hd);
+	close(fd_hd);
 	ft_exit_free(ms, 0);
 }
 
