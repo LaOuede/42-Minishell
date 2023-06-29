@@ -8,6 +8,36 @@ Definition :
 Prototype :
 	export [name[=value] ...]
 */
+char	**ft_export_var(char **env, char *cmd)
+{
+	char	**new_env;
+	int		i;
+	int		j;
+	int 	len_env;
+	int 	len_env2 = 0;
+
+
+	i = 0;
+	j = 0;
+	len_env = ft_get_ac(env);
+	printf("len: %d\n", len_env);
+	new_env = ft_calloc(len_env + 2, sizeof(char **));
+	printf("len2: %d\n", len_env2);
+	while(env[i])
+	{
+		new_env[j++] = ft_strdup(env[i++]);
+		// j++;
+		// i++;
+	}
+	printf("cmd; %s\n", cmd);
+	printf("j: %d\n", j);
+	new_env[j++] = ft_strdup(cmd);
+	new_env[j] = NULL;
+	printf("j: %d\n", j);
+	ft_free_tab_char(env);
+	return (new_env);
+}
+
 bool	ft_valid_ex(char *cmd)
 {
 	if ((!ft_isalpha(cmd[0]) && cmd[0] != '_') || !ft_strchr(cmd, '='))
@@ -21,7 +51,7 @@ void	ft_msh_export(t_ms *ms, char **cmd)
 	int	ac;
 	int i;
 	ac = ft_get_ac(cmd);
-
+	printf("ac; %d\n", ac);
 	i = 0;
 	if (ac == 1)
 		while ((ms->envp[++i]))
@@ -39,6 +69,10 @@ void	ft_msh_export(t_ms *ms, char **cmd)
 				return ;
 			}
 		}
+		printf("ft_export_var starts\n");
+		ms->envp = ft_export_var(ms->envp, cmd[i]);
+		printf("ft_export_var ends\n");
 		//TODO do the rest
+
 	}
 }
