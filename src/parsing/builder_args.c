@@ -45,7 +45,7 @@ void	ft_merge_all_arg(t_pars *pars)
 			if ((ptr1->type == ARG || ptr1->type == CMD || ptr1->type == ACCESS_ERR) && ptr2->type == ARG)
 			{
 				if (ptr2->ws == 1)
-					ptr1->str = ft_strjoin_char(ptr1->str, ' ');
+					ptr1->str = ft_strjoin_char(ptr1->str, 29);
 				ft_merge(ptr1, ptr2);
 				ptr2->type = ERROR;
 			}
@@ -148,64 +148,8 @@ void	ft_merge_arg(t_pars *pars)
 		printf(KYEL "-------------------- FT_MERGE_ARG" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
-void	ft_check_echo(t_ms *ms)
-{
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_CHECK_ECHO" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	int		i;
-	int		flag;
-	t_token	*ptr1;
-	t_token	*ptr2;
-
-	flag = 0;
-	ptr1 = ms->pars->line;
-	while (ptr1)
-	{
-		ptr2 = ptr1->next;
-		while (ptr2 && ptr2->type != PIPE)
-		{
-			printf("flag entrée = %d\n", flag);
-			printf("str = %s\n", ptr2->str);
-			printf("res = %d\n", ft_strncmp(ptr2->str, "-n", 2));
-			if (ptr2->type != ARG)
-					ptr2 = ptr2->next;
-			else if (ptr2->type == ARG && (ft_strncmp(ptr2->str, "-n", 2) == 0) && flag == 0)
-			{
-				i = 0;
-				while (ptr2->str[++i])
-					if (ptr2->str[i] != 'n')
-						flag = 1 ;
-				if (flag == 1)
-					while (ptr2 && ptr2->type != PIPE)
-						ptr2 = ptr2->next;
-				if (flag == 0)
-				{
-					ms->jct->echo = true;
-					ptr2->type = ERROR;
-					ptr2 = ptr2->next;
-				}
-				printf("flag sortie = %d\n", flag);
-			}
-			else
-			{
-				flag = 1;
-				while (ptr2 && ptr2->type != PIPE)
-						ptr2 = ptr2->next;
-			}
-		}
-		//flag = 0;
-		if (!ptr2)
-			break ;
-		ms->jct->echo = false;
-		ptr1 = ptr2->next;
-	}
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_CHECK_ECHO" KRED " END " RESET KYEL "--------------------\n" RESET);
-}
-
 void	ft_args(t_ms *ms)
 {
-	//ft_check_echo(ms);
 	ft_merge_arg(ms->pars);
 	ft_find_cmd(ms);
 	ft_merge_all_arg(ms->pars);

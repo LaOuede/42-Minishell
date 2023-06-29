@@ -60,7 +60,7 @@ int	ft_built_in(t_ms *ms, int i)
 {
 	int	builtin_fts;
 
-	ms->exec->builtin_cmd = ft_split(ms->jct->tab[i][0], ' ');
+	ms->exec->builtin_cmd = ft_split(ms->jct->tab[i][0], 29);
 	ms->exec->builtin_fts = ft_is_builtin(ms->exec->builtin_cmd);
 	builtin_fts = ms->exec->builtin_fts;
 	if (ms->jct->cmd_nb == 1 && builtin_fts != 0
