@@ -8,6 +8,19 @@ Definition :
 Prototype :
 	export [name[=value] ...]
 */
+
+// int		ft_find_index_var(t_ms *ms, char *cmd)
+// {
+// 	int i;
+
+// 	i = 0;
+// 	while(ms->envp[i])
+// 	{
+		
+// 		i++;
+// 	}
+// }
+
 char	**ft_export_var(t_ms *ms, char **env, char *cmd)
 {
 	char	**new_env;
@@ -24,11 +37,7 @@ char	**ft_export_var(t_ms *ms, char **env, char *cmd)
 	new_env = ft_calloc_msh(len_env + 2, sizeof(char *), ms);
 	printf("len2: %d\n", len_env2);
 	while(env[i])
-	{
 		new_env[j++] = ft_strdup(env[i++]);
-		// j++;
-		// i++;
-	}
 	printf("cmd; %s\n", cmd);
 	printf("j: %d\n", j);
 	new_env[j++] = ft_strdup(cmd);
@@ -41,8 +50,10 @@ char	**ft_export_var(t_ms *ms, char **env, char *cmd)
 bool	ft_valid_ex(char *cmd)
 {
 	if ((!ft_isalpha(cmd[0]) && cmd[0] != '_') || !ft_strchr(cmd, '='))
+	{
+		printf("export: %s not a valid identifier\n", cmd);
 		return (false);
-	// free(cmd);
+	}
 	return (true);
 }
 
@@ -62,12 +73,9 @@ void	ft_msh_export(t_ms *ms, char **cmd)
 		if (!ft_valid_ex(cmd[i]))
 		{
 			if (ms->jct->cmd_nb == 1)
-				ft_exit_free(ms, 1, 0);
-			else
-			{
-				ft_free_all(ms);
 				return ;
-			}
+			else
+				ft_exit_free(ms, 1, 0);
 		}
 		printf("ft_export_var starts\n");
 		ms->envp = ft_export_var(ms, ms->envp, cmd[i]);

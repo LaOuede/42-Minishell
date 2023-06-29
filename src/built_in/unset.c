@@ -65,12 +65,9 @@ void	ft_msh_unset(t_ms *ms, char **cmd)
 		if (!ft_isvalid(cmd[i]))
 		{
 			if (ms->jct->cmd_nb == 1)
-				ft_exit_free(ms, 1, 0);
-			else
-			{
-				ft_free_all(ms);
 				return ;
-			}
+			else
+				ft_exit_free(ms, 1, 0);
 		}
 		printf("[ft_msh_unset 2] cmd[%d] : %s\n", i, cmd[i]);
 		ms->envp = ft_unset(ms, ms->envp, ft_strjoin(cmd[i], "="));
