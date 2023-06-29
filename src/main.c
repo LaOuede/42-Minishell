@@ -45,7 +45,7 @@ t_ms	*ft_init_ms(char **envp)
 
 void	ft_minishell(t_ms *ms)
 {
-	banner();
+	//banner();
 	while (LOULOU_IS_MAGIC)
 	{
 		ft_init_sig(MAIN);
