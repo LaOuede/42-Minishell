@@ -90,4 +90,6 @@ void	ft_reset_pars(t_pars *pars);
 void	print_hd(t_pars *hd, int fd_hd);
 void	ft_merge_hd(t_pars *hd);
 
+void	banner(void);
+
 #endif

@@ -29,7 +29,6 @@ void	ft_reset_jct(t_jct *jct)
 	jct->echo = false;
 	jct->err_pars = false;
 	jct->flag_var = false;
-	jct->flag_err_var = false;
 }
 
 /*
@@ -52,6 +51,5 @@ t_jct	*ft_init_jct(char **envp)
 	jct->echo = false;
 	jct->err_pars = false;
 	jct->flag_var = false;
-	jct->flag_err_var = false;
 	return (jct);
 }

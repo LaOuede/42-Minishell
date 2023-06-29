@@ -80,10 +80,7 @@ char	*ft_find_envvar(char *str, t_ms *ms)
 	if (ms->pars->envp[i])
 		ms->jct->flag_var = true;
 	if (!ms->pars->envp[i])
-	{
-		ms->jct->flag_err_var = true;
 		return (NULL);
-	}
 	tmp = NULL;
 	len -= 1;
 	while (ms->pars->envp[i][len++])
@@ -138,8 +135,6 @@ void	ft_envvar(int *i, char *str, t_ms *ms)
 	ptr = ms->pars->line;
 	while (ptr)
 		ptr = ptr->next;
-/* 	if (DEBUG)
-		printf("ptr->str = %s\n", ptr->str); */
 	if (str[(*i)] == '$' && str[(*i) + 1] == '{')
 	{
 		if (ft_check_expand_brackets(str, ms) == true)
