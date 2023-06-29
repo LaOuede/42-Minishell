@@ -5,7 +5,7 @@
 <h1 align=center>Miniꞩhell</h1>
 
 <p align=center>
-Work in porgress...
+Work in progress...
 </p>
 
 <div align="center">
