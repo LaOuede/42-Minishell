@@ -55,6 +55,8 @@ void	ft_dup_and_run(t_ms *ms, int i, int builtin_fts)
 			printf("Input Error : Command not found\n");
 			return ;
 		}
+		if (ms->jct->fds_in[i] < 0)
+			exit(1);
 		ft_run_cmd(ms, i);
 	}
 }

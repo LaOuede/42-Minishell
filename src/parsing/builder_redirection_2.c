@@ -94,8 +94,6 @@ void	ft_open_hd(t_ms *ms)
 		{
 			if (DEBUG)
 				printf("file name or delimiter = %s\n", ptr->next->str);
-			if (ms->jct->fds_in[i])
-				close(ms->jct->fds_in[i]);
 			if (ft_strncmp(ptr->str, str, 2) == 0)
 				ft_exec_hd(ptr->next->str, ms);
 			if (DEBUG)

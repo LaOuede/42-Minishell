@@ -85,11 +85,9 @@ void	ft_msh_echo(t_ms *ms, char **cmd)
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_MSH_ECHO" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	int	i;
-	int	j;
 	int	nb;
 
 	i = 1;
-	j = 0;
 	nb = ft_get_ac(cmd) - 1;
 	if (cmd)
 	{
