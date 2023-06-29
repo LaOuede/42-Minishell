@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_freenull.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gwenolaleroux <gwenolaleroux@student.42    +#+  +:+       +#+        */
+/*   By: gle-roux <gle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:14:10 by csenand           #+#    #+#             */
-/*   Updated: 2023/05/23 21:37:00 by gwenolalero      ###   ########.fr       */
+/*   Updated: 2023/06/29 16:20:27 by gle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-void	ft_freenull(void *x)
+void	*ft_freenull(void *x)
 {
-	free(x);
-	x = 0;
+	if (x)
+		free(x);
+	return (NULL);
 }

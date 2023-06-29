@@ -49,9 +49,9 @@ char	**ft_get_path(t_ms *ms, char **envp, int i)
 	while (path_var[++i])
 	{
 		new_path_var[i] = ft_strjoin(path_var[i], "/");
-		ft_freenull(path_var[i]);
+		path_var[i] = ft_freenull(path_var[i]);
 	}
-	ft_freenull(path_var);
+	path_var = ft_freenull(path_var);
 	return (new_path_var);
 }
 
@@ -59,8 +59,7 @@ void	ft_reset_exec(t_ms *ms)
 {
 	ms->exec->input = 0;
 	ms->exec->output = 0;
-	ft_freenull(ms->exec->pids);
-	ms->exec->pids = 0;
+	ms->exec->pids = ft_freenull(ms->exec->pids);
 	ft_free_tab_int(ms->exec->pipes, ms->exec->pipes_nb);
 	ms->exec->pipes = 0;
 	ms->exec->pipes_nb = 0;

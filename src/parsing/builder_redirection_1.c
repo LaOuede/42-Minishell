@@ -12,21 +12,21 @@ bool	ft_test_cmd(t_pars *pars, t_token *node)
 	path = ft_strjoin("./", node->str);
 	if (access(path, F_OK | X_OK) == 0)
 	{
-		ft_freenull(path);
+		path = ft_freenull(path);
 		return (true);
 	}
 	if (path)
-		ft_freenull(path);
+		path = ft_freenull(path);
 	i = -1;
 	while (pars->path_var[++i])
 	{
 		path = ft_strjoin(pars->path_var[i], node->str);
 		if (access(path, F_OK | X_OK) == 0)
 		{
-			ft_freenull(path);
+			path = ft_freenull(path);
 			return (true);
 		}
-		ft_freenull(path);
+		path = ft_freenull(path);
 	}
 	return (false);
 }

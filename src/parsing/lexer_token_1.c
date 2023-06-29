@@ -34,7 +34,7 @@ void	ft_s_quotes_token(int *i, t_ms *ms)
 	{
 		ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, tmp, ms->pars));
 		ft_reset_node(ms->pars);
-		ft_freenull(tmp);
+		tmp = ft_freenull(tmp);
 	}
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_S_QUOTES_TOKEN" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
@@ -61,7 +61,7 @@ void	ft_char_quotes(int *i, char *str, t_ms *ms)
 	if (tmp)
 	{
 		ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, tmp, ms->pars));
-		ft_freenull(tmp);
+		tmp = ft_freenull(tmp);
 		ft_reset_node(ms->pars);
 	}
 	if (DEBUG)
@@ -131,7 +131,7 @@ void	ft_d_quotes_token(int *i, t_ms *ms)
 		else
 			ft_char_quotes(&j, str, ms);
 	}
-	ft_freenull(str);
+	str = ft_freenull(str);
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_D_QUOTES_TOKEN" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }
@@ -155,6 +155,6 @@ void	ft_token(int *i, t_ms *ms)
 	}
 	ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, tmp, ms->pars));
 	(*i)++;
-	ft_freenull(tmp);
+	tmp = ft_freenull(tmp);
 	ft_reset_node(ms->pars);
 }

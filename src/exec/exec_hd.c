@@ -24,7 +24,7 @@ void	ft_hd_parser(t_ms *ms)
 	{
 		tmp = ft_strdup("\n");
 		ft_add_token_bottom(&ms->hd->line, ft_create_node(ms, tmp, ms->hd));
-		ft_freenull(tmp);
+		tmp = ft_freenull(tmp);
 	}
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_HD_PARSER" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);

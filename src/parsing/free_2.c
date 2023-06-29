@@ -8,7 +8,7 @@ void	ft_free_child(t_ms *ms)
 			ft_free_pars(ms->pars);
 		if (ms->exec)
 			ft_free_exec(ms->exec);
-		ft_freenull(ms);
+		ms = ft_freenull(ms);
 	}
 }
 
@@ -26,6 +26,6 @@ void	ft_free_all(t_ms *ms)
 			ft_free_pars(ms->hd);
 		if (ms->envp)
 			ft_free_tab_char(ms->envp);
-		ft_freenull(ms);
+		ms = ft_freenull(ms);
 	}
 }

@@ -24,7 +24,7 @@ void	ft_get_expand_brackets_hd(int *i, char *str, t_ms *ms)
 		if (tmp)
 			ft_add_token_bottom(&ms->hd->line, ft_create_node(ms, tmp, ms->hd));
 	}
-	ft_freenull(tmp);
+	tmp = ft_freenull(tmp);
 	if (str[(*i)] != '}')
 		ms->hd->err_parser = true;
 	else
@@ -100,7 +100,7 @@ void	ft_str_hd(int *i, t_ms *ms)
 	if (tmp)
 	{
 		ft_add_token_bottom(&ms->hd->line, ft_create_node(ms, tmp, ms->hd));
-		ft_freenull(tmp);
+		tmp = ft_freenull(tmp);
 		ft_reset_node(ms->hd);
 	}
 	if (DEBUG){

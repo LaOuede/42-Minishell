@@ -59,4 +59,9 @@ void	ft_dup_and_run(t_ms *ms, int i, int builtin_fts)
 			ft_exit_free(ms, 1, 0);
 		ft_run_cmd(ms, i);
 	}
+	else
+	{
+		ft_free_tab_char(ms->exec->builtin_cmd);
+		ms->exec->builtin_cmd = NULL;
+	}
 }

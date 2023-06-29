@@ -11,7 +11,7 @@ char	*ft_cmd_path(t_exec *exec, char *cmds)
 	if (access(path, F_OK | X_OK) == 0)
 		return (path);
 	if (path)
-		ft_freenull(path);
+		path = ft_freenull(path);
 	i = -1;
 	while (exec->path_var[++i])
 	{
@@ -19,7 +19,7 @@ char	*ft_cmd_path(t_exec *exec, char *cmds)
 		if (access(path, F_OK | X_OK) == 0)
 			return (path);
 		if (path)
-			ft_freenull(path);
+			path = ft_freenull(path);
 	}
 	path = NULL;
 	return (path);

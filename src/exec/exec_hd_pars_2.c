@@ -62,7 +62,7 @@ void	ft_envvar_token_hd(int *i, char *str, t_ms *ms)
 		if (tmp)
 			ft_add_token_bottom(&ms->hd->line, ft_create_node(ms, tmp, ms->hd));
 	}
-	ft_freenull(tmp);
+	tmp = ft_freenull(tmp);
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_ENVVAR_TOKEN_HD" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }

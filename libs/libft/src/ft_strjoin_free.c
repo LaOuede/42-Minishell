@@ -6,7 +6,7 @@
 /*   By: gle-roux <gle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 08:48:10 by gle-roux          #+#    #+#             */
-/*   Updated: 2023/06/10 11:25:05 by gle-roux         ###   ########.fr       */
+/*   Updated: 2023/06/29 16:21:38 by gle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ char	*ft_strjoin_free(char *str1, char *str2)
 		new_str[j++] = str2[i++];
 	new_str[j] = '\0';
 	if (str1)
-		ft_freenull(str1);
+		str1 = ft_freenull(str1);
 	if (str2)
-		ft_freenull(str2);
+		str2 = ft_freenull(str2);
 	return (new_str);
 }

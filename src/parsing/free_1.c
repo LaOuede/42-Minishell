@@ -5,12 +5,12 @@ void	ft_free_pars(t_pars *pars)
 	if (pars)
 	{
 		if (pars->input)
-			ft_freenull(pars->input);
+			pars->input = ft_freenull(pars->input);
 		if (pars->line)
 			ft_free_lst(&pars->line);
 		if (pars->path_var)
 			ft_free_tab_char(pars->path_var);
-		ft_freenull(pars);
+		pars = ft_freenull(pars);
 	}
 }
 
@@ -25,7 +25,7 @@ void	ft_free_lst(t_token **lst)
 	while (ptr)
 	{
 		tmp = ptr->next;
-		ft_freenull(ptr->str);
+		ptr->str = ft_freenull(ptr->str);
 		free(ptr);
 		ptr = tmp;
 	}

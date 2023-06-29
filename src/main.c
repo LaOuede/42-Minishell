@@ -45,7 +45,7 @@ t_ms	*ft_init_ms(char **envp)
 
 void	ft_minishell(t_ms *ms)
 {
-	//banner();
+	banner();
 	while (LOULOU_IS_MAGIC)
 	{
 		ft_init_sig(MAIN);
@@ -72,7 +72,7 @@ Infinite loop to wait for user input
 int	main(int ac, char **av, char **envp)
 {
 	t_ms	*ms;
-	// printf("\n😈😈😈 Welcome to minishell ... or should I say " RED"🔥 MINIHELLLL 🔥 😈😈😈\n\n"WHT);
+
 	(void)av;
 	ms = ft_init_ms(envp);
 	if (ac != 1)

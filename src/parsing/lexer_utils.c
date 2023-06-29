@@ -100,7 +100,7 @@ char	*ft_strjoin_char(t_ms *ms, char *s1, char s2)
 	s3[len] = s2;
 	if (DEBUG)
 		printf("s3 = %s\n", s3);
-	ft_freenull(s1);
+	s1 = ft_freenull(s1);
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_STRJOIN_CHAR" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 	return (s3);

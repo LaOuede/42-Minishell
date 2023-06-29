@@ -10,7 +10,7 @@ void	ft_free_jct(t_jct *jct)
 			free(jct->fds_in);
 		if (jct->fds_out)
 			free(jct->fds_out);
-		ft_freenull(jct);
+		jct = ft_freenull(jct);
 	}
 }
 

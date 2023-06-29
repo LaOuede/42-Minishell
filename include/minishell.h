@@ -31,6 +31,9 @@
 # define ERR_ENV	"Error : env path not found\n"
 # define ERR_MEM	"Error : memory allocation failed\n"
 
+# ifndef EVALUATOR
+#  define EVALUATOR "Antoine"
+# endif
 # define DEBUG 0
 # define MAIN 42
 # define EXEC 666

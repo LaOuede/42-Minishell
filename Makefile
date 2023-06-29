@@ -4,9 +4,9 @@ NAME		=	minishell
 
 # -- Compilation Flag -- #
 CC			=	gcc
-# CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror
 # CFLAGS	=	-Wall -Wextra -Werror -g -Wunreachable-code -fsanitize=address
-CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
+# CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
 
 # -- Remove -- #
 RM			=	rm -rf
@@ -87,13 +87,15 @@ PURPLE		= 	\033[0;35m
 CYAN		= 	\033[0;36m
 ERASE_LINE 	= 	\033[2K\r
 
+EVALUATOR = $(shell whoami)
+
 # -- Executable's creation -- #
 all : dir readline $(NAME)
 
 # -- Compile library -- #
 $(NAME) : $(OBJS)
 	@make -C $(LIBFT_DIR)
-	@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(RLINE) -lncurses -o $(NAME)	
+	@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(RLINE) -lncurses -o $(NAME) -D EVALUATOR=\"$(EVALUATOR)\"
 	@echo "✅ $(GREEN)$(NAME)'s exectuable successfully created.		✅$(RESET)"
 #@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(RLINE) $(C_TOOLS) -lncurses -o $(NAME)	//TODO to remove
 

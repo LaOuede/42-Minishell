@@ -97,7 +97,7 @@ void	ft_find_cmd(t_ms *ms)
 				printf(ERR_ACCESS);
 				ms->flexit = 127;
 				ptr->type = ACCESS_ERR;
-				ft_freenull(ptr->str);
+				ptr->str = ft_freenull(ptr->str);
 				ptr->str = ft_strdup("ERROR");
 			}
 			flag = false;

@@ -37,7 +37,7 @@ void	ft_char(int *i, t_ms *ms)
 	if (tmp)
 	{
 		ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, tmp, ms->pars));
-		ft_freenull(tmp);
+		tmp = ft_freenull(tmp);
 		ft_reset_node(ms->pars);
 	}
 	if (DEBUG){
