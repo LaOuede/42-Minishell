@@ -47,16 +47,16 @@ void	ft_dup_and_run(t_ms *ms, int i, int builtin_fts)
 		if (builtin_fts)
 		{
 			ms->exec->builtin->fts[builtin_fts](ms, ms->exec->builtin_cmd);
-			ft_exit_free(ms, 0);
+			ft_exit_free(ms, 0, 0);
 		}
-		ms->exec->path_var = ft_get_path(ms->envp, 0);
+		ms->exec->path_var = ft_get_path(ms, ms->envp, 0);
 		if (!ms->exec->path_var)
 		{
 			printf("Input Error : Command not found\n");
 			return ;
 		}
 		if (ms->jct->fds_in[i] < 0)
-			ft_exit_free(ms, 1);
+			ft_exit_free(ms, 1, 0);
 		ft_run_cmd(ms, i);
 	}
 }

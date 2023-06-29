@@ -129,8 +129,8 @@ void	ft_merge_angle_brackets_in(t_pars *pars)
 */
 void	ft_redirection(t_ms *ms)
 {
-	ms->jct->fds_in = ft_calloc(ms->pars->nb_pipe, sizeof(int));
-	ms->jct->fds_out = ft_calloc(ms->pars->nb_pipe, sizeof(int));
+	ms->jct->fds_in = ft_calloc_msh(ms->pars->nb_pipe, sizeof(int), ms);
+	ms->jct->fds_out = ft_calloc_msh(ms->pars->nb_pipe, sizeof(int), ms);
 	ft_merge_angle_brackets_in(ms->pars);
 	ft_merge_angle_brackets_out(ms->pars);
 	ft_check_error_redir(ms);
@@ -140,7 +140,7 @@ void	ft_redirection(t_ms *ms)
 		ft_open_file(ms);
 		if (ms->pars->err_infile == false)
 			ft_create_file(ms);
-		ft_merge_red(ms->pars);
-		ft_merge_all_red(ms->pars);
+		ft_merge_red(ms);
+		ft_merge_all_red(ms);
 	}
 }

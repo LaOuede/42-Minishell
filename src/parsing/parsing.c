@@ -3,11 +3,11 @@
 /*
 Initialization of the char ***tab.
 */
-t_tab	*ft_init_tab(t_pars *pars)
+t_tab	*ft_init_tab(t_ms *ms, t_pars *pars)
 {
 	t_tab	*tab;
 
-	tab = ft_calloc(1, sizeof(t_tab));
+	tab = ft_calloc_msh(1, sizeof(t_tab), ms);
 	tab->ptr = pars->line;
 	tab->r = -1;
 	tab->c = -1;
@@ -47,11 +47,11 @@ t_pars	*ft_init_pars(t_ms *ms)
 {
 	t_pars	*pars;
 
-	pars = ft_calloc(1, sizeof(t_pars));
+	pars = ft_calloc_msh(1, sizeof(t_pars), ms);
 	pars->line = NULL;
 	pars->input = NULL;
 	pars->envp = ms->envp;
-	pars->path_var = ft_get_path(pars->envp, 0);
+	pars->path_var = ft_get_path(ms, pars->envp, 0);
 	pars->strlen = 0;
 	pars->nb_pipe = 1;
 	pars->type = ARG;

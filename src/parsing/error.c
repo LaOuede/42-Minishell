@@ -29,6 +29,13 @@ void	ft_error(char *err_msg)
 		write(STDERR_FILENO, err_msg, ft_strlen(err_msg));
 }
 
+void	ft_error_exit(char *err_msg, int exit_code)
+{
+	if (err_msg)
+		write(STDERR_FILENO, err_msg, ft_strlen(err_msg));
+	exit(exit_code);
+}
+
 void	ft_clean_up_jct(char *err_msg, t_jct *jct)
 {
 	if (jct)

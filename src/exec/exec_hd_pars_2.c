@@ -49,18 +49,18 @@ void	ft_envvar_token_hd(int *i, char *str, t_ms *ms)
 
 	tmp = NULL;
 	while (ft_isenvvarchar(str[++(*i)]))
-		tmp = ft_stock_char(tmp, str[(*i)]);
+		tmp = ft_stock_char(ms, tmp, str[(*i)]);
 	if (!tmp)
 	{
-		tmp = ft_stock_char(tmp, '$');
-		ft_add_token_bottom(&ms->hd->line, ft_create_node(tmp, ms->hd));
+		tmp = ft_stock_char(ms, tmp, '$');
+		ft_add_token_bottom(&ms->hd->line, ft_create_node(ms, tmp, ms->hd));
 	}
 	else
 	{
-		tmp = ft_stock_char(tmp, '=');
+		tmp = ft_stock_char(ms, tmp, '=');
 		tmp = ft_find_envvar(tmp, ms);
 		if (tmp)
-			ft_add_token_bottom(&ms->hd->line, ft_create_node(tmp, ms->hd));
+			ft_add_token_bottom(&ms->hd->line, ft_create_node(ms, tmp, ms->hd));
 	}
 	ft_freenull(tmp);
 	if (DEBUG)

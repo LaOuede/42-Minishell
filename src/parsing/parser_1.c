@@ -81,7 +81,7 @@ void	ft_parser(t_ms *ms)
 		if (DEBUG)
 			printf("ms->jct->cmd_nb = %d\n", ms->jct->cmd_nb);
 		ft_init_cmdtab(ms);
-		tab = ft_init_tab(ms->pars);
+		tab = ft_init_tab(ms, ms->pars);
 		ft_fill_tab(ms, tab);
 		free(tab);
 		if (DEBUG)

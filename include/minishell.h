@@ -29,6 +29,7 @@
 # define ERR_EXI2	"Usage error : exit: numeric argument required\n"
 # define ERR_HD		"Usage error : bad substitution\n"
 # define ERR_ENV	"Error : env path not found\n"
+# define ERR_MEM	"Error : memory allocation failed\n"
 
 # define DEBUG 0
 # define MAIN 42
@@ -62,10 +63,10 @@ typedef struct s_jct
 }			t_jct;
 
 t_ms	*ft_init_ms(char **envp);
-void	ft_exit_free(t_ms *ms, int flexit);
+void	ft_exit_free(t_ms *ms, int flexit, char *err);
 
 /* 		Jct functions 							*/
-t_jct	*ft_init_jct(char **envp);
+t_jct	*ft_init_jct(t_ms *ms, char **envp);
 void	ft_free_jct(t_jct *jct);
 void	ft_free_child(t_ms *ms);
 void	ft_free_all(t_ms *ms);
@@ -87,5 +88,6 @@ void	print_hd(t_pars *hd, int fd_hd);
 void	ft_merge_hd(t_pars *hd);
 
 void	banner(void);
+void	*ft_calloc_msh(size_t count, size_t size, t_ms *ms);
 
 #endif

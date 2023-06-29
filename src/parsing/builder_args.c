@@ -28,15 +28,14 @@ void	ft_check_access(t_ms *ms)
 		printf(KYEL "-------------------- FT_CHECK_ACCESS" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
-void	ft_merge_all_arg(t_pars *pars)
+void	ft_merge_all_arg(t_ms *ms)
 {
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_MERGE_ALL_ARG" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr1;
 	t_token	*ptr2;
 
-	ptr1 = pars->line;
-	ptr2 = pars->line;
+	ptr1 = ms->pars->line;
 	while (ptr1->next != NULL)
 	{
 		ptr2 = ptr1->next;
@@ -45,7 +44,7 @@ void	ft_merge_all_arg(t_pars *pars)
 			if ((ptr1->type == ARG || ptr1->type == CMD || ptr1->type == ACCESS_ERR) && ptr2->type == ARG)
 			{
 				if (ptr2->ws == 1)
-					ptr1->str = ft_strjoin_char(ptr1->str, 29);
+					ptr1->str = ft_strjoin_char(ms, ptr1->str, 29);
 				ft_merge(ptr1, ptr2);
 				ptr2->type = ERROR;
 			}
@@ -152,6 +151,6 @@ void	ft_args(t_ms *ms)
 {
 	ft_merge_arg(ms->pars);
 	ft_find_cmd(ms);
-	ft_merge_all_arg(ms->pars);
+	ft_merge_all_arg(ms);
 	ft_check_access(ms);
 }

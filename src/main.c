@@ -2,6 +2,20 @@
 
 #define LOULOU_IS_MAGIC 1
 
+void	*ft_calloc_msh(size_t count, size_t size, t_ms *ms)
+{
+	size_t	i;
+	char	*dest;
+
+	dest = (void *)malloc(size * count);
+	if (!dest)
+		ft_exit_free(ms, 666, ERR_MEM);
+	i = 0;
+	while (i < (count * size))
+		dest[i++] = 0;
+	return (dest);
+}
+
 t_ms	*ft_init_ms(char **envp)
 {
 	static t_ms	*ms;
@@ -15,10 +29,12 @@ t_ms	*ft_init_ms(char **envp)
 			exit(1);
 		}
 		ms = ft_calloc(1, sizeof(t_ms));
+		if (!ms)
+			ft_error_exit(ERR_MEM, 666);
 		ms->envp = NULL;
 		ft_copy_env(ms, envp);
 		ms->envp = ft_sort_parrams(ms->envp);
-		ms->jct = ft_init_jct(envp);
+		ms->jct = ft_init_jct(ms, envp);
 		ms->pars = ft_init_pars(ms);
 		ms->exec = ft_init_exec(ms);
 		ms->hd = NULL;
@@ -37,7 +53,7 @@ void	ft_minishell(t_ms *ms)
 		if (!ms->pars->input)
 		{
 			printf("exit");
-			ft_exit_free(ms, 0);
+			ft_exit_free(ms, 0, 0);
 		}
 		add_history(ms->pars->input);
 		ft_parsing(ms);
@@ -45,7 +61,7 @@ void	ft_minishell(t_ms *ms)
 			ft_exec(ms);
 		ft_reset_jct(ms->jct);
 	}
-	ft_exit_free(ms, 0);
+	ft_exit_free(ms, 0, 0);
 }
 
 /*

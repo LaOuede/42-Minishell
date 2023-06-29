@@ -8,20 +8,20 @@ Definition :
 Prototype :
 	export [name[=value] ...]
 */
-char	**ft_export_var(char **env, char *cmd)
+char	**ft_export_var(t_ms *ms, char **env, char *cmd)
 {
 	char	**new_env;
 	int		i;
 	int		j;
-	int 	len_env;
-	int 	len_env2 = 0;
+	int		len_env;
+	int		len_env2 = 0;
 
 
 	i = 0;
 	j = 0;
 	len_env = ft_get_ac(env);
 	printf("len: %d\n", len_env);
-	new_env = ft_calloc(len_env + 2, sizeof(char **));
+	new_env = ft_calloc_msh(len_env + 2, sizeof(char *), ms);
 	printf("len2: %d\n", len_env2);
 	while(env[i])
 	{
@@ -62,7 +62,7 @@ void	ft_msh_export(t_ms *ms, char **cmd)
 		if (!ft_valid_ex(cmd[i]))
 		{
 			if (ms->jct->cmd_nb == 1)
-				ft_exit_free(ms, 1);
+				ft_exit_free(ms, 1, 0);
 			else
 			{
 				ft_free_all(ms);
@@ -70,7 +70,7 @@ void	ft_msh_export(t_ms *ms, char **cmd)
 			}
 		}
 		printf("ft_export_var starts\n");
-		ms->envp = ft_export_var(ms->envp, cmd[i]);
+		ms->envp = ft_export_var(ms, ms->envp, cmd[i]);
 		printf("ft_export_var ends\n");
 		//TODO do the rest
 	}

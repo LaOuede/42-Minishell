@@ -33,12 +33,12 @@ void	ft_reset_jct(t_jct *jct)
 Initialization of the junction structure.
 This structure holds all important data needed both in parsing and execution.
 */
-t_jct	*ft_init_jct(char **envp)
+t_jct	*ft_init_jct(t_ms *ms, char **envp)
 {
 	t_jct	*jct;
 
 	(void)envp;
-	jct = ft_calloc(1, sizeof(t_jct));
+	jct = ft_calloc_msh(1, sizeof(t_jct), ms);
 	jct->fds_in = NULL;
 	jct->fds_out = NULL;
 	jct->tab = NULL;

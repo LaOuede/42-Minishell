@@ -58,7 +58,7 @@ void	sig_hd_handler(int sig)
 	(void)sig;
 	ms = ft_init_ms(0);
 	ft_putchar_fd('\n', STDOUT_FILENO);
-	ft_exit_free(ms, 1);
+	ft_exit_free(ms, 1, 0);
 }
 
 void	ft_init_sig(int phase)

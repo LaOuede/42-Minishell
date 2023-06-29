@@ -1,13 +1,13 @@
 #include "../../include/minishell.h"
 
-void	ft_merge_all_red(t_pars *pars)
+void	ft_merge_all_red(t_ms *ms)
 {
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_MERGE_ALLREDOUT" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr1;
 	t_token	*ptr2;
 
-	ptr1 = pars->line;
+	ptr1 = ms->pars->line;
 	while (ptr1->next != NULL)
 	{
 		ptr2 = ptr1->next;
@@ -15,13 +15,13 @@ void	ft_merge_all_red(t_pars *pars)
 		{
 			if (ptr1->type == REDOUT && ptr2->type == REDOUT)
 			{
-				ptr1->str = ft_strjoin_char(ptr1->str, ' ');
+				ptr1->str = ft_strjoin_char(ms, ptr1->str, ' ');
 				ft_merge(ptr1, ptr2);
 				ptr2->type = ERROR;
 			}
 			else if (ptr1->type == REDIN && ptr2->type == REDIN)
 			{
-				ptr1->str = ft_strjoin_char(ptr1->str, ' ');
+				ptr1->str = ft_strjoin_char(ms, ptr1->str, ' ');
 				ft_merge(ptr1, ptr2);
 				ptr2->type = ERROR;
 			}
@@ -148,20 +148,20 @@ void	ft_open_file(t_ms *ms)
 		printf(KYEL "-------------------- FT_OPEN_FILE" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
 
-void	ft_merge_red(t_pars *pars)
+void	ft_merge_red(t_ms *ms)
 {
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_MERGE_RED" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	t_token	*ptr;
 	t_token	*sup;
 
-	ptr = pars->line;
+	ptr = ms->pars->line;
 	sup = NULL;
 	while (ptr->next)
 	{
 		if ((ptr->type == REDIN || ptr->type == REDOUT) && ptr->next->type == ARG)
 		{
-			ptr->str = ft_strjoin_char(ptr->str, ' ');
+			ptr->str = ft_strjoin_char(ms, ptr->str, ' ');
 			ft_merge(ptr, ptr->next);
 			sup = ptr->next;
 			if (ptr->next->next)

@@ -11,18 +11,18 @@ void	ft_get_expand_brackets(int *i, char *str, t_ms *ms)
 	if (DEBUG)
 		printf("char get expand = %c\n", str[(*i)]);
 	while (ft_isenvvarchar(str[++(*i)]))
-		tmp = ft_stock_char(tmp, str[(*i)]);
+		tmp = ft_stock_char(ms, tmp, str[(*i)]);
 	if (!tmp)
 	{
-		tmp = ft_stock_char(tmp, '$');
+		tmp = ft_stock_char(ms, tmp, '$');
 		(*i)++;
 	}
 	else
 	{
-		tmp = ft_stock_char(tmp, '=');
+		tmp = ft_stock_char(ms, tmp, '=');
 		tmp = ft_find_envvar(tmp, ms);
 		if (tmp)
-			ft_add_token_bottom(&ms->pars->line, ft_create_node(tmp, ms->pars));
+			ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, tmp, ms->pars));
 	}
 	ft_freenull(tmp);
 	if (str[(*i)] != '}')
@@ -84,7 +84,7 @@ char	*ft_find_envvar(char *str, t_ms *ms)
 	tmp = NULL;
 	len -= 1;
 	while (ms->pars->envp[i][len++])
-		tmp = ft_stock_char(tmp, ms->pars->envp[i][len]);
+		tmp = ft_stock_char(ms, tmp, ms->pars->envp[i][len]);
 	ft_freenull(str);
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_FIND_ENVVAR" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
@@ -103,18 +103,18 @@ void	ft_envvar_token(int *i, char *str, t_ms *ms)
 
 	tmp = NULL;
 	while (ft_isenvvarchar(str[++(*i)]))
-		tmp = ft_stock_char(tmp, str[(*i)]);
+		tmp = ft_stock_char(ms, tmp, str[(*i)]);
 	if (!tmp)
 	{
-		tmp = ft_stock_char(tmp, '$');
-		ft_add_token_bottom(&ms->pars->line, ft_create_node(tmp, ms->pars));
+		tmp = ft_stock_char(ms, tmp, '$');
+		ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, tmp, ms->pars));
 	}
 	else
 	{
-		tmp = ft_stock_char(tmp, '=');
+		tmp = ft_stock_char(ms, tmp, '=');
 		tmp = ft_find_envvar(tmp, ms);
 		if (tmp)
-			ft_add_token_bottom(&ms->pars->line, ft_create_node(tmp, ms->pars));
+			ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, tmp, ms->pars));
 	}
 	ft_freenull(tmp);
 	if (DEBUG)
@@ -145,7 +145,7 @@ void	ft_envvar(int *i, char *str, t_ms *ms)
 	else if (str[(*i)] == '$' && str[(*i) + 1] == '?')
 	{
 		(*i) += 2;
-		ft_add_token_bottom(&ms->pars->line, ft_create_node(ft_itoa(ms->flexit), ms->pars));
+		ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, ft_itoa(ms->flexit), ms->pars));
 	}
 	else
 		ft_envvar_token(i, str, ms);

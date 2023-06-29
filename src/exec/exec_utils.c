@@ -8,7 +8,7 @@ void	ft_copy_env(t_ms *ms, char **envp)
 	i = 0;
 	while (envp[i])
 		i++;
-	ms->envp = ft_calloc(sizeof(char **), i + 1);
+	ms->envp = ft_calloc_msh(sizeof(char *), i + 1, ms);
 	i = -1;
 	j = 0;
 	while (envp[++i])
@@ -26,7 +26,7 @@ int	ft_path_var_qty(char **path_var)
 	return (i);
 }
 
-char	**ft_get_path(char **envp, int i)
+char	**ft_get_path(t_ms *ms, char **envp, int i)
 {
 	char	**path_var;
 	char	**new_path_var;
@@ -42,7 +42,7 @@ char	**ft_get_path(char **envp, int i)
 	path_var = ft_split(&envp[i][5], ':');
 	if (!path_var)
 		return (NULL);
-	new_path_var = ft_calloc(ft_path_var_qty(path_var) + 1, sizeof(char *));
+	new_path_var = ft_calloc_msh(ft_path_var_qty(path_var) + 1, sizeof(char *), ms);
 	if (!new_path_var)
 		return (NULL);
 	i = -1;
@@ -74,7 +74,7 @@ t_exec	*ft_init_exec(t_ms *ms)
 {
 	t_exec	*exec;
 
-	exec = ft_calloc(1, sizeof(t_exec));
+	exec = ft_calloc_msh(1, sizeof(t_exec), ms);
 	exec->envp = ms->envp;
 	exec->path_var = NULL;
 	exec->input = 0;
