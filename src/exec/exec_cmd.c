@@ -40,7 +40,6 @@ void	ft_run_cmd(t_ms *ms, int r)
 		ft_free_all(ms);
 		exit(127);
 	}
-	ft_free_child(ms);
 	if (execve(path, opt, envp) < 0)
 	{
 		perror("Error! Something went wrong while executing");
