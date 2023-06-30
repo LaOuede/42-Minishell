@@ -107,6 +107,13 @@ void	ft_envvar_token(int *i, char *str, t_ms *ms)
 	char	*tmp;
 
 	tmp = NULL;
+	if (str[(*i + 1)] == '\"' || str[(*i + 1)] == '\'')
+	{
+		(*i)++;
+		tmp = ft_stock_char(ms, tmp, 29);
+		ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, tmp, ms->pars));
+		return ;
+	}
 	while (ft_isenvvarchar(str[++(*i)]))
 		tmp = ft_stock_char(ms, tmp, str[(*i)]);
 	if (!tmp)
@@ -118,8 +125,7 @@ void	ft_envvar_token(int *i, char *str, t_ms *ms)
 	{
 		tmp = ft_stock_char(ms, tmp, '=');
 		tmp = ft_find_envvar(tmp, ms);
-		if (tmp)
-			ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, tmp, ms->pars));
+		ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, tmp, ms->pars));
 	}
 	tmp = ft_freenull(tmp);
 	if (DEBUG)
