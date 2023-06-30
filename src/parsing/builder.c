@@ -34,7 +34,7 @@ void	ft_clean_list(t_token **list)
 	ptr = *list;
 	while (ptr)
 	{
-		if (ptr->next && ptr->next->type == ERROR)
+		if (ptr->next && (ptr->next->type == ERROR || ptr->next->str[0] == 29))
 		{
 			sup = ptr->next;
 			if (ptr->next->next)

@@ -52,7 +52,7 @@ void	ft_check_error_redir(t_ms *ms)
 				ms->pars->fl_red = true;
 				ft_error_parsing(ERR_TOKEN, REBUILDER, 2, ms);
 			}
-			else if (ms->pars->fl_red == 0 && !ptr->next)
+			else if (ms->pars->fl_red == 0 && (!ptr->next || ptr->next->str[0] == 29))
 			{
 				ms->pars->fl_red = true;
 				ft_error_parsing(ERR_TOKEN, REBUILDER, 2, ms);

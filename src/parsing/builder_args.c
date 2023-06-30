@@ -132,7 +132,8 @@ void	ft_merge_arg(t_pars *pars)
 		ptr2 = ptr1->next;
 		while (ptr2 && ptr2->type != PIPE)
 		{
-			if (ptr1->type == ARG && ptr2->type == ARG && ptr2->ws == 0)
+			if (ptr1->type == ARG && ptr2->type == ARG \
+				&& (ptr2->ws == 0 && ptr2->str[0] != 29))
 			{
 				ft_merge(ptr1, ptr2);
 				ptr2->type = ERROR;
