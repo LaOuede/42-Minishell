@@ -50,12 +50,12 @@ void	ft_check_error_redir(t_ms *ms)
 				|| (ptr->next && ptr->next->type == REDOUT)))
 			{
 				ms->pars->fl_red = true;
-				ft_error_parsing(ERR_TOKEN, REBUILDER, 2, ms);
+				ft_error_parsing(ERR_TOKEN, REBUILDER, 258, ms);
 			}
 			else if (ms->pars->fl_red == 0 && (!ptr->next || ptr->next->str[0] == 29))
 			{
 				ms->pars->fl_red = true;
-				ft_error_parsing(ERR_TOKEN, REBUILDER, 2, ms);
+				ft_error_parsing(ERR_TOKEN, REBUILDER, 258, ms);
 			}
 		}
 		ptr = ptr->next;
