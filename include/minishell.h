@@ -37,7 +37,7 @@
 # ifndef BANNER
 #  define BANNER "color"
 # endif
-# define DEBUG 0
+# define DEBUG 1
 # define MAIN 42
 # define EXEC 666
 # define HD 7

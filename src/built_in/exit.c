@@ -18,7 +18,6 @@ void	ft_msh_exit(t_ms *ms, char **cmd)
 	ac = ft_get_ac(cmd);
 	if (ac > 2)
 	{
-		ft_banner_exit(ms);
 		ft_error(ERR_EXI1);
 		// ft_free_all(ms);
 		return ;
@@ -26,7 +25,11 @@ void	ft_msh_exit(t_ms *ms, char **cmd)
 	if (ac == 2)
 	{
 		if (ft_str_isdigit(cmd[1]) == false)
+		{
+			ft_banner_exit(ms);
+			ft_error(ERR_EXI1);
 			ft_exit_free(ms, 255, ERR_EXI2);
+		}
 		if (0 <= ft_atoi(cmd[1]) && ft_atoi(cmd[1]) <= 255)
 			ms->flexit = ft_atoi(cmd[1]) % 256;
 		// ft_free_tab_char(cmd);
