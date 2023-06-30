@@ -75,16 +75,16 @@ char	*ft_find_envvar(char *str, t_ms *ms)
 
 	i = 0;
 	len = ft_strlen(str);
-	while (ms->pars->envp[i] && ft_strncmp(ms->pars->envp[i], str, len) != 0)
+	while (ms->envp[i] && ft_strncmp(ms->envp[i], str, len) != 0)
 		i++;
-	if (ms->pars->envp[i])
+	if (ms->envp[i])
 		ms->jct->flag_var = true;
-	if (!ms->pars->envp[i])
+	if (!ms->envp[i])
 		return (NULL);
 	tmp = NULL;
 	len -= 1;
-	while (ms->pars->envp[i][len++])
-		tmp = ft_stock_char(ms, tmp, ms->pars->envp[i][len]);
+	while (ms->envp[i][len++])
+		tmp = ft_stock_char(ms, tmp, ms->envp[i][len]);
 	str = ft_freenull(str);
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_FIND_ENVVAR" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);

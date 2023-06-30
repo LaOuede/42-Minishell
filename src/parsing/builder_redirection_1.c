@@ -46,11 +46,17 @@ void	ft_check_error_redir(t_ms *ms)
 		if (ptr->type == REDIN || ptr->type == REDOUT)
 		{
 			len = ft_strlen(ptr->str);
-			if (len > 2 || (ptr->next && ptr->next->type == REDIN) \
-				|| (ptr->next && ptr->next->type == REDOUT))
+			if (ms->pars->fl_red == 0 && (len > 2 || (ptr->next && ptr->next->type == REDIN) \
+				|| (ptr->next && ptr->next->type == REDOUT)))
+			{
+				ms->pars->fl_red = 1;
 				ft_error_parsing(ERR_TOKEN, REBUILDER, 2, ms);
-			if (!ptr->next)
+			}
+			else if (ms->pars->fl_red == 0 && !ptr->next)
+			{
+				ms->pars->fl_red = 1;
 				ft_error_parsing(ERR_TOKEN, REBUILDER, 2, ms);
+			}
 		}
 		ptr = ptr->next;
 	}

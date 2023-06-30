@@ -36,6 +36,7 @@ void	ft_reset_pars(t_pars *pars)
 	pars->c_brackets = 0;
 	pars->fl_ws = 0;
 	pars->hd = 0;
+	pars->fl_red = false;
 	pars->err_infile = false;
 	pars->err_lexer = false;
 	pars->err_builder = false;
