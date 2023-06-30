@@ -9,17 +9,26 @@ Prototype :
 	export [name[=value] ...]
 */
 
-// int		ft_find_index_var(t_ms *ms, char *cmd)
-// {
-// 	int i;
+int		ft_find_index_var(t_ms *ms, char *cmd)
+{
+	int i;
+	int	len;
+	(void)ms;
 
-// 	i = 0;
-// 	while(ms->envp[i])
-// 	{
-// 		if (ft_strncmp())
-// 		i++;
-// 	}
-// }
+	printf("[ft_find_inndex_var] cmd: %s\n", cmd);
+	len = 0;
+	while(cmd[len] != '=')
+		len++;
+	printf("len till the '=' sign: %d\n", len);
+	i = 0;
+	while(ms->envp[i])
+	{
+		if(!ft_strncmp(ms->envp[i], cmd, len + 1))
+			return (i);
+		i++;
+	}
+	return (0);
+}
 
 char	**ft_export_var(t_ms *ms, char **env, char *cmd)
 {
@@ -61,6 +70,8 @@ void	ft_msh_export(t_ms *ms, char **cmd)
 {
 	int	ac;
 	int i;
+	int	index_var;
+
 	ac = ft_get_ac(cmd);
 	printf("ac; %d\n", ac);
 	i = 0;
@@ -78,6 +89,8 @@ void	ft_msh_export(t_ms *ms, char **cmd)
 				ft_exit_free(ms, 1, 0);
 		}
 		printf("ft_export_var starts\n");
+		index_var = ft_find_index_var(ms, cmd[i]);
+		printf("index_var: %d\n", index_var);
 		ms->envp = ft_export_var(ms, ms->envp, cmd[i]);
 		printf("ft_export_var ends\n");
 		//TODO do the rest

@@ -41,8 +41,14 @@ void	ft_dup_proc(t_ms *ms, int i)
 
 void	ft_dup_and_run(t_ms *ms, int i, int builtin_fts)
 {
+	int j;
+	
 	if (ms->exec->pids[i] == 0)
 	{
+		j = -1;
+		while (++j < ms->jct->cmd_nb)
+			if (ms->jct->fds_in[j] < 0)
+				ft_exit_free(ms, 1, 0);
 		ft_dup_proc(ms, i);
 		if (builtin_fts)
 		{
@@ -55,8 +61,6 @@ void	ft_dup_and_run(t_ms *ms, int i, int builtin_fts)
 			printf("Input Error : Command not found\n");
 			return ;
 		}
-		if (ms->jct->fds_in[i] < 0)
-			ft_exit_free(ms, 1, 0);
 		ft_run_cmd(ms, i);
 	}
 	else
