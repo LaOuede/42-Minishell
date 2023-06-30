@@ -13,7 +13,10 @@ void	ft_check_pipe(t_ms *ms)
 
 	ptr = ms->pars->line;
 	if (ptr->type == PIPE)
+	{
+		ms->pars->fl_pipe = true;
 		ft_error_parsing(ERR_TOKEN, PARSER, 2, ms);
+	}
 	while (ptr->next)
 	{
 		if (DEBUG)
@@ -21,15 +24,16 @@ void	ft_check_pipe(t_ms *ms)
 			printf("str = %s\n", ptr->str);
 			printf("str next = %s\n", ptr->next->str);
 		}
-		if (ptr->type == PIPE && ptr->next->type == PIPE)
+		if (ms->pars->fl_pipe == false && ptr->type == PIPE && ptr->next->type == PIPE)
 		{
+			ms->pars->fl_pipe = true;
 			ft_error_parsing(ERR_TOKEN, PARSER, 2, ms);
 			break ;
 		}
 		else
 			ptr = ptr->next;
 	}
-	if (ptr->next == NULL && ptr->type == PIPE)
+	if (ms->pars->fl_pipe == false && ptr->next == NULL && ptr->type == PIPE)
 		ft_error_parsing(ERR_TOKEN, PARSER, 2, ms);
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_CHECK_PIPE" KRED " END " RESET KYEL "--------------------\n" RESET);

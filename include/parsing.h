@@ -91,6 +91,7 @@ typedef struct s_pars
 	int				fl_ws;
 	int				hd;
 	bool			fl_red;
+	bool			fl_pipe;
 	bool			err_infile;
 	bool			err_lexer;
 	bool			err_builder;
