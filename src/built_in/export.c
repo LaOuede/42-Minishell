@@ -16,7 +16,7 @@ Prototype :
 // 	i = 0;
 // 	while(ms->envp[i])
 // 	{
-		
+// 		if (ft_strncmp())
 // 		i++;
 // 	}
 // }
