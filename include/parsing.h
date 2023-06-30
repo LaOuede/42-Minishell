@@ -90,6 +90,7 @@ typedef struct s_pars
 	int				c_brackets;
 	int				fl_ws;
 	int				hd;
+	bool			fl_red;
 	bool			err_infile;
 	bool			err_lexer;
 	bool			err_builder;
