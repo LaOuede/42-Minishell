@@ -90,7 +90,8 @@ void	ft_reset_pars(t_pars *pars);
 void	print_hd(t_pars *hd, int fd_hd);
 void	ft_merge_hd(t_pars *hd);
 
-void	banner(void);
+void	ft_banner_start(void);
+void	ft_banner_exit(void);
 void	*ft_calloc_msh(size_t count, size_t size, t_ms *ms);
 
 #endif

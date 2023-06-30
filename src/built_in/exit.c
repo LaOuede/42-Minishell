@@ -18,6 +18,7 @@ void	ft_msh_exit(t_ms *ms, char **cmd)
 	ac = ft_get_ac(cmd);
 	if (ac > 2)
 	{
+		ft_banner_exit();
 		ft_error(ERR_EXI1);
 		ft_free_all(ms);
 		exit(1);
@@ -29,9 +30,11 @@ void	ft_msh_exit(t_ms *ms, char **cmd)
 		if (0 <= ft_atoi(cmd[1]) && ft_atoi(cmd[1]) <= 255)
 			ms->flexit = ft_atoi(cmd[1]) % 256;
 		ft_free_tab_char(cmd);
+		ft_banner_exit();
 		ft_exit_free(ms, ms->flexit, 0);
 	}
 	ft_free_tab_char(cmd);
+	ft_banner_exit();
 	ft_exit_free(ms, 0, 0);
 	printf(KYEL "-------------------- FT_MSH_EXIT" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
