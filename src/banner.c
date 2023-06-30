@@ -1,22 +1,7 @@
 #include "../include/minishell.h"
 
-/* void	banner(void)
-{
-	printf("\n");
-	printf(KGRE " ███▄ ▄███▓ ██▓ ███▄    █  ██▓  ██████  ██░ ██ ▓█████  ██▓     ██▓    \n");
-	printf("▓██▒▀█▀ ██▒▓██▒ ██ ▀█   █ ▓██▒▒██    ▒ ▓██░ ██▒▓█   ▀ ▓██▒    ▓██▒    \n");
-	printf(KRED KBLD"▓██    ▓██░▒██▒▓██  ▀█ ██▒▒██▒░ ▓██▄   ▒██▀▀██░▒███   ▒██░    ▒██░    \n" RESET);
-	printf("▒██    ▒██ ░██░▓██▒  ▐▌██▒░██░  ▒   ██▒░▓█ ░██ ▒▓█  ▄ ▒██░    ▒██░    \n");
-	printf("▒██▒   ░██▒░██░▒██░   ▓██░░██░▒██████▒▒░▓█▒░██▓░▒████▒░██████▒░██████▒\n");
-	printf("░ ▒░   ░  ░░▓  ░ ▒░   ▒ ▒ ░▓  ▒ ▒▓▒ ▒ ░ ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░▓  ░\n");
-	printf("░ ▒░   ░  ░░▓  ░ ▒░   ▒ ▒ ░▓  ▒ ▒▓▒ ▒ ░ ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░▓  ░\n");
-	printf("░  ░      ░ ▒ ░░ ░░   ░ ▒░ ▒ ░░ ░▒  ░ ░ ▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░\n");
-	printf("░      ░    ▒ ░   ░   ░ ░  ▒ ░░  ░  ░   ░  ░░ ░   ░     ░ ░     ░ ░   \n");
-	printf("       ░    ░           ░  ░        ░   ░  ░  ░   ░  ░    ░  ░    ░  ░\n" RESET);
-} */
-
-// VSCode - YELRED
-void	ft_banner_start(void)
+// VSCode - HELL
+void	ft_banner_hells(void)
 {
 	//printf(KRED BLD "\n😈😈😈 Welcome to miniꞩhell ... or should I say 🔥 MINIHELLLL 🔥 😈😈😈\n\n" RESET);
 	printf("\n");
@@ -36,9 +21,9 @@ void	ft_banner_start(void)
 	printf(KYEL BLD"■■■■■■■■■■■■■■■■■"RESET KYEL"■■■■■■■■■■■■■■■■■"RESET KRED"■■■■■■■■■■■■■■■■■■"RESET KRED BLD"■■■■■■■■■■■■■■■■■\n\n"RESET);
 }
 
-void	ft_banner_exit(void)
+void	ft_banner_helle(void)
 {
-	printf("\n");
+	printf("exit\n");
 	printf(KYEL BLD"	 _________________________________________________            \n"RESET);
 	printf(KYEL BLD"	|                                                 |          \n"RESET);
 	printf(KYEL"	|                           _ _                   |          \n"RESET);
@@ -52,7 +37,7 @@ void	ft_banner_exit(void)
 }
 
 // VSCode NEON
-/* void	ft_banner_start(void)
+void	ft_banner_neons(void)
 {
 	printf("\n");
 	printf(KCYN"	 _____________________________  __________________            \n"RESET);
@@ -71,7 +56,7 @@ void	ft_banner_exit(void)
 	printf(KCYN"■■■■■■■■■■■■■■■■■"RESET KMAG"■■■■■■■■■■■■■■■■■"RESET KMAG BLD"■■■■■■■■■■■■■■■■■■"RESET KBLU BLD"■■■■■■■■■■■■■■■■■\n\n"RESET);
 }
 
-void	ft_banner_exit(void)
+void	ft_banner_neone(void)
 {
 	printf("\n");
 	printf(KCYN"	 _________________________________________________            \n"RESET);
@@ -84,43 +69,32 @@ void	ft_banner_exit(void)
 	printf(KBLU BLD"	|                                                 |   \n" RESET);
 	printf(KBLU BLD"	|_________________________________________________|   \n" RESET);
 	printf("\n\n");
-} */
-
-//VSCode BLUE
-/* void	ft_banner_start(void)
-{
-	//printf(KRED BLD "\n😈😈😈 Welcome to miniꞩhell ... or should I say 🔥 MINIHELLLL 🔥 😈😈😈\n\n" RESET);
-	printf("\n");
-	printf(KGRE"	 _____________________________  __________________            \n"RESET);
-	printf(KGRE"	|                              /                  |          \n"RESET);
-	printf(KCYN"	|               _       _     /_          _ _     |          \n"RESET);
-	printf(KCYN"	|     _ __ ___ (_)_ __ (_)___/| |__   ___| | |    |        \n" RESET);
-	printf(KCYN BLD"	|    | '_ ` _ \\| | '_ \\| / _/_| '_ \\ / _ \\ | |    |          \n"RESET);
-	printf(KCYN BLD"	|    | | | | | | | | | | \\_/__\\ | | |  __/ | |    |      \n" RESET);
-	printf(KBLU"	|    |_| |_| |_|_|_| |_|_|/___/_| |_|\\___|_|_|    |   \n" RESET);
-	printf(KBLU"	|                        /                        |   \n" RESET);
-	printf(KBLU"	|_______________________/                         |   \n" RESET);
-	printf(KBLU BLD"	                                                  |   \n" RESET);
-	printf("		    ...powered by " KCYN "gle-roux🐭 " RESET "&" KBLU " csenand🐭" KBLU BLD"  |\n" RESET);
-	printf(KBLU BLD"	__________________________________________________|   \n\n" RESET);
-	printf("				...evaluated by " KBLU BLD EVALUATOR" \n\n" RESET);
-	printf(KGRE BLD"■■■■■■■■■■■■■■■■■"RESET KCYN"■■■■■■■■■■■■■■■■■"RESET KBLU"■■■■■■■■■■■■■■■■■■"RESET KBLU BLD"■■■■■■■■■■■■■■■■■\n\n"RESET);
 }
 
-void	ft_banner_exit(void)
+void	ft_banner_start(t_ms *ms)
 {
-	printf("\n");
-	printf(KGRE"	 _________________________________________________            \n"RESET);
-	printf(KGRE"	|                                                 |          \n"RESET);
-	printf(KCYN"	|                           _ _                   |          \n"RESET);
-	printf(KCYN"	|                 _____   _(_) |_                 |        \n" RESET);
-	printf(KCYN BLD"	|                / _ \\ \\_/ / | __|                |          \n"RESET);
-	printf(KBLU"	|               |  __/> _ <| | |_                 |   \n" RESET);
-	printf(KBLU"	|                \\___/_/ \\_\\_|\\__|                |   \n" RESET);
-	printf(KBLU BLD"	|                                                 |   \n" RESET);
-	printf(KBLU BLD"	|_________________________________________________|   \n" RESET);
-	printf("\n\n");
-} */
+	size_t		nb;
+
+	nb = (size_t)(&EVALUATOR);
+	if (nb % 10 > 4)
+	{
+		ms->banner = 1;
+		ft_banner_hells();
+	}
+	else
+	{
+		ms->banner = 0;
+		ft_banner_neons();
+	}
+}
+
+void	ft_banner_exit(t_ms *ms)
+{
+	if (ms->banner == 1)
+		ft_banner_helle();
+	else
+		ft_banner_neone();
+}
 
 // TERMINAL
 /* void	banner(void)

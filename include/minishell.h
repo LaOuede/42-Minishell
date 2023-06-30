@@ -34,6 +34,9 @@
 # ifndef EVALUATOR
 #  define EVALUATOR "Antoine"
 # endif
+# ifndef BANNER
+#  define BANNER "color"
+# endif
 # define DEBUG 0
 # define MAIN 42
 # define EXEC 666
@@ -48,6 +51,7 @@ typedef struct s_ms
 	struct s_exec	*exec;
 	struct s_pars	*hd;
 	int				flexit;
+	int				banner;
 }	t_ms;
 
 //	Struct prototype to make the junction between the parsing and the execution
@@ -90,8 +94,8 @@ void	ft_reset_pars(t_pars *pars);
 void	print_hd(t_pars *hd, int fd_hd);
 void	ft_merge_hd(t_pars *hd);
 
-void	ft_banner_start(void);
-void	ft_banner_exit(void);
+void	ft_banner_start(t_ms *ms);
+void	ft_banner_exit(t_ms *ms);
 void	*ft_calloc_msh(size_t count, size_t size, t_ms *ms);
 
 #endif
