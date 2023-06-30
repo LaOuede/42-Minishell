@@ -45,14 +45,14 @@ t_ms	*ft_init_ms(char **envp)
 
 void	ft_minishell(t_ms *ms)
 {
-	ft_banner_start();
+	ft_banner_start(ms);
 	while (LOULOU_IS_MAGIC)
 	{
 		ft_init_sig(MAIN);
 		ms->pars->input = readline("Miniꞩhell$ ");
 		if (!ms->pars->input)
 		{
-			ft_banner_exit();
+			ft_banner_exit(ms);
 			ft_exit_free(ms, 0, 0);
 		}
 		add_history(ms->pars->input);

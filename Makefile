@@ -95,7 +95,7 @@ all : dir readline $(NAME)
 # -- Compile library -- #
 $(NAME) : $(OBJS)
 	@make -C $(LIBFT_DIR)
-	@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(RLINE) -lncurses -o $(NAME) -D EVALUATOR=\"$(EVALUATOR)\"
+	@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(RLINE) -lncurses -o $(NAME) -D EVALUATOR=\"$(EVALUATOR)\" -D BANNER=\"$(TIME)\"
 	@echo "✅ $(GREEN)$(NAME)'s exectuable successfully created.		✅$(RESET)"
 #@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(RLINE) $(C_TOOLS) -lncurses -o $(NAME)	//TODO to remove
 
