@@ -13,17 +13,19 @@ Prototype :
 void	ft_msh_env(t_ms *ms, char **cmd)
 {
 	(void)cmd;
-	printf(KYEL "-------------------- FT_MSH_ENV" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_MSH_ENV" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	int	i;
 
 	if (cmd[1])
 	{
-		ft_putstr_fd("Too many args\nUsage: env [no opt/args]\n", 2);
+		ft_putstr_fd("Too many args - Usage: env [no opt/args]\n", 2);
 		exit(127);
 	}
 	i = -1;
 	if (ms->envp)
 		while (ms->envp[++i])
 			printf("%s\n", ms->envp[i]);
-	printf(KYEL "-------------------- FT_MSH_ENV" KRED " END " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_MSH_ENV" KRED " END " RESET KYEL "--------------------\n" RESET);
 }

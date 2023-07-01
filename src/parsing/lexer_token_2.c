@@ -11,20 +11,20 @@ void	ft_get_expand_brackets(int *i, char *str, t_ms *ms)
 	if (DEBUG)
 		printf("char get expand = %c\n", str[(*i)]);
 	while (ft_isenvvarchar(str[++(*i)]))
-		tmp = ft_stock_char(tmp, str[(*i)]);
+		tmp = ft_stock_char(ms, tmp, str[(*i)]);
 	if (!tmp)
 	{
-		tmp = ft_stock_char(tmp, '$');
+		tmp = ft_stock_char(ms, tmp, '$');
 		(*i)++;
 	}
 	else
 	{
-		tmp = ft_stock_char(tmp, '=');
+		tmp = ft_stock_char(ms, tmp, '=');
 		tmp = ft_find_envvar(tmp, ms);
 		if (tmp)
-			ft_add_token_bottom(&ms->pars->line, ft_create_node(tmp, ms->pars));
+			ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, tmp, ms->pars));
 	}
-	ft_freenull(tmp);
+	tmp = ft_freenull(tmp);
 	if (str[(*i)] != '}')
 		ft_error_parsing(ERR_TOKEN, LEXER, 2, ms);
 	else
@@ -74,21 +74,23 @@ char	*ft_find_envvar(char *str, t_ms *ms)
 	char	*tmp;
 
 	i = 0;
-	len = ft_strlen(str);
-	while (ms->pars->envp[i] && ft_strncmp(ms->pars->envp[i], str, len) != 0)
-		i++;
-	if (ms->pars->envp[i])
-		ms->jct->flag_var = true;
-	if (!ms->pars->envp[i])
-	{
-		ms->jct->flag_err_var = true;
-		return (NULL);
-	}
 	tmp = NULL;
-	len -= 1;
-	while (ms->pars->envp[i][len++])
-		tmp = ft_stock_char(tmp, ms->pars->envp[i][len]);
-	ft_freenull(str);
+	len = ft_strlen(str);
+	while (ms->envp[i] && ft_strncmp(ms->envp[i], str, len) != 0)
+		i++;
+	if (ms->envp[i])
+	{
+		ms->jct->flag_var = true;
+		len -= 1;
+		while (ms->envp[i][len++])
+			tmp = ft_stock_char(ms, tmp, ms->envp[i][len]);
+		str = ft_freenull(str);
+	}
+	if (!ms->envp[i])
+	{
+		tmp = ft_stock_char(ms, tmp, 29);
+		str = ft_freenull(str);
+	}
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_FIND_ENVVAR" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 	return (tmp);
@@ -105,21 +107,27 @@ void	ft_envvar_token(int *i, char *str, t_ms *ms)
 	char	*tmp;
 
 	tmp = NULL;
+	if (str[(*i + 1)] == '\"' || str[(*i + 1)] == '\'')
+	{
+		(*i)++;
+		tmp = ft_stock_char(ms, tmp, 29);
+		ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, tmp, ms->pars));
+		return ;
+	}
 	while (ft_isenvvarchar(str[++(*i)]))
-		tmp = ft_stock_char(tmp, str[(*i)]);
+		tmp = ft_stock_char(ms, tmp, str[(*i)]);
 	if (!tmp)
 	{
-		tmp = ft_stock_char(tmp, '$');
-		ft_add_token_bottom(&ms->pars->line, ft_create_node(tmp, ms->pars));
+		tmp = ft_stock_char(ms, tmp, '$');
+		ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, tmp, ms->pars));
 	}
 	else
 	{
-		tmp = ft_stock_char(tmp, '=');
+		tmp = ft_stock_char(ms, tmp, '=');
 		tmp = ft_find_envvar(tmp, ms);
-		if (tmp)
-			ft_add_token_bottom(&ms->pars->line, ft_create_node(tmp, ms->pars));
+		ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, tmp, ms->pars));
 	}
-	ft_freenull(tmp);
+	tmp = ft_freenull(tmp);
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_ENVVAR_TOKEN" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }
@@ -138,8 +146,6 @@ void	ft_envvar(int *i, char *str, t_ms *ms)
 	ptr = ms->pars->line;
 	while (ptr)
 		ptr = ptr->next;
-/* 	if (DEBUG)
-		printf("ptr->str = %s\n", ptr->str); */
 	if (str[(*i)] == '$' && str[(*i) + 1] == '{')
 	{
 		if (ft_check_expand_brackets(str, ms) == true)
@@ -150,7 +156,7 @@ void	ft_envvar(int *i, char *str, t_ms *ms)
 	else if (str[(*i)] == '$' && str[(*i) + 1] == '?')
 	{
 		(*i) += 2;
-		ft_add_token_bottom(&ms->pars->line, ft_create_node(ft_itoa(ms->flexit), ms->pars));
+		ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, ft_itoa(ms->flexit), ms->pars));
 	}
 	else
 		ft_envvar_token(i, str, ms);

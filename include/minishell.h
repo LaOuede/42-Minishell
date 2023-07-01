@@ -29,7 +29,14 @@
 # define ERR_EXI2	"Usage error : exit: numeric argument required\n"
 # define ERR_HD		"Usage error : bad substitution\n"
 # define ERR_ENV	"Error : env path not found\n"
+# define ERR_MEM	"Error : memory allocation failed\n"
 
+# ifndef EVALUATOR
+#  define EVALUATOR "Antoine"
+# endif
+# ifndef BANNER
+#  define BANNER "color"
+# endif
 # define DEBUG 0
 # define MAIN 42
 # define EXEC 666
@@ -38,12 +45,13 @@
 
 typedef struct s_ms
 {
+	char			**envp;
+	struct s_jct	*jct;
 	struct s_pars	*pars;
 	struct s_exec	*exec;
-	struct s_jct	*jct;
 	struct s_pars	*hd;
-	char 			**envp;
 	int				flexit;
+	int				banner;
 }	t_ms;
 
 //	Struct prototype to make the junction between the parsing and the execution
@@ -59,17 +67,13 @@ typedef struct s_jct
 	bool	echo;
 	int		flag_var;
 	int		flag_err_var;
-	//TODO do we still need those 3 variables ?
-	int		file_in;
-	int		file_out;
-	int		fl_redirout;
 }			t_jct;
 
 t_ms	*ft_init_ms(char **envp);
-void	ft_exit_free(t_ms *ms, int flexit);
+void	ft_exit_free(t_ms *ms, int flexit, char *err);
 
 /* 		Jct functions 							*/
-t_jct	*ft_init_jct(char **envp);
+t_jct	*ft_init_jct(t_ms *ms, char **envp);
 void	ft_free_jct(t_jct *jct);
 void	ft_free_child(t_ms *ms);
 void	ft_free_all(t_ms *ms);
@@ -89,5 +93,9 @@ void	DEBUG_hd(t_pars *hd);
 void	ft_reset_pars(t_pars *pars);
 void	print_hd(t_pars *hd, int fd_hd);
 void	ft_merge_hd(t_pars *hd);
+
+void	ft_banner_start(t_ms *ms);
+void	ft_banner_exit(t_ms *ms);
+void	*ft_calloc_msh(size_t count, size_t size, t_ms *ms);
 
 #endif

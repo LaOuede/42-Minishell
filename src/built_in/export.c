@@ -8,11 +8,89 @@ Definition :
 Prototype :
 	export [name[=value] ...]
 */
-bool	ft_valid_ex(char *cmd)
+
+char	*ft_replace_var(t_ms *ms, char *cmd, int index_var)
 {
-	if ((!ft_isalpha(cmd[0]) && cmd[0] != '_') || !ft_strchr(cmd, '='))
+	char	*new_envp;
+
+	new_envp = ft_strdup(cmd);
+	free(ms->envp[index_var]);
+	return(new_envp);
+}
+
+char	**ft_export_var(t_ms *ms, char **env, char *cmd)
+{
+	char	**new_envp_env;
+	int		i;
+	int		j;
+	int		len_env;
+	int		len_env2 = 0;
+
+
+	i = 0;
+	j = 0;
+	len_env = ft_get_ac(env);
+	printf("len: %d\n", len_env);
+	new_envp_env = ft_calloc_msh(len_env + 2, sizeof(char *), ms);
+	printf("len2: %d\n", len_env2);
+	while(env[i])
+		new_envp_env[j++] = ft_strdup(env[i++]);
+	printf("cmd; %s\n", cmd);
+	printf("j: %d\n", j);
+	new_envp_env[j++] = ft_strdup(cmd);
+	new_envp_env[j] = NULL;
+	printf("j: %d\n", j);
+	ft_free_tab_char(env);
+	return (new_envp_env);
+}
+
+int		ft_find_index_var(t_ms *ms, char *cmd)
+{
+	int i;
+	int	len;
+	(void)ms;
+	
+	if (!cmd || !ft_strchr(cmd, '='))
+		return (0);
+	printf("[ft_find_inndex_var] cmd: %s\n", cmd);
+	len = 0;
+	while(cmd[len] != '=' && cmd[len])
+		len++;
+	printf("len till the '=' sign: %d\n", len);
+	i = 0;
+	while(ms->envp[i])
+	{
+		if(!ft_strncmp(ms->envp[i], cmd, len + 1))
+			return (i);
+		i++;
+	}
+	return (0);
+}
+
+bool	ft_valid_ex(t_ms *ms, char *cmd) 
+{
+	int i;
+	char **var;
+
+	if (cmd[0] == '=')
+	{
+		printf("export: %s not a valid identifier\n", cmd);
+		ms->flexit = EXIT_FAILURE;
 		return (false);
-	// free(cmd);
+	}
+	var = ft_split(cmd, '=');
+	i = -1;
+	while (var[0][++i])
+	{
+		if (!ft_strchr(cmd, '='))
+			return (false);
+		if (!ft_1st_part_valid(ms, var[0]))
+		{
+			printf("export: %s not a valid identifier\n", cmd);
+			return (false);
+		}
+	}
+	ft_free_tab_char(var);
 	return (true);
 }
 
@@ -20,25 +98,27 @@ void	ft_msh_export(t_ms *ms, char **cmd)
 {
 	int	ac;
 	int i;
-	ac = ft_get_ac(cmd);
+	int	index_var;
 
+	ac = ft_get_ac(cmd);
 	i = 0;
-	if (ac == 1)
+	printf("ac = %d\n", ac);
+	if (ac <= 1)
 		while ((ms->envp[++i]))
 			printf("declare -x %s\n", ms->envp[i]);
-	i = 0;
-	while (cmd[++i])
+	i = 1;
+	while (i < ac)
 	{
-		if (!ft_valid_ex(cmd[i]))
+		if (ft_valid_ex(ms, cmd[i]))
 		{
-			if (ms->exec->cmd_nb == 1)
-				ft_exit_free(ms, 1);
-			else
-			{
-				ft_free_all(ms);
+			index_var = ft_find_index_var(ms, cmd[i]);
+			if (index_var < 0)
 				return ;
-			}
+			if (index_var > 0)
+				ms->envp[index_var] = ft_replace_var(ms, cmd[i], index_var);
+			else
+				ms->envp = ft_export_var(ms, ms->envp, cmd[i]);
 		}
-		//TODO do the rest
+		i++;
 	}
 }

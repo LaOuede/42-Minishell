@@ -12,8 +12,8 @@ void	ft_merge(t_token *node, t_token *next)
 	new_str = ft_strjoin(node->str, next->str);
 	tmp = node->str;
 	node->str = ft_strdup(new_str);
-	ft_freenull(tmp);
-	ft_freenull(new_str);
+	tmp = ft_freenull(tmp);
+	new_str = ft_freenull(new_str);
 	if (DEBUG)
 	{
 		printf("ptr->str = %s\n", node->str);
@@ -34,7 +34,7 @@ void	ft_clean_list(t_token **list)
 	ptr = *list;
 	while (ptr)
 	{
-		if (ptr->next && ptr->next->type == ERROR)
+		if (ptr->next && (ptr->next->type == ERROR || ptr->next->str[0] == 29))
 		{
 			sup = ptr->next;
 			if (ptr->next->next)

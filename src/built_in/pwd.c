@@ -29,12 +29,12 @@ void	ft_msh_pwd(t_ms *ms, char **cmd)
 
 	if (cmd[1])
 	{
-		ft_putstr_fd("Too many args\nUsage: pwd [no args]\n", 2);
+		ft_putstr_fd("Too many args - Usage: pwd [no args]\n", 2);
 		exit(127);
 	}
 	buf = getcwd(NULL, 0);
 	if (buf)
 		printf("%s\n", buf);
-	ft_freenull(buf);
+	buf = ft_freenull(buf);
 	printf(KYEL "-------------------- FT_MSH_PWD" KRED " END " RESET KYEL "--------------------\n" RESET);
 }

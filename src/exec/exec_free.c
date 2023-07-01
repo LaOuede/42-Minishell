@@ -32,8 +32,8 @@ void	ft_free_3tab(t_jct *jct)
 
 void	ft_free_exec(t_exec *exec)
 {
-/* 	if (exec->path_var)
-		ft_free_tab_char(exec->path_var); */
+	if (exec->path_var)
+		ft_free_tab_char(exec->path_var);
 	if (DEBUG)
 		printf("exec->path_var address (in ft_free_exit): %p\n", exec->path_var);
 	if (exec->pipes)
@@ -41,10 +41,14 @@ void	ft_free_exec(t_exec *exec)
 	if (DEBUG)
 		printf("exec->pipes address (in ft_free_exit): %p\n", exec->pipes);
 	if (exec->pids)
-		ft_freenull(exec->pids);
+		exec->pids = ft_freenull(exec->pids);
 	if (DEBUG)
 		printf("exec->pipes address (in ft_free_exit): %p\n", exec->pipes);
+	if (exec->builtin)
+		exec->builtin = ft_freenull(exec->builtin);
+	if (exec->builtin_cmd)
+		ft_free_tab_char(exec->builtin_cmd);
 	if (DEBUG)
 		printf("exec (in ft_free_exit): %p\n", exec);
-	ft_freenull(exec);
+	exec = ft_freenull(exec);
 }

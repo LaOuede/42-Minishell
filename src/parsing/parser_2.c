@@ -82,7 +82,7 @@ void	ft_init_cmdtab(t_ms *ms)
 {
 	int	i;
 
-	ms->jct->tab = ft_calloc(ms->jct->cmd_nb + 1, sizeof(char **));
+	ms->jct->tab = ft_calloc_msh(ms->jct->cmd_nb + 1, sizeof(char **), ms);
 	if (!ms->jct->tab)
 	{
 		ft_free_3tab(ms->jct);
@@ -91,7 +91,7 @@ void	ft_init_cmdtab(t_ms *ms)
 	i = -1;
 	while (++i < ms->jct->cmd_nb)
 	{
-		ms->jct->tab[i] = ft_calloc(3, sizeof(char *));
+		ms->jct->tab[i] = ft_calloc_msh(3, sizeof(char *), ms);
 		if (!ms->jct->tab[i])
 		{
 			ft_free_3tab(ms->jct);

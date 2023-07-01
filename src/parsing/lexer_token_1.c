@@ -19,7 +19,7 @@ void	ft_s_quotes_token(int *i, t_ms *ms)
 	{
 		if (ms->pars->input[(*i)] == '\'')
 			break ;
-		tmp = ft_stock_char(tmp, ms->pars->input[*i]);
+		tmp = ft_stock_char(ms, tmp, ms->pars->input[*i]);
 	}
 	if (ms->pars->input[(*i)] == '\'')
 	{
@@ -32,9 +32,9 @@ void	ft_s_quotes_token(int *i, t_ms *ms)
 		printf("s_quotes = %d\n", ms->pars->s_quotes);
 	if (tmp)
 	{
-		ft_add_token_bottom(&ms->pars->line, ft_create_node(tmp, ms->pars));
+		ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, tmp, ms->pars));
 		ft_reset_node(ms->pars);
-		ft_freenull(tmp);
+		tmp = ft_freenull(tmp);
 	}
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_S_QUOTES_TOKEN" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
@@ -55,13 +55,13 @@ void	ft_char_quotes(int *i, char *str, t_ms *ms)
 	{
 		if (DEBUG)
 			printf("-> char = %c\n", str[(*i)]);
-		tmp = ft_stock_char(tmp, str[(*i)]);
+		tmp = ft_stock_char(ms, tmp, str[(*i)]);
 		(*i)++;
 	}
 	if (tmp)
 	{
-		ft_add_token_bottom(&ms->pars->line, ft_create_node(tmp, ms->pars));
-		ft_freenull(tmp);
+		ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, tmp, ms->pars));
+		tmp = ft_freenull(tmp);
 		ft_reset_node(ms->pars);
 	}
 	if (DEBUG)
@@ -83,7 +83,7 @@ char	*ft_stock_quotes(int *i, char *str, t_ms *ms)
 	{
 		if (ms->pars->input[(*i)] == '\"')
 			break ;
-		str = ft_stock_char(str, ms->pars->input[*i]);
+		str = ft_stock_char(ms, str, ms->pars->input[*i]);
 		if (DEBUG)
 			printf("-> char = %c\n", ms->pars->input[(*i)]);
 	}
@@ -131,7 +131,7 @@ void	ft_d_quotes_token(int *i, t_ms *ms)
 		else
 			ft_char_quotes(&j, str, ms);
 	}
-	ft_freenull(str);
+	str = ft_freenull(str);
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_D_QUOTES_TOKEN" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
 }
@@ -143,7 +143,7 @@ void	ft_token(int *i, t_ms *ms)
 	char	*tmp;
 
 	tmp = NULL;
-	tmp = ft_stock_char(tmp, ms->pars->input[(*i)]);
+	tmp = ft_stock_char(ms, tmp, ms->pars->input[(*i)]);
 	if (ms->pars->input[(*i)] == '>')
 		ms->pars->type = REDOUT;
 	else if (ms->pars->input[(*i)] == '<')
@@ -153,8 +153,8 @@ void	ft_token(int *i, t_ms *ms)
 		ms->pars->type = PIPE;
 		ms->pars->nb_pipe += 1;
 	}
-	ft_add_token_bottom(&ms->pars->line, ft_create_node(tmp, ms->pars));
+	ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, tmp, ms->pars));
 	(*i)++;
-	ft_freenull(tmp);
+	tmp = ft_freenull(tmp);
 	ft_reset_node(ms->pars);
 }

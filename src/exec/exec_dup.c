@@ -41,22 +41,31 @@ void	ft_dup_proc(t_ms *ms, int i)
 
 void	ft_dup_and_run(t_ms *ms, int i, int builtin_fts)
 {
+	int j;
+	
 	if (ms->exec->pids[i] == 0)
 	{
+		j = -1;
+		while (++j < ms->jct->cmd_nb)
+			if (ms->jct->fds_in[j] < 0)
+				ft_exit_free(ms, 1, 0);
 		ft_dup_proc(ms, i);
 		if (builtin_fts)
 		{
 			ms->exec->builtin->fts[builtin_fts](ms, ms->exec->builtin_cmd);
-			exit(0);
+			ft_exit_free(ms, 0, 0);
 		}
-		ms->exec->path_var = ft_get_path(ms->envp, 0);
+		ms->exec->path_var = ft_get_path(ms, ms->envp, 0);
 		if (!ms->exec->path_var)
 		{
 			printf("Input Error : Command not found\n");
 			return ;
 		}
-		if (ms->jct->fds_in[i] < 0)
-			exit(1);
 		ft_run_cmd(ms, i);
+	}
+	else
+	{
+		ft_free_tab_char(ms->exec->builtin_cmd);
+		ms->exec->builtin_cmd = NULL;
 	}
 }

@@ -12,21 +12,21 @@ bool	ft_test_cmd(t_pars *pars, t_token *node)
 	path = ft_strjoin("./", node->str);
 	if (access(path, F_OK | X_OK) == 0)
 	{
-		ft_freenull(path);
+		path = ft_freenull(path);
 		return (true);
 	}
 	if (path)
-		ft_freenull(path);
+		path = ft_freenull(path);
 	i = -1;
 	while (pars->path_var[++i])
 	{
 		path = ft_strjoin(pars->path_var[i], node->str);
 		if (access(path, F_OK | X_OK) == 0)
 		{
-			ft_freenull(path);
+			path = ft_freenull(path);
 			return (true);
 		}
-		ft_freenull(path);
+		path = ft_freenull(path);
 	}
 	return (false);
 }
@@ -46,11 +46,17 @@ void	ft_check_error_redir(t_ms *ms)
 		if (ptr->type == REDIN || ptr->type == REDOUT)
 		{
 			len = ft_strlen(ptr->str);
-			if (len > 2 || (ptr->next && ptr->next->type == REDIN) \
-				|| (ptr->next && ptr->next->type == REDOUT))
-				ft_error_parsing(ERR_TOKEN, REBUILDER, 2, ms);
-			if (!ptr->next)
-				ft_error_parsing(ERR_TOKEN, REBUILDER, 2, ms);
+			if (ms->pars->fl_red == false && (len > 2 || (ptr->next && ptr->next->type == REDIN) \
+				|| (ptr->next && ptr->next->type == REDOUT)))
+			{
+				ms->pars->fl_red = true;
+				ft_error_parsing(ERR_TOKEN, REBUILDER, 258, ms);
+			}
+			else if (ms->pars->fl_red == 0 && (!ptr->next || ptr->next->str[0] == 29))
+			{
+				ms->pars->fl_red = true;
+				ft_error_parsing(ERR_TOKEN, REBUILDER, 258, ms);
+			}
 		}
 		ptr = ptr->next;
 	}
@@ -129,8 +135,8 @@ void	ft_merge_angle_brackets_in(t_pars *pars)
 */
 void	ft_redirection(t_ms *ms)
 {
-	ms->jct->fds_in = ft_calloc(ms->pars->nb_pipe, sizeof(int));
-	ms->jct->fds_out = ft_calloc(ms->pars->nb_pipe, sizeof(int));
+	ms->jct->fds_in = ft_calloc_msh(ms->pars->nb_pipe, sizeof(int), ms);
+	ms->jct->fds_out = ft_calloc_msh(ms->pars->nb_pipe, sizeof(int), ms);
 	ft_merge_angle_brackets_in(ms->pars);
 	ft_merge_angle_brackets_out(ms->pars);
 	ft_check_error_redir(ms);
@@ -140,7 +146,7 @@ void	ft_redirection(t_ms *ms)
 		ft_open_file(ms);
 		if (ms->pars->err_infile == false)
 			ft_create_file(ms);
-		ft_merge_red(ms->pars);
-		ft_merge_all_red(ms->pars);
+		ft_merge_red(ms);
+		ft_merge_all_red(ms);
 	}
 }

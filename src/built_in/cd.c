@@ -26,7 +26,10 @@ void	ft_msh_cd(t_ms *ms, char **cmd)
 	if (ac < 2 || ft_strcmp(cmd[1], "~") == 0)
 	{
 		if(chdir(user) != 0)
+		{
 			perror("Error! chdir");
+			ms->flexit = 1;
+		}
 	}
 	else if (ac < 3 && chdir(cmd[1]) != 0)
 	{
@@ -37,7 +40,7 @@ void	ft_msh_cd(t_ms *ms, char **cmd)
 	}
 	else if(ac >= 3)
 	{
-		ft_putstr_fd("Too many args\nUsage: env [no opt/args]\n", 2);
+		ft_putstr_fd("Too many args - Usage: env [no opt/args]\n", 2);
 		return ;
 	}
 	// if (DEBUG)

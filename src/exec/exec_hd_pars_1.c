@@ -11,20 +11,20 @@ void	ft_get_expand_brackets_hd(int *i, char *str, t_ms *ms)
 	if (DEBUG)
 		printf("char get expand = %c\n", str[(*i)]);
 	while (ft_isenvvarchar(str[++(*i)]))
-		tmp = ft_stock_char(tmp, str[(*i)]);
+		tmp = ft_stock_char(ms, tmp, str[(*i)]);
 	if (!tmp)
 	{
-		tmp = ft_stock_char(tmp, '$');
+		tmp = ft_stock_char(ms, tmp, '$');
 		(*i)++;
 	}
 	else
 	{
-		tmp = ft_stock_char(tmp, '=');
+		tmp = ft_stock_char(ms, tmp, '=');
 		tmp = ft_find_envvar(tmp, ms);
 		if (tmp)
-			ft_add_token_bottom(&ms->hd->line, ft_create_node(tmp, ms->hd));
+			ft_add_token_bottom(&ms->hd->line, ft_create_node(ms, tmp, ms->hd));
 	}
-	ft_freenull(tmp);
+	tmp = ft_freenull(tmp);
 	if (str[(*i)] != '}')
 		ms->hd->err_parser = true;
 	else
@@ -74,7 +74,7 @@ void	ft_envvar_hd(int *i, char *str, t_ms *ms)
 	else if (str[(*i)] == '$' && str[(*i) + 1] == '?')
 	{
 		(*i) += 2;
-		ft_add_token_bottom(&ms->hd->line, ft_create_node(ft_itoa(ms->flexit), ms->hd));
+		ft_add_token_bottom(&ms->hd->line, ft_create_node(ms, ft_itoa(ms->flexit), ms->hd));
 	}
 	else
 		ft_envvar_token_hd(i, str, ms);
@@ -94,13 +94,13 @@ void	ft_str_hd(int *i, t_ms *ms)
 	{
 		if (DEBUG)
 			printf("-> char = %c\n", ms->hd->input[(*i)]);
-		tmp = ft_stock_char(tmp, ms->hd->input[(*i)]);
+		tmp = ft_stock_char(ms, tmp, ms->hd->input[(*i)]);
 		(*i)++;
 	}
 	if (tmp)
 	{
-		ft_add_token_bottom(&ms->hd->line, ft_create_node(tmp, ms->hd));
-		ft_freenull(tmp);
+		ft_add_token_bottom(&ms->hd->line, ft_create_node(ms, tmp, ms->hd));
+		tmp = ft_freenull(tmp);
 		ft_reset_node(ms->hd);
 	}
 	if (DEBUG){

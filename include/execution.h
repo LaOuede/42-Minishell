@@ -24,21 +24,17 @@ typedef struct s_builtin
 */
 typedef struct s_exec
 {
-	//to keep
+	struct s_jct	*jct;
 	char			**envp;
 	char			**path_var;
 	int				input;
-	int				fd_in;
-	int				fd_out;
 	int				output;
 	pid_t			*pids;
 	int				**pipes;
-	struct s_jct	*jct;
+	int				pipes_nb;
 	t_builtin		*builtin;
 	char			**builtin_cmd;
 	int				builtin_fts;
-	int				cmd_nb;
-	int				pipes_nb;
 }			t_exec;
 
 /*	--	Function Declarations for the execution of shell commands	--	*/
@@ -61,7 +57,7 @@ void	ft_close_old_pipes(t_exec *exec, int i);
 void	ft_dup_and_run(t_ms *ms, int i, int builtin_fts);
 void	ft_dup_x_cmd(t_ms *ms, int i);
 
-char		**ft_get_path(char **envp, int i);
+char		**ft_get_path(t_ms *ms, char **envp, int i);
 t_builtin	*ft_get_builtin(void);
 
 void	ft_reset_exec(t_ms *ms);

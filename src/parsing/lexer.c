@@ -23,7 +23,7 @@ void	ft_char(int *i, t_ms *ms)
 	{
 		if (DEBUG)
 			printf("-> white space\n");
-		ms->pars->flag_whitespace = 1;
+		ms->pars->fl_ws = 1;
 		(*i)++;
 	}
 	while (ms->pars->input[(*i)] && ft_ismetachar(ms->pars->input[(*i)]) == 0 \
@@ -31,13 +31,13 @@ void	ft_char(int *i, t_ms *ms)
 	{
 		if (DEBUG)
 			printf("-> char = %c\n", ms->pars->input[(*i)]);
-		tmp = ft_stock_char(tmp, ms->pars->input[(*i)]);
+		tmp = ft_stock_char(ms, tmp, ms->pars->input[(*i)]);
 		(*i)++;
 	}
 	if (tmp)
 	{
-		ft_add_token_bottom(&ms->pars->line, ft_create_node(tmp, ms->pars));
-		ft_freenull(tmp);
+		ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, tmp, ms->pars));
+		tmp = ft_freenull(tmp);
 		ft_reset_node(ms->pars);
 	}
 	if (DEBUG){

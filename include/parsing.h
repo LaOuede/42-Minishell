@@ -88,10 +88,11 @@ typedef struct s_pars
 	int				s_quotes;
 	int				d_quotes;
 	int				c_brackets;
-	int				p_brackets;
-	int				flag_whitespace;
+	int				fl_ws;
 	int				hd;
-	int				err_infile;
+	bool			fl_red;
+	bool			fl_pipe;
+	bool			err_infile;
 	bool			err_lexer;
 	bool			err_builder;
 	bool			err_parser;
@@ -128,10 +129,10 @@ char	*ft_stock_quotes(int *i, char *str, t_ms *ms);
 
 /* 		Lexer utils part functions 						*/
 void	ft_add_token_bottom(t_token **lst, t_token *element);
-t_token	*ft_create_node(char *str, t_pars *pars);
-char	*ft_mem_alloc(char *str, int capacity);
-char	*ft_stock_char(char *str, char c);
-char	*ft_strjoin_char(char *s1, char s2);
+t_token	*ft_create_node(t_ms *ms, char *str, t_pars *pars);
+char	*ft_mem_alloc(t_ms *ms, char *str, int capacity);
+char	*ft_stock_char(t_ms *ms, char *str, char c);
+char	*ft_strjoin_char(t_ms *ms, char *s1, char s2);
 
 /* 		Builder part functions 						*/
 void	ft_args(t_ms *ms);
@@ -141,12 +142,12 @@ void	ft_clean_list(t_token **list);
 void	ft_create_file(t_ms *ms);
 void	ft_find_cmd(t_ms *ms);
 void	ft_merge(t_token *node, t_token *next);
-void	ft_merge_all_red(t_pars *pars);
-void	ft_merge_all_arg(t_pars *pars);
+void	ft_merge_all_red(t_ms *ms);
+void	ft_merge_all_arg(t_ms *ms);
 void	ft_merge_angle_brackets_in(t_pars *pars);
 void	ft_merge_angle_brackets_out(t_pars *pars);
 void	ft_merge_arg(t_pars *pars);
-void	ft_merge_red(t_pars *pars);
+void	ft_merge_red(t_ms *ms);
 void	ft_open_file(t_ms *ms);
 void	ft_redirection(t_ms *ms);
 void	ft_swap(t_token *ptr1, t_token *ptr2);
@@ -160,7 +161,7 @@ void	ft_parser(t_ms *ms);
 void	ft_check_redir(t_ms *ms);
 void	ft_check_pipe(t_ms *ms);
 void	ft_init_cmdtab(t_ms *ms);
-t_tab	*ft_init_tab(t_pars *pars);
+t_tab	*ft_init_tab(t_ms *ms, t_pars *pars);
 void	ft_fill_tab(t_ms *ms, t_tab *tab);
 
 /* 		Free functions 								*/
@@ -170,6 +171,7 @@ void	ft_free_token(t_token *token);
 
 /* 		Error functions 								*/
 void	ft_error(char *err_msg);
+void	ft_error_exit(char *err_msg, int exit);
 void	ft_clean_up_jct(char *err_msg, t_jct *jct);
 void	ft_error_parsing(char *err_msg, int step, int exit, t_ms *ms);
 

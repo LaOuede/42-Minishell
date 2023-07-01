@@ -35,7 +35,7 @@ void	ft_exec(t_ms *ms)
 	ft_init_sig(EXEC);
 	if (ft_mem_pipes(ms) == 2)
 		return ;
-	ms->exec->pids = ft_calloc(ms->jct->cmd_nb, sizeof(pid_t *));
+	ms->exec->pids = ft_calloc_msh(ms->jct->cmd_nb, sizeof(pid_t *), ms);
 	ft_make_pids(ms);
 	i = -1;
 	while (++i < ms->jct->cmd_nb)

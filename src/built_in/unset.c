@@ -7,7 +7,7 @@ Prototype :
 	unset function_name
 */
 
-char	**ft_unset(char **envp, char *cmd)
+char	**ft_unset(t_ms *ms, char **envp, char *cmd)
 {
 	char	**new_envp;
 	int		i;
@@ -18,7 +18,7 @@ char	**ft_unset(char **envp, char *cmd)
 	len = 0;
 	while(envp[len])
 		len++;
-	new_envp = ft_calloc(len + 1, sizeof(*new_envp));
+	new_envp = ft_calloc_msh(len + 1, sizeof(*new_envp), ms);
 	i = 0;
 	j = 0;
 	while(envp[i])
@@ -35,7 +35,7 @@ char	**ft_unset(char **envp, char *cmd)
 
 bool	ft_isvalid(char *cmd)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (cmd[++i])
@@ -64,16 +64,13 @@ void	ft_msh_unset(t_ms *ms, char **cmd)
 		printf("[ft_msh_unset 1] cmd[%d] : %s\n", i, cmd[i]);
 		if (!ft_isvalid(cmd[i]))
 		{
-			if (ms->exec->cmd_nb == 1)
-				ft_exit_free(ms, 1);
-			else
-			{
-				ft_free_all(ms);
+			if (ms->jct->cmd_nb == 1)
 				return ;
-			}
+			else
+				ft_exit_free(ms, 1, 0);
 		}
 		printf("[ft_msh_unset 2] cmd[%d] : %s\n", i, cmd[i]);
-		ms->envp = ft_unset(ms->envp, ft_strjoin(cmd[i], "="));
+		ms->envp = ft_unset(ms, ms->envp, ft_strjoin(cmd[i], "="));
 		// ms->jct->envp = ms->exec->envp;
 		//TODO put ft_copy in ms and replace all copies
 		// ms->jct->envp = ft_unset(ms->exec->envp, ft_strjoin(cmd[i], "="));

@@ -15,10 +15,6 @@ void	ft_close_old_pipes(t_exec *exec, int i)
 
 void	ft_close_fds(t_ms *ms)
 {
-	if (ms->exec->fd_in)
-		close(ms->exec->fd_in);
-	if (ms->exec->fd_out)
-		close(ms->exec->fd_out);
 	if (ms->jct->fd_hd)
 		close(ms->jct->fd_hd);
 	if (ms->exec->input)
@@ -94,7 +90,7 @@ int	ft_mem_pipes(t_ms *ms)
 	printf("ms->jct->cmd_nb = %d\n", ms->jct->cmd_nb);
 	printf("ms->exec->pipes_nb = %d\n", ms->exec->pipes_nb);
 	}
-	ms->exec->pipes = ft_calloc(ms->exec->pipes_nb, sizeof(int *));
+	ms->exec->pipes = ft_calloc_msh(ms->exec->pipes_nb, sizeof(int *), ms);
 	if (!ms->exec->pipes)
 	{
 		perror("Error! Pipe memory allocation");
@@ -103,7 +99,7 @@ int	ft_mem_pipes(t_ms *ms)
 	i = -1;
 	while (++i < ms->exec->pipes_nb)
 	{
-		ms->exec->pipes[i] = ft_calloc(2, sizeof(int *));
+		ms->exec->pipes[i] = ft_calloc_msh(2, sizeof(int *), ms);
 		if (!ms->exec->pipes[i])
 		{
 			perror("Error! Pipe memory allocation");

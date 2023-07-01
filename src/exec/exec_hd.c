@@ -23,8 +23,8 @@ void	ft_hd_parser(t_ms *ms)
 	if (ms->hd->strlen == 0)
 	{
 		tmp = ft_strdup("\n");
-		ft_add_token_bottom(&ms->hd->line, ft_create_node(tmp, ms->hd));
-		ft_freenull(tmp);
+		ft_add_token_bottom(&ms->hd->line, ft_create_node(ms, tmp, ms->hd));
+		tmp = ft_freenull(tmp);
 	}
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_HD_PARSER" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
@@ -34,10 +34,10 @@ t_pars	*ft_init_hd(t_ms *ms)
 {
 	t_pars	*hd;
 
-	hd = ft_calloc(1, sizeof(t_pars));
+	hd = ft_calloc_msh(1, sizeof(t_pars), ms);
 	hd->line = NULL;
 	hd->input = NULL;
-	hd->envp = ms->jct->envp;
+	hd->envp = ms->envp;
 	hd->hd = 0;
 	hd->strlen = 0;
 	hd->c_brackets = 0;
@@ -66,12 +66,13 @@ void	ft_child_hd(char *delim, int fd_hd, t_ms *ms)
 	if (ms->hd->err_parser == true)
 	{
 		ft_error(ERR_HD);
-		ft_exit_free(ms, 1);
+		ft_exit_free(ms, 1, 0);
 	}
 	ft_merge_hd(ms->hd);
 	ft_clean_list(&ms->hd->line);
 	print_hd(ms->hd, fd_hd);
-	ft_exit_free(ms, 0);
+	close(fd_hd);
+	ft_exit_free(ms, 0, 0);
 }
 
 int	ft_exec_hd(char *delim, t_ms *ms)

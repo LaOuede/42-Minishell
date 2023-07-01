@@ -12,7 +12,7 @@ void	sig_handler(int sig)
 
 	(void)sig;
 	ms = ft_init_ms(0);
-	ms->flexit = 1;
+	ms->flexit = 130;
 	ft_putchar_fd('\n', STDOUT_FILENO);
 	rl_replace_line("", 0);
 	rl_on_new_line();
@@ -32,13 +32,14 @@ void	sig_child_handler(int sig)
 	ms = ft_init_ms(0);
 	if (sig == SIGQUIT)
 	{
+	//sig = 128 + sig;
 		ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 	}
 	else if (sig == SIGINT)
 	{
-		ms->flexit = 1;
+		ms->flexit = 130;
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		rl_replace_line("", 0);
 		rl_on_new_line();
@@ -58,7 +59,7 @@ void	sig_hd_handler(int sig)
 	(void)sig;
 	ms = ft_init_ms(0);
 	ft_putchar_fd('\n', STDOUT_FILENO);
-	ft_exit_free(ms, 1);
+	ft_exit_free(ms, 1, 0);
 }
 
 void	ft_init_sig(int phase)

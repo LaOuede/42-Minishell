@@ -4,15 +4,13 @@ void	ft_free_jct(t_jct *jct)
 {
 	if (jct)
 	{
-		if (jct->envp)
-			ft_free_tab_char(jct->envp);
 		if (jct->tab)
 			ft_free_3tab(jct);
 		if (jct->fds_in)
 			free(jct->fds_in);
 		if (jct->fds_out)
 			free(jct->fds_out);
-		ft_freenull(jct);
+		jct = ft_freenull(jct);
 	}
 }
 
@@ -29,21 +27,18 @@ void	ft_reset_jct(t_jct *jct)
 	jct->echo = false;
 	jct->err_pars = false;
 	jct->flag_var = false;
-	jct->flag_err_var = false;
 }
 
 /*
 Initialization of the junction structure.
 This structure holds all important data needed both in parsing and execution.
 */
-t_jct	*ft_init_jct(char **envp)
+t_jct	*ft_init_jct(t_ms *ms, char **envp)
 {
-	(void)envp;
 	t_jct	*jct;
 
-	jct = ft_calloc(1, sizeof(t_jct));
-	// jct->envp = NULL;
-	// ft_copy_env(jct, envp);
+	(void)envp;
+	jct = ft_calloc_msh(1, sizeof(t_jct), ms);
 	jct->fds_in = NULL;
 	jct->fds_out = NULL;
 	jct->tab = NULL;
@@ -52,6 +47,5 @@ t_jct	*ft_init_jct(char **envp)
 	jct->echo = false;
 	jct->err_pars = false;
 	jct->flag_var = false;
-	jct->flag_err_var = false;
 	return (jct);
 }

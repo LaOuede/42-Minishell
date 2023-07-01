@@ -13,7 +13,8 @@ RM			=	rm -rf
 
 # -- SRC Files -- #
 SRCS_DIR	=	./src/
-SRCS_LST	= 	built_in/built_in.c \
+SRCS_LST	= 	banner.c \
+				built_in/built_in.c \
 			 	built_in/built_in_tools.c \
 				built_in/echo.c \
 				built_in/cd.c \
@@ -86,13 +87,15 @@ PURPLE		= 	\033[0;35m
 CYAN		= 	\033[0;36m
 ERASE_LINE 	= 	\033[2K\r
 
+EVALUATOR = $(shell whoami)
+
 # -- Executable's creation -- #
 all : dir readline $(NAME)
 
 # -- Compile library -- #
 $(NAME) : $(OBJS)
 	@make -C $(LIBFT_DIR)
-	@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(RLINE) -lncurses -o $(NAME)	
+	@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(RLINE) -lncurses -o $(NAME) -D EVALUATOR=\"$(EVALUATOR)\" -D BANNER=\"$(TIME)\"
 	@echo "✅ $(GREEN)$(NAME)'s exectuable successfully created.		✅$(RESET)"
 #@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(RLINE) $(C_TOOLS) -lncurses -o $(NAME)	//TODO to remove
 
