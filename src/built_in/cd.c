@@ -40,7 +40,7 @@ void	ft_msh_cd(t_ms *ms, char **cmd)
 	}
 	else if(ac >= 3)
 	{
-		ft_putstr_fd("Too many args\nUsage: env [no opt/args]\n", 2);
+		ft_putstr_fd("Too many args - Usage: env [no opt/args]\n", 2);
 		return ;
 	}
 	// if (DEBUG)
