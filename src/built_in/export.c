@@ -49,10 +49,12 @@ int		ft_find_index_var(t_ms *ms, char *cmd)
 	int i;
 	int	len;
 	(void)ms;
-
+	
+	if (!cmd || !ft_strchr(cmd, '='))
+		return (0);
 	printf("[ft_find_inndex_var] cmd: %s\n", cmd);
 	len = 0;
-	while(cmd[len] != '=')
+	while(cmd[len] != '=' && cmd[len])
 		len++;
 	printf("len till the '=' sign: %d\n", len);
 	i = 0;
@@ -67,12 +69,28 @@ int		ft_find_index_var(t_ms *ms, char *cmd)
 
 bool	ft_valid_ex(t_ms *ms, char *cmd) 
 {
-	if ((!ft_isalpha(cmd[0]) && cmd[0] != '_') || !ft_strchr(cmd, '='))
+	int i;
+	char **var;
+
+	if (cmd[0] == '=')
 	{
 		printf("export: %s not a valid identifier\n", cmd);
 		ms->flexit = EXIT_FAILURE;
 		return (false);
 	}
+	var = ft_split(cmd, '=');
+	i = -1;
+	while (var[0][++i])
+	{
+		if (!ft_strchr(cmd, '='))
+			return (false);
+		if (!ft_1st_part_valid(ms, var[0]))
+		{
+			printf("export: %s not a valid identifier\n", cmd);
+			return (false);
+		}
+	}
+	ft_free_tab_char(var);
 	return (true);
 }
 
@@ -84,18 +102,23 @@ void	ft_msh_export(t_ms *ms, char **cmd)
 
 	ac = ft_get_ac(cmd);
 	i = 0;
-	if (ac == 1)
+	printf("ac = %d\n", ac);
+	if (ac <= 1)
 		while ((ms->envp[++i]))
 			printf("declare -x %s\n", ms->envp[i]);
-	i = 0;
-	while (cmd[++i])
+	i = 1;
+	while (i < ac)
 	{
-		if (!ft_valid_ex(ms, cmd[i]))
-			return ;
-		index_var = ft_find_index_var(ms, cmd[i]);
-		if (index_var > 0)
-			ms->envp[index_var] = ft_replace_var(ms, cmd[i], index_var);
-		else
-			ms->envp = ft_export_var(ms, ms->envp, cmd[i]);
+		if (ft_valid_ex(ms, cmd[i]))
+		{
+			index_var = ft_find_index_var(ms, cmd[i]);
+			if (index_var < 0)
+				return ;
+			if (index_var > 0)
+				ms->envp[index_var] = ft_replace_var(ms, cmd[i], index_var);
+			else
+				ms->envp = ft_export_var(ms, ms->envp, cmd[i]);
+		}
+		i++;
 	}
 }
