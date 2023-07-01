@@ -18,7 +18,7 @@ void	ft_msh_env(t_ms *ms, char **cmd)
 
 	if (cmd[1])
 	{
-		ft_putstr_fd("Too many args\nUsage: env [no opt/args]\n", 2);
+		ft_putstr_fd("Too many args - Usage: env [no opt/args]\n", 2);
 		exit(127);
 	}
 	i = -1;

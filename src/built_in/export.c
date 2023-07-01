@@ -65,11 +65,12 @@ int		ft_find_index_var(t_ms *ms, char *cmd)
 	return (0);
 }
 
-bool	ft_valid_ex(char *cmd)
+bool	ft_valid_ex(t_ms *ms, char *cmd) 
 {
 	if ((!ft_isalpha(cmd[0]) && cmd[0] != '_') || !ft_strchr(cmd, '='))
 	{
 		printf("export: %s not a valid identifier\n", cmd);
+		ms->flexit = EXIT_FAILURE;
 		return (false);
 	}
 	return (true);
@@ -89,7 +90,7 @@ void	ft_msh_export(t_ms *ms, char **cmd)
 	i = 0;
 	while (cmd[++i])
 	{
-		if (!ft_valid_ex(cmd[i]))
+		if (!ft_valid_ex(ms, cmd[i]))
 			return ;
 		index_var = ft_find_index_var(ms, cmd[i]);
 		if (index_var > 0)

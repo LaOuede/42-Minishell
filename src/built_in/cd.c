@@ -26,7 +26,10 @@ void	ft_msh_cd(t_ms *ms, char **cmd)
 	if (ac < 2 || ft_strcmp(cmd[1], "~") == 0)
 	{
 		if(chdir(user) != 0)
+		{
 			perror("Error! chdir");
+			ms->flexit = 1;
+		}
 	}
 	else if (ac < 3 && chdir(cmd[1]) != 0)
 	{
