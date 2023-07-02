@@ -38,6 +38,7 @@ void	ft_exec(t_ms *ms)
 	ms->exec->pids = ft_calloc_msh(ms->jct->cmd_nb, sizeof(pid_t *), ms);
 	ft_make_pids(ms);
 	i = -1;
+	status = 0;
 	while (++i < ms->jct->cmd_nb)
 	{
 		waitpid(ms->exec->pids[i], &status, 0);

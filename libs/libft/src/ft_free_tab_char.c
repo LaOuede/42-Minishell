@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_tab_char.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gwenolaleroux <gwenolaleroux@student.42    +#+  +:+       +#+        */
+/*   By: gle-roux <gle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 13:51:24 by gle-roux          #+#    #+#             */
-/*   Updated: 2023/07/01 22:23:09 by gwenolalero      ###   ########.fr       */
+/*   Updated: 2023/07/02 14:25:49 by gle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ char	*ft_free_tab_char(char **tab)
 
 	i = 0;
 	while (tab[i])
-	{	
-		tab[i] = ft_freenull(tab[i]);
+	{
+		if (tab[i] != NULL)
+			tab[i] = ft_freenull(tab[i]);
 		i++;
 	}
 	tab = ft_freenull(tab);

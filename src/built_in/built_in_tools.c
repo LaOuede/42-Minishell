@@ -29,7 +29,6 @@ bool	ft_1st_part_valid(t_ms *ms, char *cmd)
 			|| !ft_isalnum(cmd[j]))
 		{
 			printf("c[%d]: %c not a valid identifier\n", j, cmd[j]);
-			ft_freenull(cmd);
 			ms->flexit = EXIT_FAILURE;
 			return (false);
 		}
@@ -74,5 +73,5 @@ char	*ft_trim_arg(char *cmd)
 		return (tmp3);
 	}
 	ft_free_tab_char(var);
-	return (cmd);
+	return (ft_strdup(cmd));
 }
