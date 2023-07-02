@@ -24,7 +24,7 @@ Return value :
 void	ft_msh_pwd(t_ms *ms, char **cmd)
 {
 	(void)ms;
-	printf(KYEL "-------------------- FT_MSH_PWD" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	printf(KYEL "-------------------- FT_MSH_PWD" KGRN " START " RT KYEL "--------------------\n" RT);
 	char	*buf;
 
 	if (cmd[1])
@@ -37,5 +37,5 @@ void	ft_msh_pwd(t_ms *ms, char **cmd)
 	if (buf)
 		printf("%s\n", buf);
 	buf = ft_freenull(buf);
-	printf(KYEL "-------------------- FT_MSH_PWD" KRED " END " RESET KYEL "--------------------\n" RESET);
+	printf(KYEL "-------------------- FT_MSH_PWD" KRED " END " RT KYEL "--------------------\n" RT);
 }

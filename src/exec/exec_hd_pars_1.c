@@ -3,7 +3,7 @@
 void	ft_get_expand_brackets_hd(int *i, char *str, t_ms *ms)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_GET_EXPAND_BRACKETS_HD" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_GET_EXPAND_BRACKETS_HD" KGRN KBLD" START " RT KYEL "--------------------\n" RT);
 	char	*tmp;
 
 	tmp = NULL;
@@ -26,18 +26,18 @@ void	ft_get_expand_brackets_hd(int *i, char *str, t_ms *ms)
 	}
 	tmp = ft_freenull(tmp);
 	if (str[(*i)] != '}')
-		ms->hd->err_parser = true;
+		ms->hd->err_filler = true;
 	else
 		(*i)++;
 	ft_reset_node(ms->hd);
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_GET_EXPAND_BRACKETS_HD" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_GET_EXPAND_BRACKETS_HD" KRED KBLD" END " RT KYEL "--------------------\n" RT);
 }
 
 bool	ft_check_expand_brackets_hd(char *str, t_ms *ms)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_CHECK_EXPAND_BRACKETS_HD" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_CHECK_EXPAND_BRACKETS_HD" KGRN KBLD" START " RT KYEL "--------------------\n" RT);
 	ms->hd->c_brackets = OPEN;
 	while (*str++)
 	{
@@ -51,7 +51,7 @@ bool	ft_check_expand_brackets_hd(char *str, t_ms *ms)
 		ms->hd->err_parser = true;
 	if (DEBUG){
 	printf("hd->c_brackets = %d\n", ms->hd->c_brackets);
-	printf(KYEL "-------------------- FT_CHECK_EXPAND_BRACKETS_HD" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
+	printf(KYEL "-------------------- FT_CHECK_EXPAND_BRACKETS_HD" KRED KBLD" END " RT KYEL "--------------------\n" RT);
 	}
 	if (ms->hd->c_brackets == CLOSE)
 		return (true);
@@ -61,7 +61,7 @@ bool	ft_check_expand_brackets_hd(char *str, t_ms *ms)
 void	ft_envvar_hd(int *i, char *str, t_ms *ms)
 {
 	if (DEBUG){
-		printf(KYEL "-------------------- FT_ENVVAR_HD" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_ENVVAR_HD" KGRN KBLD" START " RT KYEL "--------------------\n" RT);
 		printf("str[*i] = %c\n", str[*i]);
 	}
 	if (str[(*i)] == '$' && str[(*i) + 1] == '{')
@@ -80,13 +80,13 @@ void	ft_envvar_hd(int *i, char *str, t_ms *ms)
 		ft_envvar_token_hd(i, str, ms);
 	ft_reset_node(ms->hd);
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_ENVVAR_HD" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_ENVVAR_HD" KRED KBLD" END " RT KYEL "--------------------\n" RT);
 }
 
 void	ft_str_hd(int *i, t_ms *ms)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_STR_HD --------------------\n" RESET);
+		printf(KYEL "-------------------- FT_STR_HD --------------------\n" RT);
 	char	*tmp;
 
 	tmp = NULL;

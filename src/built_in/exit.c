@@ -13,7 +13,7 @@ Prototype :
 void	ft_msh_exit(t_ms *ms, char **cmd)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_MSH_EXIT" KGRN " START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_MSH_EXIT" KGRN " START " RT KYEL "--------------------\n" RT);
 	int	ac;
 
 	ac = ft_get_ac(cmd);
@@ -40,5 +40,5 @@ void	ft_msh_exit(t_ms *ms, char **cmd)
 	}
 	ft_exit_free(ms, 0, 0);
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_MSH_EXIT" KRED " END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_MSH_EXIT" KRED " END " RT KYEL "--------------------\n" RT);
 }

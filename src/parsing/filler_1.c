@@ -8,7 +8,7 @@
 void	ft_check_pipe(t_ms *ms)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_CHECK_PIPE" KGRN " START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_CHECK_PIPE" KGRN " START " RT KYEL "--------------------\n" RT);
 	t_token	*ptr;
 
 	ptr = ms->pars->line;
@@ -36,7 +36,7 @@ void	ft_check_pipe(t_ms *ms)
 	if (ms->pars->fl_pipe == false && ptr->next == NULL && ptr->type == PIPE)
 		ft_error_parsing(ERR_TOKEN, PARSER, 2, ms);
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_CHECK_PIPE" KRED " END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_CHECK_PIPE" KRED " END " RT KYEL "--------------------\n" RT);
 }
 
 /*
@@ -45,7 +45,7 @@ Check for REDIN or REDOUT token at the end of the linked-list.
 void	ft_check_redir(t_ms *ms)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_CHECK_REDIR" KGRN " START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_CHECK_REDIR" KGRN " START " RT KYEL "--------------------\n" RT);
 	t_token	*ptr;
 	int		len;
 
@@ -61,7 +61,7 @@ void	ft_check_redir(t_ms *ms)
 		ptr = ptr->next;
 	}
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_CHECK_REDIR" KRED " END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_CHECK_REDIR" KRED " END " RT KYEL "--------------------\n" RT);
 }
 
 /*
@@ -70,7 +70,7 @@ Parsing Part III
 2) Initialize the char ***array and allocate memory
 3) Fill the tab
 */
-void	ft_parser(t_ms *ms)
+void	ft_filler(t_ms *ms)
 {
 	t_tab	*tab;
 
@@ -78,8 +78,8 @@ void	ft_parser(t_ms *ms)
 	ft_check_redir(ms);
 	ft_check_pipe(ms);
 	if (DEBUG)
-		DEBUG_parser(ms->pars);
-	if (ms->pars->err_parser == false)
+		DEBUG_filler(ms->pars);
+	if (ms->pars->err_filler == false)
 	{
 		ms->jct->cmd_nb = ms->pars->nb_pipe;
 		if (DEBUG)

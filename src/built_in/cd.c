@@ -15,7 +15,7 @@ Prototype :
 void	ft_msh_cd(t_ms *ms, char **cmd)
 {
 	// if (DEBUG)
-		printf(KYEL "-------------------- FT_MSH_CD" KGRN " START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_MSH_CD" KGRN " START " RT KYEL "--------------------\n" RT);
 	int	ac;
 	char *user;
 	
@@ -43,5 +43,5 @@ void	ft_msh_cd(t_ms *ms, char **cmd)
 		return ;
 	}
 	// if (DEBUG)
-		printf(KYEL "-------------------- FT_MSH_ECHO" KRED " END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_MSH_ECHO" KRED " END " RT KYEL "--------------------\n" RT);
 }

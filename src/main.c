@@ -66,11 +66,6 @@ void	ft_minishell(t_ms *ms)
 	ft_exit_free(ms, 0, 0);
 }
 
-/*
-Main
-prints a welcome message on the terminal
-Infinite loop to wait for user input
-*/
 int	main(int ac, char **av, char **envp)
 {
 	t_ms	*ms;

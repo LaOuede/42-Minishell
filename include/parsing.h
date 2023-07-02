@@ -95,13 +95,14 @@ typedef struct s_pars
 	bool			err_infile;
 	bool			err_lexer;
 	bool			err_builder;
+	bool			err_filler;
 	bool			err_parser;
 }	t_pars;
 
 /* 		Debug functions 							*/
 void	DEBUG_builder(t_pars *pars);
 void	DEBUG_lexer(t_pars *pars);
-void	DEBUG_parser(t_pars *pars);
+void	DEBUG_filler(t_pars *pars);
 void	DEBUG_tab(t_jct *jct);
 
 /* 		Parsing functions 							*/
@@ -136,11 +137,13 @@ char	*ft_strjoin_char(t_ms *ms, char *s1, char s2);
 
 /* 		Builder part functions 						*/
 void	ft_args(t_ms *ms);
+bool	ft_bi(t_token *node);
 void	ft_builder(t_ms *ms);
 void	ft_check_error_redir(t_ms *ms);
 void	ft_clean_list(t_token **list);
 void	ft_create_file(t_ms *ms);
 void	ft_find_cmd(t_ms *ms);
+void	ft_lower_cmd(char *str);
 void	ft_merge(t_token *node, t_token *next);
 void	ft_merge_all_red(t_ms *ms);
 void	ft_merge_all_arg(t_ms *ms);
@@ -149,15 +152,14 @@ void	ft_merge_angle_brackets_out(t_pars *pars);
 void	ft_merge_arg(t_pars *pars);
 void	ft_merge_red(t_ms *ms);
 void	ft_open_file(t_ms *ms);
+void	ft_open_hd(t_ms *ms);
 void	ft_redirection(t_ms *ms);
 void	ft_swap(t_token *ptr1, t_token *ptr2);
 void	ft_swap_node(t_pars *pars);
 bool	ft_test_cmd(t_pars *pars, t_token *node);
 
-void	ft_open_hd(t_ms *ms);
-
 /* 		Parser part functions 						*/
-void	ft_parser(t_ms *ms);
+void	ft_filler(t_ms *ms);
 void	ft_check_redir(t_ms *ms);
 void	ft_check_pipe(t_ms *ms);
 void	ft_init_cmdtab(t_ms *ms);
@@ -175,6 +177,4 @@ void	ft_error_exit(char *err_msg, int exit);
 void	ft_clean_up_jct(char *err_msg, t_jct *jct);
 void	ft_error_parsing(char *err_msg, int step, int exit, t_ms *ms);
 
-
-void	ft_check_echo(t_ms *ms);
 #endif

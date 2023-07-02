@@ -41,6 +41,7 @@ void	ft_reset_pars(t_pars *pars)
 	pars->err_infile = false;
 	pars->err_lexer = false;
 	pars->err_builder = false;
+	pars->err_filler = false;
 	pars->err_parser = false;
 }
 
@@ -67,6 +68,7 @@ t_pars	*ft_init_pars(t_ms *ms)
 	pars->err_infile = false;
 	pars->err_lexer = false;
 	pars->err_builder = false;
+	pars->err_filler = false;
 	pars->err_parser = false;
 	return (pars);
 }
@@ -84,7 +86,7 @@ Produces a char *** array which is received by the executioner.
 void	ft_parsing(t_ms *ms)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_PARSING" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_PARSING" KGRN KBLD" START " RT KYEL "--------------------\n" RT);
 	ft_lexer(ms);
 	if (!ms->pars->line)
 		ms->pars->err_lexer = true;
@@ -96,12 +98,12 @@ void	ft_parsing(t_ms *ms)
 		if (DEBUG)
 			DEBUG_builder(ms->pars);
 		if (ms->pars->err_builder == false)
-			ft_parser(ms);
+			ft_filler(ms);
 	}
 	if (ms->pars->err_lexer == true || ms->pars->err_builder == true \
-		|| ms->pars->err_parser == true)
+		|| ms->pars->err_filler == true)
 		ms->jct->err_pars = true;
 	ft_reset_pars(ms->pars);
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_PARSING" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_PARSING" KRED KBLD" END " RT KYEL "--------------------\n" RT);
 }

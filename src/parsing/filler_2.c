@@ -44,7 +44,7 @@ void	ft_fill_tab(t_ms *ms, t_tab *tab)
 {
 	if (DEBUG)
 	{
-		printf(KYEL "-------------------- FT_FILL_TAB" KGRN " START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_FILL_TAB" KGRN " START " RT KYEL "--------------------\n" RT);
 		printf("ms->jct->cmd_nb = %d\n", ms->jct->cmd_nb);
 		printf("ms->pars->nb_pipe = %d\n", ms->pars->nb_pipe);
 	}
@@ -73,7 +73,7 @@ void	ft_fill_tab(t_ms *ms, t_tab *tab)
 		}
 	}
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_FILL_TAB" KRED " END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_FILL_TAB" KRED " END " RT KYEL "--------------------\n" RT);
 	// Ct_debug(0, "-------------------- FT_FILL_TAB END --------------------", "log.txt");
 }
 

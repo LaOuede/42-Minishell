@@ -79,7 +79,7 @@ char	*ft_stock_char(t_ms *ms, char *str, char c)
 char	*ft_strjoin_char(t_ms *ms, char *s1, char s2)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_STRJOIN_CHAR" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_STRJOIN_CHAR" KGRN KBLD" START " RT KYEL "--------------------\n" RT);
 	char	*s3;
 	size_t	len;
 
@@ -102,6 +102,6 @@ char	*ft_strjoin_char(t_ms *ms, char *s1, char s2)
 		printf("s3 = %s\n", s3);
 	s1 = ft_freenull(s1);
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_STRJOIN_CHAR" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_STRJOIN_CHAR" KRED KBLD" END " RT KYEL "--------------------\n" RT);
 	return (s3);
 }

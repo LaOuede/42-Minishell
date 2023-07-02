@@ -16,7 +16,7 @@ void	print_hd(t_pars *hd, int fd_hd)
 void	ft_merge_hd(t_pars *hd)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_MERGE_HD" KGRN " START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_MERGE_HD" KGRN " START " RT KYEL "--------------------\n" RT);
 	t_token	*ptr1;
 	t_token	*ptr2;
 
@@ -38,13 +38,13 @@ void	ft_merge_hd(t_pars *hd)
 		ptr1 = ptr1->next;
 	}
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_MERGE_HD" KRED " END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_MERGE_HD" KRED " END " RT KYEL "--------------------\n" RT);
 }
 
 void	ft_envvar_token_hd(int *i, char *str, t_ms *ms)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_ENVVAR_TOKEN_HD" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_ENVVAR_TOKEN_HD" KGRN KBLD" START " RT KYEL "--------------------\n" RT);
 	char	*tmp;
 
 	tmp = NULL;
@@ -64,5 +64,5 @@ void	ft_envvar_token_hd(int *i, char *str, t_ms *ms)
 	}
 	tmp = ft_freenull(tmp);
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_ENVVAR_TOKEN_HD" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_ENVVAR_TOKEN_HD" KRED KBLD" END " RT KYEL "--------------------\n" RT);
 }

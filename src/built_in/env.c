@@ -14,7 +14,7 @@ void	ft_msh_env(t_ms *ms, char **cmd)
 {
 	(void)cmd;
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_MSH_ENV" KGRN " START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_MSH_ENV" KGRN " START " RT KYEL "--------------------\n" RT);
 	int	i;
 
 	if (cmd[1])
@@ -27,5 +27,5 @@ void	ft_msh_env(t_ms *ms, char **cmd)
 		while (ms->envp[++i])
 			printf("%s\n", ms->envp[i]);
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_MSH_ENV" KRED " END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_MSH_ENV" KRED " END " RT KYEL "--------------------\n" RT);
 }
