@@ -114,10 +114,12 @@ char	*ft_trim_arg(char *cmd)
 		tmp3 = ft_strjoin(tmp2, tmp1);
 		tmp1 = ft_freenull(tmp1);
 		tmp2 = ft_freenull(tmp2);
+		printf("tmp3 = %s\n", tmp3);
+		ft_free_tab_char(var);
+		return (tmp3);
 	}
 	ft_free_tab_char(var);
-	printf("tmp3 = %s\n", tmp3);
-	return (tmp3);
+	return (cmd);
 }
 
 void	ft_msh_export(t_ms *ms, char **cmd)
