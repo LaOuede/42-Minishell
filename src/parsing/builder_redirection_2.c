@@ -35,11 +35,9 @@ void	ft_create_file(t_ms *ms)
 
 void	ft_open_hd(t_ms *ms)
 {
-	int		i;
 	char	*str;
 	t_token	*ptr;
 
-	i = 0;
 	str = "<<";
 	ptr = ms->pars->line;
 	while (ptr->next)
@@ -51,8 +49,6 @@ void	ft_open_hd(t_ms *ms)
 			if (ft_strncmp(ptr->str, str, 2) == 0 && ptr->next->str[0] != 29)
 				ft_exec_hd(ptr->next->str, ms);
 		}
-		else if (ptr->type == PIPE)
-			i++;
 		ptr = ptr->next;
 	}
 }

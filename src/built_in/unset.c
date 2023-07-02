@@ -9,13 +9,11 @@ Prototype :
 
 char	**ft_unset(t_ms *ms, char **envp, char *cmd)
 {
-	char	**new_envp;
 	int		i;
-	int 	len;
 	int		j;
+	int 	len;
+	char	**new_envp;
 
-	if (DEBUG)
-		printf("[ft_unset| cmd : %s\n", cmd);
 	len = 0;
 	while(envp[len])
 		len++;
@@ -41,8 +39,6 @@ bool	ft_isvalid(char *cmd)
 	i = 0;
 	while (cmd[i])
 	{
-		// if (DEBUG)
-			printf("c = %c\n", cmd[i]);
 		while (cmd[i] == '_')
 			i++;
 		if (cmd[i] == '$' || cmd[i] == '?')
@@ -60,16 +56,12 @@ bool	ft_isvalid(char *cmd)
 
 void	ft_msh_unset(t_ms *ms, char **cmd)
 {
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_MSH_UNSET" KGRN " START " RT KYEL "--------------------\n" RT);
-	(void)ms;
 	int i;
 
 	i = 0;
+	(void)ms;
 	while (cmd[++i])
 	{
-		if (DEBUG)
-			printf("[ft_msh_unset 1] cmd[%d] : %s\n", i, cmd[i]);
 		if (ft_isvalid(cmd[i]))
 			ms->envp = ft_unset(ms, ms->envp, ft_strjoin(cmd[i], "="));
 		else
@@ -77,9 +69,5 @@ void	ft_msh_unset(t_ms *ms, char **cmd)
 			ms->flexit = EXIT_FAILURE;
 			return ;
 		}
-		if (DEBUG)
-			printf("[ft_msh_unset 2] cmd[%d] : %s\n", i, cmd[i]);
 	}
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_MSH_UNSET" KRED " END " RT KYEL "--------------------\n" RT);
 }

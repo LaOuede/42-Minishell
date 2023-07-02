@@ -6,11 +6,7 @@ int	ft_get_ac(char **cmd)
 
 	j = 0;
 	while (cmd[j])
-	{
-		if (DEBUG)
-			printf("cmd[%d]: %s\n", j, cmd[j]);
 		j++;
-	}
 	return (j);
 }
 
@@ -36,10 +32,9 @@ bool	ft_1st_part_valid(t_ms *ms, char *cmd)
 	return(true);
 }
 
-char	*ft_trim_arg(char *cmd)
+char	*ft_trim_arg_util(char **var)
 {
-	int		i;
-	char	**var;
+	int	 i;
 	char	*tmp1;
 	char	*tmp2;
 	char	*tmp3;
@@ -48,30 +43,30 @@ char	*ft_trim_arg(char *cmd)
 	tmp1 = NULL;
 	tmp2 = NULL;
 	tmp3 = NULL;
-	var = ft_split(cmd, '=');
-	printf("var[0] = %s\n", var[0]);
-	if (var[1])
+	while (var[++i])
 	{
-		while (var[++i])
+		tmp1 = ft_strtrim(var[i], " ");
+		if (tmp3)
 		{
-			tmp1 = ft_strtrim(var[i], " ");
-			printf("tmp1 = %s\n", tmp1);
-			if (tmp3)
-			{
-				tmp2 = ft_strjoin(tmp3, "=");
-				tmp3 = ft_freenull(tmp3);
-			}
-			else
-				tmp2 = ft_strjoin(var[0], "=");
-			printf("tmp2 = %s\n", tmp2);
-			tmp3 = ft_strjoin(tmp2, tmp1);
-			printf("tmp3 = %s\n", tmp3);
-			tmp1 = ft_freenull(tmp1);
-			tmp2 = ft_freenull(tmp2);
+			tmp2 = ft_strjoin(tmp3, "=");
+			tmp3 = ft_freenull(tmp3);
 		}
-		ft_free_tab_char(var);
-		return (tmp3);
+		else
+			tmp2 = ft_strjoin(var[0], "=");
+		tmp3 = ft_strjoin(tmp2, tmp1);
+		tmp1 = ft_freenull(tmp1);
+		tmp2 = ft_freenull(tmp2);
 	}
+	return (tmp3);
+}
+
+char*ft_trim_arg(char *cmd)
+{
+	char	**var;
+
+	var = ft_split(cmd, '=');
+	if (var[1])
+		ft_trim_arg_util(var);
 	ft_free_tab_char(var);
 	return (ft_strdup(cmd));
 }
