@@ -10,6 +10,22 @@ Prototype :
 	exit
 */
 
+void	ft_exit_util(t_ms *ms, char *str)
+{
+	if (ft_str_isdigit(str) == false)
+	{
+		ms->flexit = 255;
+		ft_banner_exit(ms);
+		ft_exit_free(ms, ms->flexit, ERR_EXI2);
+	}
+	else
+	{
+		ms->flexit = ft_atoi(str) % 256;
+		ft_banner_exit(ms);
+		ft_exit_free(ms, ms->flexit, 0);
+	}
+}
+
 void	ft_msh_exit(t_ms *ms, char **cmd)
 {
 	int	ac;
@@ -22,19 +38,7 @@ void	ft_msh_exit(t_ms *ms, char **cmd)
 		return ;
 	}
 	if (ac == 2)
-	{
-		if (ft_str_isdigit(cmd[1]) == false)
-		{
-			ms->flexit = 255;
-			ft_banner_exit(ms);
-			ft_exit_free(ms, ms->flexit, ERR_EXI2);
-		}
-		else
-		{
-			ms->flexit = ft_atoi(cmd[1]) % 256;
-			ft_banner_exit(ms);
-			ft_exit_free(ms, ms->flexit, 0);
-		}
-	}
+		ft_exit_util(ms, cmd[1]);
+	ft_banner_exit(ms);
 	ft_exit_free(ms, 0, 0);
 }
