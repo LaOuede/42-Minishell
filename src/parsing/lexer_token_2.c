@@ -112,6 +112,7 @@ void	ft_envvar_token(int *i, char *str, t_ms *ms)
 		(*i)++;
 		tmp = ft_stock_char(ms, tmp, 29);
 		ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, tmp, ms->pars));
+		tmp = ft_freenull(tmp);
 		return ;
 	}
 	while (ft_isenvvarchar(str[++(*i)]))
@@ -141,8 +142,10 @@ void	ft_envvar(int *i, char *str, t_ms *ms)
 {
 	if (DEBUG)
 		printf(KYEL "-------------------- FT_ENVVAR" KGRN KBLD" START " RT KYEL "--------------------\n" RT);
+	char 	*tmp;
 	t_token	*ptr;
 
+	tmp = NULL;
 	ptr = ms->pars->line;
 	while (ptr)
 		ptr = ptr->next;
@@ -166,7 +169,9 @@ void	ft_envvar(int *i, char *str, t_ms *ms)
 			ms->ctrlc = false;
 			ms->flexit = 130;
 		}
-		ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, ft_itoa(ms->flexit), ms->pars));
+		tmp = ft_itoa(ms->flexit);
+		ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, tmp, ms->pars));
+		tmp = ft_freenull(tmp);
 	}
 	else
 		ft_envvar_token(i, str, ms);
