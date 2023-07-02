@@ -14,23 +14,17 @@ Handle regular chars and whitespaces
 */
 void	ft_char(int *i, t_ms *ms)
 {
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_CHAR --------------------\n" RT);
 	char	*tmp;
 
 	tmp = NULL;
 	while (ft_iswhitespace(ms->pars->input[(*i)]) == 1)
 	{
-		if (DEBUG)
-			printf("-> white space\n");
 		ms->pars->fl_ws = 1;
 		(*i)++;
 	}
 	while (ms->pars->input[(*i)] && ft_ismetachar(ms->pars->input[(*i)]) == 0 \
 		&& ft_iswhitespace(ms->pars->input[(*i)]) == 0)
 	{
-		if (DEBUG)
-			printf("-> char = %c\n", ms->pars->input[(*i)]);
 		tmp = ft_stock_char(ms, tmp, ms->pars->input[(*i)]);
 		(*i)++;
 	}
@@ -40,17 +34,10 @@ void	ft_char(int *i, t_ms *ms)
 		tmp = ft_freenull(tmp);
 		ft_reset_node(ms->pars);
 	}
-	if (DEBUG)
-	{
-		printf("-> i = %d\n", (*i));
-		printf("-> char fin = %c\n", ms->pars->input[(*i)]);
-	}
 }
 
 void	ft_metachar(char c, int *i, t_ms *ms)
 {
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_METACHAR --------------------\n" RT);
 	if (c == '|' || c == '<' || c == '>')
 		ft_token(i, ms);
 	else if (c == '$')
@@ -77,24 +64,15 @@ Parse the input char by char looking for :
 */
 void	ft_lexer(t_ms *ms)
 {
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_LEXER" KGRN KBLD" START " RT KYEL "--------------------\n" RT);
 	int	i;
 
 	i = 0;
 	ms->pars->strlen = ft_strlen(ms->pars->input);
 	while (i < (int)ms->pars->strlen)
 	{
-		if (DEBUG)
-		{
-			printf("-> i = %d\n", (i));
-			printf("-> char = %c\n", ms->pars->input[(i)]);
-		}
 		if (ft_ismetachar(ms->pars->input[i]) == true)
 			ft_metachar(ms->pars->input[i], &i, ms);
 		else
 			ft_char(&i, ms);
 	}
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_LEXER" KRED KBLD" END " RT KYEL "--------------------\n" RT);
 }

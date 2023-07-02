@@ -24,7 +24,6 @@ SRCS_LST	= 	banner/banner_exit.c \
 				built_in/env.c \
 				built_in/exit.c \
 				built_in/pwd.c \
-				DEBUG_parsing.c \
 				exec/exec_hd.c \
 				exec/exec_dup.c \
 				exec/exec_hd_pars_1.c \
