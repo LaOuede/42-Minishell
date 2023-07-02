@@ -23,7 +23,7 @@ char	**ft_export_var(t_ms *ms, char **env, char *cmd)
 	int		i;
 	int		j;
 	int		len_env;
-	int		len_env2 = 0;
+	char	**new_envp_env;
 
 
 	i = 0;
@@ -32,8 +32,6 @@ char	**ft_export_var(t_ms *ms, char **env, char *cmd)
 	new_envp_env = ft_calloc_msh(len_env + 2, sizeof(char *), ms);
 	while(env[i])
 		new_envp_env[j++] = ft_strdup(env[i++]);
-	printf("cmd; %s\n", cmd);
-	printf("j: %d\n", j);
 	new_envp_env[j++] = ft_strdup(cmd);
 	new_envp_env[j] = NULL;
 	ft_free_tab_char(env);
