@@ -21,7 +21,7 @@ bool	ft_1st_part_valid(t_ms *ms, char *cmd)
 			j++;
 		if (cmd[j] == '$' || cmd[j] == '?' || cmd[j] == '_')
 			j++;
-		if ((!ft_isalpha(cmd[0]) && cmd[0] != '_' && cmd[0] != '=') 
+		if ((!ft_isalpha(cmd[0]) && cmd[0] != '_' && cmd[0] != '=') \
 			|| !ft_isalnum(cmd[j]))
 		{
 			printf("c[%d]: %c not a valid identifier\n", j, cmd[j]);
@@ -29,12 +29,12 @@ bool	ft_1st_part_valid(t_ms *ms, char *cmd)
 			return (false);
 		}
 	}
-	return(true);
+	return (true);
 }
 
 char	*ft_trim_arg_util(char **var)
 {
-	int	 i;
+	int		i;
 	char	*tmp1;
 	char	*tmp2;
 	char	*tmp3;
@@ -60,7 +60,7 @@ char	*ft_trim_arg_util(char **var)
 	return (tmp3);
 }
 
-char*ft_trim_arg(char *cmd)
+char	*ft_trim_arg(char *cmd)
 {
 	char	**var;
 

@@ -58,7 +58,7 @@ bool	ft_flag(t_ms *ms, char *str)
 				return (false);
 		}
 		else
-				return (false);
+			return (false);
 	}
 	return (false);
 }
