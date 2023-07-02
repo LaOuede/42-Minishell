@@ -49,13 +49,11 @@ char	*ft_trim_arg(char *cmd)
 	tmp2 = NULL;
 	tmp3 = NULL;
 	var = ft_split(cmd, '=');
-	printf("var[0] = %s\n", var[0]);
 	if (var[1])
 	{
 		while (var[++i])
 		{
 			tmp1 = ft_strtrim(var[i], " ");
-			printf("tmp1 = %s\n", tmp1);
 			if (tmp3)
 			{
 				tmp2 = ft_strjoin(tmp3, "=");
@@ -63,9 +61,7 @@ char	*ft_trim_arg(char *cmd)
 			}
 			else
 				tmp2 = ft_strjoin(var[0], "=");
-			printf("tmp2 = %s\n", tmp2);
 			tmp3 = ft_strjoin(tmp2, tmp1);
-			printf("tmp3 = %s\n", tmp3);
 			tmp1 = ft_freenull(tmp1);
 			tmp2 = ft_freenull(tmp2);
 		}

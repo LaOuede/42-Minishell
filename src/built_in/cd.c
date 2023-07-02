@@ -12,16 +12,15 @@ Prototype :
 	cd [directory]
 */
 
-void	ft_update(t_ms *ms, char *pwd)
+void	ft_update_oldpwd(t_ms *ms)
 {
-	char	*dir[3];
+	char	*olddir[3];
 
-	dir[0] = "export";
-	dir[1] = ft_strjoin(pwd, getcwd(NULL, 0));
-	dir[2] = NULL;
-	printf("dir[1]: %s\n", dir[1]);
-	ft_msh_export(ms, (char **)dir);
-	ft_free_tab_char(dir);
+	olddir[0] = "export";
+	olddir[1] = ft_strjoin("OLDPWD=", getcwd(NULL, 0));
+	olddir[2] = NULL;
+	ft_msh_export(ms, (char **)olddir);
+	free(olddir[1]);
 }
 
 int	ft_isexist(t_ms *ms, char *home)
@@ -35,7 +34,7 @@ int	ft_isexist(t_ms *ms, char *home)
 	while (ms->envp[i] && ft_strncmp(ms->envp[i], home, 5) != 0)
 		i++;
 	j = i;
-	if (++j > ac && ft_strncmp(ms->envp[i], home, 5) != 0)
+	if (++j > ac)
 		return (-1);
 	else
 		return (i);
@@ -47,7 +46,6 @@ char	*ft_getenv(t_ms *ms, char *home)
 	char	**path_var;
 	char	*tmp;
 
-	printf("-- ft_gentenv starts\n");
 	tmp = NULL;
 	path_var = NULL;
 	if (!ms->envp)
@@ -59,8 +57,6 @@ char	*ft_getenv(t_ms *ms, char *home)
 	if (path_var[1])
 	{
 		tmp = ft_strdup(path_var[1]);
-		printf("if(path_var)\npath_var = %s\n", path_var[1]);
-		printf("ms->envp[%d] = %s\n", index, path_var[1]);
 		ft_free_tab_char(path_var);
 		return(tmp);
 	}
@@ -69,7 +65,6 @@ char	*ft_getenv(t_ms *ms, char *home)
 		ft_free_tab_char(path_var);
 		return (NULL);
 	}
-	printf("-- ft_gentenv ends\n");
 }
 
 char *ft_get_dir(t_ms *ms, char **cmd)
@@ -77,32 +72,40 @@ char *ft_get_dir(t_ms *ms, char **cmd)
 	char *home;
 	
 	home = NULL;
-	if (cmd[1])
-		return (cmd[1]);
-	else
+	if (!cmd[1] || ft_strcmp(cmd[1], "~") == 0)
 	{
 		home = ft_getenv(ms, "HOME=");
 		return (home);
 	}
+	else
+		return (cmd[1]);
 }
 
 int	ft_do_chdir(t_ms *ms, char *cd)
 {
+	char	*newdir[3];
+
 	if(chdir(cd) == -1)
 		return(0);
-	ft_update(ms, "PWD=");
+	newdir[0] = "export";
+	newdir[1] = ft_strjoin("PWD=", getcwd(NULL, 0));
+	newdir[2] = NULL;
+	ft_msh_export(ms, (char **)newdir);
+	free(newdir[1]);
 	return (1);
 }
 
 void	ft_msh_cd(t_ms *ms, char **cmd)
 {
-	// if (DEBUG)
-		printf(KYEL "-------------------- FT_MSH_CD" KGRN " START " RT KYEL "--------------------\n" RT);
 	int	ac;
 	char *cd;
 	
+	if (!getcwd(NULL, 0))
+	{
+		perror("cd");
+		return ;
+	}
 	ac = ft_get_ac(cmd);
-	printf("ac: %d\n", ac);
 	if (ac > 2)
 	{
 		ft_putstr_fd("Too many args - Usage: env [no opt/args]\n", 2);
@@ -111,7 +114,7 @@ void	ft_msh_cd(t_ms *ms, char **cmd)
 	}
 	else
 	{
-		ft_update(ms, "OLDPWD=");
+		ft_update_oldpwd(ms);
 		cd = ft_get_dir(ms, cmd);
 		if(ft_do_chdir(ms, cd) < 1)
 		{
@@ -119,48 +122,5 @@ void	ft_msh_cd(t_ms *ms, char **cmd)
 			return ;
 		}
 	}
-	// if (DEBUG)
-		printf(KYEL "-------------------- FT_MSH_ECHO" KRED " END " RT KYEL "--------------------\n" RT);
 }
 
-	// if (ac < 3 && chdir(cmd[1]) != 0)
-	// {
-	// 	ft_export_oldpwd(ms);
-	// 	perror("Error! cd");
-	// 	ms->flexit = 1;
-	// 	return ;
-	// }
-// void	ft_msh_cd(t_ms *ms, char **cmd)
-// {
-// 	// if (DEBUG)
-// 		printf(KYEL "-------------------- FT_MSH_CD" KGRN " START " RT KYEL "--------------------\n" RT);
-// 	int	ac;
-// 	char *home;
-	
-// 	home = ft_getenv(ms, "HOME=");
-// 	ac = ft_get_ac(cmd);
-// 	printf("ac: %d\n", ac);
-// 	if (ac < 2 || ft_strcmp(cmd[1], "~") == 0)
-// 	{
-// 		if(chdir(home) != 0)
-// 		{
-// 			perror("Error! chdir");
-// 			ms->flexit = 1;
-// 		}
-// 	}
-// 	else if (ac < 3 && chdir(cmd[1]) != 0)
-// 	{
-// 		ft_export_oldpwd(ms);
-// 		perror("Error! chdir");
-// 		ms->flexit = 1;
-// 		return ;
-// 	}
-// 	else if(ac >= 3)
-// 	{
-// 		ft_putstr_fd("Too many args - Usage: env [no opt/args]\n", 2);
-// 		ms->flexit = 1;
-// 		return ;
-// 	}
-// 	// if (DEBUG)
-// 		printf(KYEL "-------------------- FT_MSH_ECHO" KRED " END " RT KYEL "--------------------\n" RT);
-// }

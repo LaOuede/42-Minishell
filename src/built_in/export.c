@@ -24,22 +24,15 @@ char	**ft_export_var(t_ms *ms, char **env, char *cmd)
 	int		i;
 	int		j;
 	int		len_env;
-	int		len_env2 = 0;
-
 
 	i = 0;
 	j = 0;
 	len_env = ft_get_ac(env);
-	printf("len: %d\n", len_env);
 	new_envp_env = ft_calloc_msh(len_env + 2, sizeof(char *), ms);
-	printf("len2: %d\n", len_env2);
 	while(env[i])
 		new_envp_env[j++] = ft_strdup(env[i++]);
-	printf("cmd; %s\n", cmd);
-	printf("j: %d\n", j);
 	new_envp_env[j++] = ft_strdup(cmd);
 	new_envp_env[j] = NULL;
-	printf("j: %d\n", j);
 	ft_free_tab_char(env);
 	return (new_envp_env);
 }
@@ -51,11 +44,9 @@ int		ft_find_index_var(t_ms *ms, char *cmd)
 
 	if (!cmd || !ft_strchr(cmd, '='))
 		return (0);
-	printf("[ft_find_inndex_var] cmd: %s\n", cmd);
 	len = 0;
 	while(cmd[len] != '=' && cmd[len])
 		len++;
-	printf("len till the '=' sign: %d\n", len);
 	i = 0;
 	while(ms->envp[i])
 	{
@@ -77,7 +68,7 @@ bool	ft_valid_ex(t_ms *ms, char *cmd)
 		ms->flexit = EXIT_FAILURE;
 		return (false);
 	}
-											var = ft_split(cmd, '=');
+	var = ft_split(cmd, '=');
 	i = -1;
 	while (var[0][++i])
 	{
@@ -107,7 +98,6 @@ void	ft_msh_export(t_ms *ms, char **cmd)
 
 	ac = ft_get_ac(cmd);
 	i = 0;
-	printf("ac = %d\n", ac);
 	if (ac <= 1)
 		while ((ms->envp[++i]))
 			printf("declare -x %s\n", ms->envp[i]);
@@ -115,15 +105,12 @@ void	ft_msh_export(t_ms *ms, char **cmd)
 	tmp = NULL;
 	while (i < ac)
 	{
-		printf("cmd[i] = %s\n", cmd[i]);
 		if (ft_valid_ex(ms, cmd[i]))
 		{
-			printf("coucou\n");
 			index_var = ft_find_index_var(ms, cmd[i]);
 			if (index_var < 0)
 				return ;
 			tmp = ft_trim_arg(cmd[i]);
-			printf("tmp = %s\n", tmp);
 			if (index_var > 0)
 				ms->envp[index_var] = ft_replace_var(ms, tmp, index_var);
 			else
