@@ -20,10 +20,11 @@ char	*ft_replace_var(t_ms *ms, char *cmd, int index_var)
 
 char	**ft_export_var(t_ms *ms, char **env, char *cmd)
 {
-	char	**new_envp_env;
 	int		i;
 	int		j;
 	int		len_env;
+	int		len_env2 = 0;
+
 
 	i = 0;
 	j = 0;
@@ -31,6 +32,8 @@ char	**ft_export_var(t_ms *ms, char **env, char *cmd)
 	new_envp_env = ft_calloc_msh(len_env + 2, sizeof(char *), ms);
 	while(env[i])
 		new_envp_env[j++] = ft_strdup(env[i++]);
+	printf("cmd; %s\n", cmd);
+	printf("j: %d\n", j);
 	new_envp_env[j++] = ft_strdup(cmd);
 	new_envp_env[j] = NULL;
 	ft_free_tab_char(env);
@@ -91,8 +94,8 @@ bool	ft_valid_ex(t_ms *ms, char *cmd)
 
 void	ft_msh_export(t_ms *ms, char **cmd)
 {
-	int		ac;
 	int 	i;
+	int		ac;
 	int		index_var;
 	char	*tmp;
 
