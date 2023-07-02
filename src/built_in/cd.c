@@ -19,6 +19,7 @@ void	ft_msh_cd(t_ms *ms, char **cmd)
 	int	ac;
 	char *user;
 	
+	//TODO need to replace getenv 
 	user = getenv("HOME");
 	ac = ft_get_ac(cmd);
 	printf("ac: %d\n", ac);

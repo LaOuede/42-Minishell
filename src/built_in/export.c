@@ -94,34 +94,6 @@ bool	ft_valid_ex(t_ms *ms, char *cmd)
 	return (true);
 }
 
-char	*ft_trim_arg(char *cmd)
-{
-	char	**var;
-	char	*tmp1;
-	char	*tmp2;
-	char	*tmp3;
-
-	tmp1 = NULL;
-	tmp2 = NULL;
-	tmp3 = NULL;
-	var = ft_split(cmd, '=');
-	printf("var[0] = %s\n", var[0]);
-	if (var[1])
-	{
-		tmp1 = ft_strtrim(var[1], " ");
-		printf("tmp1 = %s\n", tmp1);
-		tmp2 = ft_strjoin(var[0], "=");
-		tmp3 = ft_strjoin(tmp2, tmp1);
-		tmp1 = ft_freenull(tmp1);
-		tmp2 = ft_freenull(tmp2);
-		printf("tmp3 = %s\n", tmp3);
-		ft_free_tab_char(var);
-		return (tmp3);
-	}
-	ft_free_tab_char(var);
-	return (cmd);
-}
-
 void	ft_msh_export(t_ms *ms, char **cmd)
 {
 	int	ac;
@@ -144,7 +116,7 @@ void	ft_msh_export(t_ms *ms, char **cmd)
 			if (index_var < 0)
 				return ;
 			if (index_var > 0)
-				ms->envp[index_var] = ft_replace_var(ms, cmd[i], index_var);
+				ms->envp[index_var] = ft_replace_var(ms, ft_trim_arg(cmd[i]), index_var);
 			else
 				ms->envp = ft_export_var(ms, ms->envp, ft_trim_arg(cmd[i]));
 		}
