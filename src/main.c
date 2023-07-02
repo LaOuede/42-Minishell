@@ -37,6 +37,8 @@ t_ms	*ft_init_ms(char **envp)
 		ms->jct = ft_init_jct(ms, envp);
 		ms->pars = ft_init_pars(ms);
 		ms->exec = ft_init_exec(ms);
+		ms->ctrlbs = false;
+		ms->ctrlc = false;
 		ms->hd = NULL;
 		ms->flexit = 0;
 	}
@@ -53,7 +55,7 @@ void	ft_minishell(t_ms *ms)
 		if (!ms->pars->input)
 		{
 			ft_banner_exit(ms);
-			ft_exit_free(ms, 0, 0);
+			ft_exit_free(ms, ms->flexit, 0);
 		}
 		add_history(ms->pars->input);
 		ft_parsing(ms);

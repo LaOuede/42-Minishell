@@ -34,7 +34,6 @@ void	ft_handle_flag(t_ms *ms, int *i, int arg, char **cmd)
 				printf("%s", cmd[*i]);
 		}
 		printf("\n");
-		ms->flexit = 0;
 	}
 }
 

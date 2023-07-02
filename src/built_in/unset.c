@@ -78,7 +78,10 @@ void	ft_msh_unset(t_ms *ms, char **cmd)
 		// 	if (ms->jct->cmd_nb == 1)
 		// 		return ;
 		// 	else
-		// 		ft_exit_free(ms, 1, 0);
+			{
+				ms->flexit = EXIT_FAILURE;
+		// 		ft_exit_free(ms, ms->flexit, 0);
+			}
 		// }
 		if (DEBUG)
 			printf("[ft_msh_unset 2] cmd[%d] : %s\n", i, cmd[i]);

@@ -14,7 +14,7 @@ void	ft_make_pids(t_ms *ms)
 			if (ft_built_in(ms, i) == 0)
 				return ;
 			if (ft_pre_redir(ms, i) == 1)
-				exit (127); //TODO mettre le vrai exit status
+				exit (1);
 			ms->exec->pids[i] = fork();
 			if (ms->exec->pids[i] == -1)
 				perror("Error! PID creation failed:");

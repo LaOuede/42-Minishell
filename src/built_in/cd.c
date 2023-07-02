@@ -16,7 +16,6 @@ void	ft_msh_cd(t_ms *ms, char **cmd)
 {
 	// if (DEBUG)
 		printf(KYEL "-------------------- FT_MSH_CD" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	(void)ms;
 	int	ac;
 	char *user;
 	
@@ -36,11 +35,11 @@ void	ft_msh_cd(t_ms *ms, char **cmd)
 		perror("Error! chdir");
 		ms->flexit = 1;
 		return ;
-		// exit(127); //TODO quel code erreur ?
 	}
 	else if(ac >= 3)
 	{
 		ft_putstr_fd("Too many args - Usage: env [no opt/args]\n", 2);
+		ms->flexit = 1;
 		return ;
 	}
 	// if (DEBUG)
