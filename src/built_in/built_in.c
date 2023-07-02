@@ -35,7 +35,7 @@ t_builtin	*ft_get_builtin(void)
 int	ft_is_builtin(char **cmd)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_IS_BUILTIN" KGRN " START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_IS_BUILTIN" KGRN " START " RT KYEL "--------------------\n" RT);
 	if (ft_strcmp(cmd[0], "echo") == 0)
 		return (1);
 	else if (ft_strcmp(cmd[0], "pwd") == 0)
@@ -51,7 +51,7 @@ int	ft_is_builtin(char **cmd)
 	else if (ft_strcmp(cmd[0], "unset") == 0)
 		return (7);
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_IS_BUILTIN" KRED " END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_IS_BUILTIN" KRED " END " RT KYEL "--------------------\n" RT);
 	return (0);
 }
 

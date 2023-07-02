@@ -1,38 +1,5 @@
 #include "../../include/minishell.h"
 
-void	ft_merge_all_red(t_ms *ms)
-{
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_MERGE_ALLREDOUT" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	t_token	*ptr1;
-	t_token	*ptr2;
-
-	ptr1 = ms->pars->line;
-	while (ptr1->next != NULL)
-	{
-		ptr2 = ptr1->next;
-		while (ptr2 && ptr2->type != PIPE)
-		{
-			if (ptr1->type == REDOUT && ptr2->type == REDOUT)
-			{
-				ptr1->str = ft_strjoin_char(ms, ptr1->str, ' ');
-				ft_merge(ptr1, ptr2);
-				ptr2->type = ERROR;
-			}
-			else if (ptr1->type == REDIN && ptr2->type == REDIN)
-			{
-				ptr1->str = ft_strjoin_char(ms, ptr1->str, ' ');
-				ft_merge(ptr1, ptr2);
-				ptr2->type = ERROR;
-			}
-			ptr2 = ptr2->next;
-		}
-		ptr1 = ptr1->next;
-	}
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_MERGE_ALLREDOUT" KRED " END " RESET KYEL "--------------------\n" RESET);
-}
-
 void	ft_creation(t_ms *ms, t_token ptr, char *str, int *i)
 {
 	if (DEBUG)
@@ -57,7 +24,7 @@ void	ft_creation(t_ms *ms, t_token ptr, char *str, int *i)
 void	ft_create_file(t_ms *ms)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_CREATE_FILE" KGRN " START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_CREATE_FILE" KGRN " START " RT KYEL "--------------------\n" RT);
 	int		i;
 	char	*str;
 	t_token	*ptr;
@@ -74,13 +41,13 @@ void	ft_create_file(t_ms *ms)
 		ptr = ptr->next;
 	}
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_CREATE_FILE" KRED " END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_CREATE_FILE" KRED " END " RT KYEL "--------------------\n" RT);
 }
 
 void	ft_open_hd(t_ms *ms)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_OPEN_HD" KGRN " START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_OPEN_HD" KGRN " START " RT KYEL "--------------------\n" RT);
 	int		i;
 	char	*str;
 	t_token	*ptr;
@@ -104,13 +71,13 @@ void	ft_open_hd(t_ms *ms)
 		ptr = ptr->next;
 	}
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_OPEN_HD" KRED " END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_OPEN_HD" KRED " END " RT KYEL "--------------------\n" RT);
 }
 
 void	ft_open_file(t_ms *ms)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_OPEN_FILE" KGRN " START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_OPEN_FILE" KGRN " START " RT KYEL "--------------------\n" RT);
 	int		i;
 	char	*str;
 	t_token	*ptr;
@@ -145,13 +112,13 @@ void	ft_open_file(t_ms *ms)
 		ptr = ptr->next;
 	}
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_OPEN_FILE" KRED " END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_OPEN_FILE" KRED " END " RT KYEL "--------------------\n" RT);
 }
 
 void	ft_merge_red(t_ms *ms)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_MERGE_RED" KGRN " START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_MERGE_RED" KGRN " START " RT KYEL "--------------------\n" RT);
 	t_token	*ptr;
 	t_token	*sup;
 
@@ -174,5 +141,5 @@ void	ft_merge_red(t_ms *ms)
 			ptr = ptr->next;
 	}
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_MERGE_RED" KRED " END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_MERGE_RED" KRED " END " RT KYEL "--------------------\n" RT);
 }

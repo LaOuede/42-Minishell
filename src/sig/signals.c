@@ -4,7 +4,6 @@
 Handle signal outside forks:
 	SIGINT / ctrl-C = display a new prompt on a new line
 	SIGQUIT / ctrl-D = exit shell.
-Update exit_status
 */
 void	sig_handler(int sig)
 {
@@ -12,7 +11,7 @@ void	sig_handler(int sig)
 
 	(void)sig;
 	ms = ft_init_ms(0);
-	ms->flexit = 130;
+	ms->ctrlc = true;
 	ft_putchar_fd('\n', STDOUT_FILENO);
 	rl_replace_line("", 0);
 	rl_on_new_line();
@@ -23,7 +22,6 @@ void	sig_handler(int sig)
 Handle signal in exec:
 	SIGINT / ctrl-C = display a new prompt on a new line
 	SIGQUIT / ctrl-\ = exit child.
-Update exit_status
 */
 void	sig_child_handler(int sig)
 {
@@ -32,14 +30,14 @@ void	sig_child_handler(int sig)
 	ms = ft_init_ms(0);
 	if (sig == SIGQUIT)
 	{
-	//sig = 128 + sig;
+		ms->ctrlbs = true;
 		ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 	}
 	else if (sig == SIGINT)
 	{
-		ms->flexit = 130;
+		ms->ctrlc = true;
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		rl_replace_line("", 0);
 		rl_on_new_line();
@@ -49,8 +47,6 @@ void	sig_child_handler(int sig)
 /*
 Handle signal in Heredoc:
 	SIGINT / ctrl-C = display a new prompt on a new line
-	SIGQUIT / ctrl-\ = display a new prompt on a new line
-Update exit_status
 */
 void	sig_hd_handler(int sig)
 {

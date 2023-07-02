@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_char_tab_len.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csenand <csenand@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gwenolaleroux <gwenolaleroux@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/16 14:59:11 by csenand           #+#    #+#             */
-/*   Updated: 2023/06/16 14:59:47 by csenand          ###   ########.fr       */
+/*   Created: 2023/06/16 14:59:11 by gle-roux          #+#    #+#             */
+/*   Updated: 2023/07/01 22:22:54 by gwenolalero      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

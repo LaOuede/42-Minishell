@@ -9,7 +9,7 @@ Handle ' token
 void	ft_s_quotes_token(int *i, t_ms *ms)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_S_QUOTES_TOKEN" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_S_QUOTES_TOKEN" KGRN KBLD" START " RT KYEL "--------------------\n" RT);
 	char	*tmp;
 
 	tmp = NULL;
@@ -37,7 +37,7 @@ void	ft_s_quotes_token(int *i, t_ms *ms)
 		tmp = ft_freenull(tmp);
 	}
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_S_QUOTES_TOKEN" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_S_QUOTES_TOKEN" KRED KBLD" END " RT KYEL "--------------------\n" RT);
 }
 
 /*
@@ -47,7 +47,7 @@ void	ft_s_quotes_token(int *i, t_ms *ms)
 void	ft_char_quotes(int *i, char *str, t_ms *ms)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_CHAR_QUOTES --------------------\n" RESET);
+		printf(KYEL "-------------------- FT_CHAR_QUOTES --------------------\n" RT);
 	char	*tmp;
 
 	tmp = NULL;
@@ -78,7 +78,7 @@ void	ft_char_quotes(int *i, char *str, t_ms *ms)
 char	*ft_stock_quotes(int *i, char *str, t_ms *ms)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_STOCK_QUOTES" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_STOCK_QUOTES" KGRN KBLD" START " RT KYEL "--------------------\n" RT);
 	while (ms->pars->input[++(*i)])
 	{
 		if (ms->pars->input[(*i)] == '\"')
@@ -95,7 +95,7 @@ char	*ft_stock_quotes(int *i, char *str, t_ms *ms)
 	else
 		ft_error_parsing(ERR_QUOTE, LEXER, 2, ms);
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_STOCK_QUOTES" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_STOCK_QUOTES" KRED KBLD" END " RT KYEL "--------------------\n" RT);
 	return (str);
 }
 
@@ -107,7 +107,7 @@ Handle " token
 void	ft_d_quotes_token(int *i, t_ms *ms)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_D_QUOTES_TOKEN" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_D_QUOTES_TOKEN" KGRN KBLD" START " RT KYEL "--------------------\n" RT);
 	int		j;
 	size_t	len;
 	char	*str;
@@ -133,13 +133,13 @@ void	ft_d_quotes_token(int *i, t_ms *ms)
 	}
 	str = ft_freenull(str);
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_D_QUOTES_TOKEN" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_D_QUOTES_TOKEN" KRED KBLD" END " RT KYEL "--------------------\n" RT);
 }
 
 void	ft_token(int *i, t_ms *ms)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_TOKEN --------------------\n" RESET);
+		printf(KYEL "-------------------- FT_TOKEN --------------------\n" RT);
 	char	*tmp;
 
 	tmp = NULL;

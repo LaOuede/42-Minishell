@@ -16,7 +16,7 @@ void	ft_error_parsing(char *err_msg, int step, int exit, t_ms *ms)
 	}
 	else
 	{
-		ms->pars->err_parser = true;
+		ms->pars->err_filler = true;
 		ms->flexit = exit;
 	}
 	if (DEBUG)

@@ -6,7 +6,7 @@ Check for REDIN or REDOUT token at the end of the linked-list.
 void	ft_check_access(t_ms *ms)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_CHECK_ACCESS" KGRN " START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_CHECK_ACCESS" KGRN " START " RT KYEL "--------------------\n" RT);
 	t_token	*ptr;
 	int		counter;
 
@@ -25,13 +25,13 @@ void	ft_check_access(t_ms *ms)
 	if (counter == ms->pars->nb_pipe)
 		ft_error_parsing(0, PARSER, 127, ms);
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_CHECK_ACCESS" KRED " END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_CHECK_ACCESS" KRED " END " RT KYEL "--------------------\n" RT);
 }
 
 void	ft_merge_all_arg(t_ms *ms)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_MERGE_ALL_ARG" KGRN " START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_MERGE_ALL_ARG" KGRN " START " RT KYEL "--------------------\n" RT);
 	t_token	*ptr1;
 	t_token	*ptr2;
 
@@ -53,23 +53,7 @@ void	ft_merge_all_arg(t_ms *ms)
 		ptr1 = ptr1->next;
 	}
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_MERGE_ALL_ARG" KRED " END " RESET KYEL "--------------------\n" RESET);
-}
-
-bool	ft_bi(t_token *node)
-{
-	if ((ft_strcmp(node->str, "exit") == 0) || (ft_strcmp(node->str, "unset") == 0) || (ft_strcmp(node->str, "export") == 0))
-		return (true);
-	return (false);
-}
-
-void	ft_lower_cmd(char *str)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-		str[i] = ft_tolower(str[i]);
+		printf(KYEL "-------------------- FT_MERGE_ALL_ARG" KRED " END " RT KYEL "--------------------\n" RT);
 }
 
 /*
@@ -78,7 +62,7 @@ Identify the first ARG token as CMD
 void	ft_find_cmd(t_ms *ms)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_FIND_CMD" KGRN " START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_FIND_CMD" KGRN " START " RT KYEL "--------------------\n" RT);
 	bool	flag;
 	t_token	*ptr;
 
@@ -112,7 +96,7 @@ void	ft_find_cmd(t_ms *ms)
 		ptr = ptr->next;
 	}
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_FIND_CMD" KRED " END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_FIND_CMD" KRED " END " RT KYEL "--------------------\n" RT);
 }
 
 /*
@@ -121,7 +105,7 @@ Merge all ARG type tokens with no whitespace flag
 void	ft_merge_arg(t_pars *pars)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_MERGE_ARG" KGRN " START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_MERGE_ARG" KGRN " START " RT KYEL "--------------------\n" RT);
 	t_token	*ptr1;
 	t_token	*ptr2;
 
@@ -145,7 +129,7 @@ void	ft_merge_arg(t_pars *pars)
 		ptr1 = ptr1->next;
 	}
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_MERGE_ARG" KRED " END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_MERGE_ARG" KRED " END " RT KYEL "--------------------\n" RT);
 }
 
 void	ft_args(t_ms *ms)

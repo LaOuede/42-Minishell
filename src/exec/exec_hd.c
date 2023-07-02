@@ -3,7 +3,7 @@
 void	ft_hd_parser(t_ms *ms)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_HD_PARSER" KGRN KBLD" START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_HD_PARSER" KGRN KBLD" START " RT KYEL "--------------------\n" RT);
 	int	i;
 	char	*tmp;
 
@@ -27,7 +27,7 @@ void	ft_hd_parser(t_ms *ms)
 		tmp = ft_freenull(tmp);
 	}
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_HD_PARSER" KRED KBLD" END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_HD_PARSER" KRED KBLD" END " RT KYEL "--------------------\n" RT);
 }
 
 t_pars	*ft_init_hd(t_ms *ms)
@@ -48,7 +48,7 @@ t_pars	*ft_init_hd(t_ms *ms)
 void	ft_child_hd(char *delim, int fd_hd, t_ms *ms)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_CHILD_HD" KGRN " START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_CHILD_HD" KGRN " START " RT KYEL "--------------------\n" RT);
 	ft_init_sig(HD);
 	ms->hd = ft_init_hd(ms);
 	while (42)
@@ -78,7 +78,7 @@ void	ft_child_hd(char *delim, int fd_hd, t_ms *ms)
 int	ft_exec_hd(char *delim, t_ms *ms)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_CHILD_HD" KGRN " START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_CHILD_HD" KGRN " START " RT KYEL "--------------------\n" RT);
 	int		fd_hd;
 	pid_t	pid_hd;
 	int		status;
@@ -99,6 +99,6 @@ int	ft_exec_hd(char *delim, t_ms *ms)
 	close(fd_hd);
 	ms->jct->fd_hd = open("/tmp/here_doc", O_RDONLY, 0666);
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_EXEC_HD" KRED " END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_EXEC_HD" KRED " END " RT KYEL "--------------------\n" RT);
 	return (fd_hd);
 }

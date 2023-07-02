@@ -7,13 +7,13 @@ void	DEBUG_hd(t_pars *hd)
 	tmp = hd->line;
 	printf(KRED KBLD"--------------------------------------------------------------\n");
 	printf("-			DEBUG_hd			     -\n");
-	printf("--------------------------------------------------------------\n"RESET);
+	printf("--------------------------------------------------------------\n"RT);
 	while (tmp)
 	{
 		printf(KRED KBLD"**************************************************************\n");
-		printf("*" KRED KBLD " -> Str =          " RESET KBLD "%s" RESET KRED BLD"\n", tmp->str);
-		printf("*" KRED KBLD " -> Type = %d                                                " RESET KRED BLD"*\n", tmp->hd);
-		printf(KRED KBLD"**************************************************************\n" RESET);
+		printf("*" KRED KBLD " -> Str =          " RT KBLD "%s" RT KRED BLD"\n", tmp->str);
+		printf("*" KRED KBLD " -> Type = %d                                                " RT KRED BLD"*\n", tmp->hd);
+		printf(KRED KBLD"**************************************************************\n" RT);
 		tmp = tmp->next;
 	}
 	ft_free_lst(&tmp);
@@ -31,32 +31,32 @@ void	DEBUG_tab(t_jct *jct)
 	tab = jct->tab;
 	printf(KMAG KBLD"--------------------------------------------------------------\n");
 	printf("-			DEBUG_tab			     -\n");
-	printf("--------------------------------------------------------------\n"RESET);
+	printf("--------------------------------------------------------------\n"RT);
 	while (++row < jct->cmd_nb)
 	{
 		column = -1;
 		while (++column < 3)
-			printf(KMAG KBLD"[%d][%d] = %s\n"RESET, row, column, tab[row][column]);
-		printf(KMAG KBLD"--------------------------------------------------------------\n"RESET);
+			printf(KMAG KBLD"[%d][%d] = %s\n"RT, row, column, tab[row][column]);
+		printf(KMAG KBLD"--------------------------------------------------------------\n"RT);
 	}
 }
 
-void	DEBUG_parser(t_pars *pars)
+void	DEBUG_filler(t_pars *pars)
 {
 	t_token	*tmp;
 	int		i = 0;
 
 	tmp = pars->line;
 	printf(KGRE KBLD"--------------------------------------------------------------\n");
-	printf("-			DEBUG_parser			     -\n");
-	printf("--------------------------------------------------------------\n"RESET);
+	printf("-			DEBUG_filler			     -\n");
+	printf("--------------------------------------------------------------\n"RT);
 	while (tmp)
 	{
 		printf(KGRE "**************************************************************\n");
-		printf("*" KGRE KBLD "                          NODE[%d]                           " RESET KGRE "*\n", i++);
-		printf("*" KGRE KBLD " -> Type[%d]                                                 " RESET KGRE "*\n", tmp->type);
-		printf(KGRE KBLD " -> Str = " RESET KBLD "%s" RESET KGRE "\n", tmp->str);
-		printf(KGRE "**************************************************************\n" RESET);
+		printf("*" KGRE KBLD "                          NODE[%d]                           " RT KGRE "*\n", i++);
+		printf("*" KGRE KBLD " -> Type[%d]                                                 " RT KGRE "*\n", tmp->type);
+		printf(KGRE KBLD " -> Str = " RT KBLD "%s" RT KGRE "\n", tmp->str);
+		printf(KGRE "**************************************************************\n" RT);
 		tmp = tmp->next;
 	}
 	ft_free_lst(&tmp);
@@ -70,14 +70,14 @@ void	DEBUG_builder(t_pars *pars)
 	tmp = pars->line;
 	printf(KGRN KBLD"--------------------------------------------------------------\n");
 	printf("-			DEBUG_build			     -\n");
-	printf("--------------------------------------------------------------\n"RESET);
+	printf("--------------------------------------------------------------\n"RT);
 	while (tmp)
 	{
 		printf(KGRN "**************************************************************\n");
-		printf("*" KGRN KBLD "                          NODE[%d]                           " RESET KGRN "*\n", i++);
-		printf("*" KGRN KBLD " -> Type[%d]                                                 " RESET KGRN "*\n", tmp->type);
-		printf(KGRN KBLD " -> Str = " RESET KBLD "%s" RESET KGRN "\n", tmp->str);
-		printf(KGRN "**************************************************************\n" RESET);
+		printf("*" KGRN KBLD "                          NODE[%d]                           " RT KGRN "*\n", i++);
+		printf("*" KGRN KBLD " -> Type[%d]                                                 " RT KGRN "*\n", tmp->type);
+		printf(KGRN KBLD " -> Str = " RT KBLD "%s" RT KGRN "\n", tmp->str);
+		printf(KGRN "**************************************************************\n" RT);
 		tmp = tmp->next;
 	}
 	ft_free_lst(&tmp);
@@ -91,19 +91,19 @@ void	DEBUG_lexer(t_pars *pars)
 	tmp = pars->line;
 	printf(KBLU KBLD"--------------------------------------------------------------\n");
 	printf("-			DEBUG_lexer			     -\n");
-	printf("--------------------------------------------------------------\n"RESET);
+	printf("--------------------------------------------------------------\n"RT);
 	while (tmp)
 	{
 		printf(KBLU "**************************************************************\n");
-		printf("*" KBLU KBLD "                          NODE[%d]                           " RESET KBLU "*\n", i++);
-		printf("*" KBLU KBLD " -> Cmd[%d]                                                  " RESET KBLU "*\n", tmp->nb_cmd);
-		printf("*" KBLU KBLD " -> Type[%d]                                                 " RESET KBLU "*\n", tmp->type);
-		printf("*" KBLU KBLD " -> D_Quotes[%d]                                             " RESET KBLU "*\n", tmp->d_quotes);
-		printf("*" KBLU KBLD " -> S_Quotes[%d]                                             " RESET KBLU "*\n", tmp->s_quotes);
-		printf("*" KBLU KBLD " -> C_brackets[%d]                                           " RESET KBLU "*\n", tmp->c_brackets);
-		printf("*" KBLU KBLD " -> Whitespace[%d]                                           " RESET KBLU "*\n", tmp->ws);
-		printf("*" KBLU KBLD " -> Str =          " RESET KBLD "%s" RESET KBLU "\n", tmp->str);
-		printf(KBLU "**************************************************************\n" RESET);
+		printf("*" KBLU KBLD "                          NODE[%d]                           " RT KBLU "*\n", i++);
+		printf("*" KBLU KBLD " -> Cmd[%d]                                                  " RT KBLU "*\n", tmp->nb_cmd);
+		printf("*" KBLU KBLD " -> Type[%d]                                                 " RT KBLU "*\n", tmp->type);
+		printf("*" KBLU KBLD " -> D_Quotes[%d]                                             " RT KBLU "*\n", tmp->d_quotes);
+		printf("*" KBLU KBLD " -> S_Quotes[%d]                                             " RT KBLU "*\n", tmp->s_quotes);
+		printf("*" KBLU KBLD " -> C_brackets[%d]                                           " RT KBLU "*\n", tmp->c_brackets);
+		printf("*" KBLU KBLD " -> Whitespace[%d]                                           " RT KBLU "*\n", tmp->ws);
+		printf("*" KBLU KBLD " -> Str =          " RT KBLD "%s" RT KBLU "\n", tmp->str);
+		printf(KBLU "**************************************************************\n" RT);
 		tmp = tmp->next;
 	}
 	ft_free_lst(&tmp);

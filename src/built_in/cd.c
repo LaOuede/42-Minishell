@@ -15,11 +15,11 @@ Prototype :
 void	ft_msh_cd(t_ms *ms, char **cmd)
 {
 	// if (DEBUG)
-		printf(KYEL "-------------------- FT_MSH_CD" KGRN " START " RESET KYEL "--------------------\n" RESET);
-	(void)ms;
+		printf(KYEL "-------------------- FT_MSH_CD" KGRN " START " RT KYEL "--------------------\n" RT);
 	int	ac;
 	char *user;
 	
+	//TODO need to replace getenv 
 	user = getenv("HOME");
 	ac = ft_get_ac(cmd);
 	printf("ac: %d\n", ac);
@@ -36,13 +36,13 @@ void	ft_msh_cd(t_ms *ms, char **cmd)
 		perror("Error! chdir");
 		ms->flexit = 1;
 		return ;
-		// exit(127); //TODO quel code erreur ?
 	}
 	else if(ac >= 3)
 	{
 		ft_putstr_fd("Too many args - Usage: env [no opt/args]\n", 2);
+		ms->flexit = 1;
 		return ;
 	}
 	// if (DEBUG)
-		printf(KYEL "-------------------- FT_MSH_ECHO" KRED " END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_MSH_ECHO" KRED " END " RT KYEL "--------------------\n" RT);
 }

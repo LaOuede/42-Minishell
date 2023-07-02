@@ -21,7 +21,7 @@
 # define BLU 	"\x1B[34m"
 # define WHT 	"\x1B[37m"
 # define YEL 	"\x1B[33m"
-# define RESET	"\033[1;0m"
+# define RT	"\033[1;0m"
 
 /* --------------------ERROR MESSAGE--------------------- *///
 # define ERR_EXEC	"Usage error : too many arguments.\n--> Usage : ./Minishell\n"
@@ -51,6 +51,8 @@ typedef struct s_ms
 	struct s_exec	*exec;
 	struct s_pars	*hd;
 	int				flexit;
+	bool			ctrlbs;
+	bool			ctrlc;
 	int				banner;
 }	t_ms;
 

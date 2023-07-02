@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sort_params.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csenand <csenand@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gwenolaleroux <gwenolaleroux@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 11:48:41 by csenand           #+#    #+#             */
-/*   Updated: 2023/06/28 15:29:45 by csenand          ###   ########.fr       */
+/*   Created: 2022/10/03 11:48:41 by gle-roux          #+#    #+#             */
+/*   Updated: 2023/07/01 22:23:47 by gwenolalero      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

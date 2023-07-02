@@ -4,16 +4,17 @@ NAME		=	minishell
 
 # -- Compilation Flag -- #
 CC			=	gcc
-# CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror
 # CFLAGS	=	-Wall -Wextra -Werror -g -Wunreachable-code -fsanitize=address
-CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
+# CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
 
 # -- Remove -- #
 RM			=	rm -rf
 
 # -- SRC Files -- #
 SRCS_DIR	=	./src/
-SRCS_LST	= 	banner.c \
+SRCS_LST	= 	banner/banner_exit.c \
+				banner/banner_start.c \
 				built_in/built_in.c \
 			 	built_in/built_in_tools.c \
 				built_in/echo.c \
@@ -40,14 +41,15 @@ SRCS_LST	= 	banner.c \
 				parsing/builder_args.c \
 				parsing/builder_redirection_1.c \
 				parsing/builder_redirection_2.c \
+				parsing/builder_utils.c \
 				parsing/error.c \
 				parsing/free_1.c \
 				parsing/free_2.c \
 				parsing/lexer_token_1.c \
 				parsing/lexer_token_2.c \
 				parsing/lexer_utils.c \
-				parsing/parser_1.c \
-				parsing/parser_2.c \
+				parsing/filler_1.c \
+				parsing/filler_2.c \
 				parsing/parsing.c \
 				sig/signals.c
 
@@ -109,7 +111,7 @@ run: all
 
 # -- Create directory for *.o files -- #
 dir :
-	@mkdir -p $(OBJS_DIR) $(OBJS_DIR)parsing $(OBJS_DIR)exec $(OBJS_DIR)sig $(OBJS_DIR)built_in $(OBJS_DIR)jct
+	@mkdir -p $(OBJS_DIR) $(OBJS_DIR)parsing $(OBJS_DIR)exec $(OBJS_DIR)sig $(OBJS_DIR)built_in $(OBJS_DIR)jct $(OBJS_DIR)banner
 	@mkdir -p $(LIBRLINE_DIR)
 
 leak: CFLAGS += -g
@@ -137,7 +139,7 @@ readline :
 clean :
 	@make -C $(LIBFT_DIR) clean
 	@printf "💥 $(RED)Removing $(NAME)'s objects...$(RESET)\t\t\t💥\n"
-	@$(RM) $(OBJS_DIR) $(OBJS_DIR)parsing $(OBJS_DIR)exec $(OBJS_DIR)sig $(OBJS_DIR)built_in $(OBJS_DIR)jct
+	@$(RM) $(OBJS_DIR) $(OBJS_DIR)parsing $(OBJS_DIR)exec $(OBJS_DIR)sig $(OBJS_DIR)built_in $(OBJS_DIR)jct $(OBJS_DIR)banner
 	@printf "🗑️  $(CYAN)$(NAME)'s object successfully deleted.$(RESET)\t\t🗑️\n"
 
 # -- Removes objects (with clean) and executable -- #

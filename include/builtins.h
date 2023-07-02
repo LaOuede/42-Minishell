@@ -27,5 +27,6 @@ void	ft_msh_unset(t_ms *ms, char **cmd);
 void	ft_msh_export(t_ms *ms, char **cmd);
 int		ft_get_ac(char **cmd);
 bool	ft_1st_part_valid(t_ms *ms, char *cmd);
+char	*ft_trim_arg(char *cmd);
 
 #endif

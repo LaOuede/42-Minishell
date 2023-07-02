@@ -61,7 +61,7 @@ bool	ft_isvalid(char *cmd)
 void	ft_msh_unset(t_ms *ms, char **cmd)
 {
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_MSH_UNSET" KGRN " START " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_MSH_UNSET" KGRN " START " RT KYEL "--------------------\n" RT);
 	(void)ms;
 	int i;
 
@@ -78,11 +78,14 @@ void	ft_msh_unset(t_ms *ms, char **cmd)
 		// 	if (ms->jct->cmd_nb == 1)
 		// 		return ;
 		// 	else
-		// 		ft_exit_free(ms, 1, 0);
+			{
+				ms->flexit = EXIT_FAILURE;
+		// 		ft_exit_free(ms, ms->flexit, 0);
+			}
 		// }
 		if (DEBUG)
 			printf("[ft_msh_unset 2] cmd[%d] : %s\n", i, cmd[i]);
 	}
 	if (DEBUG)
-		printf(KYEL "-------------------- FT_MSH_UNSET" KRED " END " RESET KYEL "--------------------\n" RESET);
+		printf(KYEL "-------------------- FT_MSH_UNSET" KRED " END " RT KYEL "--------------------\n" RT);
 }
