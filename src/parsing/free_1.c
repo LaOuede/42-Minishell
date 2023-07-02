@@ -47,9 +47,12 @@ void	ft_free_token(t_token *token)
 
 void	ft_exit_free(t_ms *ms, int flexit, char *err)
 {
+	int	error;
+
 	if (err)
 		ft_error(err);
+	error = flexit;
 	clear_history();
 	ft_free_all(ms);
-	exit(flexit);
+	exit(error);
 }

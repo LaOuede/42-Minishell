@@ -30,7 +30,8 @@ void	ft_msh_pwd(t_ms *ms, char **cmd)
 	if (cmd[1])
 	{
 		ft_putstr_fd("Too many args - Usage: pwd [no args]\n", 2);
-		exit(127);
+		ms->flexit = EXIT_FAILURE;
+		exit(1);
 	}
 	buf = getcwd(NULL, 0);
 	if (buf)

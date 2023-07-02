@@ -156,6 +156,16 @@ void	ft_envvar(int *i, char *str, t_ms *ms)
 	else if (str[(*i)] == '$' && str[(*i) + 1] == '?')
 	{
 		(*i) += 2;
+		if (ms->ctrlbs == true)
+		{
+			ms->ctrlbs = false;
+			ms->flexit = 131;
+		}
+		else if (ms->ctrlc == true)
+		{
+			ms->ctrlc = false;
+			ms->flexit = 130;
+		}
 		ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, ft_itoa(ms->flexit), ms->pars));
 	}
 	else

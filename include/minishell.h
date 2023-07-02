@@ -51,6 +51,8 @@ typedef struct s_ms
 	struct s_exec	*exec;
 	struct s_pars	*hd;
 	int				flexit;
+	bool			ctrlbs;
+	bool			ctrlc;
 	int				banner;
 }	t_ms;
 
