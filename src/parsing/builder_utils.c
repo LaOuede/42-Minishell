@@ -2,8 +2,6 @@
 
 void	ft_merge_all_red(t_ms *ms)
 {
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_MERGE_ALLREDOUT" KGRN " START " RT KYEL "--------------------\n" RT);
 	t_token	*ptr1;
 	t_token	*ptr2;
 
@@ -29,13 +27,13 @@ void	ft_merge_all_red(t_ms *ms)
 		}
 		ptr1 = ptr1->next;
 	}
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_MERGE_ALLREDOUT" KRED " END " RT KYEL "--------------------\n" RT);
 }
 
 bool	ft_bi(t_token *node)
 {
-	if ((ft_strcmp(node->str, "exit") == 0) || (ft_strcmp(node->str, "unset") == 0) || (ft_strcmp(node->str, "export") == 0))
+	if ((ft_strcmp(node->str, "exit") == 0) \
+		|| (ft_strcmp(node->str, "unset") == 0) \
+		|| (ft_strcmp(node->str, "export") == 0))
 		return (true);
 	return (false);
 }

@@ -1,12 +1,5 @@
 #include "../../include/minishell.h"
 
-bool	ft_isenvvarchar(char c)
-{
-	if (ft_isalnum(c) || c == '_')
-		return (true);
-	return (false);
-}
-
 /*
 Handle regular chars and whitespaces
 1) If whitespace, then move on and raise the whitespace flag for the builder.
@@ -46,13 +39,6 @@ void	ft_metachar(char c, int *i, t_ms *ms)
 		ft_d_quotes_token(i, ms);
 	else if (c == '\'')
 		ft_s_quotes_token(i, ms);
-}
-
-bool	ft_ismetachar(char c)
-{
-	if (c == '|' || c == '<' || c == '>' || c == '$' || c == '\"' || c == '\'')
-		return (true);
-	return (false);
 }
 
 /*

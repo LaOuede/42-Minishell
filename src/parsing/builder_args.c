@@ -5,8 +5,6 @@ Check for REDIN or REDOUT token at the end of the linked-list.
 */
 void	ft_check_access(t_ms *ms)
 {
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_CHECK_ACCESS" KGRN " START " RT KYEL "--------------------\n" RT);
 	t_token	*ptr;
 	int		counter;
 
@@ -14,24 +12,16 @@ void	ft_check_access(t_ms *ms)
 	ptr = ms->pars->line;
 	while (ptr)
 	{
-		if (DEBUG)
-			printf("ptr->srt = %s\n", ptr->str);
 		if (ptr->type == ACCESS_ERR)
 			counter += 1;
 		ptr = ptr->next;
 	}
-	if (DEBUG)
-		printf("counter = %d\n", counter);
 	if (counter == ms->pars->nb_pipe)
 		ft_error_parsing(0, PARSER, 127, ms);
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_CHECK_ACCESS" KRED " END " RT KYEL "--------------------\n" RT);
 }
 
 void	ft_merge_all_arg(t_ms *ms)
 {
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_MERGE_ALL_ARG" KGRN " START " RT KYEL "--------------------\n" RT);
 	t_token	*ptr1;
 	t_token	*ptr2;
 
@@ -41,7 +31,8 @@ void	ft_merge_all_arg(t_ms *ms)
 		ptr2 = ptr1->next;
 		while (ptr2 && ptr2->type != PIPE)
 		{
-			if ((ptr1->type == ARG || ptr1->type == CMD || ptr1->type == ACCESS_ERR) && ptr2->type == ARG)
+			if ((ptr1->type == ARG || ptr1->type == CMD \
+				|| ptr1->type == ACCESS_ERR) && ptr2->type == ARG)
 			{
 				if (ptr2->ws == 1)
 					ptr1->str = ft_strjoin_char(ms, ptr1->str, 29);
@@ -52,8 +43,6 @@ void	ft_merge_all_arg(t_ms *ms)
 		}
 		ptr1 = ptr1->next;
 	}
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_MERGE_ALL_ARG" KRED " END " RT KYEL "--------------------\n" RT);
 }
 
 /*
@@ -61,8 +50,6 @@ Identify the first ARG token as CMD
 */
 void	ft_find_cmd(t_ms *ms)
 {
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_FIND_CMD" KGRN " START " RT KYEL "--------------------\n" RT);
 	bool	flag;
 	t_token	*ptr;
 
@@ -70,8 +57,6 @@ void	ft_find_cmd(t_ms *ms)
 	ptr = ms->pars->line;
 	while (ptr)
 	{
-		if (DEBUG)
-			printf("ptr->type before = %d\n", ptr->type);
 		if (ptr->type == ARG && flag == true)
 		{
 			ptr->type = CMD;
@@ -88,15 +73,8 @@ void	ft_find_cmd(t_ms *ms)
 		}
 		else if (ptr->type == PIPE)
 			flag = true;
-		if (DEBUG)
-		{
-			printf("ptr->type after = %d\n", ptr->type);
-			printf("flag = %d\n", flag);
-		}
 		ptr = ptr->next;
 	}
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_FIND_CMD" KRED " END " RT KYEL "--------------------\n" RT);
 }
 
 /*
@@ -104,8 +82,6 @@ Merge all ARG type tokens with no whitespace flag
 */
 void	ft_merge_arg(t_pars *pars)
 {
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_MERGE_ARG" KGRN " START " RT KYEL "--------------------\n" RT);
 	t_token	*ptr1;
 	t_token	*ptr2;
 
@@ -128,8 +104,6 @@ void	ft_merge_arg(t_pars *pars)
 		}
 		ptr1 = ptr1->next;
 	}
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_MERGE_ARG" KRED " END " RT KYEL "--------------------\n" RT);
 }
 
 void	ft_args(t_ms *ms)

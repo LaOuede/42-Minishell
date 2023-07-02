@@ -2,8 +2,6 @@
 
 bool	ft_test_cmd(t_pars *pars, t_token *node)
 {
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_TEST_CMD --------------------\n" RT);
 	int		i;
 	char	*path;
 
@@ -33,8 +31,6 @@ bool	ft_test_cmd(t_pars *pars, t_token *node)
 
 void	ft_check_error_redir(t_ms *ms)
 {
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_CHECK_ERROR_REDIR" KGRN " START " RT KYEL "--------------------\n" RT);
 	int		len;
 	t_token	*ptr;
 
@@ -46,13 +42,15 @@ void	ft_check_error_redir(t_ms *ms)
 		if (ptr->type == REDIN || ptr->type == REDOUT)
 		{
 			len = ft_strlen(ptr->str);
-			if (ms->pars->fl_red == false && (len > 2 || (ptr->next && ptr->next->type == REDIN) \
+			if (ms->pars->fl_red == false && (len > 2 \
+				|| (ptr->next && ptr->next->type == REDIN) \
 				|| (ptr->next && ptr->next->type == REDOUT)))
 			{
 				ms->pars->fl_red = true;
 				ft_error_parsing(ERR_TOKEN, REBUILDER, 258, ms);
 			}
-			else if (ms->pars->fl_red == 0 && (!ptr->next || ptr->next->str[0] == 29))
+			else if (ms->pars->fl_red == 0 \
+				&& (!ptr->next || ptr->next->str[0] == 29))
 			{
 				ms->pars->fl_red = true;
 				ft_error_parsing(ERR_TOKEN, REBUILDER, 258, ms);
@@ -60,25 +58,18 @@ void	ft_check_error_redir(t_ms *ms)
 		}
 		ptr = ptr->next;
 	}
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_CHECK_ERROR_REDIR" KRED " END " RT KYEL "--------------------\n" RT);
 }
 
 void	ft_merge_angle_brackets_out(t_pars *pars)
 {
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_MERGE_ANGLE_BRACKETS_OUT" KGRN " START " RT KYEL "--------------------\n" RT);
 	t_token	*ptr;
 	t_token	*sup;
 
 	ptr = pars->line;
 	while (ptr->next)
 	{
-		if (DEBUG){
-			printf("str = %s\n", ptr->str);
-			printf("str next = %s\n", ptr->next->str);
-		}
-		if (ptr->next->ws == 0 && ptr->type == REDOUT && ptr->next->type == REDOUT)
+		if (ptr->next->ws == 0 && ptr->type == REDOUT \
+			&& ptr->next->type == REDOUT)
 		{
 			ft_merge(ptr, ptr->next);
 			sup = ptr->next;
@@ -91,26 +82,18 @@ void	ft_merge_angle_brackets_out(t_pars *pars)
 		else
 			ptr = ptr->next;
 	}
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_MERGE_ANGLE_BRACKETS_OUT" KRED " END " RT KYEL "--------------------\n" RT);
 }
 
 void	ft_merge_angle_brackets_in(t_pars *pars)
 {
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_MERGE_ANGLE_BRACKETS_IN" KGRN " START " RT KYEL "--------------------\n" RT);
 	t_token	*ptr;
 	t_token	*sup;
 
 	ptr = pars->line;
 	while (ptr->next)
 	{
-		if (DEBUG)
-		{
-			printf("str = %s\n", ptr->str);
-			printf("str next = %s\n", ptr->next->str);
-		}
-		if (ptr->next->ws == 0 && ptr->type == REDIN && ptr->next->type == REDIN)
+		if (ptr->next->ws == 0 && ptr->type == REDIN \
+			&& ptr->next->type == REDIN)
 		{
 			ft_merge(ptr, ptr->next);
 			sup = ptr->next;
@@ -123,8 +106,6 @@ void	ft_merge_angle_brackets_in(t_pars *pars)
 		else
 			ptr = ptr->next;
 	}
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_MERGE_ANGLE_BRACKETS_IN" KRED " END " RT KYEL "--------------------\n" RT);
 }
 
 /*

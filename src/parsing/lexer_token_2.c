@@ -18,7 +18,8 @@ void	ft_get_expand_brackets(int *i, char *str, t_ms *ms)
 		tmp = ft_stock_char(ms, tmp, '=');
 		tmp = ft_find_envvar(tmp, ms);
 		if (tmp)
-			ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, tmp, ms->pars));
+			ft_add_token_bottom(&ms->pars->line, \
+				ft_create_node(ms, tmp, ms->pars));
 	}
 	tmp = ft_freenull(tmp);
 	if (str[(*i)] != '}')
@@ -119,10 +120,8 @@ Handle $ token
 */
 void	ft_envvar(int *i, char *str, t_ms *ms)
 {
-	char 	*tmp;
 	t_token	*ptr;
 
-	tmp = NULL;
 	ptr = ms->pars->line;
 	while (ptr)
 		ptr = ptr->next;
@@ -134,22 +133,7 @@ void	ft_envvar(int *i, char *str, t_ms *ms)
 			(*i)++;
 	}
 	else if (str[(*i)] == '$' && str[(*i) + 1] == '?')
-	{
-		(*i) += 2;
-		if (ms->ctrlbs == true)
-		{
-			ms->ctrlbs = false;
-			ms->flexit = 131;
-		}
-		else if (ms->ctrlc == true)
-		{
-			ms->ctrlc = false;
-			ms->flexit = 130;
-		}
-		tmp = ft_itoa(ms->flexit);
-		ft_add_token_bottom(&ms->pars->line, ft_create_node(ms, tmp, ms->pars));
-		tmp = ft_freenull(tmp);
-	}
+		ft_exit_status(ms, i);
 	else
 		ft_envvar_token(i, str, ms);
 	ft_reset_node(ms->pars);

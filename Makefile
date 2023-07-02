@@ -46,6 +46,7 @@ SRCS_LST	= 	banner/banner_exit.c \
 				parsing/free_2.c \
 				parsing/lexer_token_1.c \
 				parsing/lexer_token_2.c \
+				parsing/lexer_token_3.c \
 				parsing/lexer_utils.c \
 				parsing/filler_1.c \
 				parsing/filler_2.c \
