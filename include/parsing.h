@@ -21,9 +21,9 @@
 /* --------------------ERROR MESSAGE--------------------- *///
 # define ERR_INFILE		"Input Error : No such file or directory\n"
 # define ERR_OUTFILE	"Input Error : File creation failed\n"
-# define ERR_QUOTE		"Input Error : Quotation unclosed\n" //exit_status == 2
-# define ERR_TOKEN		"Input Error : Invalid token combination\n" //exit_status == 2
-# define ERR_ACCESS		"Input Error : Command not found\n" //exit_status == 127
+# define ERR_QUOTE		"Input Error : Quotation unclosed\n"
+# define ERR_TOKEN		"Input Error : Invalid token combination\n" 
+# define ERR_ACCESS		"Input Error : Command not found\n"
 
 typedef struct s_jct	t_jct;
 typedef struct s_ms		t_ms;
