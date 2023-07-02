@@ -14,7 +14,8 @@ char	**ft_unset(t_ms *ms, char **envp, char *cmd)
 	int 	len;
 	int		j;
 
-	printf("[ft_unset| cmd : %s\n", cmd);
+	if (DEBUG)
+		printf("[ft_unset| cmd : %s\n", cmd);
 	len = 0;
 	while(envp[len])
 		len++;
@@ -37,43 +38,51 @@ bool	ft_isvalid(char *cmd)
 {
 	int	i;
 
-	i = -1;
-	while (cmd[++i])
+	i = 0;
+	while (cmd[i])
 	{
-		printf("c = %c\n", cmd[i]);
-		if ((!ft_isalpha(cmd[i]) && cmd[i] != '_') || ft_strchr(cmd, '='))
+		// if (DEBUG)
+			printf("c = %c\n", cmd[i]);
+		while (cmd[i] == '_')
+			i++;
+		if (cmd[i] == '$' || cmd[i] == '?')
+			i++;
+		if ((!ft_isalpha(cmd[0]) && cmd[0] != '_' && cmd[0] != '=') 
+			|| !ft_isalnum(cmd[i]))
 		{
 			printf("unset: %s not a valid identifier\n", cmd);
 			return (false);
 		}
+		i++;
 	}
-	// free(cmd);
 	return (true);
 }
 
 void	ft_msh_unset(t_ms *ms, char **cmd)
 {
-	printf(KYEL "-------------------- FT_MSH_UNSET" KGRN " START " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_MSH_UNSET" KGRN " START " RESET KYEL "--------------------\n" RESET);
 	(void)ms;
 	int i;
 
 	i = 0;
-	//valider si le unset existe dans l'env
 	while (cmd[++i])
 	{
-		printf("[ft_msh_unset 1] cmd[%d] : %s\n", i, cmd[i]);
-		if (!ft_isvalid(cmd[i]))
-		{
-			if (ms->jct->cmd_nb == 1)
-				return ;
-			else
-				ft_exit_free(ms, 1, 0);
-		}
-		printf("[ft_msh_unset 2] cmd[%d] : %s\n", i, cmd[i]);
-		ms->envp = ft_unset(ms, ms->envp, ft_strjoin(cmd[i], "="));
-		// ms->jct->envp = ms->exec->envp;
-		//TODO put ft_copy in ms and replace all copies
-		// ms->jct->envp = ft_unset(ms->exec->envp, ft_strjoin(cmd[i], "="));
+		// if (DEBUG)
+			printf("[ft_msh_unset 1] cmd[%d] : %s\n", i, cmd[i]);
+		if (ft_isvalid(cmd[i]))
+			ms->envp = ft_unset(ms, ms->envp, ft_strjoin(cmd[i], "="));
+		//TODO to check if there is no leak w/o the below
+		// else
+		// {
+		// 	if (ms->jct->cmd_nb == 1)
+		// 		return ;
+		// 	else
+		// 		ft_exit_free(ms, 1, 0);
+		// }
+		if (DEBUG)
+			printf("[ft_msh_unset 2] cmd[%d] : %s\n", i, cmd[i]);
 	}
-	printf(KYEL "-------------------- FT_MSH_UNSET" KRED " END " RESET KYEL "--------------------\n" RESET);
+	if (DEBUG)
+		printf(KYEL "-------------------- FT_MSH_UNSET" KRED " END " RESET KYEL "--------------------\n" RESET);
 }
