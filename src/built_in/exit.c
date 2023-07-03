@@ -36,5 +36,6 @@ void	ft_msh_exit(t_ms *ms, char **cmd)
 			ft_exit_free(ms, ms->flexit, 0);
 		}
 	}
+	ft_banner_exit(ms);
 	ft_exit_free(ms, 0, 0);
 }
