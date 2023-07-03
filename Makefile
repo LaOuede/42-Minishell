@@ -4,9 +4,9 @@ NAME		=	minishell
 
 # -- Compilation Flag -- #
 CC			=	gcc
-# CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -g
 # CFLAGS	=	-Wall -Wextra -Werror -g -Wunreachable-code -fsanitize=address
-CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
+# CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
 
 # -- Remove -- #
 RM			=	rm -rf
@@ -57,10 +57,6 @@ SRCS_LST	= 	banner/banner_exit.c \
 				sig/signals.c
 
 # -- Readline Library -- #
-#TODO remove the below
-C_TOOLS_DIR		= ./C_tools/
-C_TOOLS			= $(C_TOOLS_DIR)C_tool.a
-
 LIBRLINE 		= readline-8.2
 LIBRLINE_DIR	= ./libs/readline/
 RLINE			= $(LIBRLINE_DIR)libreadline.a
@@ -102,7 +98,6 @@ $(NAME) : $(OBJS)
 	@make -C $(LIBFT_DIR)
 	@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(RLINE) -lncurses -o $(NAME) -D EVALUATOR=\"$(EVALUATOR)\" -D BANNER=\"$(TIME)\"
 	@echo "✅ $(GREEN)$(NAME)'s exectuable successfully created.		✅$(RESET)"
-#@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(RLINE) $(C_TOOLS) -lncurses -o $(NAME)	//TODO to remove
 
 # -- Create all files .o (object) from files .c (source code) -- #
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(HEADER)
