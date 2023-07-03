@@ -80,6 +80,7 @@ typedef struct s_pars
 	bool			err_parser;
 }	t_pars;
 
+/*	--	Function Declarations for the parsing of shell commands	--	*/
 /* 		Parsing functions 							*/
 void	ft_parsing(t_ms *ms);
 t_pars	*ft_init_pars(t_ms *ms);

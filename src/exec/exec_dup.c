@@ -62,7 +62,7 @@ void	ft_dup_and_run(t_ms *ms, int i, int builtin_fts)
 		ms->exec->path_var = ft_get_path(ms, ms->envp, 0);
 		if (!ms->exec->path_var)
 		{
-			printf("Error! Command not found\n");
+			printf("Input Error : Command not found\n");
 			return ;
 		}
 		ft_run_cmd(ms, i);
