@@ -73,8 +73,6 @@ void	ft_str_hd(int *i, t_ms *ms)
 	tmp = NULL;
 	while ((ms->hd->input[(*i)]) && (ms->hd->input[(*i)] != '$'))
 	{
-		if (DEBUG)
-			printf("-> char = %c\n", ms->hd->input[(*i)]);
 		tmp = ft_stock_char(ms, tmp, ms->hd->input[(*i)]);
 		(*i)++;
 	}
