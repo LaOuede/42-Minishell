@@ -1,15 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gle-roux <gle-roux@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/20 08:48:10 by gle-roux          #+#    #+#             */
+/*   Updated: 2023/07/03 09:45:20 by gle-roux         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef EXECUTION_H
 # define EXECUTION_H
-
-# define BLD "\x1B[1m"
 
 typedef struct s_jct	t_jct;
 typedef struct s_ms		t_ms;
 
 typedef struct s_builtin
 {
-	void					(*fts[8])(t_ms *, char **);
-}							t_builtin;
+	void	(*fts[8])(t_ms *, char **);
+}			t_builtin;
 
 /*
 **	Structure that holds all infomration needed for the execution
