@@ -61,7 +61,6 @@ void	ft_minishell(t_ms *ms)
 			ft_exec(ms);
 		ft_reset_jct(ms->jct);
 	}
-	ft_exit_free(ms, 0, 0);
 }
 
 int	main(int ac, char **av, char **envp)

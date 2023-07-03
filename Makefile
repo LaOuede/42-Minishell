@@ -56,12 +56,12 @@ SRCS_LST	= 	banner/banner_exit.c \
 				parsing/parsing.c \
 				sig/signals.c
 
+SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LST))
+
 # -- Readline Library -- #
 LIBRLINE 		= readline-8.2
 LIBRLINE_DIR	= ./libs/readline/
 RLINE			= $(LIBRLINE_DIR)libreadline.a
-
-SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LST))
 
 # -- OBJ Files -- #
 OBJS_DIR	=	./obj/
