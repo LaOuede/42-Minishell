@@ -1,25 +1,5 @@
 #include "../../include/minishell.h"
 
-/*
-Check for REDIN or REDOUT token at the end of the linked-list.
-*/
-void	ft_check_access(t_ms *ms)
-{
-	t_token	*ptr;
-	int		counter;
-
-	counter = 0;
-	ptr = ms->pars->line;
-	while (ptr)
-	{
-		if (ptr->type == ACCESS_ERR)
-			counter += 1;
-		ptr = ptr->next;
-	}
-	if (counter == ms->pars->nb_pipe)
-		ft_error_parsing(0, PARSER, 127, ms);
-}
-
 void	ft_merge_all_arg(t_ms *ms)
 {
 	t_token	*ptr1;
@@ -43,6 +23,35 @@ void	ft_merge_all_arg(t_ms *ms)
 		}
 		ptr1 = ptr1->next;
 	}
+}
+
+bool	ft_test_cmd(t_pars *pars, t_token *node)
+{
+	int		i;
+	char	*path;
+
+	if (access(node->str, F_OK | X_OK) == 0)
+		return (true);
+	path = ft_strjoin("./", node->str);
+	if (access(path, F_OK | X_OK) == 0)
+	{
+		path = ft_freenull(path);
+		return (true);
+	}
+	if (path)
+		path = ft_freenull(path);
+	i = -1;
+	while (pars->path_var[++i])
+	{
+		path = ft_strjoin(pars->path_var[i], node->str);
+		if (access(path, F_OK | X_OK) == 0)
+		{
+			path = ft_freenull(path);
+			return (true);
+		}
+		path = ft_freenull(path);
+	}
+	return (false);
 }
 
 /*
