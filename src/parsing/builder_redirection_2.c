@@ -40,11 +40,10 @@ bool	ft_do_open(t_ms *ms, t_token *node, int i, char *str)
 	if (ft_strncmp(node->str, str, 2) == 0)
 	{
 		ms->jct->fds_in[i] = open(node->next->str, O_RDONLY);
-		if (ms->jct->fds_in[i] == -1)
+		if (ms->jct->fds_in[i] == -1 && ms->pars->err_infile == false)
 		{
 			printf(ERR_INFILE);
 			ms->pars->err_infile = true;
-			return (false);
 		}
 	}
 	return (true);
@@ -67,7 +66,10 @@ void	ft_open_file(t_ms *ms)
 				break ;
 		}
 		else if (ptr->type == PIPE)
+		{
+			ms->pars->err_infile = false;
 			i++;
+		}
 		ptr = ptr->next;
 	}
 }

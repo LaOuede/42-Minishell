@@ -7,7 +7,7 @@ int	ft_get_ac(char **cmd)
 	j = 0;
 	while (cmd[j])
 	{
-		if ()
+		if (DEBUG)
 			printf("cmd[%d]: %s\n", j, cmd[j]);
 		j++;
 	}

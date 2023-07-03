@@ -14,6 +14,7 @@ t_token	*ft_create_node(t_ms *ms, char *str, t_pars *pars)
 	new_node->ws = pars->fl_ws;
 	new_node->hd = pars->hd;
 	new_node->echo = false;
+	new_node->red = false;
 	new_node->next = NULL;
 	return (new_node);
 }

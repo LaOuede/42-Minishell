@@ -9,7 +9,7 @@ void	ft_hd_parser(t_ms *ms)
 	if (ms->hd->input)
 	{
 		while (i < (int)ms->hd->strlen)
-		{	
+		{
 			if ((ms->hd->input[i]) == '$')
 				ft_envvar_hd(&i, ms->hd->input, ms);
 			else
