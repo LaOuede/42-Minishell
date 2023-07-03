@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gle-roux <gle-roux@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/20 08:48:10 by gle-roux          #+#    #+#             */
+/*   Updated: 2023/07/03 09:42:21 by gle-roux         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 t_token	*ft_create_node(t_ms *ms, char *str, t_pars *pars)
@@ -14,6 +26,7 @@ t_token	*ft_create_node(t_ms *ms, char *str, t_pars *pars)
 	new_node->ws = pars->fl_ws;
 	new_node->hd = pars->hd;
 	new_node->echo = false;
+	new_node->red = false;
 	new_node->next = NULL;
 	return (new_node);
 }

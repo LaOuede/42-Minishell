@@ -6,7 +6,7 @@
 /*   By: gle-roux <gle-roux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 08:48:10 by gle-roux          #+#    #+#             */
-/*   Updated: 2023/06/21 17:07:19 by gle-roux         ###   ########.fr       */
+/*   Updated: 2023/07/03 09:36:29 by gle-roux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static int	count_wd(char const *s, char c)
 	while (i < len)
 	{
 		while (s[i] && s[i] != c)
-				i++;
+			i++;
 		while (s[i] && s[i] == c && c != '\0')
-				i++;
+			i++;
 		counter++;
 	}
 	return (counter);

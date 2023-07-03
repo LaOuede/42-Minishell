@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gle-roux <gle-roux@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/20 08:48:10 by gle-roux          #+#    #+#             */
+/*   Updated: 2023/07/03 09:39:14 by gle-roux         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 /* CD
@@ -54,17 +66,19 @@ char	*ft_get_dir(t_ms *ms, char **cmd)
 		return (cmd[1]);
 }
 
-int	ft_do_chdir(t_ms *ms, char *cd)
+int	ft_do_chdir(t_ms *ms, char *cd, int ac, char **cmd)
 {
 	char	*newdir[3];
 
-	if (chdir(cd) == -1)
+	if (cd && (chdir(cd) == -1))
 		return (0);
 	newdir[0] = "export";
 	newdir[1] = ft_strjoin("PWD=", getcwd(NULL, 0));
 	newdir[2] = NULL;
 	ft_msh_export(ms, (char **)newdir);
 	free(newdir[1]);
+	if (ac == 1 || ft_strcmp(cmd[1], "~") == 0)
+		cd = ft_freenull(cd);
 	return (1);
 }
 
@@ -89,7 +103,7 @@ void	ft_msh_cd(t_ms *ms, char **cmd)
 	{
 		ft_update_oldpwd(ms);
 		cd = ft_get_dir(ms, cmd);
-		if (ft_do_chdir(ms, cd) < 1)
+		if (ft_do_chdir(ms, cd, ac, cmd) < 1)
 		{
 			perror("Error! cd");
 			return ;

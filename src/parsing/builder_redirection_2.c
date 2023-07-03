@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builder_redirection_2.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gle-roux <gle-roux@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/20 08:48:10 by gle-roux          #+#    #+#             */
+/*   Updated: 2023/07/03 09:41:32 by gle-roux         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 void	ft_creation(t_ms *ms, t_token ptr, char *str, int *i)
@@ -40,11 +52,10 @@ bool	ft_do_open(t_ms *ms, t_token *node, int i, char *str)
 	if (ft_strncmp(node->str, str, 2) == 0)
 	{
 		ms->jct->fds_in[i] = open(node->next->str, O_RDONLY);
-		if (ms->jct->fds_in[i] == -1)
+		if (ms->jct->fds_in[i] == -1 && ms->pars->err_infile == false)
 		{
 			printf(ERR_INFILE);
 			ms->pars->err_infile = true;
-			return (false);
 		}
 	}
 	return (true);
@@ -67,7 +78,10 @@ void	ft_open_file(t_ms *ms)
 				break ;
 		}
 		else if (ptr->type == PIPE)
+		{
+			ms->pars->err_infile = false;
 			i++;
+		}
 		ptr = ptr->next;
 	}
 }

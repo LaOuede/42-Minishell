@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gle-roux <gle-roux@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/20 08:48:10 by gle-roux          #+#    #+#             */
+/*   Updated: 2023/07/03 09:42:41 by gle-roux         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 void	*ft_calloc_msh(size_t count, size_t size, t_ms *ms)
@@ -61,7 +73,6 @@ void	ft_minishell(t_ms *ms)
 			ft_exec(ms);
 		ft_reset_jct(ms->jct);
 	}
-	ft_exit_free(ms, 0, 0);
 }
 
 int	main(int ac, char **av, char **envp)

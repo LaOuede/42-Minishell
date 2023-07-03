@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gle-roux <gle-roux@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/20 08:48:10 by gle-roux          #+#    #+#             */
+/*   Updated: 2023/07/03 09:43:26 by gle-roux         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PARSING_H
 # define PARSING_H
 
@@ -54,6 +66,7 @@ typedef struct s_token
 	int				ws;
 	int				hd;
 	bool			echo;
+	bool			red;
 	struct s_token	*next;
 }	t_token;
 
@@ -80,6 +93,7 @@ typedef struct s_pars
 	bool			err_parser;
 }	t_pars;
 
+/*	--	Function Declarations for the parsing of shell commands	--	*/
 /* 		Parsing functions 							*/
 void	ft_parsing(t_ms *ms);
 t_pars	*ft_init_pars(t_ms *ms);

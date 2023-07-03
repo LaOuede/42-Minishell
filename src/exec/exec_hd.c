@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_hd.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gle-roux <gle-roux@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/20 08:48:10 by gle-roux          #+#    #+#             */
+/*   Updated: 2023/07/03 09:40:51 by gle-roux         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 void	ft_hd_parser(t_ms *ms)
@@ -9,7 +21,7 @@ void	ft_hd_parser(t_ms *ms)
 	if (ms->hd->input)
 	{
 		while (i < (int)ms->hd->strlen)
-		{	
+		{
 			if ((ms->hd->input[i]) == '$')
 				ft_envvar_hd(&i, ms->hd->input, ms);
 			else
