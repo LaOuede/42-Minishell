@@ -31,6 +31,6 @@ char	*ft_trim_arg(char *cmd);
 void	ft_print_err(t_ms *ms, char *cmd);
 int		ft_isexist(t_ms *ms, char *home);
 char	*ft_getenv(t_ms *ms, char *home);
-int	ft_find_index_var(t_ms *ms, char *cmd);
+int		ft_find_index_var(t_ms *ms, char *cmd);
 
 #endif
