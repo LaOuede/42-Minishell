@@ -1,7 +1,5 @@
 #include "../include/minishell.h"
 
-#define LOULOU_IS_MAGIC 1
-
 void	*ft_calloc_msh(size_t count, size_t size, t_ms *ms)
 {
 	size_t	i;

@@ -85,18 +85,12 @@ Produces a char *** array which is received by the executioner.
 */
 void	ft_parsing(t_ms *ms)
 {
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_PARSING" KGRN KBLD" START " RT KYEL "--------------------\n" RT);
 	ft_lexer(ms);
 	if (!ms->pars->line)
 		ms->pars->err_lexer = true;
-	if (DEBUG)
-		DEBUG_lexer(ms->pars);
 	if (ms->pars->line && ms->pars->err_lexer == false)
 	{
 		ft_builder(ms);
-		if (DEBUG)
-			DEBUG_builder(ms->pars);
 		if (ms->pars->err_builder == false)
 			ft_filler(ms);
 	}
@@ -104,6 +98,4 @@ void	ft_parsing(t_ms *ms)
 		|| ms->pars->err_filler == true)
 		ms->jct->err_pars = true;
 	ft_reset_pars(ms->pars);
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_PARSING" KRED KBLD" END " RT KYEL "--------------------\n" RT);
 }

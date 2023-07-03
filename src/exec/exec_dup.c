@@ -1,5 +1,11 @@
 #include "../../include/minishell.h"
 
+void	ft_free_built_in(t_ms *ms)
+{
+	ft_free_tab_char(ms->exec->builtin_cmd);
+	ms->exec->builtin_cmd = NULL;
+}
+
 void	ft_dup_x_cmd(t_ms *ms, int i)
 {
 	if (i == 0)
@@ -23,7 +29,7 @@ void	ft_dup_x_cmd(t_ms *ms, int i)
 
 void	ft_dup_proc(t_ms *ms, int i)
 {
-	if (ms->jct->cmd_nb == 1) // if 1 cmd and no pipes (so one cmd only)
+	if (ms->jct->cmd_nb == 1)
 	{
 		if (ms->jct->fds_in[i] >= 0)
 			dup2(ms->jct->fds_in[i], STDIN_FILENO);
@@ -32,17 +38,15 @@ void	ft_dup_proc(t_ms *ms, int i)
 		if (ms->jct->fd_hd)
 			dup2(ms->jct->fd_hd, STDIN_FILENO);
 	}
-	else // s'il y a plus qu'une cmd, donc des pipes
+	else
 		ft_dup_x_cmd(ms, i);
 	ft_close_all(ms);
 }
 
-//  git commit -am "Built_in & Execution | few add ons (cd ~, ft_get_ac, comments in ft_msh_unset, free if no env in ft_get_path, fix hang in ft_dup_proc"
-
 void	ft_dup_and_run(t_ms *ms, int i, int builtin_fts)
 {
-	int j;
-	
+	int	j;
+
 	if (ms->exec->pids[i] == 0)
 	{
 		j = -1;
@@ -58,14 +62,11 @@ void	ft_dup_and_run(t_ms *ms, int i, int builtin_fts)
 		ms->exec->path_var = ft_get_path(ms, ms->envp, 0);
 		if (!ms->exec->path_var)
 		{
-			printf("Input Error : Command not found\n");
+			printf("Error! Command not found\n");
 			return ;
 		}
 		ft_run_cmd(ms, i);
 	}
 	else
-	{
-		ft_free_tab_char(ms->exec->builtin_cmd);
-		ms->exec->builtin_cmd = NULL;
-	}
+		ft_free_built_in(ms);
 }

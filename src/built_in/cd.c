@@ -12,37 +12,87 @@ Prototype :
 	cd [directory]
 */
 
+void	ft_update_oldpwd(t_ms *ms)
+{
+	char	*olddir[3];
+
+	olddir[0] = "export";
+	olddir[1] = ft_strjoin("OLDPWD=", getcwd(NULL, 0));
+	olddir[2] = NULL;
+	ft_msh_export(ms, (char **)olddir);
+	free(olddir[1]);
+}
+
+int	ft_isexist(t_ms *ms, char *home)
+{
+	int	i;
+	int	j;
+	int	ac;
+
+	ac = ft_get_ac(ms->envp);
+	i = 0;
+	while (ms->envp[i] && ft_strncmp(ms->envp[i], home, 5) != 0)
+		i++;
+	j = i;
+	if (++j > ac)
+		return (-1);
+	else
+		return (i);
+}
+
+char	*ft_get_dir(t_ms *ms, char **cmd)
+{
+	char	*home;
+
+	home = NULL;
+	if (!cmd[1] || ft_strcmp(cmd[1], "~") == 0)
+	{
+		home = ft_getenv(ms, "HOME=");
+		return (home);
+	}
+	else
+		return (cmd[1]);
+}
+
+int	ft_do_chdir(t_ms *ms, char *cd)
+{
+	char	*newdir[3];
+
+	if (chdir(cd) == -1)
+		return (0);
+	newdir[0] = "export";
+	newdir[1] = ft_strjoin("PWD=", getcwd(NULL, 0));
+	newdir[2] = NULL;
+	ft_msh_export(ms, (char **)newdir);
+	free(newdir[1]);
+	return (1);
+}
+
 void	ft_msh_cd(t_ms *ms, char **cmd)
 {
-	// if (DEBUG)
-		printf(KYEL "-------------------- FT_MSH_CD" KGRN " START " RT KYEL "--------------------\n" RT);
-	int	ac;
-	char *user;
-	
-	//TODO need to replace getenv 
-	user = getenv("HOME");
-	ac = ft_get_ac(cmd);
-	printf("ac: %d\n", ac);
-	if (ac < 2 || ft_strcmp(cmd[1], "~") == 0)
+	int		ac;
+	char	*cd;
+
+	if (!getcwd(NULL, 0))
 	{
-		if(chdir(user) != 0)
-		{
-			perror("Error! chdir");
-			ms->flexit = 1;
-		}
-	}
-	else if (ac < 3 && chdir(cmd[1]) != 0)
-	{
-		perror("Error! chdir");
-		ms->flexit = 1;
+		perror("cd");
 		return ;
 	}
-	else if(ac >= 3)
+	ac = ft_get_ac(cmd);
+	if (ac > 2)
 	{
 		ft_putstr_fd("Too many args - Usage: env [no opt/args]\n", 2);
 		ms->flexit = 1;
 		return ;
 	}
-	// if (DEBUG)
-		printf(KYEL "-------------------- FT_MSH_ECHO" KRED " END " RT KYEL "--------------------\n" RT);
+	else
+	{
+		ft_update_oldpwd(ms);
+		cd = ft_get_dir(ms, cmd);
+		if (ft_do_chdir(ms, cd) < 1)
+		{
+			perror("Error! cd");
+			return ;
+		}
+	}
 }

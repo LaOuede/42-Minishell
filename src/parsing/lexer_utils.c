@@ -78,8 +78,6 @@ char	*ft_stock_char(t_ms *ms, char *str, char c)
 
 char	*ft_strjoin_char(t_ms *ms, char *s1, char s2)
 {
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_STRJOIN_CHAR" KGRN KBLD" START " RT KYEL "--------------------\n" RT);
 	char	*s3;
 	size_t	len;
 
@@ -90,18 +88,10 @@ char	*ft_strjoin_char(t_ms *ms, char *s1, char s2)
 	len = 0;
 	while (s1[len])
 	{
-		if (DEBUG)
-			printf("char = %c\n", s1[len]);
 		s3[len] = s1[len];
 		len++;
 	}
-	if (DEBUG)
-		printf("len = %zu\n", len);
 	s3[len] = s2;
-	if (DEBUG)
-		printf("s3 = %s\n", s3);
 	s1 = ft_freenull(s1);
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_STRJOIN_CHAR" KRED KBLD" END " RT KYEL "--------------------\n" RT);
 	return (s3);
 }

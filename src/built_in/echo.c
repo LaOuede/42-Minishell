@@ -10,8 +10,6 @@ Flag -n :
 */
 void	ft_handle_flag(t_ms *ms, int *i, int arg, char **cmd)
 {
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_HANDLE_FLAG" KGRN " START " RT KYEL "--------------------\n" RT);
 	if (ms->jct->echo == true)
 	{
 		while (*i <= arg)
@@ -39,15 +37,11 @@ void	ft_handle_flag(t_ms *ms, int *i, int arg, char **cmd)
 
 bool	ft_flag(t_ms *ms, char *str)
 {
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_FLAG" KGRN " START " RT KYEL "--------------------\n" RT);
 	int	i;
 
 	i = 0;
 	if (!str)
 		return (false);
-	if (DEBUG)
-		printf("str = %s\n", str);
 	while (str[i])
 	{
 		if (str[i] == '-' && str[i + 1] == 'n')
@@ -64,19 +58,15 @@ bool	ft_flag(t_ms *ms, char *str)
 				return (false);
 		}
 		else
-				return (false);
+			return (false);
 	}
 	return (false);
 }
 
 int	ft_check_flag(t_ms *ms, int *i, int arg, char **cmd)
 {
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_CHECK_FLAG" KGRN " START " RT KYEL "--------------------\n" RT);
 	while (*i <= arg)
 	{
-		if (DEBUG)
-			printf("flag = %d\n", ft_flag(ms, cmd[*i]));
 		if (ft_flag(ms, cmd[*i]) == true)
 			(*i)++;
 		else
@@ -87,15 +77,11 @@ int	ft_check_flag(t_ms *ms, int *i, int arg, char **cmd)
 
 void	ft_msh_echo(t_ms *ms, char **cmd)
 {
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_MSH_ECHO" KGRN " START " RT KYEL "--------------------\n" RT);
 	int	i;
 	int	nb;
 
 	i = 1;
 	nb = ft_get_ac(cmd) - 1;
-	if (DEBUG)
-		printf("arg nd = %d\n", nb);
 	if (cmd)
 	{
 		if (nb == 1)
@@ -104,6 +90,4 @@ void	ft_msh_echo(t_ms *ms, char **cmd)
 		i = ft_check_flag(ms, &i, nb, cmd);
 		ft_handle_flag(ms, &i, nb, cmd);
 	}
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_MSH_ECHO" KRED " END " RT KYEL "--------------------\n" RT);
 }

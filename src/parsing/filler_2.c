@@ -42,29 +42,16 @@ Input : cat supp.txt >outfile | cat -e | ls < infile | echo -n Minihell
 */
 void	ft_fill_tab(t_ms *ms, t_tab *tab)
 {
-	if (DEBUG)
-	{
-		printf(KYEL "-------------------- FT_FILL_TAB" KGRN " START " RT KYEL "--------------------\n" RT);
-		printf("ms->jct->cmd_nb = %d\n", ms->jct->cmd_nb);
-		printf("ms->pars->nb_pipe = %d\n", ms->pars->nb_pipe);
-	}
 	while (++tab->r < ms->jct->cmd_nb && tab->ptr)
 	{
 		tab->c = -1;
 		while (++tab->c < 3)
 		{
-			if (DEBUG)
-			{
-				printf("c = %d\n", tab->c);
-				printf("tab-> ptr->type = %d\n", tab->ptr->type);
-			}
 			if (tab->ptr->type == PIPE && tab->c == 0)
 				tab->ptr = tab->ptr->next;
 			if (tab->c == tab->ptr->type)
 			{
 				ms->jct->tab[tab->r][tab->c] = ft_strdup(tab->ptr->str);
-				if (DEBUG)
-					printf("str = %s\n", ms->jct->tab[tab->r][tab->c]);
 				if (tab->ptr->next)
 					tab->ptr = tab->ptr->next;
 			}
@@ -72,9 +59,6 @@ void	ft_fill_tab(t_ms *ms, t_tab *tab)
 				ft_fill_null_error(ms, tab);
 		}
 	}
-	if (DEBUG)
-		printf(KYEL "-------------------- FT_FILL_TAB" KRED " END " RT KYEL "--------------------\n" RT);
-	// Ct_debug(0, "-------------------- FT_FILL_TAB END --------------------", "log.txt");
 }
 
 /* Allocate memory for the char ***array. */

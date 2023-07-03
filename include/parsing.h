@@ -60,7 +60,6 @@ typedef struct s_tab
 	int				c;
 }	t_tab;
 
-// prototype de la liste chainee token
 typedef struct s_token
 {
 	int				type;
@@ -75,7 +74,6 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-// Parsing main structure prototype... incomplete
 typedef struct s_pars
 {
 	struct s_token	*line;
@@ -99,12 +97,6 @@ typedef struct s_pars
 	bool			err_parser;
 }	t_pars;
 
-/* 		Debug functions 							*/
-void	DEBUG_builder(t_pars *pars);
-void	DEBUG_lexer(t_pars *pars);
-void	DEBUG_filler(t_pars *pars);
-void	DEBUG_tab(t_jct *jct);
-
 /* 		Parsing functions 							*/
 void	ft_parsing(t_ms *ms);
 t_pars	*ft_init_pars(t_ms *ms);
@@ -120,8 +112,6 @@ void	ft_envvar(int *i, char *str, t_ms *ms);
 void	ft_envvar_token(int *i, char *str, t_ms *ms);
 char	*ft_find_envvar(char *str, t_ms *ms);
 void	ft_get_expand_brackets(int *i, char *str, t_ms *ms);
-bool	ft_isenvvarchar(char c);
-bool	ft_ismetachar(char c);
 void	ft_lexer(t_ms *ms);
 void	ft_metachar(char c, int *i, t_ms *ms);
 void	ft_token(int *i, t_ms *ms);
@@ -131,6 +121,9 @@ char	*ft_stock_quotes(int *i, char *str, t_ms *ms);
 /* 		Lexer utils part functions 						*/
 void	ft_add_token_bottom(t_token **lst, t_token *element);
 t_token	*ft_create_node(t_ms *ms, char *str, t_pars *pars);
+void	ft_exit_status(t_ms *ms, int *i);
+bool	ft_isenvvarchar(char c);
+bool	ft_ismetachar(char c);
 char	*ft_mem_alloc(t_ms *ms, char *str, int capacity);
 char	*ft_stock_char(t_ms *ms, char *str, char c);
 char	*ft_strjoin_char(t_ms *ms, char *s1, char s2);

@@ -4,7 +4,7 @@ NAME		=	minishell
 
 # -- Compilation Flag -- #
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -g
 # CFLAGS	=	-Wall -Wextra -Werror -g -Wunreachable-code -fsanitize=address
 # CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
 
@@ -21,10 +21,10 @@ SRCS_LST	= 	banner/banner_exit.c \
 				built_in/cd.c \
 				built_in/unset.c \
 				built_in/export.c \
+				built_in/export_utils.c \
 				built_in/env.c \
 				built_in/exit.c \
 				built_in/pwd.c \
-				DEBUG_parsing.c \
 				exec/exec_hd.c \
 				exec/exec_dup.c \
 				exec/exec_hd_pars_1.c \
@@ -38,15 +38,18 @@ SRCS_LST	= 	banner/banner_exit.c \
 				main.c \
 				parsing/lexer.c \
 				parsing/builder.c \
-				parsing/builder_args.c \
+				parsing/builder_args_1.c \
+				parsing/builder_args_2.c \
 				parsing/builder_redirection_1.c \
 				parsing/builder_redirection_2.c \
+				parsing/builder_redirection_3.c \
 				parsing/builder_utils.c \
 				parsing/error.c \
 				parsing/free_1.c \
 				parsing/free_2.c \
 				parsing/lexer_token_1.c \
 				parsing/lexer_token_2.c \
+				parsing/lexer_token_3.c \
 				parsing/lexer_utils.c \
 				parsing/filler_1.c \
 				parsing/filler_2.c \
@@ -54,10 +57,6 @@ SRCS_LST	= 	banner/banner_exit.c \
 				sig/signals.c
 
 # -- Readline Library -- #
-#TODO remove the below
-C_TOOLS_DIR		= ./C_tools/
-C_TOOLS			= $(C_TOOLS_DIR)C_tool.a
-
 LIBRLINE 		= readline-8.2
 LIBRLINE_DIR	= ./libs/readline/
 RLINE			= $(LIBRLINE_DIR)libreadline.a
@@ -99,7 +98,6 @@ $(NAME) : $(OBJS)
 	@make -C $(LIBFT_DIR)
 	@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(RLINE) -lncurses -o $(NAME) -D EVALUATOR=\"$(EVALUATOR)\" -D BANNER=\"$(TIME)\"
 	@echo "✅ $(GREEN)$(NAME)'s exectuable successfully created.		✅$(RESET)"
-#@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(RLINE) $(C_TOOLS) -lncurses -o $(NAME)	//TODO to remove
 
 # -- Create all files .o (object) from files .c (source code) -- #
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(HEADER)

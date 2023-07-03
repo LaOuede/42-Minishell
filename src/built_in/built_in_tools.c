@@ -6,72 +6,59 @@ int	ft_get_ac(char **cmd)
 
 	j = 0;
 	while (cmd[j])
-	{
-		if (DEBUG)
-			printf("cmd[%d]: %s\n", j, cmd[j]);
 		j++;
-	}
 	return (j);
 }
 
-bool	ft_1st_part_valid(t_ms *ms, char *cmd)
+void	ft_print_err(t_ms *ms, char *cmd)
 {
-	int	j;
-
-	j = -1;
-	while (cmd[++j])
-	{
-		while (cmd[j] == '_')
-			j++;
-		if (cmd[j] == '$' || cmd[j] == '?' || cmd[j] == '_')
-			j++;
-		if ((!ft_isalpha(cmd[0]) && cmd[0] != '_' && cmd[0] != '=') 
-			|| !ft_isalnum(cmd[j]))
-		{
-			printf("c[%d]: %c not a valid identifier\n", j, cmd[j]);
-			ms->flexit = EXIT_FAILURE;
-			return (false);
-		}
-	}
-	return(true);
+	printf("export: %s not a valid identifier\n", cmd);
+	ms->flexit = EXIT_FAILURE;
 }
 
-char	*ft_trim_arg(char *cmd)
+int	ft_find_index_var(t_ms *ms, char *cmd)
 {
-	int		i;
-	char	**var;
-	char	*tmp1;
-	char	*tmp2;
-	char	*tmp3;
+	int	i;
+	int	len;
 
+	if (!cmd || !ft_strchr(cmd, '='))
+		return (0);
+	len = 0;
+	while (cmd[len] != '=' && cmd[len])
+		len++;
 	i = 0;
-	tmp1 = NULL;
-	tmp2 = NULL;
-	tmp3 = NULL;
-	var = ft_split(cmd, '=');
-	printf("var[0] = %s\n", var[0]);
-	if (var[1])
+	while (ms->envp[i])
 	{
-		while (var[++i])
-		{
-			tmp1 = ft_strtrim(var[i], " ");
-			printf("tmp1 = %s\n", tmp1);
-			if (tmp3)
-			{
-				tmp2 = ft_strjoin(tmp3, "=");
-				tmp3 = ft_freenull(tmp3);
-			}
-			else
-				tmp2 = ft_strjoin(var[0], "=");
-			printf("tmp2 = %s\n", tmp2);
-			tmp3 = ft_strjoin(tmp2, tmp1);
-			printf("tmp3 = %s\n", tmp3);
-			tmp1 = ft_freenull(tmp1);
-			tmp2 = ft_freenull(tmp2);
-		}
-		ft_free_tab_char(var);
-		return (tmp3);
+		if (!ft_strncmp(ms->envp[i], cmd, len + 1))
+			return (i);
+		i++;
 	}
-	ft_free_tab_char(var);
-	return (ft_strdup(cmd));
+	return (0);
+}
+
+char	*ft_getenv(t_ms *ms, char *home)
+{
+	int		index;
+	char	**path_var;
+	char	*tmp;
+
+	tmp = NULL;
+	path_var = NULL;
+	if (!ms->envp)
+		return (NULL);
+	index = ft_isexist(ms, home);
+	if (index < 0)
+		return (NULL);
+	path_var = ft_split(ms->envp[index], '=');
+	if (path_var[1])
+	{
+		tmp = ft_strdup(path_var[1]);
+		ft_free_tab_char(path_var);
+		return (tmp);
+	}
+	else
+	{
+		ft_free_tab_char(path_var);
+		return (NULL);
+	}
 }

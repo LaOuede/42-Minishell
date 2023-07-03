@@ -23,19 +23,14 @@ Return value :
 */
 void	ft_msh_pwd(t_ms *ms, char **cmd)
 {
-	(void)ms;
-	printf(KYEL "-------------------- FT_MSH_PWD" KGRN " START " RT KYEL "--------------------\n" RT);
 	char	*buf;
 
-	if (cmd[1])
-	{
-		ft_putstr_fd("Too many args - Usage: pwd [no args]\n", 2);
-		ms->flexit = EXIT_FAILURE;
-		ft_exit_free(ms, ms->flexit, 0);
-	}
+	(void)ms;
+	(void)cmd;
 	buf = getcwd(NULL, 0);
 	if (buf)
 		printf("%s\n", buf);
+	else
+		perror("pwd");
 	buf = ft_freenull(buf);
-	printf(KYEL "-------------------- FT_MSH_PWD" KRED " END " RT KYEL "--------------------\n" RT);
 }

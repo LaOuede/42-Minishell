@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_char_tab_len.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gwenolaleroux <gwenolaleroux@student.42    +#+  +:+       +#+        */
+/*   By: loulou <loulou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 14:59:11 by gle-roux          #+#    #+#             */
-/*   Updated: 2023/07/01 22:22:54 by gwenolalero      ###   ########.fr       */
+/*   Updated: 2023/07/02 21:18:14 by loulou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-//TODO modifier le header
 int	ft_char_tab_len(char **tab)
 {
 	int	i;

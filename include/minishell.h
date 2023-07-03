@@ -1,4 +1,3 @@
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -14,14 +13,13 @@
 # include "builtins.h"
 # include "execution.h"
 # include "history.h"
-// # include "../C_tools/C_tool.h" //TODO to remove later
 
 # define RED 	"\x1B[31m"
 # define GRN 	"\x1B[32m"
 # define BLU 	"\x1B[34m"
 # define WHT 	"\x1B[37m"
 # define YEL 	"\x1B[33m"
-# define RT	"\033[1;0m"
+# define RT		"\033[1;0m"
 
 /* --------------------ERROR MESSAGE--------------------- *///
 # define ERR_EXEC	"Usage error : too many arguments.\n--> Usage : ./Minishell\n"
@@ -37,7 +35,7 @@
 # ifndef BANNER
 #  define BANNER "color"
 # endif
-# define DEBUG 0
+# define LOULOU_IS_MAGIC 17
 # define MAIN 42
 # define EXEC 666
 # define HD 7
@@ -56,7 +54,6 @@ typedef struct s_ms
 	int				banner;
 }	t_ms;
 
-//	Struct prototype to make the junction between the parsing and the execution
 typedef struct s_jct
 {
 	int		*fds_in;
@@ -71,6 +68,7 @@ typedef struct s_jct
 	int		flag_err_var;
 }			t_jct;
 
+/* 		MS functions 							*/
 t_ms	*ft_init_ms(char **envp);
 void	ft_exit_free(t_ms *ms, int flexit, char *err);
 
@@ -91,11 +89,11 @@ void	ft_envvar_hd(int *i, char *str, t_ms *ms);
 bool	ft_check_expand_brackets_hd(char *str, t_ms *ms);
 void	ft_get_expand_brackets_hd(int *i, char *str, t_ms *ms);
 void	ft_envvar_token_hd(int *i, char *str, t_ms *ms);
-void	DEBUG_hd(t_pars *hd);
 void	ft_reset_pars(t_pars *pars);
 void	print_hd(t_pars *hd, int fd_hd);
 void	ft_merge_hd(t_pars *hd);
 
+/* 		Banner functions 							*/
 void	ft_banner_start(t_ms *ms);
 void	ft_banner_exit(t_ms *ms);
 void	*ft_calloc_msh(size_t count, size_t size, t_ms *ms);
