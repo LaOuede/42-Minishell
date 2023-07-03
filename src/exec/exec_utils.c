@@ -29,30 +29,30 @@ int	ft_path_var_qty(char **path_var)
 char	**ft_get_path(t_ms *ms, char **envp, int i)
 {
 	char	**path_var;
-	char	**new_path_var;
+	char	**new_pvar;
 
 	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5) != 0)
 		i++;
 	if (!envp[i])
 	{
 		path_var = NULL;
-		new_path_var = NULL;
-		return (new_path_var);
+		new_pvar = NULL;
+		return (new_pvar);
 	}
 	path_var = ft_split(&envp[i][5], ':');
 	if (!path_var)
 		return (NULL);
-	new_path_var = ft_calloc_msh(ft_path_var_qty(path_var) + 1, sizeof(char *), ms);
-	if (!new_path_var)
+	new_pvar = ft_calloc_msh(ft_path_var_qty(path_var) + 1, sizeof(char *), ms);
+	if (!new_pvar)
 		return (NULL);
 	i = -1;
 	while (path_var[++i])
 	{
-		new_path_var[i] = ft_strjoin(path_var[i], "/");
+		new_pvar[i] = ft_strjoin(path_var[i], "/");
 		path_var[i] = ft_freenull(path_var[i]);
 	}
 	path_var = ft_freenull(path_var);
-	return (new_path_var);
+	return (new_pvar);
 }
 
 void	ft_reset_exec(t_ms *ms)
