@@ -1,23 +1,6 @@
 #ifndef PARSING_H
 # define PARSING_H
 
-# include <stdbool.h>
-
-/* --------------------COLORS--------------------- */
-# define KNRM "\x1B[m"
-# define KBLD "\x1B[1m"
-# define KGRE "\x1B[2m"
-# define KITA "\x1B[3m"
-# define KUND "\x1B[4m"
-# define KRST "\x1B[5m"
-# define KRED "\x1B[31m"
-# define KGRN "\x1B[32m"
-# define KYEL "\x1B[33m"
-# define KBLU "\x1B[34m"
-# define KMAG "\x1B[35m"
-# define KCYN "\x1B[36m"
-# define KWHT "\x1B[37m"
-
 /* --------------------ERROR MESSAGE--------------------- *///
 # define ERR_INFILE		"Input Error : No such file or directory\n"
 # define ERR_OUTFILE	"Input Error : File creation failed\n"
