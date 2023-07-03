@@ -1,4 +1,3 @@
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -46,6 +45,7 @@
 # ifndef BANNER
 #  define BANNER "color"
 # endif
+# define LOULOU_IS_MAGIC 17
 # define MAIN 42
 # define EXEC 666
 # define HD 7
