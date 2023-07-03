@@ -15,7 +15,7 @@ char	*ft_replace_var(t_ms *ms, char *cmd, int index_var)
 
 	new_envp = ft_strdup(cmd);
 	free(ms->envp[index_var]);
-	return(new_envp);
+	return (new_envp);
 }
 
 char	**ft_export_var(t_ms *ms, char **env, char *cmd)
@@ -25,12 +25,11 @@ char	**ft_export_var(t_ms *ms, char **env, char *cmd)
 	int		len_env;
 	char	**new_envp_env;
 
-
 	i = 0;
 	j = 0;
 	len_env = ft_get_ac(env);
 	new_envp_env = ft_calloc_msh(len_env + 2, sizeof(char *), ms);
-	while(env[i])
+	while (env[i])
 		new_envp_env[j++] = ft_strdup(env[i++]);
 	new_envp_env[j++] = ft_strdup(cmd);
 	new_envp_env[j] = NULL;
@@ -38,37 +37,14 @@ char	**ft_export_var(t_ms *ms, char **env, char *cmd)
 	return (new_envp_env);
 }
 
-int		ft_find_index_var(t_ms *ms, char *cmd)
-{
-	int	i;
-	int	len;
-
-	if (!cmd || !ft_strchr(cmd, '='))
-		return (0);
-	len = 0;
-	while(cmd[len] != '=' && cmd[len])
-		len++;
-	i = 0;
-	while(ms->envp[i])
-	{
-		if(!ft_strncmp(ms->envp[i], cmd, len + 1))
-			return (i);
-		i++;
-	}
-	return (0);
-}
-
-bool	ft_valid_ex(t_ms *ms, char *cmd) 
+bool	ft_valid_ex(t_ms *ms, char *cmd)
 {
 	int		i;
 	char	**var;
 
+	var = NULL;
 	if (cmd[0] == '=')
-	{
-		printf("export: %s not a valid identifier\n", cmd);
-		ms->flexit = EXIT_FAILURE;
-		return (false);
-	}
+		return (ft_print_err(ms, cmd), false);
 	var = ft_split(cmd, '=');
 	i = -1;
 	while (var[0][++i])
@@ -80,8 +56,7 @@ bool	ft_valid_ex(t_ms *ms, char *cmd)
 		}
 		if (!ft_1st_part_valid(ms, var[0]))
 		{
-			printf("export: %s not a valid identifier\n", cmd);
-			ms->flexit = EXIT_FAILURE;
+			ft_print_err(ms, cmd);
 			ft_free_tab_char(var);
 			return (false);
 		}
@@ -90,34 +65,37 @@ bool	ft_valid_ex(t_ms *ms, char *cmd)
 	return (true);
 }
 
-void	ft_msh_export(t_ms *ms, char **cmd)
+void	ft_export_loop(t_ms *ms, char **cmd, int i)
 {
-	int 	i;
-	int		ac;
 	int		index_var;
 	char	*tmp;
+
+	tmp = NULL;
+	if (ft_valid_ex(ms, cmd[i]))
+	{
+		index_var = ft_find_index_var(ms, cmd[i]);
+		if (index_var < 0)
+			return ;
+		tmp = ft_trim_arg(cmd[i]);
+		if (index_var > 0)
+			ms->envp[index_var] = ft_replace_var(ms, tmp, index_var);
+		else
+			ms->envp = ft_export_var(ms, ms->envp, tmp);
+		tmp = ft_freenull(tmp);
+	}
+}
+
+void	ft_msh_export(t_ms *ms, char **cmd)
+{
+	int		i;
+	int		ac;
 
 	ac = ft_get_ac(cmd);
 	i = 0;
 	if (ac <= 1)
 		while ((ms->envp[++i]))
 			printf("declare -x %s\n", ms->envp[i]);
-	i = 1;
-	tmp = NULL;
-	while (i < ac)
-	{
-		if (ft_valid_ex(ms, cmd[i]))
-		{
-			index_var = ft_find_index_var(ms, cmd[i]);
-			if (index_var < 0)
-				return ;
-			tmp = ft_trim_arg(cmd[i]);
-			if (index_var > 0)
-				ms->envp[index_var] = ft_replace_var(ms, tmp, index_var);
-			else
-				ms->envp = ft_export_var(ms, ms->envp, tmp);
-			tmp = ft_freenull(tmp);
-		}
-		i++;
-	}
+	i = 0;
+	while (++i < ac)
+		ft_export_loop(ms, cmd, i);
 }

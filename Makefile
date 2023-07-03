@@ -4,9 +4,9 @@ NAME		=	minishell
 
 # -- Compilation Flag -- #
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror
+# CFLAGS		=	-Wall -Wextra -Werror
 # CFLAGS	=	-Wall -Wextra -Werror -g -Wunreachable-code -fsanitize=address
-# CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
 
 # -- Remove -- #
 RM			=	rm -rf
@@ -21,6 +21,7 @@ SRCS_LST	= 	banner/banner_exit.c \
 				built_in/cd.c \
 				built_in/unset.c \
 				built_in/export.c \
+				built_in/export_utils.c \
 				built_in/env.c \
 				built_in/exit.c \
 				built_in/pwd.c \

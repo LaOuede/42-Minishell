@@ -1,5 +1,11 @@
 #include "../../include/minishell.h"
 
+void	ft_free_built_in(t_ms *ms)
+{
+	ft_free_tab_char(ms->exec->builtin_cmd);
+	ms->exec->builtin_cmd = NULL;
+}
+
 void	ft_dup_x_cmd(t_ms *ms, int i)
 {
 	if (i == 0)
@@ -62,5 +68,5 @@ void	ft_dup_and_run(t_ms *ms, int i, int builtin_fts)
 		ft_run_cmd(ms, i);
 	}
 	else
-		ft_free_tab_char(ms->exec->builtin_cmd);
+		ft_free_built_in(ms);
 }

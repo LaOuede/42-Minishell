@@ -28,7 +28,6 @@ bool	ft_1st_part_valid(t_ms *ms, char *cmd)
 		if ((!ft_isalpha(cmd[0]) && cmd[0] != '_' && cmd[0] != '=') 
 			|| !ft_isalnum(cmd[j]))
 		{
-			printf("c[%d]: %c not a valid identifier\n", j, cmd[j]);
 			ms->flexit = EXIT_FAILURE;
 			return (false);
 		}

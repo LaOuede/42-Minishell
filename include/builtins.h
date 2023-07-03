@@ -28,5 +28,9 @@ void	ft_msh_export(t_ms *ms, char **cmd);
 int		ft_get_ac(char **cmd);
 bool	ft_1st_part_valid(t_ms *ms, char *cmd);
 char	*ft_trim_arg(char *cmd);
+void	ft_print_err(t_ms *ms, char *cmd);
+int		ft_isexist(t_ms *ms, char *home);
+char	*ft_getenv(t_ms *ms, char *home);
+int	ft_find_index_var(t_ms *ms, char *cmd);
 
 #endif

@@ -40,37 +40,10 @@ int	ft_isexist(t_ms *ms, char *home)
 		return (i);
 }
 
-char	*ft_getenv(t_ms *ms, char *home)
+char	*ft_get_dir(t_ms *ms, char **cmd)
 {
-	int		index;
-	char	**path_var;
-	char	*tmp;
+	char	*home;
 
-	tmp = NULL;
-	path_var = NULL;
-	if (!ms->envp)
-		return (NULL);
-	index = ft_isexist(ms, home);
-	if (index < 0)
-		return (NULL);
-	path_var = ft_split(ms->envp[index], '=');
-	if (path_var[1])
-	{
-		tmp = ft_strdup(path_var[1]);
-		ft_free_tab_char(path_var);
-		return(tmp);
-	}
-	else
-	{
-		ft_free_tab_char(path_var);
-		return (NULL);
-	}
-}
-
-char *ft_get_dir(t_ms *ms, char **cmd)
-{
-	char *home;
-	
 	home = NULL;
 	if (!cmd[1] || ft_strcmp(cmd[1], "~") == 0)
 	{
@@ -85,8 +58,8 @@ int	ft_do_chdir(t_ms *ms, char *cd)
 {
 	char	*newdir[3];
 
-	if(chdir(cd) == -1)
-		return(0);
+	if (chdir(cd) == -1)
+		return (0);
 	newdir[0] = "export";
 	newdir[1] = ft_strjoin("PWD=", getcwd(NULL, 0));
 	newdir[2] = NULL;
@@ -97,9 +70,9 @@ int	ft_do_chdir(t_ms *ms, char *cd)
 
 void	ft_msh_cd(t_ms *ms, char **cmd)
 {
-	int	ac;
-	char *cd;
-	
+	int		ac;
+	char	*cd;
+
 	if (!getcwd(NULL, 0))
 	{
 		perror("cd");
@@ -116,11 +89,10 @@ void	ft_msh_cd(t_ms *ms, char **cmd)
 	{
 		ft_update_oldpwd(ms);
 		cd = ft_get_dir(ms, cmd);
-		if(ft_do_chdir(ms, cd) < 1)
+		if (ft_do_chdir(ms, cd) < 1)
 		{
 			perror("Error! cd");
 			return ;
 		}
 	}
 }
-
