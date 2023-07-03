@@ -1,4 +1,3 @@
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -20,7 +19,7 @@
 # define BLU 	"\x1B[34m"
 # define WHT 	"\x1B[37m"
 # define YEL 	"\x1B[33m"
-# define RT	"\033[1;0m"
+# define RT		"\033[1;0m"
 
 /* --------------------ERROR MESSAGE--------------------- *///
 # define ERR_EXEC	"Usage error : too many arguments.\n--> Usage : ./Minishell\n"
@@ -36,6 +35,7 @@
 # ifndef BANNER
 #  define BANNER "color"
 # endif
+# define LOULOU_IS_MAGIC 17
 # define MAIN 42
 # define EXEC 666
 # define HD 7
