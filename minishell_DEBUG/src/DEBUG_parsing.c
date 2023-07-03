@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-void	DEBUG_hd(t_pars *hd)
+void	_hd(t_pars *hd)
 {
 	t_token	*tmp;
 

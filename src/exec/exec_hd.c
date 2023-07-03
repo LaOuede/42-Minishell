@@ -53,8 +53,6 @@ void	ft_child_hd(char *delim, int fd_hd, t_ms *ms)
 			break ;
 		ft_hd_parser(ms);
 	}
-	if (DEBUG)
-		DEBUG_hd(ms->hd);
 	if (ms->hd->err_parser == true)
 	{
 		ft_error(ERR_HD);

@@ -65,18 +65,12 @@ void	ft_filler(t_ms *ms)
 	tab = NULL;
 	ft_check_redir(ms);
 	ft_check_pipe(ms);
-	if (DEBUG)
-		DEBUG_filler(ms->pars);
 	if (ms->pars->err_filler == false)
 	{
 		ms->jct->cmd_nb = ms->pars->nb_pipe;
-		if (DEBUG)
-			printf("ms->jct->cmd_nb = %d\n", ms->jct->cmd_nb);
 		ft_init_cmdtab(ms);
 		tab = ft_init_tab(ms, ms->pars);
 		ft_fill_tab(ms, tab);
 		free(tab);
-		if (DEBUG)
-			DEBUG_tab(ms->jct);
 	}
 }

@@ -7,8 +7,6 @@ void	ft_make_pids(t_ms *ms)
 	i = -1;
 	while (++i < ms->jct->cmd_nb)
 	{
-		if (DEBUG)
-			printf("--- Enter while loop		---\n");
 		if (ms->jct->tab[i][0])
 		{
 			if (ft_built_in(ms, i) == 0)
@@ -23,8 +21,6 @@ void	ft_make_pids(t_ms *ms)
 		}
 	}
 	ft_close_all(ms);
-	if (DEBUG)
-		printf("--- Exit while loop	---\n");
 }
 
 void	ft_exec(t_ms *ms)
