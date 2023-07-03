@@ -60,7 +60,6 @@ typedef struct s_tab
 	int				c;
 }	t_tab;
 
-// prototype de la liste chainee token
 typedef struct s_token
 {
 	int				type;
@@ -75,7 +74,6 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-// Parsing main structure prototype... incomplete
 typedef struct s_pars
 {
 	struct s_token	*line;
@@ -98,12 +96,6 @@ typedef struct s_pars
 	bool			err_filler;
 	bool			err_parser;
 }	t_pars;
-
-/* 		Debug functions 							*/
-void	DEBUG_builder(t_pars *pars);
-void	DEBUG_lexer(t_pars *pars);
-void	DEBUG_filler(t_pars *pars);
-void	DEBUG_tab(t_jct *jct);
 
 /* 		Parsing functions 							*/
 void	ft_parsing(t_ms *ms);

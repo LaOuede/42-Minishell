@@ -38,9 +38,11 @@ SRCS_LST	= 	banner/banner_exit.c \
 				main.c \
 				parsing/lexer.c \
 				parsing/builder.c \
-				parsing/builder_args.c \
+				parsing/builder_args_1.c \
+				parsing/builder_args_2.c \
 				parsing/builder_redirection_1.c \
 				parsing/builder_redirection_2.c \
+				parsing/builder_redirection_3.c \
 				parsing/builder_utils.c \
 				parsing/error.c \
 				parsing/free_1.c \
