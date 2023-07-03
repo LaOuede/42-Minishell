@@ -1,37 +1,27 @@
 #include "../../include/minishell.h"
 
-bool	ft_test_cmd(t_pars *pars, t_token *node)
+void	ft_do_check(t_ms *ms, t_token *node)
 {
-	int		i;
-	char	*path;
+	int		len;
 
-	if (access(node->str, F_OK | X_OK) == 0)
-		return (true);
-	path = ft_strjoin("./", node->str);
-	if (access(path, F_OK | X_OK) == 0)
+	len = ft_strlen(node->str);
+	if (ms->pars->fl_red == false && (len > 2 \
+		|| (node->next && node->next->type == REDIN) \
+		|| (node->next && node->next->type == REDOUT)))
 	{
-		path = ft_freenull(path);
-		return (true);
+		ms->pars->fl_red = true;
+		ft_error_parsing(ERR_TOKEN, REBUILDER, 258, ms);
 	}
-	if (path)
-		path = ft_freenull(path);
-	i = -1;
-	while (pars->path_var[++i])
+	else if (ms->pars->fl_red == 0 \
+		&& (!node->next || node->next->str[0] == 29))
 	{
-		path = ft_strjoin(pars->path_var[i], node->str);
-		if (access(path, F_OK | X_OK) == 0)
-		{
-			path = ft_freenull(path);
-			return (true);
-		}
-		path = ft_freenull(path);
+		ms->pars->fl_red = true;
+		ft_error_parsing(ERR_TOKEN, REBUILDER, 258, ms);
 	}
-	return (false);
 }
 
 void	ft_check_error_redir(t_ms *ms)
 {
-	int		len;
 	t_token	*ptr;
 
 	if (!ms->pars->line)
@@ -40,22 +30,7 @@ void	ft_check_error_redir(t_ms *ms)
 	while (ptr)
 	{
 		if (ptr->type == REDIN || ptr->type == REDOUT)
-		{
-			len = ft_strlen(ptr->str);
-			if (ms->pars->fl_red == false && (len > 2 \
-				|| (ptr->next && ptr->next->type == REDIN) \
-				|| (ptr->next && ptr->next->type == REDOUT)))
-			{
-				ms->pars->fl_red = true;
-				ft_error_parsing(ERR_TOKEN, REBUILDER, 258, ms);
-			}
-			else if (ms->pars->fl_red == 0 \
-				&& (!ptr->next || ptr->next->str[0] == 29))
-			{
-				ms->pars->fl_red = true;
-				ft_error_parsing(ERR_TOKEN, REBUILDER, 258, ms);
-			}
-		}
+			ft_do_check(ms, ptr);
 		ptr = ptr->next;
 	}
 }

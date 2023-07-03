@@ -33,6 +33,45 @@ void	ft_create_file(t_ms *ms)
 	}
 }
 
+bool	ft_do_open(t_ms *ms, t_token *node, int i, char *str)
+{
+	if (ms->jct->fds_in[i])
+		close(ms->jct->fds_in[i]);
+	if (ft_strncmp(node->str, str, 2) == 0)
+	{
+		ms->jct->fds_in[i] = open(node->next->str, O_RDONLY);
+		if (ms->jct->fds_in[i] == -1)
+		{
+			printf(ERR_INFILE);
+			ms->pars->err_infile = true;
+			return (false);
+		}
+	}
+	return (true);
+}
+
+void	ft_open_file(t_ms *ms)
+{
+	int		i;
+	char	*str;
+	t_token	*ptr;
+
+	i = 0;
+	str = "<";
+	ptr = ms->pars->line;
+	while (ptr->next)
+	{
+		if (ptr->type == REDIN && ptr->next->type == ARG)
+		{
+			if (ft_do_open(ms, ptr, i, str) == false)
+				break ;
+		}
+		else if (ptr->type == PIPE)
+			i++;
+		ptr = ptr->next;
+	}
+}
+
 void	ft_open_hd(t_ms *ms)
 {
 	char	*str;
@@ -50,63 +89,5 @@ void	ft_open_hd(t_ms *ms)
 				ft_exec_hd(ptr->next->str, ms);
 		}
 		ptr = ptr->next;
-	}
-}
-
-void	ft_open_file(t_ms *ms)
-{
-	int		i;
-	char	*str;
-	t_token	*ptr;
-
-	i = 0;
-	str = "<";
-	ptr = ms->pars->line;
-	while (ptr->next)
-	{
-		if (ptr->type == REDIN && ptr->next->type == ARG)
-		{
-			if (ms->jct->fds_in[i])
-				close(ms->jct->fds_in[i]);
-			if (ft_strncmp(ptr->str, str, 2) == 0)
-			{
-				ms->jct->fds_in[i] = open(ptr->next->str, O_RDONLY);
-				if (ms->jct->fds_in[i] == -1)
-				{
-					printf(ERR_INFILE);
-					ms->pars->err_infile = true;
-					break ;
-				}
-			}
-		}
-		else if (ptr->type == PIPE)
-			i++;
-		ptr = ptr->next;
-	}
-}
-
-void	ft_merge_red(t_ms *ms)
-{
-	t_token	*ptr;
-	t_token	*sup;
-
-	ptr = ms->pars->line;
-	sup = NULL;
-	while (ptr->next)
-	{
-		if ((ptr->type == REDIN || ptr->type == REDOUT) \
-			&& ptr->next->type == ARG)
-		{
-			ptr->str = ft_strjoin_char(ms, ptr->str, ' ');
-			ft_merge(ptr, ptr->next);
-			sup = ptr->next;
-			if (ptr->next->next)
-				ptr->next = ptr->next->next;
-			else if (!ptr->next->next)
-				ptr->next = NULL;
-			ft_free_token(sup);
-		}
-		if (ptr->next)
-			ptr = ptr->next;
 	}
 }
