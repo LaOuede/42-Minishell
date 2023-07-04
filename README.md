@@ -60,6 +60,12 @@ https://github.com/LaOuede/Minishell/assets/114024436/09cbaff6-6837-457b-b2de-03
 
 https://github.com/LaOuede/Minishell/assets/114024436/3c2b9a26-d88e-43c2-9303-dcbca6e462ab
 
+<div align="center">
+  
+This project was a team effort with [Clmntsnd](https://github.com/Clmntsnd) ! 🚀
+
+</div>
+
 ---
 
 <div align="center">
