@@ -5,8 +5,7 @@
 <h1 align=center>Miniꞩhell</h1>
 
 <p align=center>
- The <b>FDF</b> project is a 3D wireframe renderer developed to visualize terrain maps using C programming language and the MLX42 graphic library.
- The project involves reading map files, calculating the appropriate heights for each point, and rendering a wireframe representation of the terrain.
+The <b>Minishell</b> project is a command-line shell implementation about process management, command execution, and input/output redirection. It involves creating and managing processes, executing built-in and external commands, and handling user input.
 </p>
 
 <div align="center">
