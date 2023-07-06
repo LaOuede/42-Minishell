@@ -15,7 +15,7 @@ Go to [42 Québec](https://42quebec.com/) to discover the course ! 👈
 
 ---
 
-<h3 align="left">What I've learned</h3>
+<h3 align="left">What I've learned 📚</h3>
 
 I've acquired a lot of basic knowledge on C programming :
 - Command line parsing (tokenizer and parser implementation)
@@ -37,24 +37,26 @@ What it taught me about teamwork :
 
 ---
 
-<h3 align="left">If I had to do it all over again</h3>
+<h3 align="left">If I had to do it all over again 🗒</h3>
 
 - I would avoid void() function as they are not ideal for error status.
 - I will distribute the work differently to get closer to the AGILE method.
 
 ---
 
-Compilation :
+<h3 align="left">Usage 🛠</h3>
+
+1- Compilation :
 ```bash
 make
 ```
 
-Execution :
+2- Execution :
 ```bash
 ./minishell
 ```
 
-Behaviour :
+3- Behaviour :
 
 https://github.com/LaOuede/Minishell/assets/114024436/09cbaff6-6837-457b-b2de-03b4986780dd
 
