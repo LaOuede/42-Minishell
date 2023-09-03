@@ -58,8 +58,6 @@ make
 
 3- Behaviour :
 
-https://github.com/LaOuede/Minishell/assets/114024436/09cbaff6-6837-457b-b2de-03b4986780dd
-
 https://github.com/LaOuede/Minishell/assets/114024436/3c2b9a26-d88e-43c2-9303-dcbca6e462ab
 
 <div align="center">
