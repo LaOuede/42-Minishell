@@ -60,6 +60,10 @@ make
 
 https://github.com/LaOuede/Minishell/assets/114024436/3c2b9a26-d88e-43c2-9303-dcbca6e462ab
 
+---
+
+<h3 align="center">Collaborator 👨🏼‍🚀</h3>
+
 <div align="center">
   
 This project was a team effort with [Clmntsnd](https://github.com/Clmntsnd) ! 🚀
