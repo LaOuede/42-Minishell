@@ -154,10 +154,6 @@ exe : $(NAME)
 # -- Removes objects and executable then remakes all -- #
 re : clean all
 
-#Open the subject
-pdf : 
-	@open https://cdn.intra.42.fr/pdf/pdf/66948/fr.subject.pdf
-
 # Run norminette
 norm :
 	@echo "\n$W>>>>>>>>>>>>>>>>>>>>>>>>>> $YNORMINETTE $W<<<<<<<<<<<<<<<<<<<<<<<<<<$Z\n"
@@ -165,4 +161,4 @@ norm :
 	@echo "\n$W>>>>>>>>>>>>>>>>>>>>>>>> $YNORMINETTE ✅ $W<<<<<<<<<<<<<<<<<<<<<<<<<<"
 
 # -- Avoid file-target name conflicts -- #
-.PHONY : all bonus clean fclean re pdf
+.PHONY : all bonus clean fclean re
